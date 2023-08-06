@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postCorte } from '../redux/actionAdult.js'
 
-function Adult() {
+function Adultregular() {
   const [input, setInput] = useState([])
   const [datas, setDatas] = useState(input);
   const dispatch = useDispatch();
@@ -80,4 +80,4 @@ function Adult() {
   )
 }
 
-export default Adult;
+export default Adultregular;

@@ -2,8 +2,8 @@ import axios from "axios";
 import { GET_CORTE, POST_CORTE } from "./actionsTypes.js";
 
 // const URL = import.meta.env.VITE_REACT_APP_URL;
-// const URL = 'http://localhost:3001'
-const URL = 'https://zoomvirtuel.onrender.com'
+const URL = 'http://localhost:3001'
+// const URL = 'https://zoomvirtuel.onrender.com'
 const post = 'corte'
 
 export const postCorte = (datas) => {
