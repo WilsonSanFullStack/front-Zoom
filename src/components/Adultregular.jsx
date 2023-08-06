@@ -4,14 +4,15 @@ import { postCorte } from '../redux/actionAdult.js'
 
 function Adultregular() {
   const [input, setInput] = useState([])
-  const [datas, setDatas] = useState(input);
+  const [corte, setCorte] = useState(input);
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.estadoInicial);
 
 
   const handleTextarea = (event) => {
     setInput(event.target.value),
-    setDatas(() => {
+    setCorte(() => {
       const regex =/Details\s+(\S+)\s+(\S+\s\S+)\s+Cosmo Payment\s+(\S+)\s+(\d+\.\d+)/g;
       const matches = event.target.value.matchAll(regex);
   
@@ -24,7 +25,8 @@ function Adultregular() {
           user: match[1],
           fecha: match[2],
           creditos: parseFloat(match[4], 2),
-          key: key,
+          parcial: 'no',
+          // key: key,
         });
       }
       return result;
@@ -34,7 +36,12 @@ function Adultregular() {
   
   
   const handlerSubmit = () => {
-    dispatch(postCorte(datas))
+    dispatch(postCorte(corte))
+    .catch((error) => {
+      setError(error)
+    });
+    setInput([]);
+    setCorte([]);
   };
 
   
@@ -56,13 +63,14 @@ function Adultregular() {
             </div>
             <div>
               <div><button onClick={handlerSubmit}>ENVIAR</button></div>
+              {error && <p style={{ color: 'red' }}>{error}</p>}
             </div>
           </div>
           
-          <div>{datas?.map((x) => {
+          <div>{corte?.map((x, i) => {
             return (
-              <div key={x.key}>
-                <p>Nombre: {x.user}</p><p>Creditos: {x.creditos}</p><p>fecha Creditos: {x.fecha}</p>
+              <div key={i}>
+                <p>Nombre: {x.user}</p><p>Parcial: {x.parcial}</p><p>Creditos: {x.creditos}</p><p>fecha Creditos: {x.fecha}</p>
                 <br />
               </div>
             )
@@ -71,7 +79,7 @@ function Adultregular() {
           <div>{reporte?.map((x) => {
             return (
               <div key={x.id}>
-                <h3><p>Nombre: {x.userName}</p><p>Creditos: {x.creditos}</p><p>fecha Creditos: {x.fecha}</p><p>fecha creacion: {x.createdAt}</p></h3>
+                <h3><p>Nombre: {x.userName}</p><p>Parcial: {x.parcial}</p><p>Creditos: {x.creditos}</p><p>fecha Creditos: {x.fecha}</p><p>fecha creacion: {x.createdAt}</p></h3>
                 <br />
               </div>
             )
