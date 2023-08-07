@@ -1,14 +1,21 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postCorte } from '../redux/actionAdult.js'
+import { postCorte, resetError } from '../../../redux/actionAdult.js'
 
 function Adultregular() {
+  const reporte = useSelector((state) => state.corteAdult);
+  const errors = useSelector((state) => state.error)
   const [input, setInput] = useState([])
   const [corte, setCorte] = useState(input);
-  const [error, setError] = useState('');
+  // const [error, setError] = useState(errors);
   const dispatch = useDispatch();
-  const reporte = useSelector((state) => state.estadoInicial);
 
+  useEffect(() => {
+    // Llama a la acción de reinicio cuando el componente se desmonte
+    return () => {
+      dispatch(resetError());
+    };
+  }, [dispatch]);
 
   const handleTextarea = (event) => {
     setInput(event.target.value),
@@ -26,7 +33,6 @@ function Adultregular() {
           fecha: match[2],
           creditos: parseFloat(match[4], 2),
           parcial: 'no',
-          // key: key,
         });
       }
       return result;
@@ -36,10 +42,7 @@ function Adultregular() {
   
   
   const handlerSubmit = () => {
-    dispatch(postCorte(corte))
-    .catch((error) => {
-      setError(error)
-    });
+    dispatch(postCorte(corte));
     setInput([]);
     setCorte([]);
   };
@@ -63,7 +66,7 @@ function Adultregular() {
             </div>
             <div>
               <div><button onClick={handlerSubmit}>ENVIAR</button></div>
-              {error && <p style={{ color: 'red' }}>{error}</p>}
+              {errors && <p style={{ color: 'red' }}>{errors}</p>}
             </div>
           </div>
           
@@ -76,6 +79,7 @@ function Adultregular() {
             )
           })}</div>
 
+          {!errors && (
           <div>{reporte?.map((x) => {
             return (
               <div key={x.id}>
@@ -84,6 +88,7 @@ function Adultregular() {
               </div>
             )
           })}</div>
+          )}
     </>
   )
 }

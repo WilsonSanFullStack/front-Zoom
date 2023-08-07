@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postParcial } from "../redux/actionAdult.js";
+import { postParcial, resetError } from "../../../redux/actionAdult.js";
 
 function Adultparcial() {
+  const reporte = useSelector((state) => state.parcialAdult);
+const errors = useSelector((state) => state.error);
   const [input, setInput] = useState([]);
   const [parcial, setParcial] = useState(input);
-  const [error, setError] = useState("");
+  // const [error, setError] = useState(errors)
   const dispatch = useDispatch();
-  const reporte = useSelector((state) => state.estadoInicial);
+console.log(errors)
+
+useEffect(() => {
+  // Llama a la acción de reinicio cuando el componente se desmonte
+  return () => {
+    dispatch(resetError());
+  };
+}, [dispatch]);
 
   const handleTextarea = (event) => {
     setInput(event.target.value),
@@ -26,9 +35,7 @@ function Adultparcial() {
   };
 
   const handlerSubmit = () => {
-    dispatch(postParcial(parcial)).catch((error) => {
-      setError(error);
-    });
+    dispatch(postParcial(parcial));
     setInput([]);
     setParcial([]);
   };
@@ -52,7 +59,7 @@ function Adultparcial() {
           <div>
             <button onClick={handlerSubmit}>ENVIAR</button>
           </div>
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {errors && <p style={{ color: "red" }}>{errors}</p>}
         </div>
       </div>
 
@@ -69,6 +76,7 @@ function Adultparcial() {
         })}
       </div>
 
+      {!errors && (
       <div>
         {reporte?.map((x) => {
           return (
@@ -84,6 +92,7 @@ function Adultparcial() {
           );
         })}
       </div>
+        )}
     </>
   );
 }

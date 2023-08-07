@@ -1,15 +1,18 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import Adultregular from "./components/Adultregular.jsx";
-import Adultparcial from "./components/Adultparcial.jsx";
+import Adultregular from "./components/paginas/adult/Adultregular";
+import Adultparcial from "./components/paginas/adult/Adultparcial";
 import Home from "./components/Home.jsx";
 import Estadisticas from "./components/Estadisticas.jsx";
+import Chaturbate from './components/paginas/Chaturbate'
 
 function App() {
   return (
     <div>
       <Routes>
+        <Route path="/" element={<Home component={Home} />} />
+      //* paginas
         <Route
           path="/estadisticas"
           element={<Estadisticas component={Estadisticas} />}
@@ -22,7 +25,10 @@ function App() {
           path="/estadisticas/carga/adultregular"
           element={<Adultregular component={Adultregular} />}
         />
-        <Route path="/" element={<Home component={Home} />} />
+        <Route
+          path="/estadisticas/carga/chaturbate"
+          element={<Chaturbate component={Chaturbate} />}
+        />
       </Routes>
     </div>
   );

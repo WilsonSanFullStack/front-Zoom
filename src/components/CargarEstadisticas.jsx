@@ -18,6 +18,12 @@ const SeleccionarPagina = () => {
         <img src="/AWLogo_on.png" alt="logo AdultWork" />
       </Link>
         </>
+        <>
+      <Link to='/estadisticas/carga/chaturbate'>
+        <p>Parcial</p>
+        <img src="/Chaturbate_logo.svg" alt="logo Chaturbate" />
+      </Link>
+        </>
     </div>
   );
 };
