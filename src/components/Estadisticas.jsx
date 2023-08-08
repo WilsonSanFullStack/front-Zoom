@@ -18,19 +18,21 @@ const Estadisticas = () => {
   };
 
   return (
-    <div>
-      <h2>Seleccione una de las opciones</h2>
-      <div>
+    <div className="bg-blue-300 min-h-screen top-0">
+      <div className="pt-14">
+      <h2 className="p-2 text-center font-bold text-2xl">Seleccione una de las opciones</h2>
+      <div className="justify-center items-center  ">
         <h3>Cargar Estadisticas</h3>
-        <button onClick={() => handleSeleccion("cargar")}>Seleccionar Cargar</button>
+        <button onClick={() => handleSeleccion("cargar")} className="btn-w">Seleccionar Cargar</button>
       </div>
       <div>
         <h3>Ver Estadisticas</h3>
-        <button onClick={() => handleSeleccion("ver")}>Seleccionar Ver</button>
+        <button onClick={() => handleSeleccion("ver")} className="btn-w">Seleccionar Ver</button>
       </div>
       <div>
         {opcion.cargar && <CargarEstadisticas />}
         {opcion.ver && <VerEstadisticas />}
+      </div>
       </div>
     </div>
   );

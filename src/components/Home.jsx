@@ -1,15 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div>
-      <Link to='/estadisticas'>
-        <h3>Estadisticas</h3>
-      </Link>
-      <Link>
-      <h3>Modelos</h3>
-      </Link>
+    <div className="bg-blue-300 min-h-screen text-xl flex justify-center items-center">
+      <div className="flex-wrap max-w-xs text-center ">
+        <NavLink to="/estadisticas">
+          <button className="btn-w">Estadisticas</button>
+        </NavLink>
+        <NavLink>
+          <button className="btn-w">Modelos</button>
+        </NavLink>
+        <NavLink>
+          <button className="btn-w">Registro</button>
+        </NavLink>
+      </div>
     </div>
   );
 };
