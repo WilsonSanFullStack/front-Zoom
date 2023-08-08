@@ -11,3 +11,9 @@
 .img-e {
   @apply m-4 bg-fuchsia-300 p-3 rounded-xl hover:bg-purple-200  active:bg-red-700;
 }
+.text-m {
+  @apply w-full text-center h-80 bg-fuchsia-300 p-5 ;
+}
+.u{
+  resize: none;
+}

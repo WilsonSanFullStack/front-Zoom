@@ -42,11 +42,12 @@ const Chaturbate = () => {
   };
 
   return (
-    <>
-      <div>
-        <div>
+    <div className="min-h-screen bg-fuchsia-400 top-0">
+      <div className="pt-14 text-center">
+        <div className="w-full px-20 h-80 mb-8">
           <h2>Corte Chaturbate</h2>
           <textarea
+          className="text-m u"
             value={input}
             onChange={handleTextarea}
             name="adult"
@@ -58,31 +59,36 @@ const Chaturbate = () => {
         </div>
         <div>
           <div>
-            <button onClick={handlerSubmit}>ENVIAR</button>
+            <button onClick={handlerSubmit}  className='btn-w'>ENVIAR</button>
           </div>
-          {errors && <p style={{ color: "red" }}>{errors}</p>}
+          {errors && <p className="font-bold bg-black text-red-600 max-w-md m-auto">{errors}</p>}
         </div>
       </div>
-
-      <div>
+<div className="flex">
+      <div className="mt-8 font-bold m-10 px-10 py-3 bg-fuchsia-300 max-w-md">
+        <h2 className="text-2xl text-center text-fuchsia-700">Creditos a subir</h2>
         {corteChat?.map((x, i) => {
           return (
             <div key={i}>
+              <h3 className="border-b-2 border-black">
               <p>Nombre: {x.user}</p>
               <p>Tokens: {x.tokens}</p>
               <p>Dolares: {x.dolares}</p>
+              <br />
+              </h3>
               <br />
             </div>
           );
         })}
       </div>
-
+<div className="mt-8 font-bold m-10 px-10 py-3 bg-fuchsia-300 max-w-xl">
+  <h2 className="text-2xl text-center text-fuchsia-700">Creditos subidos</h2>
       {!errors && (
       <div>
         {reporte?.map((x) => {
           return (
             <div key={x.id}>
-              <h3>
+              <h3 className="border-b-2 border-black">
                 <p>Nombre: {x.userName}</p>
                 <p>Tokens: {x.tokens}</p>
                 <p>Creditos: {x.creditos}</p>
@@ -94,7 +100,9 @@ const Chaturbate = () => {
         })}
       </div>
       )}
-    </>
+      </div>
+      </div>
+    </div>
   );
 };
 export default Chaturbate;
