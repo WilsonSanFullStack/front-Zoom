@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="bg-blue-300 min-h-screen text-xl flex justify-center items-center">
+    <div className="min-h-screen bg-fuchsia-400 text-xl flex justify-center items-center">
       <div className="flex-wrap max-w-xs text-center ">
         <NavLink to="/estadisticas">
           <button className="btn-w">Estadisticas</button>

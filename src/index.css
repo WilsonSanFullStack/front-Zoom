@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 .btn-w{
-  @apply p-1 px-2 m-2 bg-blue-400 rounded-xl hover:bg-blue-200 focus:bg-blue-600 active:bg-red-300;
+  @apply p-1 px-2 m-2 bg-fuchsia-500 rounded-xl hover:bg-purple-200  active:bg-red-700;
 }
 .btn-n{
-  @apply p-1 px-2 m-1 bg-blue-300 rounded-xl hover:bg-blue-200 focus:bg-blue-600 active:bg-red-300;
+  @apply p-1 px-2 m-1 bg-fuchsia-400 rounded-xl hover:bg-purple-200  active:bg-red-700;
+}
+.img-e {
+  @apply m-4 bg-fuchsia-300 p-3 rounded-xl hover:bg-purple-200  active:bg-red-700;
 }
