@@ -19,22 +19,39 @@ const Chaturbate = () => {
   }, [dispatch]);
 
   const handleTextarea = (event) => {
-    setInput(event.target.value),
-      setCorteChat(() => {
-        const lines = event.target.value.trim().split("\n");
-        const userData = [];
-
-        for (const line of lines) {
-          const [user, tokensStr, dolaresStr] = line.trim().split(/\s+/);
-          const tokens = parseInt(tokensStr, 10);
-          const dolares = parseFloat(dolaresStr?.substring(1));
-
-          userData.push({ user, tokens, dolares });
+    setInput(event.target.value);
+    setCorteChat(() => {
+      const lines = event.target.value.split('\n');
+      const data = [];
+  
+      for (const line of lines) {
+        const [user, tokens, dolares] = line.split('\t');
+  
+        // Verificar si los datos son válidos y cumplen con el formato esperado
+        if (
+          user &&
+          tokens &&
+          dolares &&
+          !isNaN(parseInt(tokens)) &&
+          !isNaN(parseFloat(dolares.replace('$', '')))
+        ) {
+          const tokensValue = parseInt(tokens);
+          const dolaresValue = parseFloat(dolares.replace('$', ''));
+          data.push({
+            user,
+            tokens: tokensValue,
+            dolares: dolaresValue,
+          });
         }
-        return userData;
-      });
+      }
+  
+      return data;
+    });
   };
-
+  
+  
+  
+  
   const handlerSubmit = () => {
     dispatch(postChatur(corteChat));
     setInput([]);
@@ -45,7 +62,7 @@ const Chaturbate = () => {
     <div className="min-h-screen bg-fuchsia-400 top-0">
       <div className="pt-14 text-center">
         <div className="w-full px-20 h-80 mb-8">
-          <h2>Corte Chaturbate</h2>
+          <h2 className="font-bold">Corte Chaturbate</h2>
           <textarea
           className="text-m u"
             value={input}
@@ -91,7 +108,7 @@ const Chaturbate = () => {
               <h3 className="border-b-2 border-black">
                 <p>Nombre: {x.userName}</p>
                 <p>Tokens: {x.tokens}</p>
-                <p>Creditos: {x.creditos}</p>
+                <p>Dolares: {x.dolares}</p>
                 <p>fecha creacion: {x.createdAt}</p>
               </h3>
               <br />

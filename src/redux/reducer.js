@@ -7,12 +7,15 @@ import {
   POST_CHATUR,
   GET_CHATUR,
   RESETERROR,
+  POST_BONGA,
+  GET_BONGA,
 } from './actionsTypes.js';
 
 const initialState = {
   corteAdult: [],
   parcialAdult: [],
   corteChat: [],
+  corteBonga: [],
   error: null,
 };
 
@@ -61,6 +64,16 @@ export const reducer = (state = initialState, action) => {
         return {
           ...state,
           corteChat: action.payload,
+        };
+      case POST_BONGA:
+        return {
+          ...state,
+          corteBonga: action.payload,
+        };
+      case GET_BONGA:
+        return {
+          ...state,
+          corteBonga: action.payload,
         };
 
     default:

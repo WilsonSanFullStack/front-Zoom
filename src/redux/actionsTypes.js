@@ -9,4 +9,7 @@ export const GET_PARCIAL = 'GET_PARCIAL';
 //todo para chaturbate
 export const POST_CHATUR = 'POST_CHATUR';
 export const GET_CHATUR = 'GET_CHATUR';
+//todo para bonga
+export const POST_BONGA = 'POST_BONGA';
+export const GET_BONGA = 'GET_BONGA';
 //todo para ?

@@ -35,6 +35,9 @@ function Adultregular() {
             creditos: parseFloat(match[4], 2),
             parcial: "no",
           });
+          result.sort((a, b) => {
+            return a.user.localeCompare(b.user);
+          });
         }
         return result;
       });
@@ -50,7 +53,7 @@ function Adultregular() {
     <div className="min-h-screen bg-fuchsia-400 top-0">
       <div className="pt-14 text-center ">
         <div className="w-full px-20 h-80 mb-8">
-          <h2 >AdultWork Corte Regular</h2>
+          <h2 className="font-bold" >AdultWork Corte Regular</h2>
           <textarea
             className="text-m u "
             value={input}
