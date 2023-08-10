@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postParcial, resetError } from "../../../redux/actionAdult.js";
 
 function Adultparcial() {
-  const reporte = useSelector((state) => state.parcialAdult);
+  const reporte = useSelector((state) => state.spg);
 const errors = useSelector((state) => state.error);
   const [input, setInput] = useState([]);
   const [parcial, setParcial] = useState(input);

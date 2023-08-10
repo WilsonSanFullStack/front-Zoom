@@ -1,15 +1,19 @@
 //todo para errores
 export const ERROR = 'ERROR';
 export const RESETERROR = 'RESETERROR';
-//todo para adult
-export const POST_CORTE = 'POST_CORTE';
-export const GET_CORTE = 'GET_CORTE';
-export const POST_PARCIAL = 'POST_PARCIAL';
-export const GET_PARCIAL = 'GET_PARCIAL';
+//todo para adult corte
+export const PCA = 'PCA';
+export const GCA = 'GCA';
+//todo para adult parcial
+export const PP = 'PP';
+export const GP = 'GP';
 //todo para chaturbate
-export const POST_CHATUR = 'POST_CHATUR';
-export const GET_CHATUR = 'GET_CHATUR';
+export const PC = 'PC';
+export const GC = 'GC';
 //todo para bonga
-export const POST_BONGA = 'POST_BONGA';
-export const GET_BONGA = 'GET_BONGA';
+export const PB = 'PB';
+export const GB = 'GB';
+//todo para sender
+export const PS = 'PS';
+export const GS = 'GS';
 //todo para ?

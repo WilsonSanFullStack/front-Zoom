@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postCorte, resetError } from "../../../redux/actionAdult.js";
 
 function Adultregular() {
-  const reporte = useSelector((state) => state.corteAdult);
+  const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
   const [input, setInput] = useState([]);
   const [corte, setCorte] = useState(input);

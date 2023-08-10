@@ -1,10 +1,10 @@
 import axios from "axios";
 import {
   ERROR,
-  GET_CORTE,
-  GET_PARCIAL,
-  POST_CORTE,
-  POST_PARCIAL,
+  GCA,
+  GP,
+  PCA,
+  PP,
   RESETERROR,
 } from "./actionsTypes.js";
 
@@ -19,7 +19,7 @@ export const postCorte = (corte) => {
       const endpoint = `${URL}/${CORTE}`;
       const { data } = await axios.post(endpoint, { corte });
       dispatch({
-        type: POST_CORTE,
+        type: PCA,
         payload: data,
       });
     } catch (error) {
@@ -37,7 +37,7 @@ export const getAllQuincena = () => {
       const endpoint = `${URL}/${CORTE}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GET_CORTE,
+        type: GCA,
         payload: data,
       });
     } catch (error) {
@@ -55,7 +55,7 @@ export const postParcial = (parcial) => {
       const endpoint = `${URL}/${CORTE}/${PARCIAL}`;
       const { data } = await axios.post(endpoint, { parcial });
       dispatch({
-        type: POST_PARCIAL,
+        type: PP,
         payload: data,
       });
     } catch (error) {
@@ -73,7 +73,7 @@ export const getAllParcial = () => {
       const endpoint = `${URL}/${CORTE}/${PARCIAL}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GET_PARCIAL,
+        type: GP,
         payload: data,
       });
     } catch (error) {

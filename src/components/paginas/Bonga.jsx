@@ -7,7 +7,7 @@ const Bonga = () => {
   const [input, setInput] = useState([]);
   const [corteBonga, setCorteBonga] = useState(input);
   const dispatch = useDispatch();
-  const reporte = useSelector((state) => state.corteBonga);
+  const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
 
   useEffect(() => {
@@ -82,6 +82,7 @@ const Bonga = () => {
           return (
             <div key={i}>
               <h3 className="border-b-2 border-black">
+              <p>{i=>1}</p>
               <p>Nombre: {x.user}</p>
               <p>Fecha: {x.fecha}</p>
               <p>Dolares: {x.dolares}</p>
@@ -96,10 +97,11 @@ const Bonga = () => {
   <h2 className="text-2xl text-center text-fuchsia-700">Creditos subidos</h2>
       {!errors && (
       <div>
-        {reporte?.map((x) => {
+        {reporte?.map((x, i) => {
           return (
             <div key={x.id}>
               <h3 className="border-b-2 border-black">
+                <p>{i}</p>
                 <p>Nombre: {x.userName}</p>
                 <p>Fecha: {x.fecha}</p>
                 <p>Dolares: {x.dolares}</p>

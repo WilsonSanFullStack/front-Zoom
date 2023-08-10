@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { 
-  POST_BONGA,
-  GET_BONGA,
+  PB,
+  GB,
   ERROR,
 } from './actionsTypes.js'
 
@@ -16,7 +16,7 @@ export const postBonga = (corteBonga) => {
       const endpoint = `${URL}/${BONGA}`;
       const { data } = await axios.post(endpoint, {corteBonga});
       dispatch({
-        type: POST_BONGA,
+        type: PB,
         payload: data,
       })
     } catch (error) {
@@ -34,7 +34,7 @@ export const getBonga = () => {
       const endpoint = `${URL}/${BONGA}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GET_BONGA,
+        type: GB,
         payload: data,
       })
     } catch (error) {

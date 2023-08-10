@@ -8,6 +8,7 @@ import Estadisticas from "./components/Estadisticas.jsx";
 import Chaturbate from './components/paginas/Chaturbate.jsx'
 import Bonga from "./components/paginas/Bonga.jsx";
 import NavBar from "./components/NavBar.jsx";
+import Sender from './components/paginas/Sender.jsx'
 
 function App() {
   const { pathname } = useLocation();
@@ -36,6 +37,10 @@ function App() {
         <Route
           path="/estadisticas/carga/bonga"
           element={<Bonga component={Bonga} />}
+        />
+        <Route
+          path="/estadisticas/carga/sender"
+          element={<Sender component={Sender} />}
         />
       </Routes>
     </div>

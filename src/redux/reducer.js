@@ -1,18 +1,19 @@
 import {
-  POST_CORTE,
-  GET_CORTE,
-  POST_PARCIAL,
-  GET_PARCIAL,
+  PCA,
+  GCA,
+  PP,
+  GP,
   ERROR,
-  POST_CHATUR,
-  GET_CHATUR,
+  PC,
+  GC,
   RESETERROR,
-  POST_BONGA,
-  GET_BONGA,
+  PB,
+  GB,
+  PS,
 } from './actionsTypes.js';
 
 const initialState = {
-  corteAdult: [],
+  spg: [],
   parcialAdult: [],
   corteChat: [],
   corteBonga: [],
@@ -31,50 +32,56 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: null,
+        spg: [],
       };
 
-    case POST_CORTE:
+    case PCA:
+      return {
+        ...state,
+        spg: action.payload,
+      };
+
+      case GCA:
       return {
         ...state,
         corteAdult: action.payload,
       };
-
-      case GET_CORTE:
+    case PP:
       return {
         ...state,
-        corteAdult: action.payload,
+        spg: action.payload,
       };
-    case POST_PARCIAL:
+
+      case GP:
       return {
         ...state,
         parcialAdult: action.payload,
       };
-
-      case GET_PARCIAL:
-      return {
-        ...state,
-        parcialAdult: action.payload,
-      };
-      case POST_CHATUR:
+      case PC:
+        return {
+          ...state,
+          spg: action.payload,
+        };
+      case GC:
         return {
           ...state,
           corteChat: action.payload,
         };
-      case GET_CHATUR:
+      case PB:
         return {
           ...state,
-          corteChat: action.payload,
+          spg: action.payload,
         };
-      case POST_BONGA:
-        return {
-          ...state,
-          corteBonga: action.payload,
-        };
-      case GET_BONGA:
+      case GB:
         return {
           ...state,
           corteBonga: action.payload,
         };
+        case PS:
+          return {
+            ...state,
+            spg: action.payload,
+          }
 
     default:
       return state;
