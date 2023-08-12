@@ -30,7 +30,7 @@ const SeleccionarPagina = () => {
         <section className="w-48 img-e">
           <Link to="/estadisticas/carga/bonga">
             <p>Bonga</p>
-            <img src="/bonga.jpeg" alt="logo Bonga" />
+            <img src="/bonga.jpeg" alt="logo Bonga" className="mt-2 rounded-xl"/>
           </Link>
         </section>
         <section className="w-48 img-e">
@@ -57,6 +57,12 @@ const SeleccionarPagina = () => {
             <div className="bg-red-600 mt-6 p-2 rounded-xl">
               <img src="/xlove.png" alt="logo Stripchat" />
             </div>
+          </Link>
+        </section>
+        <section className="w-48 img-e ">
+          <Link to="/estadisticas/carga/islive">
+            <p>Club Is Live</p>
+            <img src="/clubIsLive.png" alt="logo Club Is Live" className="mt-6 rounded-xl h-20"/>
           </Link>
         </section>
         <section className="w-48 img-e">

@@ -16,4 +16,7 @@ export const GB = 'GB';
 //todo para sender
 export const PS = 'PS';
 export const GS = 'GS';
+//todo para isLive
+export const PIL = 'PIL';
+export const GIL = 'GIL';
 //todo para ?

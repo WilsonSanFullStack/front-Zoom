@@ -10,13 +10,19 @@ import {
   PB,
   GB,
   PS,
+  GS,
+  PIL,
 } from './actionsTypes.js';
 
 const initialState = {
   spg: [],
-  parcialAdult: [],
-  corteChat: [],
-  corteBonga: [],
+  ca:[], //corte adult
+  pa: [], //parcial adult
+  cc: [], //corte chaturbate
+  cb: [], //corte bonga
+  cs: [], //corte sender
+  cil: [], //corte isLive
+
   error: null,
 };
 
@@ -34,55 +40,73 @@ export const reducer = (state = initialState, action) => {
         error: null,
         spg: [],
       };
-
+//post corte adult
     case PCA:
       return {
         ...state,
         spg: action.payload,
       };
-
+//get corte adult 
       case GCA:
       return {
         ...state,
-        corteAdult: action.payload,
+        ca: action.payload,
       };
+      //post partcial
     case PP:
       return {
         ...state,
         spg: action.payload,
       };
-
+//get parcial
       case GP:
       return {
         ...state,
-        parcialAdult: action.payload,
+        cp: action.payload,
       };
+      //post chatur
       case PC:
         return {
           ...state,
           spg: action.payload,
         };
+        //get chatur
       case GC:
         return {
           ...state,
-          corteChat: action.payload,
+          cc: action.payload,
         };
+        //post bonga
       case PB:
         return {
           ...state,
           spg: action.payload,
         };
+        //get bonga
       case GB:
         return {
           ...state,
-          corteBonga: action.payload,
+          cb: action.payload,
         };
+        //post sender
         case PS:
           return {
             ...state,
             spg: action.payload,
-          }
-
+          };
+          //get sender
+        case GS:
+          return {
+            ...state,
+            cs: action.payload,
+          };
+        //post isLive
+        case PIL:
+        return {
+        ...state,
+        cil: action.payload,
+        };
+        
     default:
       return state;
   };

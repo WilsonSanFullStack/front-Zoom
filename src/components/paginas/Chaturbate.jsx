@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postChatur } from "../../redux/actionChatur.js";
 import { resetError } from "../../redux/actionAdult.js";
+import TextareaForm from "../Textarea.jsx";
 
 const Chaturbate = () => {
   const [input, setInput] = useState([]);
@@ -59,24 +60,15 @@ const Chaturbate = () => {
     <div className="min-h-screen bg-fuchsia-400 top-0">
       <div className="pt-14 text-center">
         <div className="w-full px-20 h-80 mb-8">
-          <h2 className="font-bold">Corte Chaturbate</h2>
-          <textarea
-            className="text-m u"
+          <TextareaForm
             value={input}
             onChange={handleTextarea}
-            name="adult"
-            cols="100"
-            rows="15"
-            placeholder="
-              Pege aqui el corte de Chaturbate"
-          ></textarea>
+            onSubmit={handlerSubmit}
+            placeholder="Pegue aquí el corte de Chaturbate"
+            titulo="Corte De Chaturbate"
+          />
         </div>
-        <div>
-          <div>
-            <button onClick={handlerSubmit} className="btn-w">
-              ENVIAR
-            </button>
-          </div>
+        <div className="mt-24">
           {errors && (
             <p className="font-bold bg-black text-red-600 max-w-md m-auto">
               {errors}
@@ -84,7 +76,7 @@ const Chaturbate = () => {
           )}
         </div>
       </div>
-      <div className="flex">
+      <div className="flex justify-center">
         <div className="mt-8 font-bold m-10 px-10 py-3 bg-fuchsia-300 max-w-md">
           <h2 className="text-2xl text-center text-fuchsia-700">
             Creditos a subir

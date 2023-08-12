@@ -9,6 +9,7 @@ import Chaturbate from './components/paginas/Chaturbate.jsx'
 import Bonga from "./components/paginas/Bonga.jsx";
 import NavBar from "./components/NavBar.jsx";
 import Sender from './components/paginas/Sender.jsx'
+import IsLive from "./components/paginas/IsLive.jsx";
 
 function App() {
   const { pathname } = useLocation();
@@ -41,6 +42,10 @@ function App() {
         <Route
           path="/estadisticas/carga/sender"
           element={<Sender component={Sender} />}
+        />
+        <Route
+          path="/estadisticas/carga/islive"
+          element={<IsLive component={IsLive} />}
         />
       </Routes>
     </div>

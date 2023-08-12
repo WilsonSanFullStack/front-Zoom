@@ -77,6 +77,7 @@ export const getAllParcial = () => {
         payload: data,
       });
     } catch (error) {
+      console.log(error.response)
       dispatch({
         type: ERROR,
         payload: error.response.data.error,
