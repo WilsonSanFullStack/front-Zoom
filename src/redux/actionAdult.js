@@ -1,25 +1,25 @@
 import axios from "axios";
 import {
   ERROR,
-  GCA,
-  GP,
-  PCA,
-  PP,
+  GAD,
+  GPA,
+  PAD,
+  PPA,
   RESETERROR,
 } from "./actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const CORTE = import.meta.env.VITE_REACT_APP_CORTE;
-const PARCIAL = import.meta.env.VITE_REACT_APP_PARCIAL;
+const CAD = import.meta.env.VITE_REACT_APP_CAD;
+const CPAD = import.meta.env.VITE_REACT_APP_PAD;
 
 
-export const postCorte = (corte) => {
+export const pad = (coad) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${CORTE}`;
-      const { data } = await axios.post(endpoint, { corte });
+      const endpoint = `${URL}/${CAD}`;
+      const { data } = await axios.post(endpoint, { coad });
       dispatch({
-        type: PCA,
+        type: PAD,
         payload: data,
       });
     } catch (error) {
@@ -31,13 +31,13 @@ export const postCorte = (corte) => {
   };
 };
 
-export const getAllQuincena = () => {
+export const gad = () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${CORTE}`;
+      const endpoint = `${URL}/${CAD}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GCA,
+        type: GAD,
         payload: data,
       });
     } catch (error) {
@@ -49,13 +49,13 @@ export const getAllQuincena = () => {
   };
 };
 
-export const postParcial = (parcial) => {
+export const ppad = (copad) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${CORTE}/${PARCIAL}`;
-      const { data } = await axios.post(endpoint, { parcial });
+      const endpoint = `${URL}/${CAD}/${CPAD}`;
+      const { data } = await axios.post(endpoint, { copad });
       dispatch({
-        type: PP,
+        type: PPA,
         payload: data,
       });
     } catch (error) {
@@ -67,13 +67,13 @@ export const postParcial = (parcial) => {
   };
 };
 
-export const getAllParcial = () => {
+export const gpad = () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${CORTE}/${PARCIAL}`;
+      const endpoint = `${URL}/${CAD}/${CPAD}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GP,
+        type: GPA,
         payload: data,
       });
     } catch (error) {

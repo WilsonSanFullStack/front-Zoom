@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pse } from "../../redux/actionSender.js";
 import { resetError } from "../../redux/actionAdult.js";
-import TextareaForm from "../Textarea.jsx";
+import { pdi } from "../../redux/actionDirty.js";
+import TextareaForm from "../Textarea";
 
-const Sender = () => {
+const Dirty = () => {
+  const [input, setInput] = useState([]);
+  const [codi, setCodi] = useState(input);
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
-
-  const [input, setInput] = useState([]);
-  const [cose, setCose] = useState(input);
+  // const [error, setError] = useState(errors);
 
   useEffect(() => {
+    // Llama a la acción de reinicio cuando el componente se desmonte
     return () => {
       dispatch(resetError());
     };
@@ -20,33 +21,25 @@ const Sender = () => {
 
   const handleTextarea = (event) => {
     setInput(event.target.value);
-    // Procesa la entrada aquí mismo y actualiza corteChat
-    const lines = event.target.value.split("\n");
-    const data = [];
+    setCodi(() => {
+      const regex = /(\w+)\s+(\d+(?:,\d+)?)\s+(euro|dolar)/g;
 
-    for (const line of lines) {
-      const [user, coins, fecha, _, euros] = line.split("\t");
-      if (user && coins && fecha && euros) {
-        data.push({
-          user: user.trim(),
-          coins: parseInt(coins.trim()),
-          fecha: fecha.trim(),
-          euros: parseFloat(euros.trim().replace(",", ".")),
-        });
-      }
-    }
-    data.sort((a, b) => {
-      return a.user.localeCompare(b.user);
+const matches = [...event.target.value.matchAll(regex)];
+
+const result = matches.map(match => ({
+  user: match[1],
+  plata: parseFloat(match[2].replace(',', '.')),
+  moneda: match[3]
+})).filter(item => item.plata !== 0.00).sort((a, b) => a.user.localeCompare(b.user));
+return result;
     });
-    setCose(data);
   };
 
   const handlerSubmit = () => {
-    dispatch(pse(cose));
+    dispatch(pdi(codi));
     setInput([]);
-    setCose([]);
+    setCodi([]);
   };
-
   return (
     <div className="contenedor1">
       <div className="contenedor2">
@@ -54,32 +47,25 @@ const Sender = () => {
           value={input}
           onChange={handleTextarea}
           onSubmit={handlerSubmit}
-          placeholder="Pegue aquí el corte de Sender"
-          titulo="Corte De Sender"
+          placeholder="Pegue aquí el corte de Dirty"
+          titulo="Corte De Dirty"
         />
         <div className="mt-24">
-          {errors && (
-            <p className="error">
-              {errors}
-            </p>
-          )}
+          {errors && <p className="error">{errors}</p>}
         </div>
       </div>
 
       <div className="contenedor3">
-        <div className="cotenedor4">
-          <h2 className="titulo">
-            Creditos a subir
-          </h2>
-          {cose?.map((x, i) => {
+        <div className="contenedor4">
+          <h2 className="titulo">Creditos a Subir</h2>
+          {codi?.map((x, i) => {
             return (
               <div key={i}>
                 <h3 className="mostrarcorte">
                   <p>{i + 1}</p>
-                  <p>Nombre: {x.user}</p>
-                  <p>Coins: {x.coins}</p>
-                  <p>Euros: {x.euros}</p>
-                  <p>Fecha: {x.fecha}</p>
+                  <p>Nombre: {x.user} </p>
+                  <p>Dinero: {x.plata} </p>
+                  <p>Moneda: {x.moneda} </p>
                   <br />
                 </h3>
                 <br />
@@ -87,10 +73,9 @@ const Sender = () => {
             );
           })}
         </div>
+
         <div className="contenedor4">
-          <h2 className="titulo">
-            Creditos subidos
-          </h2>
+          <h2 className="titulo">Creditos subidos</h2>
           {!errors && (
             <div>
               {reporte?.map((x, i) => {
@@ -99,9 +84,7 @@ const Sender = () => {
                     <h3 className="mostrarcorte">
                       <p>{i + 1}</p>
                       <p>Nombre: {x.userName}</p>
-                      <p>Coins: {x.coins}</p>
-                      <p>Euros: {x.euros}</p>
-                      <p>Fecha: {x.fecha}</p>
+                      <p>Dinero: {x.plata}</p>
                       <p>fecha creacion: {x.createdAt}</p>
                     </h3>
                     <br />
@@ -116,4 +99,4 @@ const Sender = () => {
   );
 };
 
-export default Sender;
+export default Dirty;

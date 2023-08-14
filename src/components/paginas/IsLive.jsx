@@ -10,7 +10,7 @@ const IsLive = () => {
   const errors = useSelector((state) => state.error);
 
   const [input, setInput] = useState([]);
-  const [cil, setCil] = useState([]);
+  const [coil, setCoil] = useState(input);
 
   useEffect(() => {
     return () => {
@@ -52,13 +52,12 @@ const IsLive = () => {
   promocodes.sort((a, b) => {
     return a.codigo.localeCompare(b.codigo);
   })
-    setCil(promocodes);
+    setCoil(promocodes);
   };
-console.log(cil)
   const handlerSubmit = () => {
-    dispatch(pil(cil));
+    dispatch(pil(coil));
     setInput([]);
-    setCil([]);
+    setCoil([]);
   };
 
   return (
@@ -81,7 +80,7 @@ console.log(cil)
           <h2 className="titulo">
             Creditos a subir
           </h2>
-          {cil?.map((x, i) => {
+          {coil?.map((x, i) => {
             return (
               <div key={i}>
                 <h3 className="mostrarcorte">

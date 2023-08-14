@@ -1,16 +1,16 @@
 import axios from "axios";
-import { ERROR, GS, PS } from "./actionsTypes.js";
+import { ERROR, GSE, PSE } from "./actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const S = import.meta.env.VITE_REACT_APP_S;
+const SE = import.meta.env.VITE_REACT_APP_SE;
 
-export const ps = (cs) => {
+export const pse = (cose) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${S}`;
-      const { data } = await axios.post(endpoint, { cs });
+      const endpoint = `${URL}/${SE}`;
+      const { data } = await axios.post(endpoint, { cose });
       dispatch({
-        type: PS,
+        type: PSE,
         payload: data,
       });
     } catch (error) {
@@ -22,13 +22,13 @@ export const ps = (cs) => {
   };
 };
 
-export const gs = () => {
+export const gse = () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${S}`;
+      const endpoint = `${URL}/${SE}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GS,
+        type: GSE,
         payload: data,
       });
     } catch (error) {

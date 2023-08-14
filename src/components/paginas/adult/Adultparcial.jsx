@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postParcial, resetError } from "../../../redux/actionAdult.js";
+import { ppad, resetError } from "../../../redux/actionAdult.js";
 import TextareaForm from "../../Textarea.jsx";
 
 function Adultparcial() {
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
   const [input, setInput] = useState([]);
-  const [parcial, setParcial] = useState(input);
+  const [copad, setCopad] = useState(input);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function Adultparcial() {
 
   const handleTextarea = (event) => {
     setInput(event.target.value),
-      setParcial(() => {
+      setCopad(() => {
         const regex = /(\w+)\s+(?:Performs on a Webcam|Escorts).*?(\d+\.\d+)/g;
         const extractedData = [];
 
@@ -37,9 +37,9 @@ function Adultparcial() {
   };
 
   const handlerSubmit = () => {
-    dispatch(postParcial(parcial));
+    dispatch(ppad(copad));
     setInput([]);
-    setParcial([]);
+    setCopad([]);
   };
 
   return (
@@ -67,7 +67,7 @@ function Adultparcial() {
           <h2 className="f text-2xl text-center text-fuchsia-700">
             Creditos a subir
           </h2>
-          {parcial?.map((x, i) => {
+          {copad?.map((x, i) => {
             return (
               <div key={i}>
                 <h3 className="border-b-2 border-black">

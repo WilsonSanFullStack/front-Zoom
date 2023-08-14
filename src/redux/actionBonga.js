@@ -1,22 +1,22 @@
 import axios from 'axios';
 import { 
-  PB,
-  GB,
+  PBO,
+  GBO,
   ERROR,
 } from './actionsTypes.js'
 
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const BONGA = import.meta.env.VITE_REACT_APP_BONGA;
+const BO = import.meta.env.VITE_REACT_APP_BO;
 
 
-export const postBonga = (corteBonga) => {
+export const pbo = (cobo) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${BONGA}`;
-      const { data } = await axios.post(endpoint, {corteBonga});
+      const endpoint = `${URL}/${BO}`;
+      const { data } = await axios.post(endpoint, { cobo });
       dispatch({
-        type: PB,
+        type: PBO,
         payload: data,
       })
     } catch (error) {
@@ -28,13 +28,13 @@ export const postBonga = (corteBonga) => {
   }
 };
 
-export const getBonga = () => {
+export const gbo = () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${BONGA}`;
+      const endpoint = `${URL}/${BO}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GB,
+        type: GBO,
         payload: data,
       })
     } catch (error) {

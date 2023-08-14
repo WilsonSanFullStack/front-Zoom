@@ -1,20 +1,20 @@
 import axios from "axios";
 import { 
   ERROR,
-  GC,
-  PC, 
+  GCH,
+  PCH, 
 } from './actionsTypes.js';
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const CHATUR = import.meta.env.VITE_REACT_APP_CHATUR;
+const CH = import.meta.env.VITE_REACT_APP_CH;
 
-export const postChatur = (corteChat) => {
+export const pch = (coch) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${CHATUR}`
-      const { data } = await axios.post(endpoint, {corteChat});
+      const endpoint = `${URL}/${CH}`
+      const { data } = await axios.post(endpoint, {coch});
       dispatch({
-        type: PC,
+        type: PCH,
         payload: data,
       });
     } catch (error) {
@@ -26,13 +26,13 @@ export const postChatur = (corteChat) => {
   }
 };
 
-export const getChatur = () => {
+export const gch = () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${CHATUR}`;
+      const endpoint = `${URL}/${CH}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GC,
+        type: GCH,
         payload: data,
       })
     } catch (error) {

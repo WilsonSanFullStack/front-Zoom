@@ -1,17 +1,16 @@
 import axios from "axios";
-import { PIL, GIL } from "./actionsTypes.js";
-import { ERROR } from "./actionsTypes.js";
+import { PCA, GCA, ERROR } from "./actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const IL = import.meta.env.VITE_REACT_APP_IL;
+const CA = import.meta.env.VITE_REACT_APP_CA;
 
-export const pil = (coil) => {
+export const pca = (coca) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${IL}`;
-      const { data } = await axios.post(endpoint, { coil });
+      const endpoint = `${URL}/${CA}`;
+      const { data } = await axios.post(endpoint, {coca});
       dispatch({
-        type: PIL,
+        type: PCA,
         payload: data,
       });
     } catch (error) {

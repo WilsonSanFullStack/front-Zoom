@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postBonga } from "../../redux/actionBonga.js";
+import { pbo } from "../../redux/actionBonga.js";
 import { resetError } from "../../redux/actionAdult.js";
 import TextareaForm from "../Textarea.jsx";
 
 const Bonga = () => {
   const [input, setInput] = useState([]);
-  const [corteBonga, setCorteBonga] = useState(input);
+  const [cobo, setCobo] = useState(input);
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
@@ -21,7 +21,7 @@ const Bonga = () => {
   const handleTextarea = (event) => {
     setInput(event.target.value);
 
-    setCorteBonga(() => {
+    setCobo(() => {
       const lines = event.target.value.split("\n");
       const data = [];
 
@@ -48,9 +48,9 @@ const Bonga = () => {
   };
 
   const handlerSubmit = () => {
-    dispatch(postBonga(corteBonga));
+    dispatch(pbo(cobo));
     setInput([]);
-    setCorteBonga([]);
+    setCobo([]);
   };
 
   return (
@@ -78,7 +78,7 @@ const Bonga = () => {
           <h2 className="text-2xl text-center text-fuchsia-700">
             Creditos a subir
           </h2>
-          {corteBonga?.map((x, i) => {
+          {cobo?.map((x, i) => {
             return (
               <div key={i}>
                 <h3 className="border-b-2 border-black">

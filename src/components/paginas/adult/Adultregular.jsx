@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postCorte, resetError } from "../../../redux/actionAdult.js";
+import { pad, resetError } from "../../../redux/actionAdult.js";
 import TextareaForm from "../../Textarea.jsx";
 
 function Adultregular() {
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
   const [input, setInput] = useState([]);
-  const [corte, setCorte] = useState(input);
+  const [coad, setCoad] = useState(input);
 
   const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ function Adultregular() {
 
   const handleTextarea = (event) => {
     setInput(event.target.value),
-      setCorte(() => {
+      setCoad(() => {
         const regex =
           /Details\s+(\S+)\s+(\S+\s\S+)\s+Cosmo Payment\s+(\S+)\s+(\d+\.\d+)/g;
         const matches = event.target.value.matchAll(regex);
@@ -45,9 +45,9 @@ function Adultregular() {
   };
 
   const handlerSubmit = () => {
-    dispatch(postCorte(corte));
+    dispatch(pad(coad));
     setInput([]);
-    setCorte([]);
+    setCoad([]);
   };
 
   return (
@@ -74,7 +74,7 @@ function Adultregular() {
           <h2 className="f text-2xl text-center text-fuchsia-700">
             Creditos a subir
           </h2>
-          {corte?.map((x, i) => {
+          {coad?.map((x, i) => {
             return (
               <div key={i}>
                 <h3 className="border-b-2 border-black">

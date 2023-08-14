@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postChatur } from "../../redux/actionChatur.js";
+import { pch } from "../../redux/actionChatur.js";
 import { resetError } from "../../redux/actionAdult.js";
 import TextareaForm from "../Textarea.jsx";
 
 const Chaturbate = () => {
   const [input, setInput] = useState([]);
-  const [corteChat, setCorteChat] = useState(input);
+  const [coch, setCoch] = useState(input);
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
@@ -21,7 +21,7 @@ const Chaturbate = () => {
 
   const handleTextarea = (event) => {
     setInput(event.target.value);
-    setCorteChat(() => {
+    setCoch(() => {
       const lines = event.target.value.split("\n");
       const data = [];
 
@@ -51,9 +51,9 @@ const Chaturbate = () => {
   };
 
   const handlerSubmit = () => {
-    dispatch(postChatur(corteChat));
+    dispatch(pch(coch));
     setInput([]);
-    setCorteChat([]);
+    setCoch([]);
   };
 
   return (
@@ -81,7 +81,7 @@ const Chaturbate = () => {
           <h2 className="text-2xl text-center text-fuchsia-700">
             Creditos a subir
           </h2>
-          {corteChat?.map((x, i) => {
+          {coch?.map((x, i) => {
             return (
               <div key={i}>
                 <h3 className="border-b-2 border-black">

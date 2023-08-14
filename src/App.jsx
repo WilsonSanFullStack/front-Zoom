@@ -1,24 +1,25 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 
+import NavBar from "./components/NavBar.jsx";
+import Home from "./components/Home.jsx";
 import Adultregular from "./components/paginas/adult/Adultregular";
 import Adultparcial from "./components/paginas/adult/Adultparcial";
-import Home from "./components/Home.jsx";
-import Estadisticas from "./components/Estadisticas.jsx";
-import Chaturbate from './components/paginas/Chaturbate.jsx'
 import Bonga from "./components/paginas/Bonga.jsx";
-import NavBar from "./components/NavBar.jsx";
-import Sender from './components/paginas/Sender.jsx'
+import Chaturbate from "./components/paginas/Chaturbate.jsx";
+import Dirty from "./components/paginas/Dirty.jsx";
 import IsLive from "./components/paginas/IsLive.jsx";
+import Sender from "./components/paginas/Sender.jsx";
+import Estadisticas from "./components/Estadisticas.jsx";
 
 function App() {
   const { pathname } = useLocation();
   return (
     <div className="font-mono text-xl">
-      {pathname !== '*' && <NavBar/>}
+      {pathname !== "*" && <NavBar />}
       <Routes>
         <Route path="/" element={<Home component={Home} />} />
-      //* paginas
+        //* paginas
         <Route
           path="/estadisticas"
           element={<Estadisticas component={Estadisticas} />}
@@ -46,6 +47,10 @@ function App() {
         <Route
           path="/estadisticas/carga/islive"
           element={<IsLive component={IsLive} />}
+        />
+        <Route
+          path="/estadisticas/carga/dirty"
+          element={<Dirty component={Dirty} />}
         />
       </Routes>
     </div>
