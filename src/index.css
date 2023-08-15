@@ -38,3 +38,12 @@
 .mostrarcorte {
   @apply border-b-2 border-black;
 }
+/* Estilos para la clase cls-1 */
+.cls-1 {
+  fill: #e84f35;
+}
+
+/* Estilos para la clase cls-2 */
+.cls-2 {
+  fill: #fff;
+}

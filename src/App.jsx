@@ -3,14 +3,22 @@ import { Routes, Route, useLocation } from "react-router-dom";
 
 import NavBar from "./components/NavBar.jsx";
 import Home from "./components/Home.jsx";
+import Estadisticas from "./components/Estadisticas.jsx";
 import Adultregular from "./components/paginas/adult/Adultregular";
 import Adultparcial from "./components/paginas/adult/Adultparcial";
+import Amateur from "./components/paginas/Amateur.jsx";
 import Bonga from "./components/paginas/Bonga.jsx";
+import Cam4 from "./components/paginas/Cam4.jsx";
 import Chaturbate from "./components/paginas/Chaturbate.jsx";
 import Dirty from "./components/paginas/Dirty.jsx";
 import IsLive from "./components/paginas/IsLive.jsx";
 import Sender from "./components/paginas/Sender.jsx";
-import Estadisticas from "./components/Estadisticas.jsx";
+import Skype from "./components/paginas/Skype.jsx";
+import Stripchat from "./components/paginas/Stripchat.jsx";
+import Vx from "./components/paginas/Vx.jsx";
+import Xlove from "./components/paginas/Xlove.jsx";
+
+
 
 function App() {
   const { pathname } = useLocation();
@@ -33,24 +41,45 @@ function App() {
           element={<Adultregular component={Adultregular} />}
         />
         <Route
-          path="/estadisticas/carga/chaturbate"
-          element={<Chaturbate component={Chaturbate} />}
+          path="/estadisticas/carga/amateur"
+          element={<Amateur component={Amateur} />}
         />
         <Route
           path="/estadisticas/carga/bonga"
           element={<Bonga component={Bonga} />}
         />
         <Route
-          path="/estadisticas/carga/sender"
-          element={<Sender component={Sender} />}
+          path="/estadisticas/carga/cam4" 
+          element={<Cam4 component={Cam4} />}
+        />
+        <Route
+          path="/estadisticas/carga/chaturbate"
+          element={<Chaturbate component={Chaturbate} />}
+        />
+        <Route
+          path="/estadisticas/carga/dirty"
+          element={<Dirty component={Dirty} />}
         />
         <Route
           path="/estadisticas/carga/islive"
           element={<IsLive component={IsLive} />}
         />
         <Route
-          path="/estadisticas/carga/dirty"
-          element={<Dirty component={Dirty} />}
+          path="/estadisticas/carga/sender"
+          element={<Sender component={Sender} />}
+        />
+        <Route
+          path="/estadisticas/carga/skype"
+          element={<Skype component={Skype} />}
+        />
+        <Route
+          path="/estadisticas/carga/stripchat"
+          element={<Stripchat component={Stripchat} />}
+        />
+        <Route path="/estadisticas/carga/vx" element={<Vx component={Vx} />} />
+        <Route
+          path="/estadisticas/carga/xlove"
+          element={<Xlove component={Xlove} />}
         />
       </Routes>
     </div>

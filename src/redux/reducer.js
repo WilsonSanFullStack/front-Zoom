@@ -58,7 +58,7 @@ export const reducer = (state = initialState, action) => {
     case RESETERROR:
       return {
         ...state,
-        error: null,
+        error: '',
         spg: [],
       };
     //post corte adult
