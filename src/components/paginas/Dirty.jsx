@@ -17,21 +17,24 @@ const Dirty = () => {
     return () => {
       dispatch(resetError());
     };
-  }, [dispatch]);
+  }, [input, dispatch]);
 
   const handleTextarea = (event) => {
     setInput(event.target.value);
     setCodi(() => {
       const regex = /(\w+)\s+(\d+(?:,\d+)?)\s+(euro|dolar)/g;
 
-const matches = [...event.target.value.matchAll(regex)];
+      const matches = [...event.target.value.matchAll(regex)];
 
-const result = matches.map(match => ({
-  user: match[1],
-  plata: parseFloat(match[2].replace(',', '.')),
-  moneda: match[3]
-})).filter(item => item.plata !== 0.00).sort((a, b) => a.user.localeCompare(b.user));
-return result;
+      const result = matches
+        .map((match) => ({
+          user: match[1],
+          plata: parseFloat(match[2].replace(",", ".")),
+          moneda: match[3],
+        }))
+        .filter((item) => item.plata !== 0.0)
+        .sort((a, b) => a.user.localeCompare(b.user));
+      return result;
     });
   };
 
@@ -85,6 +88,7 @@ return result;
                       <p>{i + 1}</p>
                       <p>Nombre: {x.userName}</p>
                       <p>Dinero: {x.plata}</p>
+                      <p>Modenda: {x.moneda}</p>
                       <p>fecha creacion: {x.createdAt}</p>
                     </h3>
                     <br />

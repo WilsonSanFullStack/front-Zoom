@@ -40,7 +40,7 @@ export const GVX = 'GVX';
 //todo para XLOVE
 export const PXL = 'PXL';
 export const GXL = 'GXL';
-//todo para chaturbate
-// export const PCH = 'PCH';
-// export const GCH = 'GCH';
-//todo para ?
+//todo para XLOVENUEVA
+export const PXLN = 'PXLN';
+export const GXLN = 'GXLN';
+

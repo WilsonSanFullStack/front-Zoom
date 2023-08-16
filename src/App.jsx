@@ -17,6 +17,7 @@ import Skype from "./components/paginas/Skype.jsx";
 import Stripchat from "./components/paginas/Stripchat.jsx";
 import Vx from "./components/paginas/Vx.jsx";
 import Xlove from "./components/paginas/Xlove.jsx";
+import XloveNueva from "./components/paginas/XloveNueva.jsx";
 
 
 
@@ -80,6 +81,10 @@ function App() {
         <Route
           path="/estadisticas/carga/xlove"
           element={<Xlove component={Xlove} />}
+        />
+        <Route
+          path="/estadisticas/carga/xlovenueva"
+          element={<XloveNueva component={XloveNueva} />}
         />
       </Routes>
     </div>

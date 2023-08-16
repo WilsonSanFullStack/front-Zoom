@@ -132,6 +132,15 @@ const SeleccionarPagina = () => {
         </section>
 
         <section className="w-48 img-e">
+          <Link to="/estadisticas/carga/xlovenueva">
+            <p>Xlove Nueva</p>
+            <div className="bg-red-800 mt-6 p-2 rounded-xl">
+              <img src="/xlove.png" alt="logo Xlove nueva" />
+            </div>
+          </Link>
+        </section>
+
+        <section className="w-48 img-e">
           <Link to="/estadisticas/carga/">
             <p>Siguiente pagina</p>
             <img src="/" alt="logo siguiente pagina" />

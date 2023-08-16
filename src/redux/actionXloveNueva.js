@@ -1,16 +1,16 @@
 import axios from "axios";
-import { PVX, ERROR } from "./actionsTypes.js";
+import { PXLN, GXLN, ERROR } from "./actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const VX = import.meta.env.VITE_REACT_APP_VX;
+const XLN = import.meta.env.VITE_REACT_APP_XLN;
 
-export const pvx = (covx) => {
+export const pxln = (coxln) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${VX}`;
-      const { data } = await axios.post(endpoint, { covx });
+      const endpoint = `${URL}/${XLN}`;
+      const { data } = await axios.post(endpoint, { coxln });
       dispatch({
-        type: PVX,
+        type: PXLN,
         payload: data,
       });
     } catch (error) {

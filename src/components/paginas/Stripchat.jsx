@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pst } from "../../redux/actionStripchat.js";
 import { resetError } from "../../redux/actionAdult.js";
 
-import TextareaForm from '../Textarea.jsx';
+import TextareaForm from "../Textarea.jsx";
 
 const Stripchat = () => {
   const [input, setInput] = useState([]);
@@ -17,34 +17,44 @@ const Stripchat = () => {
     return () => {
       dispatch(resetError());
     };
-  }, [dispatch]);
+  }, [input, dispatch]);
 
   const handleTextarea = (event) => {
     setInput(event.target.value);
 
     setCost(() => {
-      const lines = event.target.value.split("\n");
-      const data = [];
+      const lines = event.target.value.trim().split('\n');
+const result = [];
+let currentUser = null;
+let currentTokens = [];
 
-      for (const line of lines) {
-        if (line.trim() !== "") {
-          const [fecha, user, transacciones, tokens, pago] = line.split("\t");
-          if (fecha && user && transacciones && tokens && pago) {
-            const dolares = parseFloat(pago.substring(1));
-            data.push({
-              user,
-              fecha,
-              dolares,
-            });
-          }
-        }
-      }
+for (let i = 1; i < lines.length; i++) {
+  const line = lines[i];
 
-      data.sort((a, b) => {
-        return a.user.localeCompare(b.user); // Cambia userName por user
+  if (isNaN(line)) {
+    if (currentUser !== null && currentTokens.length > 0) {
+      const tokens = parseInt(currentTokens[currentTokens.length - 2]);
+      const dolares = (tokens * 0.05).toFixed(2);
+      result.push({ user: currentUser, tokens, dolares });
+      currentTokens = [];
+    }
+    currentUser = line;
+  } else {
+    currentTokens.push(line);
+  }
+}
+
+if (currentUser !== null && currentTokens.length > 0) {
+  const tokens = parseInt(currentTokens[currentTokens.length - 1]);
+  const dolares = tokens * 0.05;
+  result.push({ user: currentUser, tokens, dolares });
+}
+
+      result.sort((a, b) => {
+        return a.user.localeCompare(b.user);
       });
 
-      return data;
+      return result;
     });
   };
 
@@ -84,7 +94,7 @@ const Stripchat = () => {
                 <h3 className="border-b-2 border-black">
                   <p>{i + 1}</p>
                   <p>Nombre: {x.user}</p>
-                  <p>Fecha: {x.fecha}</p>
+                  <p>Tokens: {x.tokens}</p>
                   <p>Dolares: {x.dolares}</p>
                   <br />
                 </h3>
@@ -103,9 +113,9 @@ const Stripchat = () => {
                 return (
                   <div key={x.id}>
                     <h3 className="border-b-2 border-black">
-                      <p>{i}</p>
+                      <p>{i + 1}</p>
                       <p>Nombre: {x.userName}</p>
-                      <p>Fecha: {x.fecha}</p>
+                      <p>Tokens: {x.tokens}</p>
                       <p>Dolares: {x.dolares}</p>
                       <p>fecha creacion: {x.createdAt}</p>
                     </h3>
@@ -119,7 +129,6 @@ const Stripchat = () => {
       </div>
     </div>
   );
-
-}
+};
 
 export default Stripchat;

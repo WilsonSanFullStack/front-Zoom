@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pca } from "../../redux/actionCam4.js";
+import { pxln } from "../../redux/actionXloveNueva.js";
 import { resetError } from "../../redux/actionAdult.js";
 
 import TextareaForm from "../Textarea.jsx";
 
-const Cam4 = () => {
+const XloveNueva = () => {
   const [input, setInput] = useState([]);
-  const [coca, setCoca] = useState(input);
+  const [coxln, setCoxln] = useState(input);
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
@@ -22,13 +22,20 @@ const Cam4 = () => {
   const handleTextarea = (event) => {
     setInput(event.target.value);
 
-    setCoca(() => {
-      const pattern = /(\S+)\s+(\d+)/g;
-const matches = [...event.target.value.matchAll(pattern)];
+    setCoxln(() => {
+      const pattern =
+        /(\w+)\s+(\d{2}-\d{2}-\d{4})\s+(\d{2}-\d{2}-\d{4})\s+Profits:\s+([\d.]+)\s+€[\s\S]*?-5%\s+recovery\s+\(([\d.]+)\s+€\)[\s\S]*?([\d.]+)\s*$/gm;
 
-const result = matches
-  .map(match => ({ user: match[1], dolares: parseInt(match[2]) }))
-  .filter(entry => entry.dolares !== 0);
+      const matches = [...event.target.value.matchAll(pattern)];
+
+      const result = matches
+        .map((match) => ({
+          user: match[1],
+          fecha: `${match[2]}-${match[3]}`,
+          euros: parseFloat(match[6]),
+        }))
+        .filter((item) => item.euros !== 0);
+
       result.sort((a, b) => {
         return a.user.localeCompare(b.user); // Cambia userName por user
       });
@@ -38,9 +45,9 @@ const result = matches
   };
 
   const handlerSubmit = () => {
-    dispatch(pca(coca));
+    dispatch(pxln(coxln));
     setInput([]);
-    setCoca([]);
+    setCoxln([]);
   };
   return (
     <div className="min-h-screen bg-fuchsia-400 top-0">
@@ -50,8 +57,8 @@ const result = matches
             value={input}
             onChange={handleTextarea}
             onSubmit={handlerSubmit}
-            placeholder="Pegue aquí el corte de Cam4"
-            titulo="Corte De Cam4"
+            placeholder="Pegue aquí el corte de Xlove Nueva"
+            titulo="Corte De Xlove Nueva"
           />
         </div>
         <div className="mt-24">
@@ -67,13 +74,14 @@ const result = matches
           <h2 className="text-2xl text-center text-fuchsia-700">
             Creditos a subir
           </h2>
-          {coca?.map((x, i) => {
+          {coxln?.map((x, i) => {
             return (
               <div key={i}>
                 <h3 className="border-b-2 border-black">
                   <p>{i + 1}</p>
                   <p>Nombre: {x.user}</p>
-                  <p>Dolares: {x.dolares}</p>
+                  <p>Euros: {x.euros}</p>
+                  <p>Fecha: {x.fecha}</p>
                   <br />
                 </h3>
                 <br />
@@ -91,9 +99,10 @@ const result = matches
                 return (
                   <div key={x.id}>
                     <h3 className="border-b-2 border-black">
-                      <p>{i + 1}</p>
+                      <p>{i}</p>
                       <p>Nombre: {x.userName}</p>
-                      <p>Dolares: {x.dolares}</p>
+                      <p>Fecha: {x.fecha}</p>
+                      <p>Euros: {x.euros}</p>
                       <p>fecha creacion: {x.createdAt}</p>
                     </h3>
                     <br />
@@ -106,6 +115,6 @@ const result = matches
       </div>
     </div>
   );
-}
+};
 
-export default Cam4
+export default XloveNueva;

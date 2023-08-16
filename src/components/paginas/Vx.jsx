@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pvx } from "../../redux/actionVx.js";
 import { resetError } from "../../redux/actionAdult.js";
 
-import TextareaForm from '../Textarea.jsx';
+import TextareaForm from "../Textarea.jsx";
 
 const Vx = () => {
   const [input, setInput] = useState([]);
@@ -11,40 +11,35 @@ const Vx = () => {
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
-
   useEffect(() => {
     // Llama a la acción de reinicio cuando el componente se desmonte
     return () => {
       dispatch(resetError());
     };
-  }, [dispatch]);
+  }, [input, dispatch]);
 
   const handleTextarea = (event) => {
     setInput(event.target.value);
 
     setCovx(() => {
-      const lines = event.target.value.split("\n");
-      const data = [];
+      const regex = /(\w+)\s+([\d,]+)/g;
+      const result = [];
+      let match;
 
-      for (const line of lines) {
-        if (line.trim() !== "") {
-          const [fecha, user, transacciones, tokens, pago] = line.split("\t");
-          if (fecha && user && transacciones && tokens && pago) {
-            const dolares = parseFloat(pago.substring(1));
-            data.push({
-              user,
-              fecha,
-              dolares,
-            });
-          }
+      while ((match = regex.exec(event.target.value)) !== null) {
+        const user = match[1];
+        const euros = parseFloat(match[2].replace(",", "."));
+
+        if (euros > 0) {
+          result.push({ user, euros });
         }
       }
 
-      data.sort((a, b) => {
+      result.sort((a, b) => {
         return a.user.localeCompare(b.user); // Cambia userName por user
       });
 
-      return data;
+      return result;
     });
   };
 
@@ -84,8 +79,7 @@ const Vx = () => {
                 <h3 className="border-b-2 border-black">
                   <p>{i + 1}</p>
                   <p>Nombre: {x.user}</p>
-                  <p>Fecha: {x.fecha}</p>
-                  <p>Dolares: {x.dolares}</p>
+                  <p>Euros: {x.euros}</p>
                   <br />
                 </h3>
                 <br />
@@ -103,10 +97,9 @@ const Vx = () => {
                 return (
                   <div key={x.id}>
                     <h3 className="border-b-2 border-black">
-                      <p>{i}</p>
+                      <p>{i + 1}</p>
                       <p>Nombre: {x.userName}</p>
-                      <p>Fecha: {x.fecha}</p>
-                      <p>Dolares: {x.dolares}</p>
+                      <p>Euros: {x.euros}</p>
                       <p>fecha creacion: {x.createdAt}</p>
                     </h3>
                     <br />
@@ -119,7 +112,6 @@ const Vx = () => {
       </div>
     </div>
   );
-
-}
+};
 
 export default Vx;

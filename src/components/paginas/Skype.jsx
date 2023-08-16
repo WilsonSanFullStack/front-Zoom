@@ -23,23 +23,21 @@ const Skype = () => {
     setInput(event.target.value);
 
     setCosk(() => {
-      const lines = event.target.value.split("\n");
-      const data = [];
+      const lines = event.target.value.trim().split("\n");
+const data = [];
 
-      for (const line of lines) {
-        if (line.trim() !== "") {
-          const [fecha, user, transacciones, tokens, pago] = line.split("\t");
-          if (fecha && user && transacciones && tokens && pago) {
-            const dolares = parseFloat(pago.substring(1));
-            data.push({
-              user,
-              fecha,
-              dolares,
-            });
-          }
-        }
-      }
-
+for (const line of lines) {
+  const parts = line.split("\t");
+  if (parts.length === 2) {
+    const user = parts[0];
+    const dolares = parseFloat(parts[1]);
+    if (!isNaN(dolares)) {
+      const dolaresConPorcentaje = (dolares * 0.75).toFixed(2); // Multiplicar por 75%
+      data.push({ user, dolares: dolaresConPorcentaje });
+    }
+  }
+}
+      
       data.sort((a, b) => {
         return a.user.localeCompare(b.user); // Cambia userName por user
       });

@@ -27,6 +27,8 @@ import {
   GVX,
   PXL,
   GXL,
+  PXLN,
+  GXLN,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -44,6 +46,7 @@ const initialState = {
   cost: [], //corte stripchat
   covx: [], //corte vx
   coxl: [], //corte xlove
+  coxln: [], //corte xlove
 
   error: null,
 };
@@ -216,6 +219,18 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         coxl: action.payload,
+      };
+    //post xlove
+    case PXLN:
+      return {
+        ...state,
+        spg: action.payload,
+      };
+    //get xlove
+    case GXLN:
+      return {
+        ...state,
+        coxln: action.payload,
       };
 
     default:
