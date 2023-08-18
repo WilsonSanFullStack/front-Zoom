@@ -18,6 +18,7 @@ import Stripchat from "./components/paginas/Stripchat.jsx";
 import Vx from "./components/paginas/Vx.jsx";
 import Xlove from "./components/paginas/Xlove.jsx";
 import XloveNueva from "./components/paginas/XloveNueva.jsx";
+import Registro from "./components/Registro";
 
 
 
@@ -85,6 +86,10 @@ function App() {
         <Route
           path="/estadisticas/carga/xlovenueva"
           element={<XloveNueva component={XloveNueva} />}
+        />
+        <Route
+          path="/registro"
+          element={<Registro component={Registro} />}
         />
       </Routes>
     </div>

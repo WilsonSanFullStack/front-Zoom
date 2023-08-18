@@ -21,3 +21,21 @@ export const pst = (cost) => {
     }
   };
 };
+
+export const gst = () => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${ST}`;
+      const { data } = await axios.get(endpoint);
+      dispatch({
+        type: GST,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ERROR,
+        payload: error.response.data.error,
+      });
+    }
+  };
+};

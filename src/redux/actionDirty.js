@@ -21,3 +21,21 @@ export const pdi = (codi) => {
     }
   };
 };
+
+export const gdi = () => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${DI}`;
+      const { data } = await axios.get(endpoint);
+      dispatch({
+        type: GDI,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ERROR,
+        payload: error.response.data.error,
+      });
+    }
+  };
+};

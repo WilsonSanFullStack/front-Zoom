@@ -21,3 +21,21 @@ export const pam = (coam) => {
     }
   };
 };
+
+export const gam = () => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${AM}`;
+      const { data } = await axios.get(endpoint);
+      dispatch({
+        type: GAM,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ERROR,
+        payload: error.response.data.error,
+      });
+    }
+  };
+};

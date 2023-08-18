@@ -10,7 +10,7 @@ import {
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const CAD = import.meta.env.VITE_REACT_APP_CAD;
-const CPAD = import.meta.env.VITE_REACT_APP_PAD;
+const CPAD = import.meta.env.VITE_REACT_APP_CPAD;
 
 
 export const pad = (coad) => {

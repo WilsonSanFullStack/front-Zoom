@@ -21,3 +21,21 @@ export const psk = (cosk) => {
     }
   };
 };
+
+export const gsk = () => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${SK}`;
+      const { data } = await axios.get(endpoint);
+      dispatch({
+        type: GSK,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ERROR,
+        payload: error.response.data.error,
+      });
+    }
+  };
+};

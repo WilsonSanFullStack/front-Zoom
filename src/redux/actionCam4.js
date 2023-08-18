@@ -8,9 +8,27 @@ export const pca = (coca) => {
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${CA}`;
-      const { data } = await axios.post(endpoint, {coca});
+      const { data } = await axios.post(endpoint, { coca });
       dispatch({
         type: PCA,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ERROR,
+        payload: error.response.data.error,
+      });
+    }
+  };
+};
+
+export const gca = () => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${CA}`;
+      const { data } = await axios.get(endpoint);
+      dispatch({
+        type: GCA,
         payload: data,
       });
     } catch (error) {

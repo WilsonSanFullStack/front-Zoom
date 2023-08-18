@@ -1,43 +1,35 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { gad } from "../../redux/actionAdult.js";
+import { gam } from "../../redux/actionAmateur.js";
+import { gbo } from "../../redux/actionBonga.js";
 
-const Adultcorte = ({ ca }) => {
+const Adultcorte = () => {
+  const dispatch = useDispatch();
+  const coad = useSelector((state) => state.coad);
+  const coam = useSelector((state) => state.coam);
 
-  const groupDataByName = (data) => {
-    const groupedData = {};
-    data.forEach((item) => {
-      if (!groupedData[item.userName]) {
-        groupedData[item.userName] = [];
-      }
-      groupedData[item.userName].push(item);
-    });
-    return groupedData;
-  };
-  const caGrouped = groupDataByName(ca)
-  console.log(caGrouped)
+  useEffect(() => {
+    dispatch(gad());
+    dispatch(gam());
+    dispatch(gbo())
+    dispatch(gca())
+  }, [dispatch]);
+
+  const tcoad = coad[0] && coad?.map((x) => x.creditos).reduce((x, y) => x + y).toFixed(2);
+  const tcoam = coam[0] && coam?.map((x) => x.dolares).reduce((x, y) => x + y).toFixed(2);
+
 
   return (
     <div>
-      <section className="bg-blue-300">
-        {Object.keys(caGrouped).map((userName, index) => (
-          <div key={index}>
-            <h2>corte para {userName}</h2>
-            <div>
-              {caGrouped[userName].map((x, i) => (
-                <div key={i}>
-                  <p>Numero: {i + 1}</p>
-                  <p>Nombre: {x.userName}</p>
-                  <p>Parcial: {x.parcial}</p>
-                  <p>Creditos: {x.creditos}</p>
-                  <p>fecha Creditos: {x.fecha}</p>
-                  <p>fecha creacion: {x.createdAt}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </section>
+      <div className="mt-8 font-bold m-6 px-10 py-3 bg-fuchsia-300 max-w-lg">
+        <h2 className="f text-2xl text-center text-fuchsia-700">
+          Total Adult Regular: ${tcoad}
+        </h2>
+        <h2>Total Amateur: ${tcoam}</h2>
+      </div>
     </div>
   );
-}
+};
 
 export default Adultcorte;

@@ -21,34 +21,33 @@ const Stripchat = () => {
 
   const handleTextarea = (event) => {
     setInput(event.target.value);
-
     setCost(() => {
-      const lines = event.target.value.trim().split('\n');
-const result = [];
-let currentUser = null;
-let currentTokens = [];
+      const lines = event.target.value.trim().split("\n");
+      const result = [];
+      let currentUser = null;
+      let currentTokens = [];
 
-for (let i = 1; i < lines.length; i++) {
-  const line = lines[i];
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i];
 
-  if (isNaN(line)) {
-    if (currentUser !== null && currentTokens.length > 0) {
-      const tokens = parseInt(currentTokens[currentTokens.length - 2]);
-      const dolares = (tokens * 0.05).toFixed(2);
-      result.push({ user: currentUser, tokens, dolares });
-      currentTokens = [];
-    }
-    currentUser = line;
-  } else {
-    currentTokens.push(line);
-  }
-}
+        if (isNaN(line)) {
+          if (currentUser !== null && currentTokens.length > 0) {
+            const tokens = parseInt(currentTokens[currentTokens.length - 2]);
+            const dolares = (tokens * 0.05).toFixed(2);
+            result.push({ user: currentUser, tokens, dolares });
+            currentTokens = [];
+          }
+          currentUser = line;
+        } else {
+          currentTokens.push(line);
+        }
+      }
 
-if (currentUser !== null && currentTokens.length > 0) {
-  const tokens = parseInt(currentTokens[currentTokens.length - 1]);
-  const dolares = tokens * 0.05;
-  result.push({ user: currentUser, tokens, dolares });
-}
+      if (currentUser !== null && currentTokens.length > 0) {
+        const tokens = parseInt(currentTokens[currentTokens.length - 1]);
+        const dolares = tokens * 0.05;
+        result.push({ user: currentUser, tokens, dolares });
+      }
 
       result.sort((a, b) => {
         return a.user.localeCompare(b.user);
@@ -63,6 +62,7 @@ if (currentUser !== null && currentTokens.length > 0) {
     setInput([]);
     setCost([]);
   };
+
   return (
     <div className="min-h-screen bg-fuchsia-400 top-0">
       <div className="pt-14 text-center">

@@ -16,7 +16,7 @@ function Adultregular() {
     return () => {
       dispatch(resetError());
     };
-  }, [dispatch]);
+  }, [input, dispatch]);
 
   const handleTextarea = (event) => {
     setInput(event.target.value),
@@ -34,7 +34,7 @@ function Adultregular() {
             user: match[1],
             fecha: match[2],
             creditos: parseFloat(match[4], 2),
-            parcial: "no",
+            parcial: false,
           });
           result.sort((a, b) => {
             return a.user.localeCompare(b.user);

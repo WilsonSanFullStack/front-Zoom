@@ -15,7 +15,7 @@ function Adultparcial() {
     return () => {
       dispatch(resetError());
     };
-  }, [dispatch]);
+  }, [input, dispatch]);
 
   const handleTextarea = (event) => {
     setInput(event.target.value),
@@ -27,7 +27,7 @@ function Adultparcial() {
         while ((match = regex.exec(event.target.value)) !== null) {
           const user = match[1];
           const creditos = parseFloat(match[2]);
-          extractedData.push({ user, creditos, parcial: "si" });
+          extractedData.push({ user, creditos, parcial: true });
           extractedData.sort((a, b) => {
             return a.user.localeCompare(b.user);
           });

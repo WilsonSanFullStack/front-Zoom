@@ -21,3 +21,21 @@ export const pxln = (coxln) => {
     }
   };
 };
+
+export const gxln = () => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${XLN}`;
+      const { data } = await axios.get(endpoint);
+      dispatch({
+        type: GXLN,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ERROR,
+        payload: error.response.data.error,
+      });
+    }
+  };
+};

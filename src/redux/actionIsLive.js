@@ -22,3 +22,21 @@ export const pil = (coil) => {
     }
   };
 };
+
+export const gil = () => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${IL}`;
+      const { data } = await axios.get(endpoint);
+      dispatch({
+        type: GIL,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ERROR,
+        payload: error.response.data.error,
+      });
+    }
+  };
+};
