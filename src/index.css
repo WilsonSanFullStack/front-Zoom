@@ -47,3 +47,21 @@
 .cls-2 {
   fill: #fff;
 }
+
+.input {
+  @apply px-2 m-2 text-center border border-black font-bold w-full bg-fuchsia-300;
+}
+.label {
+  @apply p-2 font-bold text-2xl;
+}
+
+.no-spin {
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield; /* Otros navegadores */
+}
+
+.no-spin::-webkit-inner-spin-button,
+.no-spin::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

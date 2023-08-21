@@ -19,16 +19,18 @@ import Vx from "./components/paginas/Vx.jsx";
 import Xlove from "./components/paginas/Xlove.jsx";
 import XloveNueva from "./components/paginas/XloveNueva.jsx";
 import Registro from "./components/Registro";
-
-
+import Login from "./components/Login";
+import RegisterUser from "./components/RegisterUser";
 
 function App() {
   const { pathname } = useLocation();
   return (
     <div className="font-mono text-xl">
-      {pathname !== "*" && <NavBar />}
+      {pathname !== "/" || pathname !== '/registro' && <NavBar />}
       <Routes>
-        <Route path="/" element={<Home component={Home} />} />
+        <Route path="/" element={<Login component={Login} />} />
+        <Route path="/registro" element={<RegisterUser component={RegisterUser} />} />
+        <Route path="/home" element={<Home component={Home} />} />
         //* paginas
         <Route
           path="/estadisticas"
@@ -51,7 +53,7 @@ function App() {
           element={<Bonga component={Bonga} />}
         />
         <Route
-          path="/estadisticas/carga/cam4" 
+          path="/estadisticas/carga/cam4"
           element={<Cam4 component={Cam4} />}
         />
         <Route
@@ -87,10 +89,7 @@ function App() {
           path="/estadisticas/carga/xlovenueva"
           element={<XloveNueva component={XloveNueva} />}
         />
-        <Route
-          path="/registro"
-          element={<Registro component={Registro} />}
-        />
+        <Route path="/registro" element={<Registro component={Registro} />} />
       </Routes>
     </div>
   );
