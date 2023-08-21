@@ -26,7 +26,7 @@ function App() {
   const { pathname } = useLocation();
   return (
     <div className="font-mono text-xl">
-      {pathname !== "/" || pathname !== '/registro' && <NavBar />}
+      {pathname === "/" || pathname === '/registro' && <NavBar />}
       <Routes>
         <Route path="/" element={<Login component={Login} />} />
         <Route path="/registro" element={<RegisterUser component={RegisterUser} />} />
