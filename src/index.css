@@ -49,10 +49,10 @@
 }
 
 .input {
-  @apply px-2 m-2 text-center border border-black font-bold w-full bg-fuchsia-300;
+  @apply px-2 m-1 text-center border border-black font-bold w-full bg-fuchsia-300;
 }
 .label {
-  @apply p-2 font-bold text-2xl;
+  @apply p-1 font-bold text-2xl;
 }
 
 .no-spin {

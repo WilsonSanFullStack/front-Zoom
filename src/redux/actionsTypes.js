@@ -1,3 +1,5 @@
+//todo funcionalidad
+export const RU = 'RU';
 //todo para errores
 export const ERROR = "ERROR";
 export const RESETERROR = "RESETERROR";

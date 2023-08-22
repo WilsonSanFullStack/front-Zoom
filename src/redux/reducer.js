@@ -29,6 +29,7 @@ import {
   GXL,
   PXLN,
   GXLN,
+  RU,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -47,6 +48,7 @@ const initialState = {
   covx: [], //corte vx
   coxl: [], //corte xlove
   coxln: [], //corte xlove
+  user: {},
 
   error: null,
 };
@@ -232,6 +234,12 @@ export const reducer = (state = initialState, action) => {
         ...state,
         coxln: action.payload,
       };
+      case RU:
+      return {
+      ...state,
+      user: action.payload,
+      };
+      
 
     default:
       return state;
