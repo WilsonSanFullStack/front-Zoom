@@ -1,49 +1,105 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { BiSend } from "react-icons/bi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { registroUser } from "../redux/actionRegistroUser.js";
 
-// const cedulaColombianaRegex = /^(?:\d{7,11}|\d{1,2}-\d{3,7}-\d{1})$/;
-// const cedulaVenezolanaRegex = /^(V|E|P|G|J)-\d{7,9}$/;
-
-// const cedulaColombiana = "12345678";
-// const cedulaVenezolana = "V-12345678";
-
-// if (cedulaColombianaRegex.test(cedulaColombiana)) {
-//   console.log("Cédula colombiana válida");
-// } else {
-//   console.log("Cédula colombiana inválida");
-// }
-
-// if (cedulaVenezolanaRegex.test(cedulaVenezolana)) {
-//   console.log("Cédula venezolana válida");
-// } else {
-//   console.log("Cédula venezolana inválida");
-// }
-
 const validacion = (input) => {
   let error = {};
-
+  const errorMessages = [];
+  //validacion nombre
   if (input.nombre.length < 3 || input.nombre.length === 0) {
     error.nombre = "El nombre es requisito obligatorio";
   }
+  //validacion apellido
   if (input.apellido.length < 3 || input.apellido === 0) {
     error.apellido = "El apellido es requisito obligatorio";
   }
-  if (input.cedula.length < 3 || input.cedula === 0) {
-    error.cedula = "El apellido es requisito obligatorio";
+  //validacion nacionalidad
+  if (input.nacionalidad === "") {
+    error.nacionalidad = "seleccione su pais de origen";
   }
+  //validacion cedula
+  if (input.cedula.length < 3 || input.cedula.length === 0) {
+    error.cedula = "La cédula es requisito obligatorio";
+  } else {
+    if (input.nacionalidad === "Colombia") {
+      const cedulaColombianaRegex = /^\d{7,11}$/;
+      if (!cedulaColombianaRegex.test(input.cedula)) {
+        error.cedula = "Cédula colombiana errónea";
+      }
+    } else if (input.nacionalidad === "Venezuela") {
+      const cedulaVenezolanaRegex = /^\d{5,9}$/;
+      if (!cedulaVenezolanaRegex.test(input.cedula)) {
+        error.cedula = "Cédula venezolana errónea";
+      }
+    }
+  }
+  //validacion fecha de nacimiento
+  if (!input.fechaDeNacimiento) {
+    error.fechaDeNacimiento = "La fecha de nacimiento es requisito obligatorio";
+  } else {
+    const hoy = new Date();
+    const partesFecha = input.fechaDeNacimiento.split("/"); // Dividir el string en partes: [día, mes, año]
+
+    const diaNacimiento = parseInt(partesFecha[0], 10);
+    const mesNacimiento = parseInt(partesFecha[1], 10) - 1; // Restar 1 al mes ya que en JavaScript los meses son indexados en base 0
+    const anioNacimiento = parseInt(partesFecha[2], 10);
+
+    const fechaNacimiento = new Date(
+      anioNacimiento,
+      mesNacimiento,
+      diaNacimiento
+    );
+
+    const edadCalculada = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mesActual = hoy.getMonth();
+    const diaNacimient = fechaNacimiento.getDate();
+
+    const edad =
+      mesActual > mesNacimiento ||
+      (mesActual === mesNacimiento && hoy.getDate() >= diaNacimient)
+        ? edadCalculada
+        : edadCalculada - 1;
+
+    const edadMinima = 18;
+
+    if (edad < edadMinima) {
+      error.fechaDeNacimiento = "Debes ser mayor de 18 años";
+    }
+  }
+  
+  // validacion de telefono
+  if (!/^3(0[0-5]|1[0-9]|2[0-9]|3[0-6])[0-9]{7}$/.test(input.telefono)) {
+    error.telefono = "Numero de telefono no es valido";
+  }
+  if (!/^3(0[0-5]|1[0-9]|2[0-9]|3[0-6])[0-9]{7}$/.test(input.whatsapp)) {
+    error.whatsapp = "Numero de WhatsApp no es valido";
+  }
+
+  if (input.direccion.length < 10 || input.direccion.length === 0) {
+    error.direccion = "Direccion Invalida";
+  }
+
   return error;
 };
 
 const RegisterUser = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const [isRegister, setIsRegister] = useState(false);
+
+  useEffect(() => {
+    if (user.id) {
+      setIsRegister(true);
+      navigate('/home')
+    }
+  },[user]);
+
+  const dispatch = useDispatch();
   const [error, setError] = useState({});
   const [showForm, setShowForm] = useState(true);
   const [confirmacion, setConfirmacion] = useState("");
@@ -56,8 +112,6 @@ const RegisterUser = () => {
     fechaDeNacimiento: "",
     whatsapp: "",
     direccion: "",
-    contrasena: "",
-    vContrasena: "",
   });
 
   const handleNombre = (event) => {
@@ -89,100 +143,134 @@ const RegisterUser = () => {
       ...input,
       nacionalidad: event.target.value,
     });
+    setError(
+      validacion({
+        ...input,
+        nacionalidad: event.target.value,
+      })
+    );
   };
   const handleCedula = (event) => {
     setInput({
       ...input,
       cedula: event.target.value,
     });
+    setError(
+      validacion({
+        ...input,
+        cedula: event.target.value,
+      })
+    );
   };
   const handleTelefono = (event) => {
     setInput({
       ...input,
       telefono: event.target.value,
     });
+    setError(
+      validacion({
+        ...input,
+        telefono: event.target.value,
+      })
+    );
   };
+  const [selectedDate, setSelectedDate] = useState(null);
   const handleFechaDeNacimiento = (date) => {
+    setSelectedDate(date);
+    const dateString = date
+      ? date.toLocaleDateString("es-ES", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        })
+      : "";
+
     setInput({
       ...input,
-      fechaDeNacimiento: date,
+      fechaDeNacimiento: dateString,
     });
+    setError(
+      validacion({
+        ...input,
+        fechaDeNacimiento: dateString,
+      })
+    );
   };
-  const handleContrasena = (event) => {
-    setInput({
-      ...input,
-      contrasena: event.target.value,
-    });
-  };
-  const handleVContrasena = (event) => {
-    setInput({
-      ...input,
-      vContrasena: event.target.value,
-    });
-  };
+
   const handleWhtsapp = (event) => {
     setInput({
       ...input,
       whatsapp: event.target.value,
     });
+    setError(
+      validacion({
+        ...input,
+        whatsapp: event.target.value,
+      })
+    );
   };
   const handleDireccion = (event) => {
     setInput({
       ...input,
       direccion: event.target.value,
     });
+    setError(
+      validacion({
+        ...input,
+        direccion: event.target.value,
+      })
+    );
   };
-  console.log(error.nombre);
-  console.log(input.nombre);
-  const handleCrear = (data) => {
-    data.preventDefault();
+
+  const handleCrear = async (e) => {
+    e.preventDefault();
     const errores = validacion(input);
     if (Object.keys(errores).length === 0) {
-      dispatch(registroUser(input));
-      setInput({
-        nombre: "",
-        apellido: "",
-        nacionalidad: "",
-        cedula: "",
-        telefono: "",
-        fechaDeNacimiento: "",
-        whatsapp: "",
-        direccion: "",
-        contrasena: "",
-        vContrasena: "",
-      });
-      setConfirmacion("Usuario Registrado Con Exito.");
-      setShowForm(false);
-      setTimeout(() => {
-        setConfirmacion("");
-        navigate("/home");
-      }, 2000);
+      dispatch(registroUser(input))
+        .then(() => {
+          setInput({
+            nombre: "",
+            apellido: "",
+            nacionalidad: "",
+            cedula: "",
+            telefono: "",
+            fechaDeNacimiento: "",
+            whatsapp: "",
+            direccion: "",
+          });
+          setShowForm(false);
+          setConfirmacion("Usuario Registrado Con Exito.");
+
+          
+            if (user.id) {
+              setConfirmacion("");
+          }
+        })
     }
     setError(errores);
   };
-  console.log(error.nombre);
+
   const paises = [
+    "Colombia",
+    "Venezuela",
+    "Ecuador",
+    "Perú",
+    "Panamá",
     "Argentina",
+    "Belice",
     "Bolivia",
     "Brasil",
     "Chile",
-    "Colombia",
-    "Ecuador",
-    "Guyana",
-    "Paraguay",
-    "Perú",
-    "Surinam",
-    "Uruguay",
-    "Venezuela",
-    "Belice",
     "Costa Rica",
     "El Salvador",
     "Guatemala",
+    "Guyana",
     "Honduras",
     "Nicaragua",
-    "Panamá",
+    "Paraguay",
+    "Surinam",
+    "Uruguay",
   ];
-
   return (
     <div className="min-h-screen bg-fuchsia-400 top-0">
       {confirmacion && (
@@ -236,14 +324,14 @@ const RegisterUser = () => {
                   )}
                   <section className=" grid grid-cols-2">
                     <label className="label">Nacionalidad:</label>
-                    <input
-                      type="text"
-                      placeholder="Colombia"
-                      value={input.nacionalidad}
-                      name="nacionalidad"
-                      onChange={handleNacionalidad}
-                      className="input"
-                    />
+                    <select className="input" onChange={handleNacionalidad}>
+                      <option value="">selecciones una opcion</option>
+                      {paises.map((pais) => (
+                        <option value={pais} name="nacionalidad" key={pais}>
+                          {pais}
+                        </option>
+                      ))}
+                    </select>
                   </section>
                   {error && (
                     <div className="text-center text-red-500 font-bold">
@@ -269,7 +357,7 @@ const RegisterUser = () => {
                   <section className=" grid grid-cols-2">
                     <label className="label">Fecha De Nacimiento:</label>
                     <DatePicker
-                      selected={input.fechaDeNacimiento}
+                      selected={selectedDate}
                       onChange={handleFechaDeNacimiento}
                       dateFormat="dd/MM/yyyy"
                       showMonthDropdown
@@ -288,6 +376,8 @@ const RegisterUser = () => {
                           type="text"
                           className="input"
                           name="fechaDeNacimiento"
+                          value={selectedDate}
+                          onChange={handleFechaDeNacimiento}
                         />
                       }
                     />
@@ -296,93 +386,70 @@ const RegisterUser = () => {
                     <div className="text-center text-red-500 font-bold">
                       {error.fechaDeNacimiento}
                     </div>
-                  )}
-                  <section className=" grid grid-cols-2">
-                    <label className="label">Contraseña:</label>
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Abcd#1234"
-                      value={input.contrasena}
-                      name="contrasena"
-                      onChange={handleContrasena}
-                      className="input"
-                    />
-                    <button
-      className="show-password-button"
-      onMouseDown={() => setShowPassword(true)}
-      onMouseUp={() => setShowPassword(false)}
-    >
-      Mostrar
-    </button>
-                  </section>
-                  {error && (
-                    <div className="text-center text-red-500 font-bold">
-                      {error.contrasena}
-                    </div>
-                  )}
-                  <section className=" grid grid-cols-2">
-                    <label className="label">Repita Contraseña:</label>
-                    <input
-                      type="password"
-                      placeholder="Abcd#1234"
-                      value={input.vContrasena}
-                      name="vContrasena"
-                      onChange={handleVContrasena}
-                      className="input"
-                    />
-                    <button
-      className="show-password-button"
-      onMouseDown={() => setShowPassword(true)}
-      onMouseUp={() => setShowPassword(false)}
-    >
-      Mostrar
-    </button>
-                  </section>
-                  {error && (
-                    <div className="text-center text-red-500 font-bold">
-                      {error.vContrasena}
-                    </div>
-                  )}
+                  )}          
                 </section>
+
+
               </section>
-              <section className="border px-10 border-black min-w-min mx-20 rounded-lg m-1 p-1">
+              <section className="border flex flex-col items-center px-10 border-black min-w-min mx-20 rounded-lg m-2 p-1">
                 <h1 className=" font-bold text-black text-2xl">
                   Datos De Contacto:
                 </h1>
-                <section className="grid grid-cols-2 text-right">
-                  <label className="label">Telefono:</label>
-                  <input
-                    type="number"
-                    placeholder="310 000 00 00"
-                    value={input.telefono}
-                    name="telefono"
-                    onChange={handleTelefono}
-                    className="input no-spin"
-                  />
-                  <label className="label">WhatsApp:</label>
-                  <input
-                    type="number"
-                    // readOnly='false'
-                    placeholder="+57 310 000 00 00"
-                    value={input.whatsapp}
-                    name="whatsapp"
-                    onChange={handleWhtsapp}
-                    className="input no-spin"
-                  />
-                  <label className="label">Direccion:</label>
-                  <input
-                    type="text"
-                    placeholder="calle 1W # 57-68"
-                    value={input.direccion}
-                    name="direccion"
-                    onChange={handleDireccion}
-                    className="input"
-                  />
+                <section className="grid grid-cols-1 text-right">
+                  <section className=" grid grid-cols-2">
+                    <label className="label">Telefono:</label>
+                    <input
+                      type="number"
+                      placeholder="310 000 00 00"
+                      value={input.telefono}
+                      name="telefono"
+                      onChange={handleTelefono}
+                      className="input no-spin"
+                    />
+                  </section>
+                  {error && (
+                    <div className="text-center text-red-500 font-bold">
+                      {error.telefono}
+                    </div>
+                  )}
+                  <section className="grid grid-cols-2">
+                    <label className="label">WhatsApp:</label>
+                    <input
+                      type="number"
+                      // readOnly='false'
+                      placeholder="310 000 00 00"
+                      value={input.whatsapp}
+                      name="whatsapp"
+                      onChange={handleWhtsapp}
+                      className="input no-spin"
+                    />
+                  </section>
+                  {error && (
+                    <div className="text-center text-red-500 font-bold">
+                      {error.whatsapp}
+                    </div>
+                  )}
+                  <section className="grid grid-cols-2">
+                    <label className="label">Direccion:</label>
+                    <input
+                      type="text"
+                      placeholder="calle 1W # 57-68"
+                      value={input.direccion}
+                      name="direccion"
+                      onChange={handleDireccion}
+                      className="input"
+                    />
+                  </section>
+                  {error && (
+                    <div className="text-center text-red-500 font-bold">
+                      {error.direccion}
+                    </div>
+                  )}
                 </section>
               </section>
 
               <section className="flex items-center justify-center">
-                <button className="btn-w w-auto font-bold text-4xl">
+                <button className="btn-w w-auto font-bold text-4xl" type="submit">
                   <BiSend />
                 </button>
               </section>

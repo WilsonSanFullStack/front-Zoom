@@ -18,18 +18,27 @@ import Stripchat from "./components/paginas/Stripchat.jsx";
 import Vx from "./components/paginas/Vx.jsx";
 import Xlove from "./components/paginas/Xlove.jsx";
 import XloveNueva from "./components/paginas/XloveNueva.jsx";
-import Registro from "./components/Registro";
-import Login from "./components/Login";
-import RegisterUser from "./components/RegisterUser";
+import Registro from "./components/Registro.jsx";
+import Login from "./components/Login.jsx";
+import RegisterUser from "./components/RegisterUser.jsx";
 
 function App() {
   const { pathname } = useLocation();
   return (
     <div className="font-mono text-xl">
-      {(pathname !== "/" && pathname !== '/registro') && <NavBar />}
+      {pathname !== "/" &&
+        pathname !== "/registro"  && <NavBar />
+        }
       <Routes>
         <Route path="/" element={<Login component={Login} />} />
-        <Route path="/registro" element={<RegisterUser component={RegisterUser} />} />
+        <Route
+          path="/registro"
+          element={<RegisterUser component={RegisterUser} />}
+        />
+        <Route
+          path="/register"
+          element={<Registro component={Registro} />}
+        />
         <Route path="/home" element={<Home component={Home} />} />
         //* paginas
         <Route
@@ -89,7 +98,7 @@ function App() {
           path="/estadisticas/carga/xlovenueva"
           element={<XloveNueva component={XloveNueva} />}
         />
-        <Route path="/registro" element={<Registro component={Registro} />} />
+        <Route path="/registrod" element={<Registro component={Registro} />} />
       </Routes>
     </div>
   );

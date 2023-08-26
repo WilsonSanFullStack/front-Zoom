@@ -2,19 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-.btn-w{
+.btn-w {
   @apply p-1 px-2 m-2 bg-fuchsia-500 rounded-xl hover:bg-purple-200  active:bg-red-700;
 }
-.btn-n{
+.btn-n {
   @apply p-1 px-2 m-1 bg-fuchsia-400 rounded-xl hover:bg-purple-200  active:bg-red-700;
 }
 .img-e {
   @apply m-4 bg-fuchsia-300 p-3 rounded-xl hover:bg-purple-200  active:bg-red-700;
 }
 .text-m {
-  @apply w-full text-center h-80 bg-fuchsia-300 p-5 ;
+  @apply w-full text-center h-80 bg-fuchsia-300 p-5;
 }
-.u{
+.u {
   resize: none;
 }
 .contenedor1 {
@@ -53,6 +53,9 @@
 }
 .label {
   @apply p-1 font-bold text-2xl;
+}
+.totalpagina {
+  @apply m-4 bg-fuchsia-600 rounded-xl h-20 justify-center flex items-center hover:scale-105 hover:border-black hover:border transition ease-in duration-500;
 }
 
 .no-spin {

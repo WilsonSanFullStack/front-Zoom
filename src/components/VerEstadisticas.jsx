@@ -67,22 +67,22 @@ const CargarEstadisticas = () => {
   const tcoxln = coxln[0] && coxln?.map((x) => x.euros).reduce((x, y) => x + y).toFixed(2);   //corte xlovenueva
 
   return (
-    <div className=" text-left ml-32 font-bold text-2xl">
-      <p>tcoad : ${tcoad}</p>
-      <p>tcopad: ${tcopad}</p>
-      <p>tcoam : ${tcoam}</p>
-      <p>tcobo : ${tcobo}</p>
-      <p>tcoca : ${tcoca}</p>
-      <p>tcoch : ${tcoch}</p>
+    <div className=" text-left  font-bold text-2xl grid grid-cols-3">
+      <p className="totalpagina">Total Adult: ${tcoad}</p>
+      <p className="totalpagina">Total Parcial: ${tcopad}</p>
+      <p className="totalpagina">Total Amateur: ${tcoam}</p>
+      <p className="totalpagina">Total Bonga: ${tcobo}</p>
+      <p className="totalpagina">Total Cam4: ${tcoca}</p>
+      <p className="totalpagina">Total Chaturbate: ${tcoch}</p>
       {/* <p>tcodie: ${tcodie}</p> */}
       {/* <p>tcodid: ${tcodid}</p> */}
-      <p>tcoil : ${tcoil}</p>
-      <p>tcose : ${tcose}</p>
-      <p>tcosk : ${tcosk}</p>
-      <p>tcost : ${tcost}</p>
-      <p>tcovx : ${tcovx}</p>
-      <p>tcoxl : ${tcoxl}</p>
-      <p>tcoxln: ${tcoxln}</p>
+      <p className="totalpagina">Total IsLive: ${tcoil}</p>
+      <p className="totalpagina">Total Sender: ${tcose}</p>
+      <p className="totalpagina">Total Skype: ${tcosk}</p>
+      <p className="totalpagina">Total Stripchat: ${tcost}</p>
+      <p className="totalpagina">Total Vx: ${tcovx}</p>
+      <p className="totalpagina">Total Xlove: ${tcoxl}</p>
+      <p className="totalpagina">Total XloveN: ${tcoxln}</p>
       
     </div>
   );

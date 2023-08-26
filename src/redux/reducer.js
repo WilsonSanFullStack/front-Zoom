@@ -63,7 +63,7 @@ export const reducer = (state = initialState, action) => {
     case RESETERROR:
       return {
         ...state,
-        error: '',
+        error: "",
         spg: [],
       };
     //post corte adult
@@ -234,12 +234,11 @@ export const reducer = (state = initialState, action) => {
         ...state,
         coxln: action.payload,
       };
-      case RU:
+    case RU:
       return {
-      ...state,
-      user: action.payload,
+        ...state,
+        user: action.payload,
       };
-      
 
     default:
       return state;
