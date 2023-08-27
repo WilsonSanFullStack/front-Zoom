@@ -222,7 +222,7 @@ const RegisterUser = () => {
     );
   };
 
-  const handleCrear = async (e) => {
+  const handleCrear =  (e) => {
     e.preventDefault();
     const errores = validacion(input);
     if (Object.keys(errores).length === 0) {
