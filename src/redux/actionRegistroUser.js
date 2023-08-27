@@ -11,7 +11,7 @@ export const registroUser = (input) => {
     try {
       const endpoint = `${URL}/${REGISTRO}`;
       const { data } = await axios.post(endpoint, { input });
-      console.log(data)
+      // console.log(data)
       dispatch({
         type: RU,
         payload: data,

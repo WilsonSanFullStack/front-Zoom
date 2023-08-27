@@ -91,13 +91,7 @@ const RegisterUser = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [isRegister, setIsRegister] = useState(false);
-  console.log(user)
-  // useEffect(() => {
-  //   if (user.id) {
-  //     setIsRegister(true);
-  //     navigate('/home')
-  //   }
-  // },[user]);
+
   
   const dispatch = useDispatch();
   const [error, setError] = useState({});
@@ -223,10 +217,10 @@ const RegisterUser = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect for redirecting to /home");
-    console.log(user.id)
+    // console.log("useEffect for redirecting to /home");
+    // console.log(user.id)
     if (user.id) {
-      console.log("Redirecting to /home");
+      // console.log("Redirecting to /home");
       setIsRegister(true);
       navigate('/home');
       setConfirmacion("Usuario Registrado Con Éxito.");
