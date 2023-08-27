@@ -48,7 +48,7 @@ const initialState = {
   covx: [], //corte vx
   coxl: [], //corte xlove
   coxln: [], //corte xlove
-  user: {},
+  user: [],
 
   error: null,
 };
