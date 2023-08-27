@@ -223,12 +223,15 @@ const RegisterUser = () => {
   };
 
   useEffect(() => {
+    console.log("useEffect for redirecting to /home");
     if (user.id) {
+      console.log("Redirecting to /home");
       setIsRegister(true);
       navigate('/home');
       setConfirmacion("Usuario Registrado Con Éxito.");
     }
   }, [user.id, navigate]);
+  
 
   const handleCrear =  (e) => {
     e.preventDefault();
