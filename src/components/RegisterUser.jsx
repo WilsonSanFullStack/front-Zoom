@@ -92,12 +92,12 @@ const RegisterUser = () => {
   const user = useSelector((state) => state.user);
   const [isRegister, setIsRegister] = useState(false);
 
-  useEffect(() => {
-    if (user.id) {
-      setIsRegister(true);
-      navigate('/home')
-    }
-  },[user]);
+  // useEffect(() => {
+  //   if (user.id) {
+  //     setIsRegister(true);
+  //     navigate('/home')
+  //   }
+  // },[user]);
   
   const dispatch = useDispatch();
   const [error, setError] = useState({});
@@ -222,6 +222,14 @@ const RegisterUser = () => {
     );
   };
 
+  useEffect(() => {
+    if (user.id) {
+      setIsRegister(true);
+      navigate('/home');
+      setConfirmacion("Usuario Registrado Con Éxito.");
+    }
+  }, [user.id, navigate]);
+
   const handleCrear =  (e) => {
     e.preventDefault();
     const errores = validacion(input);
@@ -239,14 +247,7 @@ const RegisterUser = () => {
             direccion: "",
           });
           setShowForm(false);
-          setConfirmacion("Usuario Registrado Con Exito.");
-
-          useEffect(() => {
-            if (user.id) {
-              setIsRegister(true);
-              navigate('/home')
-            }
-          },[navigate]);
+          setConfirmacion("se envio la solicitud.");
         
             if (user.id) {
               setConfirmacion("");
