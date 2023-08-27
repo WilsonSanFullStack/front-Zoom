@@ -91,7 +91,7 @@ const RegisterUser = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [isRegister, setIsRegister] = useState(false);
-
+  console.log(user)
   // useEffect(() => {
   //   if (user.id) {
   //     setIsRegister(true);
