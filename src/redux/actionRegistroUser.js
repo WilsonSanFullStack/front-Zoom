@@ -20,7 +20,7 @@ export const registroUser = (input) => {
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: 'error.response.data.error',
       });
     }
   };
