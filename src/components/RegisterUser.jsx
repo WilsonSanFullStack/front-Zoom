@@ -227,7 +227,7 @@ const RegisterUser = () => {
     const errores = validacion(input);
     if (Object.keys(errores).length === 0) {
       dispatch(registroUser(input))
-        .then(() => {
+
           setInput({
             nombre: "",
             apellido: "",
@@ -251,7 +251,7 @@ const RegisterUser = () => {
             if (user.id) {
               setConfirmacion("");
           }
-        })
+        
     }
     setError(errores);
   };
