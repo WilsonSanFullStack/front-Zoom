@@ -98,7 +98,7 @@ const RegisterUser = () => {
       navigate('/home')
     }
   },[user]);
-
+  
   const dispatch = useDispatch();
   const [error, setError] = useState({});
   const [showForm, setShowForm] = useState(true);
@@ -241,7 +241,13 @@ const RegisterUser = () => {
           setShowForm(false);
           setConfirmacion("Usuario Registrado Con Exito.");
 
-          
+          useEffect(() => {
+            if (user.id) {
+              setIsRegister(true);
+              navigate('/home')
+            }
+          },[navigate]);
+        
             if (user.id) {
               setConfirmacion("");
           }
