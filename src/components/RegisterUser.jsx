@@ -224,6 +224,7 @@ const RegisterUser = () => {
 
   useEffect(() => {
     console.log("useEffect for redirecting to /home");
+    console.log(user.id)
     if (user.id) {
       console.log("Redirecting to /home");
       setIsRegister(true);
