@@ -91,10 +91,11 @@ const validacion = (input) => {
 const RegisterUser = () => {
   const navigate = useNavigate();
   const users = useSelector((state) => state.user);
+  const eror = useSelector(state => state.error)
   // const [isRegister, setIsRegister] = useState(false);
   const { user } = useUser();
 
-  
+  console.log(eror)
   const dispatch = useDispatch();
   const [error, setError] = useState({});
   const [showForm, setShowForm] = useState(true);
