@@ -15,11 +15,11 @@ const NavBar = () => {
 
   useEffect(() => {
     if (user.id) {
-      console.log('tengo datos')
+      // console.log('tengo datos')
     }
   }, [user.id])
   
-  console.log(user)
+  // console.log(user)
 
   const handleProfileClick = () => {
     setShowLogout(!showLogout);

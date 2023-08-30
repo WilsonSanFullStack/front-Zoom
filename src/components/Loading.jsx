@@ -14,38 +14,38 @@ const Loading = () => {
 
   const [id, setId] = useState("");
 
-  console.log(users);
-  console.log(user);
-  console.log(init);
-  console.log(error)
+  // console.log(users);
+  // console.log(user);
+  // console.log(init);
+  // console.log(error)
 
 
   useEffect(() => {
     if (user || id) {
-      console.log('tengo datos ')
+      // console.log('tengo datos ')
       setId(user.id);
     }
     const checkUser = async () => {
       if (id) {
-        console.log("tengo id");
+        // console.log("tengo id");
         dispatch(checkUserById(id));
-        console.log("ejecucion de checkuser");
+        // console.log("ejecucion de checkuser");
         dispatch(getUserId(id));
-        console.log("ejecucion de getuser");
+        // console.log("ejecucion de getuser");
       }
       if (init !== "") {
-        console.log("ejecucion de if");
+        // console.log("ejecucion de if");
         if (init === true) {
           if (users.admin === true) {
-            console.log("home");
+            // console.log("home");
             navigate("/home");
           } else {
-            console.log("user");
+            // console.log("user");
             navigate("/user");
           }
         }
         if (init === false) {
-          console.log("registro");
+          // console.log("registro");
           navigate("/registro");
         }
       }

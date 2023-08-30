@@ -54,7 +54,7 @@ export const checkUserById = (id) => {
     try {
       const endpoint = `${URL}/${REGISTRO}/${LOGIN}/${id}`;
       const { data } = await axios.get(endpoint);
-      console.log(data)
+      // console.log(data)
       let check = '';
       if (data) {
         check = true;

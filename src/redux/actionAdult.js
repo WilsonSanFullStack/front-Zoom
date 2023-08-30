@@ -77,7 +77,7 @@ export const gpad = () => {
         payload: data,
       });
     } catch (error) {
-      console.log(error.response)
+      // console.log(error.response)
       dispatch({
         type: ERROR,
         payload: error.response.data.error,

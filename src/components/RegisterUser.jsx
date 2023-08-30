@@ -95,7 +95,6 @@ const RegisterUser = () => {
   // const [isRegister, setIsRegister] = useState(false);
   const { user } = useUser();
 
-  console.log(eror)
   const dispatch = useDispatch();
   const [error, setError] = useState({});
   const [showForm, setShowForm] = useState(true);
