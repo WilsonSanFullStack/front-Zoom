@@ -52,17 +52,22 @@ export const getUserId = (id) => {
 export const checkUserById = (id) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${REGISTRO}/${id}`;
+      const endpoint = `${URL}/${REGISTRO}/${LOGIN}/${id}`;
       const { data } = await axios.get(endpoint);
       console.log(data)
+      let check = '';
+      if (data) {
+        check = true;
+      }
       dispatch({
         type: CHECKUSE,
-        payload: data,
+        payload: check,
       });
     } catch (error) {
+      let check = false;
       dispatch({
-        type: ERROR,
-        payload: error,
+        type: CHECKUSE,
+        payload: check,
       });
     }
   };
