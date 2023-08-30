@@ -1,10 +1,41 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import { reducer } from "./reducer";
+import { rootReducer } from "./reducer";
 import thunkMiddleware from "redux-thunk";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-const composeEnhacer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const store = createStore(
-  reducer,
-  composeEnhacer(applyMiddleware(thunkMiddleware))
-); // Esta linea nos permite hacer peticiones a un servidor
+const persistConfig = {
+  key: "ZoomVirtuel",
+  storage,
+  whiteList: [
+    'spg',
+  'coad', //corte adult
+  'copad', //corte parcial adult
+  'coam', //corte amateur
+  'cobo', //corte bonga
+  'coca', //corte cam4
+  'coch', //corte chaturbate
+  'codi', //corte dirty
+  'coil', //corte islive
+  'cose', //corte sender
+  'cosk', //corte skype
+  'cost', //corte stripchat
+  'covx', //corte vx
+  'coxl', //corte xlove
+  'coxln',
+  'user'], //corte xlove
+  // agregar una whiteList si queremos que se guarde solo una parte de nuestros estados globales
+  blacklist: ["init", "error"],
+  };
+const persitedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = createStore(
+  persitedReducer,
+  composeEnhancer(applyMiddleware(thunkMiddleware))
+);
+const persistor = persistStore(store);
+
+export default store;
+export { persistor };

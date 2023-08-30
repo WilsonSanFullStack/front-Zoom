@@ -4,12 +4,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { BiSend } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
+
 
 import { registroUser } from "../redux/actionRegistroUser.js";
 
 const validacion = (input) => {
   let error = {};
-  const errorMessages = [];
   //validacion nombre
   if (input.nombre.length < 3 || input.nombre.length === 0) {
     error.nombre = "El nombre es requisito obligatorio";
@@ -89,8 +90,9 @@ const validacion = (input) => {
 
 const RegisterUser = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
-  const [isRegister, setIsRegister] = useState(false);
+  const users = useSelector((state) => state.user);
+  // const [isRegister, setIsRegister] = useState(false);
+  const { user } = useUser();
 
   
   const dispatch = useDispatch();
@@ -108,6 +110,25 @@ const RegisterUser = () => {
     direccion: "",
   });
 
+  useEffect(() => {
+    if (user) {
+      setInput((prevInput) => ({
+        ...prevInput,
+        id: user.id || "",
+        image: user.imageUrl || "",
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
+        email: user.emailAddresses?.[0]?.emailAddress || "",
+        admin: false,
+      }));
+    }
+  }, [user]);
+
+useEffect(() => {
+if (users.id) {
+  navigate('/user')
+} 
+}, [users, navigate])
   const handleNombre = (event) => {
     setInput({
       ...input,
@@ -216,16 +237,6 @@ const RegisterUser = () => {
     );
   };
 
-  useEffect(() => {
-    // console.log("useEffect for redirecting to /home");
-    // console.log(user.id)
-    if (user.id) {
-      // console.log("Redirecting to /home");
-      setIsRegister(true);
-      navigate('/home');
-      setConfirmacion("Usuario Registrado Con Éxito.");
-    }
-  }, [user.id, navigate]);
   
 
   const handleCrear =  (e) => {

@@ -1,5 +1,8 @@
 //todo funcionalidad
 export const RU = 'RU';
+export const GUS = 'GUS';
+export const VACIAR_USE = 'VACIAR_USE';
+export const CHECKUSE = 'CHECKUSE';
 //todo para errores
 export const ERROR = "ERROR";
 export const RESETERROR = "RESETERROR";

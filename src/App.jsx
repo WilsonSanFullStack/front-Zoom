@@ -1,5 +1,12 @@
 import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
+import {
+  SignIn,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  SignUp,
+} from "@clerk/clerk-react";
 
 import NavBar from "./components/NavBar.jsx";
 import Home from "./components/Home.jsx";
@@ -21,84 +28,51 @@ import XloveNueva from "./components/paginas/XloveNueva.jsx";
 import Registro from "./components/Registro.jsx";
 import Login from "./components/Login.jsx";
 import RegisterUser from "./components/RegisterUser.jsx";
+import User from "./components/User.jsx";
+import Loading from "./components/Loading.jsx";
 
 function App() {
   const { pathname } = useLocation();
   return (
     <div className="font-mono text-xl">
       {pathname !== "/" &&
-        pathname !== "/registro"  && <NavBar />
-        }
+        pathname !== "/registro" &&
+        pathname !== "/sign-in" && pathname !== '/loader' && <NavBar />}
       <Routes>
-        <Route path="/" element={<Login component={Login} />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/loader" element={<Loading />} />
+        <Route path="/registro" element={<RegisterUser />} />
+        <Route path="/register" element={<Registro />} />
+        <Route path="/user" element={<User />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/sign-in" element={<SignIn />} />
         <Route
-          path="/registro"
-          element={<RegisterUser component={RegisterUser} />}
+          path="/sign-up/*"
+          element={<SignUp routing="path" path="/sign-up" />}
         />
-        <Route
-          path="/register"
-          element={<Registro component={Registro} />}
-        />
-        <Route path="/home" element={<Home component={Home} />} />
         //* paginas
-        <Route
-          path="/estadisticas"
-          element={<Estadisticas component={Estadisticas} />}
-        />
+        <Route path="/estadisticas" element={<Estadisticas />} />
         <Route
           path="/estadisticas/carga/adultparcial"
-          element={<Adultparcial component={Adultparcial} />}
+          element={<Adultparcial />}
         />
         <Route
           path="/estadisticas/carga/adultregular"
-          element={<Adultregular component={Adultregular} />}
+          element={<Adultregular />}
         />
-        <Route
-          path="/estadisticas/carga/amateur"
-          element={<Amateur component={Amateur} />}
-        />
-        <Route
-          path="/estadisticas/carga/bonga"
-          element={<Bonga component={Bonga} />}
-        />
-        <Route
-          path="/estadisticas/carga/cam4"
-          element={<Cam4 component={Cam4} />}
-        />
-        <Route
-          path="/estadisticas/carga/chaturbate"
-          element={<Chaturbate component={Chaturbate} />}
-        />
-        <Route
-          path="/estadisticas/carga/dirty"
-          element={<Dirty component={Dirty} />}
-        />
-        <Route
-          path="/estadisticas/carga/islive"
-          element={<IsLive component={IsLive} />}
-        />
-        <Route
-          path="/estadisticas/carga/sender"
-          element={<Sender component={Sender} />}
-        />
-        <Route
-          path="/estadisticas/carga/skype"
-          element={<Skype component={Skype} />}
-        />
-        <Route
-          path="/estadisticas/carga/stripchat"
-          element={<Stripchat component={Stripchat} />}
-        />
-        <Route path="/estadisticas/carga/vx" element={<Vx component={Vx} />} />
-        <Route
-          path="/estadisticas/carga/xlove"
-          element={<Xlove component={Xlove} />}
-        />
-        <Route
-          path="/estadisticas/carga/xlovenueva"
-          element={<XloveNueva component={XloveNueva} />}
-        />
-        <Route path="/registrod" element={<Registro component={Registro} />} />
+        <Route path="/estadisticas/carga/amateur" element={<Amateur />} />
+        <Route path="/estadisticas/carga/bonga" element={<Bonga />} />
+        <Route path="/estadisticas/carga/cam4" element={<Cam4 />} />
+        <Route path="/estadisticas/carga/chaturbate" element={<Chaturbate />} />
+        <Route path="/estadisticas/carga/dirty" element={<Dirty />} />
+        <Route path="/estadisticas/carga/islive" element={<IsLive />} />
+        <Route path="/estadisticas/carga/sender" element={<Sender />} />
+        <Route path="/estadisticas/carga/skype" element={<Skype />} />
+        <Route path="/estadisticas/carga/stripchat" element={<Stripchat />} />
+        <Route path="/estadisticas/carga/vx" element={<Vx />} />
+        <Route path="/estadisticas/carga/xlove" element={<Xlove />} />
+        <Route path="/estadisticas/carga/xlovenueva" element={<XloveNueva />} />
+        <Route path="/registrod" element={<Registro />} />
       </Routes>
     </div>
   );

@@ -1,15 +1,22 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { ClerkProvider } from "@clerk/clerk-react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { store } from "./redux/store.js";
+import store, { persistor } from "./redux/store.js";
+import { PersistGate } from "redux-persist/integration/react";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-  </Provider>,
-)
+const clerk_pub_key = import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY;
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <ClerkProvider publishableKey={clerk_pub_key}>
+    <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </PersistGate>
+    </Provider>
+  </ClerkProvider>
+);

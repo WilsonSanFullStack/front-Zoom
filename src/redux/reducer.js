@@ -30,6 +30,9 @@ import {
   PXLN,
   GXLN,
   RU,
+  GUS,
+  VACIAR_USE,
+  CHECKUSE,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -48,12 +51,13 @@ const initialState = {
   covx: [], //corte vx
   coxl: [], //corte xlove
   coxln: [], //corte xlove
-  user: [],
+  user: {},
+  init: '',
 
   error: null,
 };
 
-export const reducer = (state = initialState, action) => {
+export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case ERROR:
       return {
@@ -239,6 +243,25 @@ export const reducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
+      case GUS:
+      return {
+      ...state,
+      user: action.payload,
+      };
+
+      case VACIAR_USE:
+      return {
+      ...state,
+      user: action.payload,
+      };
+      case CHECKUSE:
+      return {
+      ...state,
+      init: action.payload,
+      };
+      
+      
+      
 
     default:
       return state;
