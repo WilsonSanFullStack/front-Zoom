@@ -24,10 +24,9 @@ const persistConfig = {
   'cost', //corte stripchat
   'covx', //corte vx
   'coxl', //corte xlove
-  'coxln',
-  'user'], //corte xlove
+  'coxln',], //corte xlove
   // agregar una whiteList si queremos que se guarde solo una parte de nuestros estados globales
-  blacklist: ["init", "error"],
+  blacklist: ["init", "error", 'user'],
   };
 const persitedReducer = persistReducer(persistConfig, rootReducer);
 
