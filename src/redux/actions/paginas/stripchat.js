@@ -1,40 +1,40 @@
 import axios from "axios";
-import { ERROR, GSE, PSE } from "./actionsTypes.js";
+import { PST, GST, ERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const SE = import.meta.env.VITE_REACT_APP_SE;
+const ST = import.meta.env.VITE_REACT_APP_ST;
 
-export const pse = (cose) => {
+export const pst = (cost) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${SE}`;
-      const { data } = await axios.post(endpoint, { cose });
+      const endpoint = `${URL}/${ST}`;
+      const { data } = await axios.post(endpoint, { cost });
       dispatch({
-        type: PSE,
+        type: PST,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };
 };
 
-export const gse = () => {
+export const gst = () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${SE}`;
+      const endpoint = `${URL}/${ST}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GSE,
+        type: GST,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };

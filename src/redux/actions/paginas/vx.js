@@ -1,40 +1,40 @@
 import axios from "axios";
-import { PDI, GDI, ERROR } from "./actionsTypes.js";
+import { PVX, ERROR, GVX } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const DI = import.meta.env.VITE_REACT_APP_DI;
+const VX = import.meta.env.VITE_REACT_APP_VX;
 
-export const pdi = (codi) => {
+export const pvx = (covx) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${DI}`;
-      const { data } = await axios.post(endpoint, { codi });
+      const endpoint = `${URL}/${VX}`;
+      const { data } = await axios.post(endpoint, { covx });
       dispatch({
-        type: PDI,
+        type: PVX,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };
 };
 
-export const gdi = () => {
+export const gvx = () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${DI}`;
+      const endpoint = `${URL}/${VX}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GDI,
+        type: GVX,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };

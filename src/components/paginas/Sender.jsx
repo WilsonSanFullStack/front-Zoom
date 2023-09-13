@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pse } from "../../redux/actionSender.js";
-import { resetError } from "../../redux/actionAdult.js";
+import { pse } from "../../redux/actions/paginas/sender.js";
+import { resetError } from "../../redux/actions/paginas/adult.js";
 import TextareaForm from "../Textarea.jsx";
 
 const Sender = () => {
@@ -60,7 +60,7 @@ const Sender = () => {
         <div className="mt-24">
           {errors && (
             <p className="error">
-              {errors}
+              {errors.response.data.error}
             </p>
           )}
         </div>

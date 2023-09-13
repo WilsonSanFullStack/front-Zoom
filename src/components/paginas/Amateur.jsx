@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pam } from "../../redux/actionAmateur.js";
-import { resetError } from "../../redux/actionAdult.js";
+import { pam } from "../../redux/actions/paginas/amateur.js";
+import { resetError } from "../../redux/actions/paginas/adult.js";
 
 import TextareaForm from "../Textarea.jsx";
 
@@ -61,7 +61,7 @@ const result = matches.map(match => {
         <div className="mt-24">
           {errors && (
             <p className="font-bold bg-black text-red-600 max-w-md m-auto">
-              {errors}
+              {errors.response.data.error}
             </p>
           )}
         </div>

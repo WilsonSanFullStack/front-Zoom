@@ -3,7 +3,7 @@ import {
   ERROR,
   GCH,
   PCH, 
-} from './actionsTypes.js';
+} from '../../actionsTypes.js';
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const CH = import.meta.env.VITE_REACT_APP_CH;
@@ -20,7 +20,7 @@ export const pch = (coch) => {
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       })
     }
   }
@@ -38,7 +38,7 @@ export const gch = () => {
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       })
     }
   }

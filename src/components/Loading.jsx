@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { checkUserById, getUserId } from "../redux/actionRegistroUser";
+import { checkUserById, getUserId } from "../redux/actions/registro/registroUser.js";
 
 const Loading = () => {
   const init = useSelector((state) => state.init);
@@ -34,13 +34,13 @@ const Loading = () => {
         // console.log("ejecucion de getuser");
       }
       if (init !== "") {
-        // console.log("ejecucion de if");
+        console.log("ejecucion de if");
         if (init === true) {
           if (users.admin === true) {
-            // console.log("home");
+            console.log("home");
             navigate("/home");
           } else {
-            // console.log("user");
+            console.log("user");
             navigate("/user");
           }
         }

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useClerk } from "@clerk/clerk-react";
-import { setSingOut } from '../redux/actionRegistroUser.js';
+import { setSingOut } from '../redux/actions/registro/registroUser.js';
 import { persistor } from '../redux/store.js';
+import { cerrarSession } from "../redux/actions/cerrarSession.js";
 
 const NavBar = () => {
   const userVacio = {};
@@ -29,21 +30,22 @@ const NavBar = () => {
 
   const handleSignOut = async () => {
     dispatch(setSingOut(userVacio));
+    dispatch(cerrarSession());
     signOut();
     await persistor.purge();
       navigate("/");
   };
 
   return (
-    <nav className="w-full bg-fuchsia-500 p-1 text-lg flex justify-between items-center font-bold fixed top-0 z-10 ">
+    <nav className="w-full bg-indigo-300 p-1 text-lg flex justify-between items-center font-bold fixed top-0 z-10 ">
       <NavLink to="/home">
         <button className="btn-n">Home</button>
       </NavLink>
       <NavLink to="/estadisticas">
         <button className="btn-n">Estadisticas</button>
       </NavLink>
-      <NavLink to={"/register"}>
-        <button className="btn-n">Registro</button>
+      <NavLink to={"/crear"}>
+        <button className="btn-n">Crear</button>
       </NavLink>
       
       <div className="grid grid-cols-2">
@@ -56,9 +58,11 @@ const NavBar = () => {
           />
       </div>
         {showLogout && (
+          
           <button className="btn-n" onClick={() => handleSignOut()}>
             Salir
           </button>
+        
         )}
         </div>
     </nav>

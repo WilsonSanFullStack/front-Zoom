@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserId } from '../redux/actionRegistroUser';
+import { getUserId } from '../redux/actions/registro/registroUser.js';
 
 
 const User = () => {
@@ -15,6 +15,8 @@ const User = () => {
             <div key={user.id}>
               <h1>{user.nombre}</h1>
             </div>
+            <h1>xxx</h1>
+            <p>baneada en pagina x la fecha xxx/xx/xxxx por taly tal cosa </p>
       </div>
     </div>
   )

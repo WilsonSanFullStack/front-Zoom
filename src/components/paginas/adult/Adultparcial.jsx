@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ppad, resetError } from "../../../redux/actionAdult.js";
+import { ppad, resetError } from "../../../redux/actions/paginas/adult.js";
 import TextareaForm from "../../Textarea.jsx";
 
 function Adultparcial() {
@@ -57,7 +57,7 @@ function Adultparcial() {
         <div className="mt-24">
           {errors && (
             <p className="font-bold bg-black text-red-600 max-w-md m-auto">
-              {errors}
+              {errors.response.data.error}
             </p>
           )}
         </div>

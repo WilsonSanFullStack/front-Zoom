@@ -33,6 +33,14 @@ import {
   GUS,
   VACIAR_USE,
   CHECKUSE,
+  GETPAG,
+  PAGINA,
+  POSTPRODUCTO,
+  GETPRODUCTO,
+  LOGOUT,
+  GETUSER,
+  GETUSERBI,
+  POSTCOMMENT
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -51,8 +59,15 @@ const initialState = {
   covx: [], //corte vx
   coxl: [], //corte xlove
   coxln: [], //corte xlove
+  allUser: [],
+  userB: {},
   user: {},
-  init: '',
+  init: "",
+  pagina: "",
+  paginas: [],
+  producto: "",
+  productos: [],
+  comment: [],
 
   error: null,
 };
@@ -243,24 +258,67 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
-      case GUS:
+    case GUS:
       return {
-      ...state,
-      user: action.payload,
+        ...state,
+        user: action.payload,
       };
 
-      case VACIAR_USE:
+    case VACIAR_USE:
       return {
-      ...state,
-      user: action.payload,
+        ...state,
+        user: action.payload,
       };
-      case CHECKUSE:
+    case CHECKUSE:
+      return {
+        ...state,
+        init: action.payload,
+      };
+      case GETUSER:
       return {
       ...state,
-      init: action.payload,
+      allUser: action.payload,
+      };
+      case GETUSERBI:
+      return {
+      ...state,
+      userB: action.payload,
       };
       
       
+    case PAGINA:
+      return {
+        ...state,
+        pagina: action.payload,
+      };
+    case GETPAG:
+      return {
+        ...state,
+        paginas: action.payload,
+      };
+    case POSTPRODUCTO:
+      return {
+        ...state,
+        producto: action.payload,
+      };
+    case GETPRODUCTO:
+      return {
+        ...state,
+        productos: action.payload,
+      };
+
+      case POSTCOMMENT:
+      return {
+      ...state,
+      comment: action.payload,
+      };
+      
+
+      case LOGOUT:
+      return {
+      ...initialState,
+      };
+
       
 
     default:

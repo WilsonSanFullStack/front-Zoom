@@ -1,8 +1,52 @@
 //todo funcionalidad
-export const RU = 'RU';
-export const GUS = 'GUS';
-export const VACIAR_USE = 'VACIAR_USE';
-export const CHECKUSE = 'CHECKUSE';
+//todo para las quincenas
+export const POSTQUINCENA = 'POSTQUINCENA';
+export const GETALLQUINCENA = 'GETALLQUINCENA';
+
+//todo para los userName
+export const POSTUSERNAME ='POSTUSERNAME';
+
+//todo para los comments
+export const POSTCOMMENT = 'POSTCOMMENT';
+export const GETCOMMENT = 'GETCOMMENT';
+export const GETCOMMENTBI = 'GETCOMMENTBI';
+export const UPDATECOMMENT = 'UPDATECOMMENT'
+export const DELETECOMMENT = 'DELETECOMMENT';
+
+//todo para los productos
+export const POSTPRODUCTO = "PPRODUCTO";
+export const GETPRODUCTO = "GPRODUCTO";
+export const GETBIPRODUCTO = "GBIPRODUCTO";
+export const UPDATEPRODUCTO = "UPDATEPRODUCTO";
+export const DELETEPRODUCTO = "DELETEPRODUCTO";
+
+//todo para las compras
+export const POSTCOMPRA = 'POSTCOMPRA';
+export const GETCOMPRA = 'GETCOMPRA';
+export const GETBICOMPRA = 'GETBICOMPRA';
+export const UPDATECOMPRA = 'UPDATECOMPRA';
+export const DELETECOMPRA = 'DELETECOMPRA';
+
+//todo para usuarios
+export const RU = "RU";
+export const GUS = "GUS";
+export const VACIAR_USE = "VACIAR_USE";
+export const CHECKUSE = "CHECKUSE";
+export const GETUSER = "GETUSER";
+export const GETUSERBI = "GETUSERBI";
+export const UPDATEUSER = "UPDATEUSER";
+export const DELETEUSER = "DELETEUSER";
+
+//todo para las paginas
+export const PAGINA = "PAGINA";
+export const GETPAG = "GETPAG";
+export const GETBIPAG = "GETBIPAG";
+export const UPDATEPAG = "UPDATEPAG";
+export const DELETEPAG = "DELETEPAG";
+
+//todo limpiando la session
+export const LOGOUT = "LOGOUT";
+
 //todo para errores
 export const ERROR = "ERROR";
 export const RESETERROR = "RESETERROR";

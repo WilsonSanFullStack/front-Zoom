@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetError } from "../../redux/actionAdult.js";
-import { pdi } from "../../redux/actionDirty.js";
+import { resetError } from "../../redux/actions/paginas/adult.js";
+import { pdi } from "../../redux/actions/paginas/dirty.js";
 import TextareaForm from "../Textarea";
 
 const Dirty = () => {
@@ -54,7 +54,7 @@ const Dirty = () => {
           titulo="Corte De Dirty"
         />
         <div className="mt-24">
-          {errors && <p className="error">{errors}</p>}
+          {errors && <p className="error">{errors.response.data.error}</p>}
         </div>
       </div>
 

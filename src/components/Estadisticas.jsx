@@ -18,8 +18,8 @@ const Estadisticas = () => {
   };
 
   return (
-    <div className="min-h-screen bg-fuchsia-400 top-0">
-      <div className="pt-14 text-center">
+    <div className="contenedor1">
+      <div className="contenedor2">
       <h2 className="p-2 text-center font-bold text-2xl">Seleccione una de las opciones</h2>
       <div className="">
         <button onClick={() => handleSeleccion("cargar")} className="btn-w">Cargar</button>

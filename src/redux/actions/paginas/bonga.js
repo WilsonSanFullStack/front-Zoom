@@ -3,7 +3,7 @@ import {
   PBO,
   GBO,
   ERROR,
-} from './actionsTypes.js'
+} from '../../actionsTypes.js'
 
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -22,7 +22,7 @@ export const pbo = (cobo) => {
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error
+        payload: error,
       })
     }
   }
@@ -40,7 +40,7 @@ export const gbo = () => {
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       })
     }
   }

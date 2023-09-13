@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { gad } from "../../redux/actionAdult.js";
+import { gad } from "../../redux/actions/paginas/adult.js";
 
 const Adultcorte = () => {
   const dispatch = useDispatch();

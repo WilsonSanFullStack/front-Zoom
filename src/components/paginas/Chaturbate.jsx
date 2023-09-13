@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pch } from "../../redux/actionChatur.js";
-import { resetError } from "../../redux/actionAdult.js";
+import { pch } from "../../redux/actions/paginas/chaturbate.js";
+import { resetError } from "../../redux/actions/paginas/adult.js";
 import TextareaForm from "../Textarea.jsx";
 
 const Chaturbate = () => {
@@ -71,7 +71,7 @@ const Chaturbate = () => {
         <div className="mt-24">
           {errors && (
             <p className="font-bold bg-black text-red-600 max-w-md m-auto">
-              {errors}
+              {errors.response.data.error}
             </p>
           )}
         </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pst } from "../../redux/actionStripchat.js";
-import { resetError } from "../../redux/actionAdult.js";
+import { pst } from "../../redux/actions/paginas/stripchat.js";
+import { resetError } from "../../redux/actions/paginas/adult.js";
 
 import TextareaForm from "../Textarea.jsx";
 
@@ -78,7 +78,7 @@ const Stripchat = () => {
         <div className="mt-24">
           {errors && (
             <p className="font-bold bg-black text-red-600 max-w-md m-auto">
-              {errors}
+              {errors.response.data.error}
             </p>
           )}
         </div>

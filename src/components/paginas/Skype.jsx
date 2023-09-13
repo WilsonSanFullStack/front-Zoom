@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { psk } from "../../redux/actionSkype.js";
-import { resetError } from "../../redux/actionAdult.js";
+import { psk } from "../../redux/actions/paginas/skype.js";
+import { resetError } from "../../redux/actions/paginas/adult.js";
 
 import TextareaForm from '../Textarea.jsx';
 
@@ -66,7 +66,7 @@ for (const line of lines) {
         <div className="mt-24">
           {errors && (
             <p className="font-bold bg-black text-red-600 max-w-md m-auto">
-              {errors}
+              {errors.response.data.error}
             </p>
           )}
         </div>

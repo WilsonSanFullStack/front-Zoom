@@ -1,40 +1,40 @@
 import axios from "axios";
-import { PXLN, GXLN, ERROR } from "./actionsTypes.js";
+import { PCA, GCA, ERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const XLN = import.meta.env.VITE_REACT_APP_XLN;
+const CA = import.meta.env.VITE_REACT_APP_CA;
 
-export const pxln = (coxln) => {
+export const pca = (coca) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${XLN}`;
-      const { data } = await axios.post(endpoint, { coxln });
+      const endpoint = `${URL}/${CA}`;
+      const { data } = await axios.post(endpoint, { coca });
       dispatch({
-        type: PXLN,
+        type: PCA,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };
 };
 
-export const gxln = () => {
+export const gca = () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${XLN}`;
+      const endpoint = `${URL}/${CA}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GXLN,
+        type: GCA,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };

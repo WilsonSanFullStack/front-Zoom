@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 
 
-import { registroUser } from "../redux/actionRegistroUser.js";
+import { registroUser } from "../../redux/actions/registro/registroUser.js";
 
 const validacion = (input) => {
   let error = {};
@@ -126,6 +126,9 @@ const RegisterUser = () => {
 
 useEffect(() => {
 if (users.id) {
+  if (users.admin) {
+    navigate('/home')
+  }
   navigate('/user')
 } 
 }, [users, navigate])
@@ -288,7 +291,7 @@ if (users.id) {
     "Uruguay",
   ];
   return (
-    <div className="min-h-screen bg-fuchsia-400 top-0">
+    <div className="min-h-screen bg-indigo-200 top-0">
       {confirmacion && (
         <div>
           <h1>{confirmacion}</h1>
@@ -296,12 +299,12 @@ if (users.id) {
       )}
       {showForm && (
         <div className="text-center flex flex-col items-center justify-center">
-          <h1 className="bg-fuchsia-300 w-auto justify-center mt-2 m-1 p-1 px-4 rounded-xl font-bold text-3xl">
+          <h1 className="bg-indigo-200 w-auto justify-center mt-2 m-1 p-1 px-4 rounded-xl font-bold text-3xl">
             Registro De Usuario
           </h1>
           <div>
             <form onSubmit={handleCrear}>
-              <section className="border flex flex-col items-center px-10 border-black min-w-min mx-20 rounded-lg m-2 p-1 ">
+              <section className="flex flex-col items-center px-10 bg-indigo-300 min-w-min mx-20 rounded-lg m-2 p-1 ">
                 <h1 className=" font-bold text-black text-2xl">
                   Datos Personales
                 </h1>
@@ -407,7 +410,7 @@ if (users.id) {
 
 
               </section>
-              <section className="border flex flex-col items-center px-10 border-black min-w-min mx-20 rounded-lg m-2 p-1">
+              <section className="flex flex-col items-center px-10 bg-indigo-300 min-w-min mx-20 rounded-lg m-2 p-1">
                 <h1 className=" font-bold text-black text-2xl">
                   Datos De Contacto:
                 </h1>

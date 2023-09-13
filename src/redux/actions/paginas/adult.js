@@ -1,17 +1,9 @@
 import axios from "axios";
-import {
-  ERROR,
-  GAD,
-  GPA,
-  PAD,
-  PPA,
-  RESETERROR,
-} from "./actionsTypes.js";
+import { ERROR, GAD, GPA, PAD, PPA, RESETERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const CAD = import.meta.env.VITE_REACT_APP_CAD;
 const CPAD = import.meta.env.VITE_REACT_APP_CPAD;
-
 
 export const pad = (coad) => {
   return async (dispatch) => {
@@ -23,10 +15,11 @@ export const pad = (coad) => {
         payload: data,
       });
     } catch (error) {
+      console.log(error)
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
-      })
+        payload: error,
+      });
     }
   };
 };
@@ -43,8 +36,8 @@ export const gad = () => {
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
-      })
+        payload: error,
+      });
     }
   };
 };
@@ -61,8 +54,8 @@ export const ppad = (copad) => {
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
-      })
+        payload: error,
+      });
     }
   };
 };
@@ -80,8 +73,8 @@ export const gpad = () => {
       // console.log(error.response)
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
-      })
+        payload: error,
+      });
     }
   };
 };
@@ -89,5 +82,5 @@ export const gpad = () => {
 export const resetError = () => {
   return {
     type: RESETERROR,
-  }
+  };
 };

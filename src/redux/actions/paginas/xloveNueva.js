@@ -1,40 +1,40 @@
 import axios from "axios";
-import { PAM, GAM, ERROR } from "./actionsTypes.js";
+import { PXLN, GXLN, ERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const AM = import.meta.env.VITE_REACT_APP_AM;
+const XLN = import.meta.env.VITE_REACT_APP_XLN;
 
-export const pam = (coam) => {
+export const pxln = (coxln) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${AM}`;
-      const { data } = await axios.post(endpoint, { coam });
+      const endpoint = `${URL}/${XLN}`;
+      const { data } = await axios.post(endpoint, { coxln });
       dispatch({
-        type: PAM,
+        type: PXLN,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };
 };
 
-export const gam = () => {
+export const gxln =  () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${AM}`;
+      const endpoint = `${URL}/${XLN}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GAM,
+        type: GXLN,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };

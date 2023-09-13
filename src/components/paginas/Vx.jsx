@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pvx } from "../../redux/actionVx.js";
-import { resetError } from "../../redux/actionAdult.js";
+import { pvx } from "../../redux/actions/paginas/vx.js";
+import { resetError } from "../../redux/actions/paginas/adult.js";
 
 import TextareaForm from "../Textarea.jsx";
 
@@ -63,7 +63,7 @@ const Vx = () => {
         <div className="mt-24">
           {errors && (
             <p className="font-bold bg-black text-red-600 max-w-md m-auto">
-              {errors}
+              {errors.response.data.error}
             </p>
           )}
         </div>

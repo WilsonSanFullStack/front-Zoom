@@ -1,41 +1,40 @@
 import axios from "axios";
-import { PIL, GIL } from "./actionsTypes.js";
-import { ERROR } from "./actionsTypes.js";
+import { PAM, GAM, ERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const IL = import.meta.env.VITE_REACT_APP_IL;
+const AM = import.meta.env.VITE_REACT_APP_AM;
 
-export const pil = (coil) => {
+export const pam = (coam) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${IL}`;
-      const { data } = await axios.post(endpoint, { coil });
+      const endpoint = `${URL}/${AM}`;
+      const { data } = await axios.post(endpoint, { coam });
       dispatch({
-        type: PIL,
+        type: PAM,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };
 };
 
-export const gil = () => {
+export const gam = () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${IL}`;
+      const endpoint = `${URL}/${AM}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GIL,
+        type: GAM,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };

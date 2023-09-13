@@ -16,8 +16,8 @@ const Home = () => {
   const formattedDate = `${day}/${month}/${year}`;
 
   return (
-    <div className="min-h-screen bg-fuchsia-400 text-xl pt-14">
-        <section className=" bg-fuchsia-300 w-44">
+    <div className="min-h-screen bg-indigo-200 text-xl pt-14">
+        <section className=" bg-indigo-200 w-44">
         <span className="">
           📆 {formattedDate}
         </span>
@@ -26,11 +26,11 @@ const Home = () => {
         <NavLink to="/estadisticas">
           <button className="btn-w">Estadisticas</button>
         </NavLink>
-        <NavLink>
+        <NavLink to='/modelo'>
           <button className="btn-w">Modelos</button>
         </NavLink>
-        <NavLink>
-          <button className="btn-w">Registro</button>
+        <NavLink to='/crear'>
+          <button className="btn-w">Crear</button>
         </NavLink>
       </div>
     </div>

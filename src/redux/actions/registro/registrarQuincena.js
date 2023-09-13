@@ -1,40 +1,40 @@
 import axios from "axios";
-import { PSK, GSK, ERROR } from "./actionsTypes.js";
+import { POSTQUINCENA, GETALLQUINCENA, ERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const SK = import.meta.env.VITE_REACT_APP_SK;
+const QUINCENA = import.meta.env.VITE_REACT_APP_URL_QUINCENA;
 
-export const psk = (cosk) => {
+export const postQuincena = (quincena) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${SK}`;
-      const { data } = await axios.post(endpoint, { cosk });
+      const endpoint = `${URL}/${QUINCENA}`;
+      const { data } = await axios.post(endpoint, quincena);
       dispatch({
-        type: PSK,
+        type: POSTQUINCENA,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };
 };
 
-export const gsk = () => {
+export const getAllQuincena = () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${SK}`;
+      const endpoint = `${URL}/${QUINCENA}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GSK,
+        type: GETALLQUINCENA,
         payload: data,
       });
     } catch (error) {
       dispatch({
         type: ERROR,
-        payload: error.response.data.error,
+        payload: error,
       });
     }
   };

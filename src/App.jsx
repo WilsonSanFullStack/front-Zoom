@@ -25,11 +25,20 @@ import Stripchat from "./components/paginas/Stripchat.jsx";
 import Vx from "./components/paginas/Vx.jsx";
 import Xlove from "./components/paginas/Xlove.jsx";
 import XloveNueva from "./components/paginas/XloveNueva.jsx";
-import Registro from "./components/Registro.jsx";
+import Registro from "./components/registro/RegistroUserName.jsx";
 import Login from "./components/Login.jsx";
-import RegisterUser from "./components/RegisterUser.jsx";
+import RegisterUser from "./components/registro/RegisterUser.jsx";
 import User from "./components/User.jsx";
 import Loading from "./components/Loading.jsx";
+import Crear from "./components/Crear.jsx";
+import RegistrarPagina from "./components/registro/RegistrarPagina.jsx";
+import RegistrarProducto from "./components/registro/RegistrarProducto.jsx";
+import RegistrarModelo from './components/registro/RegistrarModelo.jsx';
+import Modelos from "./components/Modelos.jsx";
+import DetailUser from "./components/DetailUser.jsx";
+import RegistrarComment from "./components/registro/RegistrarComment.jsx";
+import RegistrarQuincena from "./components/registro/RegistrarQuincena.jsx";
+import Moneda from "./components/Moneda.jsx";
 
 function App() {
   const { pathname } = useLocation();
@@ -37,13 +46,23 @@ function App() {
     <div className="font-mono text-xl">
       {pathname !== "/" &&
         pathname !== "/registro" &&
-        pathname !== "/sign-in" && pathname !== '/loader' && <NavBar />}
+        pathname !== "/sign-in" &&
+        pathname !== "/loader" && <NavBar />}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/loader" element={<Loading />} />
         <Route path="/registro" element={<RegisterUser />} />
-        <Route path="/register" element={<Registro />} />
+        <Route path="/crear/username" element={<Registro />} />
+        <Route path="/crear/pagina" element={<RegistrarPagina />} />
+        <Route path="/crear/producto" element={<RegistrarProducto />} />
+        <Route path="/crear/modelo" element={<RegistrarModelo />} />
+        <Route path="/crear/quincena" element={<RegistrarQuincena />} />
+        <Route path="/crear" element={<Crear />} />
         <Route path="/user" element={<User />} />
+        <Route path="/moneda" element={<Moneda />} />
+        <Route path="/modelo" element={<Modelos />} />
+        <Route path="/modelo/:id" element={<DetailUser />} />
+        <Route path="/modelo/comment/:id" element={<RegistrarComment />} />
         <Route path="/home" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pil } from "../../redux/actionIsLive.js";
-import { resetError } from "../../redux/actionAdult.js";
+import { pil } from "../../redux/actions/paginas/isLive.js";
+import { resetError } from "../../redux/actions/paginas/adult.js";
 import TextareaForm from "../Textarea.jsx";
 
 const IsLive = () => {
@@ -71,7 +71,7 @@ const IsLive = () => {
           titulo="Corte De Is Live"
         />
         <div className="mt-24">
-          {errors && <p className="error">{errors}</p>}
+          {errors && <p className="error">{errors.response.data.error}</p>}
         </div>
       </div>
 
