@@ -1,7 +1,12 @@
 //todo funcionalidad
+//todo para la moneda
+export const POSTMONEDA = 'POSTMONEDA';
+
 //todo para las quincenas
 export const POSTQUINCENA = 'POSTQUINCENA';
 export const GETALLQUINCENA = 'GETALLQUINCENA';
+export const GETBIQUINCENA = 'GETBIQUINCENA';
+
 
 //todo para los userName
 export const POSTUSERNAME ='POSTUSERNAME';

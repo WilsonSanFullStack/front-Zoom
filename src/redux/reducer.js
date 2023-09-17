@@ -40,7 +40,8 @@ import {
   LOGOUT,
   GETUSER,
   GETUSERBI,
-  POSTCOMMENT
+  POSTCOMMENT,
+  GETALLQUINCENA
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -68,6 +69,7 @@ const initialState = {
   producto: "",
   productos: [],
   comment: [],
+  quincena: [],
 
   error: null,
 };
@@ -312,6 +314,13 @@ export const rootReducer = (state = initialState, action) => {
       ...state,
       comment: action.payload,
       };
+
+      case GETALLQUINCENA:
+      return {
+      ...state,
+      quincena: action.payload,
+      };
+      
       
 
       case LOGOUT:

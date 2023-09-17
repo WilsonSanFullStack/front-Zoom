@@ -33,12 +33,12 @@ import Loading from "./components/Loading.jsx";
 import Crear from "./components/Crear.jsx";
 import RegistrarPagina from "./components/registro/RegistrarPagina.jsx";
 import RegistrarProducto from "./components/registro/RegistrarProducto.jsx";
-import RegistrarModelo from './components/registro/RegistrarModelo.jsx';
+import RegistrarModelo from "./components/registro/RegistrarModelo.jsx";
 import Modelos from "./components/Modelos.jsx";
 import DetailUser from "./components/DetailUser.jsx";
 import RegistrarComment from "./components/registro/RegistrarComment.jsx";
 import RegistrarQuincena from "./components/registro/RegistrarQuincena.jsx";
-import Moneda from "./components/Moneda.jsx";
+import RegistrarMoneda from "./components/registro/RegisterMoneda.jsx";
 
 function App() {
   const { pathname } = useLocation();
@@ -57,9 +57,9 @@ function App() {
         <Route path="/crear/producto" element={<RegistrarProducto />} />
         <Route path="/crear/modelo" element={<RegistrarModelo />} />
         <Route path="/crear/quincena" element={<RegistrarQuincena />} />
+        <Route path="/crear/moneda" element={<RegistrarMoneda />} />
         <Route path="/crear" element={<Crear />} />
         <Route path="/user" element={<User />} />
-        <Route path="/moneda" element={<Moneda />} />
         <Route path="/modelo" element={<Modelos />} />
         <Route path="/modelo/:id" element={<DetailUser />} />
         <Route path="/modelo/comment/:id" element={<RegistrarComment />} />

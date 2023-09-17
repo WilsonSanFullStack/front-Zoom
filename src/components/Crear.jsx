@@ -22,6 +22,9 @@ const Crear = () => {
         <NavLink to='/crear/quincena'>
           <button className="btn-w h-20">Registrar Quincena</button>
         </NavLink>
+        <NavLink to='/crear/moneda'>
+          <button className="btn-w h-20">Registrar Moneda</button>
+        </NavLink>
       
         </section>
       </div>
