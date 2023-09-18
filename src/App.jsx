@@ -10,7 +10,7 @@ import {
 
 import NavBar from "./components/NavBar.jsx";
 import Home from "./components/Home.jsx";
-import Estadisticas from "./components/Estadisticas.jsx";
+// import Estadisticas from "./components/Estadisticas.jsx";
 import Adultregular from "./components/paginas/adult/Adultregular";
 import Adultparcial from "./components/paginas/adult/Adultparcial";
 import Amateur from "./components/paginas/Amateur.jsx";
@@ -39,6 +39,8 @@ import DetailUser from "./components/DetailUser.jsx";
 import RegistrarComment from "./components/registro/RegistrarComment.jsx";
 import RegistrarQuincena from "./components/registro/RegistrarQuincena.jsx";
 import RegistrarMoneda from "./components/registro/RegisterMoneda.jsx";
+import CargarEstadisticas from "./components/registro/CargarEstadisticas.jsx";
+import Ventas from "./components/Ventas";
 
 function App() {
   const { pathname } = useLocation();
@@ -58,19 +60,23 @@ function App() {
         <Route path="/crear/modelo" element={<RegistrarModelo />} />
         <Route path="/crear/quincena" element={<RegistrarQuincena />} />
         <Route path="/crear/moneda" element={<RegistrarMoneda />} />
+        <Route path="/crear/estadisticas" element={<CargarEstadisticas />} />
         <Route path="/crear" element={<Crear />} />
+
         <Route path="/user" element={<User />} />
         <Route path="/modelo" element={<Modelos />} />
         <Route path="/modelo/:id" element={<DetailUser />} />
         <Route path="/modelo/comment/:id" element={<RegistrarComment />} />
         <Route path="/home" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
+        
+        <Route path="/ventas" element={<Ventas /> } />
         <Route
           path="/sign-up/*"
           element={<SignUp routing="path" path="/sign-up" />}
         />
         //* paginas
-        <Route path="/estadisticas" element={<Estadisticas />} />
+        {/* <Route path="/estadisticas" element={<Estadisticas />} /> */}
         <Route
           path="/estadisticas/carga/adultparcial"
           element={<Adultparcial />}

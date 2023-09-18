@@ -41,7 +41,8 @@ import {
   GETUSER,
   GETUSERBI,
   POSTCOMMENT,
-  GETALLQUINCENA
+  GETALLQUINCENA,
+  GETBIQUINCENA,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -69,7 +70,8 @@ const initialState = {
   producto: "",
   productos: [],
   comment: [],
-  quincena: [],
+  quincenas: [],
+  quincena: {},
 
   error: null,
 };
@@ -276,18 +278,17 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         init: action.payload,
       };
-      case GETUSER:
+    case GETUSER:
       return {
-      ...state,
-      allUser: action.payload,
+        ...state,
+        allUser: action.payload,
       };
-      case GETUSERBI:
+    case GETUSERBI:
       return {
-      ...state,
-      userB: action.payload,
+        ...state,
+        userB: action.payload,
       };
-      
-      
+
     case PAGINA:
       return {
         ...state,
@@ -309,26 +310,27 @@ export const rootReducer = (state = initialState, action) => {
         productos: action.payload,
       };
 
-      case POSTCOMMENT:
+    case POSTCOMMENT:
       return {
-      ...state,
-      comment: action.payload,
+        ...state,
+        comment: action.payload,
       };
 
-      case GETALLQUINCENA:
+    case GETALLQUINCENA:
       return {
-      ...state,
-      quincena: action.payload,
+        ...state,
+        quincenas: action.payload,
       };
-      
-      
-
-      case LOGOUT:
+    case GETBIQUINCENA:
       return {
-      ...initialState,
+        ...state,
+        quincena: action.payload,
       };
 
-      
+    case LOGOUT:
+      return {
+        ...initialState,
+      };
 
     default:
       return state;

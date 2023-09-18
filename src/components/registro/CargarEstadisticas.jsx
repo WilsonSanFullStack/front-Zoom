@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 
-const SeleccionarPagina = () => {
+const CargarEstadisticas = () => {
   return (
-    <div className="">
+    <div className="contenedor1">
+      <div className="contenedor2">
       <h3 className="font-bold">
         Click en el Logo de la pagina que desea cargar
       </h3>
@@ -147,7 +148,8 @@ const SeleccionarPagina = () => {
           </Link>
         </section>
       </div>
+      </div>
     </div>
   );
 };
-export default SeleccionarPagina;
+export default CargarEstadisticas;

@@ -19,7 +19,7 @@ const Moneda = () => {
 
 const navigate = useNavigate();
   const dispatch = useDispatch();
-  const quincenas = useSelector((state) => state.quincena);
+  const quincenas = useSelector((state) => state.quincenas);
   const error = useSelector((state) => state.error);
 
   useEffect(() => {

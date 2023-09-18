@@ -41,11 +41,14 @@ const NavBar = () => {
       <NavLink to="/home">
         <button className="btn-n">Home</button>
       </NavLink>
-      <NavLink to="/estadisticas">
+      <NavLink to="/crear/estadisticas">
         <button className="btn-n">Estadisticas</button>
       </NavLink>
       <NavLink to={"/crear"}>
-        <button className="btn-n">Crear</button>
+        <button className="btn-n">Registros</button>
+      </NavLink>
+      <NavLink to={"/ventas"}>
+        <button className="btn-n">Ventas</button>
       </NavLink>
       
       <div className="grid grid-cols-2">
