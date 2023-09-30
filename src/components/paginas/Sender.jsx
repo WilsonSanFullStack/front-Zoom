@@ -60,7 +60,7 @@ const Sender = () => {
         <div className="mt-24">
           {errors && (
             <p className="error">
-              {errors.response.data.error}
+              {errors.message}
             </p>
           )}
         </div>

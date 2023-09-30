@@ -71,7 +71,7 @@ const IsLive = () => {
           titulo="Corte De Is Live"
         />
         <div className="mt-24">
-          {errors && <p className="error">{errors.response.data.error}</p>}
+          {errors && <p className="error">{errors.message}</p>}
         </div>
       </div>
 

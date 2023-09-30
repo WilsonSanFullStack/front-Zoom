@@ -26,7 +26,7 @@ const Ventas = () => {
         <div className="flex grid-cols-4 justify-between p-5">
           {productos?.map((x) => {
             return (
-              <div>
+              <div key={x.id}>
                 <section
                   key={x.id}
                   className="bg-indigo-300 m-2 w-52 rounded-2xl flex justify-center items-center flex-col p-2"

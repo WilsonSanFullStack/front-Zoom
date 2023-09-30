@@ -64,7 +64,7 @@ const XloveNueva = () => {
         <div className="mt-24">
           {errors && (
             <p className="font-bold bg-black text-red-600 max-w-md m-auto">
-              {errors.response.data.error}
+              {errors.message}
             </p>
           )}
         </div>

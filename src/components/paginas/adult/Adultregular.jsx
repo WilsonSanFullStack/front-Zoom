@@ -11,6 +11,8 @@ function Adultregular() {
 
   const dispatch = useDispatch();
 
+  console.log(errors)
+
   useEffect(() => {
     // Llama a la acción de reinicio cuando el componente se desmonte
     return () => {
@@ -51,7 +53,7 @@ function Adultregular() {
   };
 
   return (
-    <div className="min-h-screen bg-fuchsia-400 top-0">
+    <div className="min-h-screen bg-indigo-200 top-0">
       <div className="pt-14 text-center ">
         <TextareaForm
           value={input}
@@ -63,14 +65,14 @@ function Adultregular() {
         <div className="mt-24">
           {errors && (
             <p className="font-bold bg-black text-red-600 max-w-md m-auto">
-              {errors.response.data.error}
+              {errors.message}
             </p>
           )}
         </div>
       </div>
 
       <div className="flex justify-center">
-        <div className="mt-8 font-bold m-6 px-10 py-3 bg-fuchsia-300 max-w-lg">
+        <div className="mt-8 font-bold m-6 px-10 py-3 bg-indigo-300 max-w-lg">
           <h2 className="f text-2xl text-center text-fuchsia-700">
             Creditos a subir
           </h2>
@@ -90,7 +92,7 @@ function Adultregular() {
           })}
         </div>
 
-        <div className="mt-8 m-10 px-6 py-3 bg-fuchsia-300 font-bold max-w-xl">
+        <div className="mt-8 m-10 px-6 py-3 bg-indigo-300 font-bold max-w-xl">
           <h2 className="f text-2xl text-center text-fuchsia-700">
             Creditos a subidos
           </h2>
