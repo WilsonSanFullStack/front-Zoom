@@ -1,19 +1,12 @@
 import React from "react";
+import Fecha from "./Fecha.jsx";
 
 const Moneda = ({ quincena }) => {
   const monedas = quincena && quincena?.monedas[0];
 
-  const currentDate = new Date();
-  const day = String(currentDate.getDate()).padStart(2, "0");
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const year = currentDate.getFullYear();
-  const formattedDate = `${day}/${month}/${year}`;
-
   return (
     <div className="flex-col text-center font-bold bg-indigo-300 rounded-2xl mx-20 my-5">
-      <section>
-        <span>Fecha Hoy: 📆{formattedDate}</span>
-      </section>
+      <Fecha />
       <p>Quincena Actual: {quincena && quincena?.nombre}</p>
       <p>Monedas</p>
       <div className="flex grid-cols-2 mx-8 justify-between">

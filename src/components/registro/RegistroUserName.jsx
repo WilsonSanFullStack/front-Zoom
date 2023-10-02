@@ -14,10 +14,12 @@ const Registro = () => {
     paginas: [],
     user: "",
   });
+  
 
   const [show, setShow] = useState({});
   console.log(paginas)
   console.log(input);
+  console.log(allUser)
 
   useEffect(() => {
     dispatch(getAllPagina());
