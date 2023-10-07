@@ -43,6 +43,11 @@ import {
   POSTCOMMENT,
   GETALLQUINCENA,
   GETBIQUINCENA,
+  POSTlOCATION,
+  GETALLLOCATION,
+  GETLOCATIONBYID,
+  UPDATELOCATION,
+  DELETELOCATION,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -72,6 +77,8 @@ const initialState = {
   comment: [],
   quincenas: [],
   quincena: {},
+  locations: [],
+  location: {},
 
   error: null,
 };
@@ -325,6 +332,32 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         quincena: action.payload,
+      };
+
+    case POSTlOCATION:
+      return {
+        ...state,
+        location: action.payload,
+      };
+    case GETALLLOCATION:
+      return {
+        ...state,
+        locations: action.payload,
+      };
+    case GETLOCATIONBYID:
+      return {
+        ...state,
+        location: action.payload,
+      };
+    case UPDATELOCATION:
+      return {
+        ...state,
+        location: action.payload,
+      };
+    case DELETELOCATION:
+      return {
+        ...state,
+        location: action.payload,
       };
 
     case LOGOUT:

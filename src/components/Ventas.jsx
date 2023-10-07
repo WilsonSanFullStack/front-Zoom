@@ -23,7 +23,7 @@ const Ventas = () => {
       <div className="contenedor2">
         <BiStoreAlt className=" justify-end right-0 absolute m-5 scale-150" />
         <h1 className="text-2xl font-bold">VENTAS DE PRODUCTOS</h1>
-        <div className="flex grid-cols-4 justify-between p-5">
+        <div className="grid grid-cols-4 justify-between p-5">
           {productos?.map((x) => {
             return (
               <div key={x.id}>

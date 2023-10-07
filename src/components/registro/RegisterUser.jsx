@@ -291,14 +291,14 @@ if (users.id) {
     "Uruguay",
   ];
   return (
-    <div className="min-h-screen bg-indigo-200 top-0">
+    <div className="contenedor1">
       {confirmacion && (
         <div>
           <h1>{confirmacion}</h1>
         </div>
       )}
       {showForm && (
-        <div className="text-center flex flex-col items-center justify-center">
+        <div className="contenedor2">
           <h1 className="bg-indigo-200 w-auto justify-center mt-2 m-1 p-1 px-4 rounded-xl font-bold text-3xl">
             Registro De Usuario
           </h1>

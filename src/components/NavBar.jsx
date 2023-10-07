@@ -50,6 +50,12 @@ const NavBar = () => {
       <NavLink to={"/ventas"}>
         <button className="btn-n">Ventas</button>
       </NavLink>
+      <NavLink to={"/user"}>
+        <button className="btn-n">User</button>
+      </NavLink>
+      <NavLink to={"/modelo"}>
+        <button className="btn-n">Modelos</button>
+      </NavLink>
       
       <div className="grid grid-cols-2">
       <div className=" w-10 ">

@@ -15,6 +15,16 @@ const User = () => {
   const quincena = useSelector((state) => state.quincena);
   const [id, setId] = useState("");
 
+  const dolar = quincena?.monedas?.map((x) => {
+    return x.edolar;
+  });
+  const euro = quincena?.monedas?.map((x) => {
+    return x.eeuro;
+  });
+  const libra = quincena?.monedas?.map((x) => {
+    return x.elibra;
+  });
+  
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
@@ -66,7 +76,14 @@ const User = () => {
   const handleQuincena = (event) => {
     setId(event.target.value);
   };
-  
+  console.log(user)
+  console.log(quincena)
+
+  const handleUser = () => {
+    quincena.q_a.map((x) => {
+
+    })
+  };
   return (
     <div className="contenedor1">
       <div className="contenedor2">
@@ -89,11 +106,27 @@ const User = () => {
           </select>
         </div>
 
-          {quincena && quincena.nombre ? (<Moneda quincena={quincena} />) : (
+          {quincena && quincena?.nombre ? (<Moneda quincena={quincena} />) : (
             <div className="loader m-auto my-2"></div>
             )}
-        <h1 className="m-5">xxx</h1>
-        <p>baneada en pagina x la fecha xxx/xx/xxxx por taly tal cosa </p>
+            <div className="grid grid-cols-2">
+        {quincena && quincena?.q_a?.map((corte, x) => {
+          const mostrarcreditos = user.useres.find((apodo) => apodo.UserName === corte.UserName);
+          if (mostrarcreditos) {
+            return (
+              <div key={corte.id} className=" bg-indigo-300 m-2 p-2 w-max">
+              {/* <section className="bg-indigo-100 w-max"> */}
+              <p className=" font-bold">Corte N°{x+1} Adult </p>
+              <p  className=" ">Fecha Adult: {corte.fecha} </p>
+              <p className=" font-bold">Libras: {corte.creditos} </p>
+              <p>Pesos: ${Intl.NumberFormat('es-CP').format(corte.creditos * libra)} </p>
+              
+              {/* </section> */}
+            </div>
+          )
+        }return null;
+        })}
+        </div>
       </div>
     </div>
   );

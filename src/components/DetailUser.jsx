@@ -65,6 +65,14 @@ const DetailUser = () => {
             <p className="detalles">{userBI?.nacionalidad}</p>
           </div>
           <div className="divDetail">
+            Departamento:
+            <p className="detalles">{userBI?.p_u?.departament}</p>
+          </div>
+          <div className="divDetail">
+            Ciudad:
+            <p className="detalles">{userBI?.p_u?.city}</p>
+          </div>
+          <div className="divDetail">
             Telefono:
             <p className="detalles">{userBI?.telefono}</p>
           </div>
@@ -75,6 +83,14 @@ const DetailUser = () => {
           <div className="divDetail">
             Fecha De Registro:
             <p className="detalles">{userBI?.createdAt}</p>
+          </div>
+          <div className="divDetail">
+            Sitio De Trabajo:
+            <p className="detalles">{userBI?.p_u?.location}</p>
+          </div>
+          <div className="divDetail">
+            Porcentaje:
+            <p className="detalles">{userBI?.p_u?.porcentaje}</p>
           </div>
         <div>
           

@@ -37,7 +37,7 @@ const Home = () => {
 
       // Obtén el día, el mes y el año como números
       const diaInicio = parseInt(partesFechaInicio[0], 10);
-      const mesInicio = parseInt(partesFechaInicio[1], 10) - 1; // Restamos 1 al mes ya que en JavaScript los meses van de 0 a 11
+      const mesInicio = parseInt(partesFechaInicio[1], 10) - 1;
       const añoInicio = parseInt(partesFechaInicio[2], 10);
 
       // Crea un objeto de fecha
@@ -49,7 +49,7 @@ const Home = () => {
 
       // Obtén el día, el mes y el año como números
       const diaFinal = parseInt(partesFechaFinal[0], 10);
-      const mesFinal = parseInt(partesFechaFinal[1], 10) - 1; // Restamos 1 al mes ya que en JavaScript los meses van de 0 a 11
+      const mesFinal = parseInt(partesFechaFinal[1], 10) - 1;
       const añoFinal = parseInt(partesFechaFinal[2], 10);
 
       // Crea un objeto de fecha
@@ -64,7 +64,7 @@ const Home = () => {
     });
     console.log(quincenas);
     if (quincenaActual) {
-      setId(quincenaActual.id); // Establecer la quincena actual como valor predeterminado en el selector
+      setId(quincenaActual.id);
     }
   }, [quincenas]);
 
@@ -75,8 +75,8 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-indigo-200 text-xl pt-14 text-center">
       {/* //* quincena, moneda y fecha */}
-      <div>
         <Fecha />
+      <div>
         <select onChange={handleQuincena} value={id}>
           <option value="" hidden>
             Seleccione Una Quincena
@@ -110,7 +110,7 @@ const Home = () => {
         </NavLink>
       </div> */}
       {/* //! ver estadisticas */}
-      <VerEstadisticas />
+      {/* <VerEstadisticas /> */}
     </div>
   );
 };

@@ -3,6 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { pad, resetError } from "../../../redux/actions/paginas/adult.js";
 import TextareaForm from "../../Textarea.jsx";
 
+import {
+  getAllQuincena,
+  getByIdQuincena,
+} from "../../../redux/actions/registro/registrarQuincena.js";
+// import Fecha from "./Fecha.jsx";
+import date from "../../date.js";
+
 function Adultregular() {
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
@@ -37,6 +44,7 @@ function Adultregular() {
             fecha: match[2],
             creditos: parseFloat(match[4], 2),
             parcial: false,
+            quincena: id,
           });
           result.sort((a, b) => {
             return a.user.localeCompare(b.user);
@@ -45,16 +53,87 @@ function Adultregular() {
         return result;
       });
   };
-
+console.log(coad)
   const handlerSubmit = () => {
     dispatch(pad(coad));
     setInput([]);
     setCoad([]);
   };
 
+  const fecha = date();
+  const quincenas = useSelector((state) => state.quincenas);
+  const quincena = useSelector((state) => state.quincena);
+  const [id, setId] = useState("");
+
+  useEffect(() => {
+    dispatch(getAllQuincena());
+  }, [dispatch]);
+
+  useEffect(() => {
+    id || id !== "" ? dispatch(getByIdQuincena(id)) : "";
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    // Encontrar la quincena que coincide con la fecha actual
+    const quincenaActual = quincenas.find((q) => {
+      const quincenaInicio = q.inicia;
+      const partesFechaInicio = quincenaInicio.split("/");
+
+      // Obtén el día, el mes y el año como números
+      const diaInicio = parseInt(partesFechaInicio[0], 10);
+      const mesInicio = parseInt(partesFechaInicio[1], 10) - 1;
+      const añoInicio = parseInt(partesFechaInicio[2], 10);
+
+      // Crea un objeto de fecha
+      const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
+      console.log(fechaInicio);
+      // console.log(q)
+      const quincenaFinal = q.final;
+      const partesFechaFinal = quincenaFinal.split("/");
+
+      // Obtén el día, el mes y el año como números
+      const diaFinal = parseInt(partesFechaFinal[0], 10);
+      const mesFinal = parseInt(partesFechaFinal[1], 10) - 1;
+      const añoFinal = parseInt(partesFechaFinal[2], 10);
+
+      // Crea un objeto de fecha
+      const fechaFinal = new Date(añoFinal, mesFinal, diaFinal);
+      console.log(fechaFinal);
+      const fechaActual = new Date();
+      // console.log(fechaActual)
+      console.log(fechaActual);
+
+      console.log(fechaActual >= fechaInicio && fechaActual <= fechaFinal);
+      return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
+    });
+    console.log(quincenas);
+    if (quincenaActual) {
+      setId(quincenaActual.id);
+    }
+  }, [quincenas]);
+
+  const handleQuincena = (event) => {
+    setId(event.target.value);
+  };
+
   return (
     <div className="min-h-screen bg-indigo-200 top-0">
       <div className="pt-14 text-center ">
+      <div>
+        <select onChange={handleQuincena} value={id}>
+          <option value="" hidden>
+            Seleccione Una Quincena
+          </option>
+          {quincenas &&
+            quincenas?.map((x) => {
+              return (
+                <option value={x.id} key={x.id}>
+                  {x.nombre}
+                </option>
+              );
+            })}
+        </select>
+      </div>
         <TextareaForm
           value={input}
           onChange={handleTextarea}

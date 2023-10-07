@@ -1,4 +1,13 @@
 //todo funcionalidad
+
+//todo para Location
+
+export const POSTlOCATION = 'POSTLOCATION';
+export const GETALLLOCATION = 'GETALLLOCATION';
+export const GETLOCATIONBYID = 'GETLOCATIONBYID';
+export const UPDATELOCATION = 'UPDATELOCATION';
+export const DELETELOCATION = 'DELETELOCATION';
+
 //todo para la moneda
 export const POSTMONEDA = 'POSTMONEDA';
 

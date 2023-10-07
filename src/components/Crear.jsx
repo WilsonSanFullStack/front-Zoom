@@ -28,6 +28,9 @@ const Crear = () => {
           <NavLink to="/crear/estadisticas">
             <button className="btn-w h-20 w-48">Registrar Estadisticas</button>
           </NavLink>
+          <NavLink to="/crear/ubicacion">
+            <button className="btn-w h-20 w-48">Registrar Ubicacion</button>
+          </NavLink>
         </section>
       </div>
     </div>

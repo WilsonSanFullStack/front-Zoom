@@ -41,6 +41,7 @@ import RegistrarQuincena from "./components/registro/RegistrarQuincena.jsx";
 import RegistrarMoneda from "./components/registro/RegisterMoneda.jsx";
 import CargarEstadisticas from "./components/registro/CargarEstadisticas.jsx";
 import Ventas from "./components/Ventas";
+import RegisterLocation from "./components/registro/RegisterLocation.jsx";
 
 function App() {
   const { pathname } = useLocation();
@@ -61,6 +62,7 @@ function App() {
         <Route path="/crear/quincena" element={<RegistrarQuincena />} />
         <Route path="/crear/moneda" element={<RegistrarMoneda />} />
         <Route path="/crear/estadisticas" element={<CargarEstadisticas />} />
+        <Route path="/crear/ubicacion" element={<RegisterLocation />} />
         <Route path="/crear" element={<Crear />} />
 
         <Route path="/user" element={<User />} />
