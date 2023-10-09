@@ -1,12 +1,20 @@
 //todo funcionalidad
 
-//todo para Location
+//todo para la ubicacion
 
-export const POSTlOCATION = 'POSTLOCATION';
-export const GETALLLOCATION = 'GETALLLOCATION';
-export const GETLOCATIONBYID = 'GETLOCATIONBYID';
-export const UPDATELOCATION = 'UPDATELOCATION';
-export const DELETELOCATION = 'DELETELOCATION';
+export const POSTUBICACION = 'POSTUBICACION';
+export const GETALLUBICACION = 'GETALLUBICACION';
+export const GETUBICACIONBYID = 'GETUBICACIONBYID';
+export const UPDATEUBICACION = 'UPDATEUBICACION';
+export const DELETEUBICACION = 'DELETEUBICACION';
+
+//todo para porcentaje
+
+export const POSTPORCENTAJE = 'POSTPORCENTAJE';
+export const GETALLPORCENTAJE = 'GETALLPORCENTAJE';
+export const GETPORCENTAJEBYID = 'GETPORCENTAJEBYID';
+export const UPDATEPORCENTAJE = 'UPDATEPORCENTAJE';
+export const DELETEPORCENTAJE = 'DELETEPORCENTAJE';
 
 //todo para la moneda
 export const POSTMONEDA = 'POSTMONEDA';

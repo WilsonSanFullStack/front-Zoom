@@ -272,23 +272,6 @@ if (users.id) {
   const paises = [
     "Colombia",
     "Venezuela",
-    "Ecuador",
-    "Perú",
-    "Panamá",
-    "Argentina",
-    "Belice",
-    "Bolivia",
-    "Brasil",
-    "Chile",
-    "Costa Rica",
-    "El Salvador",
-    "Guatemala",
-    "Guyana",
-    "Honduras",
-    "Nicaragua",
-    "Paraguay",
-    "Surinam",
-    "Uruguay",
   ];
   return (
     <div className="contenedor1">

@@ -43,11 +43,16 @@ import {
   POSTCOMMENT,
   GETALLQUINCENA,
   GETBIQUINCENA,
-  POSTlOCATION,
-  GETALLLOCATION,
-  GETLOCATIONBYID,
-  UPDATELOCATION,
-  DELETELOCATION,
+  POSTPORCENTAJE,
+  GETALLPORCENTAJE,
+  GETPORCENTAJEBYID,
+  UPDATEPORCENTAJE,
+  DELETEPORCENTAJE,
+  POSTUBICACION,
+  GETALLUBICACION,
+  GETUBICACIONBYID,
+  UPDATEUBICACION,
+  DELETEUBICACION,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -77,8 +82,10 @@ const initialState = {
   comment: [],
   quincenas: [],
   quincena: {},
-  locations: [],
-  location: {},
+  porcentajes: [],
+  porcentaje: {},
+  ubicaciones: [],
+  ubicacion: {},
 
   error: null,
 };
@@ -334,30 +341,56 @@ export const rootReducer = (state = initialState, action) => {
         quincena: action.payload,
       };
 
-    case POSTlOCATION:
+    case POSTPORCENTAJE:
       return {
         ...state,
-        location: action.payload,
+        porcentaje: action.payload,
       };
-    case GETALLLOCATION:
+    case GETALLPORCENTAJE:
       return {
         ...state,
-        locations: action.payload,
+        porcentajes: action.payload,
       };
-    case GETLOCATIONBYID:
+    case GETPORCENTAJEBYID:
       return {
         ...state,
-        location: action.payload,
+        porcentaje: action.payload,
       };
-    case UPDATELOCATION:
+    case UPDATEPORCENTAJE:
       return {
         ...state,
-        location: action.payload,
+        porcentaje: action.payload,
       };
-    case DELETELOCATION:
+    case DELETEPORCENTAJE:
       return {
         ...state,
-        location: action.payload,
+        porcentaje: action.payload,
+      };
+    //? para la ubicacion
+    case POSTUBICACION:
+      return {
+        ...state,
+        ubicacion: action.payload,
+      };
+    case GETALLUBICACION:
+      return {
+        ...state,
+        ubicaciones: action.payload,
+      };
+    case GETUBICACIONBYID:
+      return {
+        ...state,
+        ubicacion: action.payload,
+      };
+    case UPDATEUBICACION:
+      return {
+        ...state,
+        ubicacion: action.payload,
+      };
+    case DELETEUBICACION:
+      return {
+        ...state,
+        ubicacion: action.payload,
       };
 
     case LOGOUT:

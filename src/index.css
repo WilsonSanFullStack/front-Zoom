@@ -151,6 +151,7 @@
   @apply grid grid-cols-2 m-2 mr-48
 }
 
+
 .sectionH1 {
   @apply text-right mx-4 font-bold
 }
@@ -158,4 +159,27 @@
 .sectionSelect {
   @apply bg-indigo-200 rounded-lg px-4 w-96
 }
+
+.menu-container {
+  @apply bg-indigo-100 rounded-xl border-2 border-t-8 border-r-8 border-indigo-400 p-2
+}
+
+.sectionMoneda {
+  @apply grid grid-cols-2 
+}
+
+.selectMoneda {
+  @apply bg-indigo-200 rounded-lg px-4 w-52
+}
+.h1Moneda {
+  @apply text-right mx-4 font-bold
+}
+
+.form {
+  @apply flex flex-col items-center px-10 bg-indigo-300 min-w-min mx-20 rounded-lg m-2 p-1
   
+}
+
+.select {
+  @apply bg-indigo-300 rounded-lg px-4 w-52
+}

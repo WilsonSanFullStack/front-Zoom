@@ -6,7 +6,6 @@ import {
   getAllQuincena,
   getByIdQuincena,
 } from "../redux/actions/registro/registrarQuincena.js";
-import Fecha from "./Fecha.jsx";
 
 const User = () => {
   const dispatch = useDispatch();
@@ -24,13 +23,13 @@ const User = () => {
   const libra = quincena?.monedas?.map((x) => {
     return x.elibra;
   });
-  
+
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
 
   useEffect(() => {
-    id || id !== ''? dispatch(getByIdQuincena(id)): '';
+    id || id !== "" ? dispatch(getByIdQuincena(id)) : "";
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -72,61 +71,69 @@ const User = () => {
     }
   }, [quincenas]);
 
-
   const handleQuincena = (event) => {
     setId(event.target.value);
   };
-  console.log(user)
-  console.log(quincena)
+  console.log(user);
+  console.log(quincena);
 
   const handleUser = () => {
-    quincena.q_a.map((x) => {
-
-    })
+    quincena.q_a.map((x) => {});
   };
   return (
     <div className="contenedor1">
       <div className="contenedor2">
-      <Fecha/>
         <div>
-          <h1>{user && user?.nombre}</h1>
-        </div>
-        <div>
-          <select onChange={handleQuincena} value={id}>
+          <select onChange={handleQuincena} value={id} className="select">
             <option value="" hidden>
               Seleccione Una Quincena
             </option>
-            {quincenas && quincenas?.map((x) => {
-              return (
-                <option value={x.id} key={x.id}>
-                  {x.nombre}
-                </option>
-              );
-            })}
+            {quincenas &&
+              quincenas?.map((x) => {
+                return (
+                  <option value={x.id} key={x.id}>
+                    {x.nombre}
+                  </option>
+                );
+              })}
           </select>
         </div>
 
-          {quincena && quincena?.nombre ? (<Moneda quincena={quincena} />) : (
-            <div className="loader m-auto my-2"></div>
-            )}
-            <div className="grid grid-cols-2">
-        {quincena && quincena?.q_a?.map((corte, x) => {
-          const mostrarcreditos = user.useres.find((apodo) => apodo.UserName === corte.UserName);
-          if (mostrarcreditos) {
-            return (
-              <div key={corte.id} className=" bg-indigo-300 m-2 p-2 w-max">
-              {/* <section className="bg-indigo-100 w-max"> */}
-              <p className=" font-bold">Corte N°{x+1} Adult </p>
-              <p  className=" ">Fecha Adult: {corte.fecha} </p>
-              <p className=" font-bold">Libras: {corte.creditos} </p>
-              <p>Pesos: ${Intl.NumberFormat('es-CP').format(corte.creditos * libra)} </p>
-              
-              {/* </section> */}
-            </div>
-          )
-        }return null;
-        })}
+        {quincena && quincena?.nombre ? (
+          <Moneda quincena={quincena} />
+        ) : (
+          <div className="loader m-auto my-2"></div>
+        )}
+        <div className="grid grid-cols-2">
+          {quincena &&
+            quincena?.q_a?.map((corte, x) => {
+              const mostrarcreditos = user.useres.find(
+                (apodo) => apodo.UserName === corte.UserName
+              );
+              if (mostrarcreditos) {
+                return (
+                  <div key={corte.id} className=" bg-indigo-300 m-2 p-2 w-max">
+                    {/* <section className="bg-indigo-100 w-max"> */}
+                    <p className=" font-bold">Corte N°{x + 1} Adult </p>
+                    <p className=" ">Fecha Adult: {corte.fecha} </p>
+                    <p className=" font-bold">Libras: {corte.creditos} </p>
+                    <p>
+                      Pesos: $
+                      {Intl.NumberFormat("es-CP").format(
+                        corte.creditos * libra
+                      )}
+                    </p>
+
+                    {/* </section> */}
+                  </div>
+                );
+              }
+              return null;
+            })}
         </div>
+          <div>
+            <h1 className=" font-bold text-2xl">{user && user?.nombre.split(' ')[0]} {user && user?.apellido.split(' ')[0]}</h1>
+          </div>
       </div>
     </div>
   );

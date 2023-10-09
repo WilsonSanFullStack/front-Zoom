@@ -41,8 +41,8 @@ const NavBar = () => {
       <NavLink to="/home">
         <button className="btn-n">Home</button>
       </NavLink>
-      <NavLink to="/crear/estadisticas">
-        <button className="btn-n">Estadisticas</button>
+      <NavLink to="/editar">
+        <button className="btn-n">Editar</button>
       </NavLink>
       <NavLink to={"/crear"}>
         <button className="btn-n">Registros</button>

@@ -1,29 +1,28 @@
 import axios from "axios";
 import {
-  POSTlOCATION,
-  GETALLLOCATION,
-  GETLOCATIONBYID,
-  UPDATELOCATION,
-  DELETELOCATION,
+  POSTPORCENTAJE,
+  GETALLPORCENTAJE,
+  GETPORCENTAJEBYID,
+  UPDATEPORCENTAJE,
+  DELETEPORCENTAJE,
   ERROR,
 } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const LOCATION = import.meta.env.VITE_REACT_APP_URL_LOCATION;
+const PORCENTAJE = import.meta.env.VITE_REACT_APP_URL_PORCENTAJE;
 const DELETE = import.meta.env.VITE_REACT_APP_URL_DELETE;
 
-export const postLocation = (locations) => {
+export const postPorcentaje = (porcentajes) => {
   return async (dispatch) => {
     try {
-      console.log(locations)
-      const endpoint = `${URL}/${LOCATION}`;
-      const { data } = await axios.post(endpoint, locations);
+      const endpoint = `${URL}/${PORCENTAJE}`;
+      const { data } = await axios.post(endpoint, porcentajes);
       dispatch({
-        type: POSTlOCATION,
+        type: POSTPORCENTAJE,
         payload: data,
       });
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
       dispatch({
         type: ERROR,
         payload: error.message,
@@ -32,13 +31,13 @@ export const postLocation = (locations) => {
   };
 };
 
-export const getAllLocation = () => {
+export const getAllPorcentaje = () => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${LOCATION}`;
+      const endpoint = `${URL}/${PORCENTAJE}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GETALLLOCATION,
+        type: GETALLPORCENTAJE,
         payload: data,
       });
     } catch (error) {
@@ -50,13 +49,13 @@ export const getAllLocation = () => {
   };
 };
 
-export const getLocationById = (id) => {
+export const getPorcentajeById = (id) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${LOCATION}/${id}`;
+      const endpoint = `${URL}/${PORCENTAJE}/${id}`;
       const { data } = await axios.get(endpoint);
       dispatch({
-        type: GETLOCATIONBYID,
+        type: GETPORCENTAJEBYID,
         payload: data,
       });
     } catch (error) {
@@ -68,13 +67,13 @@ export const getLocationById = (id) => {
   };
 };
 
-export const updateLocation = (id, nLocation) => {
+export const updatePorcentaje = (id, nPorcentajes) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${LOCATION}/${id}`;
-      const { data } = await axios.put(endpoint, nLocation);
+      const endpoint = `${URL}/${PORCENTAJE}/${id}`;
+      const { data } = await axios.put(endpoint, nPorcentajes);
       dispatch({
-        type: UPDATELOCATION,
+        type: UPDATEPORCENTAJE,
         payload: data,
       });
     } catch (error) {
@@ -86,13 +85,13 @@ export const updateLocation = (id, nLocation) => {
   };
 };
 
-export const deleteLocation = (id) => {
+export const deletePorcentaje = (id) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${LOCATION}/${DELETE}/${id}`;
+      const endpoint = `${URL}/${PORCENTAJE}/${DELETE}/${id}`;
       const { data } = await axios.delete(endpoint);
       dispatch({
-        type: DELETELOCATION,
+        type: DELETEPORCENTAJE,
         payload: data,
       });
     } catch (error) {

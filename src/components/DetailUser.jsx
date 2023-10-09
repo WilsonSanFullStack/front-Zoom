@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserBI } from "../redux/actions/registro/registroUser.js";
 import { useParams, Link } from "react-router-dom";
 import { AiOutlineContainer } from "react-icons/ai";
 import { getAllPagina } from "../redux/actions/registro/registroPaginas.js";
+import { TiCogOutline } from "react-icons/ti";
 
 const DetailUser = () => {
   const { id } = useParams();
@@ -11,6 +12,7 @@ const DetailUser = () => {
   const userBI = useSelector((state) => state.userB);
   const error = useSelector((state) => state.error);
   const paginas = useSelector((state) => state.paginas);
+
 
   useEffect(() => {
     dispatch(getUserBI(id));
@@ -32,6 +34,17 @@ const DetailUser = () => {
             </div>
           </Link>
         </section>
+
+        <section className="absolute ml-2 m-1 right-0 top-12 font-bold">
+          <div className="flex items-center justify-center">
+            <Link to='/editar'>
+            <TiCogOutline className=" text-5xl btn-n"/>
+            </Link>
+          </div>
+        </section>
+
+        
+
         <div key={userBI?.id} className="m-2">
           <img src={userBI?.image} alt="imagen" className="img-d" />
         </div>
@@ -63,14 +76,6 @@ const DetailUser = () => {
           <div className="divDetail">
             Nacionalidad:
             <p className="detalles">{userBI?.nacionalidad}</p>
-          </div>
-          <div className="divDetail">
-            Departamento:
-            <p className="detalles">{userBI?.p_u?.departament}</p>
-          </div>
-          <div className="divDetail">
-            Ciudad:
-            <p className="detalles">{userBI?.p_u?.city}</p>
           </div>
           <div className="divDetail">
             Telefono:

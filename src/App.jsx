@@ -31,9 +31,9 @@ import RegisterUser from "./components/registro/RegisterUser.jsx";
 import User from "./components/User.jsx";
 import Loading from "./components/Loading.jsx";
 import Crear from "./components/Crear.jsx";
+import Editar from "./components/Editar";
 import RegistrarPagina from "./components/registro/RegistrarPagina.jsx";
 import RegistrarProducto from "./components/registro/RegistrarProducto.jsx";
-import RegistrarModelo from "./components/registro/RegistrarModelo.jsx";
 import Modelos from "./components/Modelos.jsx";
 import DetailUser from "./components/DetailUser.jsx";
 import RegistrarComment from "./components/registro/RegistrarComment.jsx";
@@ -41,7 +41,8 @@ import RegistrarQuincena from "./components/registro/RegistrarQuincena.jsx";
 import RegistrarMoneda from "./components/registro/RegisterMoneda.jsx";
 import CargarEstadisticas from "./components/registro/CargarEstadisticas.jsx";
 import Ventas from "./components/Ventas";
-import RegisterLocation from "./components/registro/RegisterLocation.jsx";
+import RegisterPorcentaje from "./components/registro/RegisterPorcentaje.jsx";
+import RegisterUbicacion from "./components/registro/RegisterUbicacion";
 
 function App() {
   const { pathname } = useLocation();
@@ -58,21 +59,20 @@ function App() {
         <Route path="/crear/username" element={<Registro />} />
         <Route path="/crear/pagina" element={<RegistrarPagina />} />
         <Route path="/crear/producto" element={<RegistrarProducto />} />
-        <Route path="/crear/modelo" element={<RegistrarModelo />} />
         <Route path="/crear/quincena" element={<RegistrarQuincena />} />
         <Route path="/crear/moneda" element={<RegistrarMoneda />} />
         <Route path="/crear/estadisticas" element={<CargarEstadisticas />} />
-        <Route path="/crear/ubicacion" element={<RegisterLocation />} />
+        <Route path="/crear/porcentaje" element={<RegisterPorcentaje />} />
+        <Route path="/crear/ubicacion" element={<RegisterUbicacion />} />
         <Route path="/crear" element={<Crear />} />
-
+        <Route path="/editar" element={<Editar />} />
         <Route path="/user" element={<User />} />
         <Route path="/modelo" element={<Modelos />} />
         <Route path="/modelo/:id" element={<DetailUser />} />
         <Route path="/modelo/comment/:id" element={<RegistrarComment />} />
         <Route path="/home" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
-        
-        <Route path="/ventas" element={<Ventas /> } />
+        <Route path="/ventas" element={<Ventas />} />
         <Route
           path="/sign-up/*"
           element={<SignUp routing="path" path="/sign-up" />}

@@ -8,7 +8,7 @@ const INIT = import.meta.env.VITE_REACT_APP_URL_INIT;
 const Login = () => {
 
   return (
-    <div className="min-h-screen bg-fuchsia-400">
+    <div className="min-h-screen bg-indigo-200">
       <div className="pt-48 flex flex-col justify-between items-center  ">
         <h1 className=" text-5xl font-bold animate-bounce">
           BIENVENIDO A ZOOM VIRTUEL

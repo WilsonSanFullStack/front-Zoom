@@ -12,7 +12,7 @@ import Fecha from "./Fecha.jsx";
 import date from "./date.js";
 
 const Home = () => {
-  const fecha = date();
+  // const fecha = date();
   // console.log(fecha)
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -74,10 +74,8 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-indigo-200 text-xl pt-14 text-center">
-      {/* //* quincena, moneda y fecha */}
-        <Fecha />
-      <div>
-        <select onChange={handleQuincena} value={id}>
+      <div className="mt-2">
+        <select onChange={handleQuincena} value={id} className="select">
           <option value="" hidden>
             Seleccione Una Quincena
           </option>
@@ -97,20 +95,7 @@ const Home = () => {
       ) : (
         <div className="loader m-auto my-2"></div>
       )}
-      {/*//* funcionalidad */}
-      {/* <div className="text-center flex justify-center items-center ">
-        <NavLink to="/estadisticas">
-          <button className="btn-w">Estadisticas</button>
-        </NavLink>
-        <NavLink to="/modelo">
-          <button className="btn-w">Modelos</button>
-        </NavLink>
-        <NavLink to="/crear">
-          <button className="btn-w">Crear</button>
-        </NavLink>
-      </div> */}
-      {/* //! ver estadisticas */}
-      {/* <VerEstadisticas /> */}
+      
     </div>
   );
 };

@@ -9,15 +9,14 @@ import { useNavigate } from "react-router-dom";
 const Moneda = () => {
   const [moneda, setMoneda] = useState({
     quincena: "",
-    edolar: "",
-    eeuro: "",
-    elibra: "",
-    pdolar: "",
-    peuro: "",
-    plibra: "",
+    descripcion: "",
+    dolar: "",
+    euro: "",
+    libra: "",
   });
+  console.log(moneda)
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const quincenas = useSelector((state) => state.quincenas);
   const error = useSelector((state) => state.error);
@@ -26,64 +25,100 @@ const navigate = useNavigate();
     dispatch(getAllQuincena());
   }, [dispatch]);
 
+  useEffect(() => {
+    // Encontrar la quincena que coincide con la fecha actual
+    const quincenaActual = quincenas.find((q) => {
+      const quincenaInicio = q.inicia;
+      const partesFechaInicio = quincenaInicio.split("/");
+
+      // Obtén el día, el mes y el año como números
+      const diaInicio = parseInt(partesFechaInicio[0], 10);
+      const mesInicio = parseInt(partesFechaInicio[1], 10) - 1;
+      const añoInicio = parseInt(partesFechaInicio[2], 10);
+
+      // Crea un objeto de fecha
+      const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
+      console.log(fechaInicio);
+      // console.log(q)
+      const quincenaFinal = q.final;
+      const partesFechaFinal = quincenaFinal.split("/");
+
+      // Obtén el día, el mes y el año como números
+      const diaFinal = parseInt(partesFechaFinal[0], 10);
+      const mesFinal = parseInt(partesFechaFinal[1], 10) - 1;
+      const añoFinal = parseInt(partesFechaFinal[2], 10);
+
+      // Crea un objeto de fecha
+      const fechaFinal = new Date(añoFinal, mesFinal, diaFinal);
+      console.log(fechaFinal);
+      const fechaActual = new Date();
+      // console.log(fechaActual)
+      console.log(fechaActual);
+
+      console.log(fechaActual >= fechaInicio && fechaActual <= fechaFinal);
+      return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
+    });
+    console.log(quincenas);
+    if (quincenaActual) {
+      setMoneda({
+        ...moneda,
+        quincena: quincenaActual.id,
+      });
+    }
+  }, [quincenas]);
+
   const handleQuincena = (event) => {
     setMoneda({
       ...moneda,
       quincena: event.target.value,
     });
   };
-  const handleEsDolar = (event) => {
+
+  const handleDescripcion = (event) => {
     setMoneda({
       ...moneda,
-      edolar: event.target.value,
+      descripcion: event.target.value,
     });
   };
-  const handleEsEuro = (event) => {
-    setMoneda({
-      ...moneda,
-      eeuro: event.target.value,
-    });
-  };
-  const handleEsLibra = (event) => {
-    setMoneda({
-      ...moneda,
-      elibra: event.target.value,
-    });
-  };
+
   const handlePagoDolar = (event) => {
     setMoneda({
       ...moneda,
-      pdolar: event.target.value,
+      dolar: event.target.value,
     });
   };
   const handlePagoEuro = (event) => {
     setMoneda({
       ...moneda,
-      peuro: event.target.value,
+      euro: event.target.value,
     });
   };
   const handlePagoLibra = (event) => {
     setMoneda({
       ...moneda,
-      plibra: event.target.value,
+      libra: event.target.value,
     });
   };
 
   const handleSubmit = () => {
     dispatch(postMoneda(moneda));
-navigate('/crear');
+    navigate("/crear");
   };
 
   return (
     <div className="contenedor1">
       <div className="contenedor2">
         <form onSubmit={handleSubmit}>
-          <section className="flex flex-col items-center px-10 bg-indigo-300 min-w-min mx-20 rounded-lg m-2 p-1 ">
+          <section className="form ">
             <h1 className=" font-bold text-black text-2xl">
               Registro De Moneda
             </h1>
             <section>
-              <select onChange={handleQuincena} value={moneda.quincena}>
+              <select
+                onChange={handleQuincena}
+                value={moneda.quincena}
+                className="selectMoneda"
+              >
                 <option value="" hidden>
                   Seleccione Una Quincena
                 </option>
@@ -96,72 +131,53 @@ navigate('/crear');
                 })}
               </select>
             </section>
-            <section>
-              <h2>Modena Estadisticas</h2>
-              <section>
-                <label className="label">Dolar</label>
-                <input
-                  type="number"
-                  className="input no-spin"
-                  value={moneda.edolar}
-                  onChange={handleEsDolar}
-                />
-              </section>
-              <section>
-                <label className="label">Euro</label>
-                <input
-                  type="number"
-                  className="input no-spin"
-                  value={moneda.eeuro}
-                  onChange={handleEsEuro}
-                />
-              </section>
-              <section>
-                <label className="label">Libra Esterlina</label>
-                <input
-                  type="number"
-                  className="input no-spin"
-                  value={moneda.elibra}
-                  onChange={handleEsLibra}
-                />
-              </section>
+
+            <section className="m-2">
+              <select onChange={handleDescripcion} value={moneda.descripcion} className="selectMoneda">
+                <option value="" hidden>Moneda Para?</option>
+                <option value="estadisticas">Estadisticas</option>
+                <option value="pago">Pago</option>
+              </select>
             </section>
 
             <section>
               <h2>Modenda Para Pago</h2>
-              <section>
-                <label className="label">Dolar</label>
+              <section className="sectionMoneda">
+                <h1 className="h1Moneda">Dolar:</h1>
                 <input
                   type="number"
-                  className="input no-spin"
-                  value={moneda.pdolar}
+                  className="input no-spin max-w-xs"
+                  value={moneda.dolar}
+                  placeholder="valor del dolar"
                   onChange={handlePagoDolar}
                 />
               </section>
-              <section>
-                <label className="label">Euro</label>
+              <section className="sectionMoneda">
+                <h1 className="h1Moneda">Euro:</h1>
                 <input
                   type="number"
-                  className="input no-spin"
-                  value={moneda.peuro}
+                  className="input no-spin max-w-xs"
+                  placeholder="valor del euro"
+                  value={moneda.euro}
                   onChange={handlePagoEuro}
                 />
               </section>
-              <section>
-                <label className="label">Libra Esterlina</label>
+              <section className="sectionMoneda">
+                <h1 className="h1Moneda">Libra Esterlina:</h1>
                 <input
                   type="number"
-                  className="input no-spin"
-                  value={moneda.plibra}
+                  className="input no-spin max-w-xs"
+                  placeholder="valor del libra"
+                  value={moneda.libra}
                   onChange={handlePagoLibra}
                 />
               </section>
             </section>
             <section className="flex items-center justify-center">
-            <button className="btn-w w-auto font-bold text-4xl" type="submit">
-              <BiSend />
-            </button>
-          </section>
+              <button className="btn-w w-auto font-bold text-4xl" type="submit">
+                <BiSend />
+              </button>
+            </section>
           </section>
         </form>
       </div>

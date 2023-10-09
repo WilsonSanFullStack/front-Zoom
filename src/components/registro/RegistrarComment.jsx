@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BiSend } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { postComment } from "../../redux/actions/registro/registrarComment";
 
 const RegistrarComment = () => {
+  const navigate = useNavigate()
   const comment = useSelector((state) => state.comment);
   const errors = useSelector((state) => state.comment);
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const RegistrarComment = () => {
 
   const handleSubmit = () => {
     dispatch(postComment(comments));
+    navigate(`/modelo/${id}`)
   };
   console.log(comments);
   return (
