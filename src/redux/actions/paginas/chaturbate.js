@@ -1,9 +1,5 @@
 import axios from "axios";
-import { 
-  ERROR,
-  GCH,
-  PCH, 
-} from '../../actionsTypes.js';
+import { PERROR, GERROR, GCH, PCH } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const CH = import.meta.env.VITE_REACT_APP_CH;
@@ -11,8 +7,8 @@ const CH = import.meta.env.VITE_REACT_APP_CH;
 export const pch = (coch) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${CH}`
-      const { data } = await axios.post(endpoint, {coch});
+      const endpoint = `${URL}/${CH}`;
+      const { data } = await axios.post(endpoint, { coch });
       dispatch({
         type: PCH,
         payload: data,
@@ -21,9 +17,9 @@ export const pch = (coch) => {
       dispatch({
         type: ERROR,
         payload: error,
-      })
+      });
     }
-  }
+  };
 };
 
 export const gch = () => {
@@ -34,12 +30,12 @@ export const gch = () => {
       dispatch({
         type: GCH,
         payload: data,
-      })
+      });
     } catch (error) {
       dispatch({
         type: ERROR,
         payload: error,
-      })
+      });
     }
-  }
+  };
 };

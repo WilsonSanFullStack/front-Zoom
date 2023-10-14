@@ -76,7 +76,9 @@ const RegistrarQuincena = () => {
   return (
     <div className="contenedor1">
       <div className="contenedor2">
-        <h1>Registro De Quincenas</h1>
+      <div className="divTitulo">
+        <h1 className="titulo">Registro De Quincenas</h1>
+        </div>
         <form onSubmit={handleCreate}>
           <section className="flex flex-col items-center px-10 bg-indigo-300 min-w-min mx-20 rounded-lg m-2 p-1 ">
             <section className="grid grid-cols-2 items-center">

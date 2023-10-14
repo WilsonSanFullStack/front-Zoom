@@ -2,7 +2,8 @@ import axios from "axios";
 import {
   GUS,
   RU,
-  ERROR,
+  PERROR,
+  GERROR,
   VACIAR_USE,
   CHECKUSE,
   GETUSER,
@@ -13,22 +14,25 @@ import {
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const REGISTRO = import.meta.env.VITE_REACT_APP_URL_REGISTRO;
+const CHECK = import.meta.env.VITE_REACT_APP_URL_CHECK;
 const DELETE = import.meta.env.VITE_REACT_APP_URL_DELETE;
 
 export const registroUser = (input) => {
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${REGISTRO}`;
-      const { data } = await axios.post(endpoint, { input });
-      // console.log(data)
+      const { data } = await axios.post(endpoint, input);
+      console.log('actions')
+      console.log(data)
       dispatch({
         type: RU,
         payload: data,
       });
     } catch (error) {
+      console.log(error.response.data.error)
       dispatch({
-        type: ERROR,
-        payload: error,
+        type: PERROR,
+        payload: error.response.data.error,
       });
     }
   };
@@ -52,7 +56,7 @@ export const getUserId = (id) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -62,9 +66,9 @@ export const getUserId = (id) => {
 export const checkUserById = (id) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${REGISTRO}/${id}`;
+      const endpoint = `${URL}/${REGISTRO}/${CHECK}/${id}`;
       const { data } = await axios.get(endpoint);
-      // console.log(data)
+      console.log(data)
       let check = "";
       if (data) {
         check = true;
@@ -94,7 +98,7 @@ export const getAllUser = () => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -106,14 +110,14 @@ export const getUserBI = (id) => {
     try {
       const endpoint = `${URL}/${REGISTRO}/${id}`;
       const { data } = await axios.get(endpoint);
-      console.log(data)
+      console.log(data);
       dispatch({
         type: GETUSERBI,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -131,7 +135,7 @@ export const updateUser = (id, nUser) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }
@@ -149,7 +153,7 @@ export const deleteUser = (id) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }

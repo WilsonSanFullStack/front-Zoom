@@ -118,11 +118,11 @@ const Registro = () => {
 
   return (
     <div className="contenedor1">
-      <div className="pt-14 text-center flex flex-col items-center justify-center">
-        <h1 className="bg-indigo-300 w-auto justify-center m-2 p-2 px-4 rounded-xl font-bold text-2xl">
+        <div className="contenedor2">
+      <div className="divTitulo">
+        <h1 className="titulo">
           Registro De Usuarios
         </h1>
-        <div>
           <form onSubmit={handlerSubmit}>
             <section className=" px-20 grid min-w-min mx-20 rounded-lg m-5 p-5 bg-indigo-300">
               <h1 className=" font-bold text-black text-3xl">
@@ -131,7 +131,7 @@ const Registro = () => {
               <section className="m-5">
                 <select
                   onChange={handleUser}
-                  className="bg-indigo-200 font-bold m-2"
+                  className="selectMoneda m-2"
                   value={input.user}
                 >
                   <option value="" hidden>
@@ -148,11 +148,12 @@ const Registro = () => {
 
                 <section>
                   <select
-                  onChange={handleUbicacion}
-                  value={input.ubicacion}
-                  className="selectMoneda m-2">
+                    onChange={handleUbicacion}
+                    value={input.ubicacion}
+                    className="selectMoneda m-2"
+                  >
                     <option value="" hidden>
-                      Ubicacion?
+                      Seleccione Una Ubicacion
                     </option>
                     {ubicacion?.map((x) => {
                       return (
@@ -166,12 +167,12 @@ const Registro = () => {
 
                 <section>
                   <select
-                  onChange={handlePorcentaje}
-                  value={input.porcentaje}
-                  className="selectMoneda m-2"
+                    onChange={handlePorcentaje}
+                    value={input.porcentaje}
+                    className="selectMoneda m-2"
                   >
                     <option value="" hidden>
-                      Porcentaje?
+                      Seleccione Un Porcentaje
                     </option>
                     {porcentaje?.map((x) => {
                       <option value={x.id} key={x.id}>
@@ -189,7 +190,7 @@ const Registro = () => {
               <section className="">
                 <select
                   onChange={(e) => handlePaginas(e.target.value)}
-                  className="bg-indigo-200 font-bold"
+                  className="selectMoneda m-2"
                 >
                   <option value="" hidden>
                     Seleccione Páginas

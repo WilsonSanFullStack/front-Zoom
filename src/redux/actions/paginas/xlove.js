@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PXL, GXL, ERROR } from "../../actionsTypes.js";
+import { PXL, GXL, PERROR, GERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const XL = import.meta.env.VITE_REACT_APP_XL;

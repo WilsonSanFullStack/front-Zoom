@@ -5,7 +5,8 @@ import {
   GETPORCENTAJEBYID,
   UPDATEPORCENTAJE,
   DELETEPORCENTAJE,
-  ERROR,
+  PERROR,
+  GERROR,
 } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -24,7 +25,7 @@ export const postPorcentaje = (porcentajes) => {
     } catch (error) {
       console.log(error.message);
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error.message,
       });
     }
@@ -42,7 +43,7 @@ export const getAllPorcentaje = () => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -60,7 +61,7 @@ export const getPorcentajeById = (id) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -78,7 +79,7 @@ export const updatePorcentaje = (id, nPorcentajes) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }
@@ -96,7 +97,7 @@ export const deletePorcentaje = (id) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }

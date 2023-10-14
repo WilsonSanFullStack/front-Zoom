@@ -1,5 +1,6 @@
 import axios from "axios";
-import { PST, GST, ERROR } from "../../actionsTypes.js";
+import { PST, GST, PERROR,
+  GERROR, } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const ST = import.meta.env.VITE_REACT_APP_ST;

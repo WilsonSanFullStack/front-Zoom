@@ -14,7 +14,7 @@ const Moneda = () => {
     euro: "",
     libra: "",
   });
-  console.log(moneda)
+  console.log(moneda);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -108,11 +108,11 @@ const Moneda = () => {
   return (
     <div className="contenedor1">
       <div className="contenedor2">
+        <div className="divTitulo">
+          <h1 className="titulo">Registro De Moneda</h1>
+        </div>
         <form onSubmit={handleSubmit}>
           <section className="form ">
-            <h1 className=" font-bold text-black text-2xl">
-              Registro De Moneda
-            </h1>
             <section>
               <select
                 onChange={handleQuincena}
@@ -133,8 +133,14 @@ const Moneda = () => {
             </section>
 
             <section className="m-2">
-              <select onChange={handleDescripcion} value={moneda.descripcion} className="selectMoneda">
-                <option value="" hidden>Moneda Para?</option>
+              <select
+                onChange={handleDescripcion}
+                value={moneda.descripcion}
+                className="selectMoneda"
+              >
+                <option value="" hidden>
+                  Moneda Para?
+                </option>
                 <option value="estadisticas">Estadisticas</option>
                 <option value="pago">Pago</option>
               </select>

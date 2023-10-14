@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PCA, GCA, ERROR } from "../../actionsTypes.js";
+import { PCA, GCA, PERROR, GERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const CA = import.meta.env.VITE_REACT_APP_CA;

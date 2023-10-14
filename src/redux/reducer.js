@@ -3,7 +3,8 @@ import {
   GAD,
   PPA,
   GPA,
-  ERROR,
+  PERROR,
+  GERROR,
   PAM,
   GAM,
   RESETERROR,
@@ -87,20 +88,27 @@ const initialState = {
   ubicaciones: [],
   ubicacion: {},
 
-  error: null,
+  perror: null,
+  gerror: null,
 };
 
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ERROR:
+    case PERROR:
       return {
         ...state,
-        error: action.payload,
+        perror: action.payload,
+      };
+    case GERROR:
+      return {
+        ...state,
+        gerror: action.payload,
       };
     case RESETERROR:
       return {
         ...state,
-        error: "",
+        perror: action.payload,
+        gerror: action.payload,
         spg: [],
       };
     //post corte adult

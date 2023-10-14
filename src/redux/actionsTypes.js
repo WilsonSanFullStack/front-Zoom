@@ -2,38 +2,37 @@
 
 //todo para la ubicacion
 
-export const POSTUBICACION = 'POSTUBICACION';
-export const GETALLUBICACION = 'GETALLUBICACION';
-export const GETUBICACIONBYID = 'GETUBICACIONBYID';
-export const UPDATEUBICACION = 'UPDATEUBICACION';
-export const DELETEUBICACION = 'DELETEUBICACION';
+export const POSTUBICACION = "POSTUBICACION";
+export const GETALLUBICACION = "GETALLUBICACION";
+export const GETUBICACIONBYID = "GETUBICACIONBYID";
+export const UPDATEUBICACION = "UPDATEUBICACION";
+export const DELETEUBICACION = "DELETEUBICACION";
 
 //todo para porcentaje
 
-export const POSTPORCENTAJE = 'POSTPORCENTAJE';
-export const GETALLPORCENTAJE = 'GETALLPORCENTAJE';
-export const GETPORCENTAJEBYID = 'GETPORCENTAJEBYID';
-export const UPDATEPORCENTAJE = 'UPDATEPORCENTAJE';
-export const DELETEPORCENTAJE = 'DELETEPORCENTAJE';
+export const POSTPORCENTAJE = "POSTPORCENTAJE";
+export const GETALLPORCENTAJE = "GETALLPORCENTAJE";
+export const GETPORCENTAJEBYID = "GETPORCENTAJEBYID";
+export const UPDATEPORCENTAJE = "UPDATEPORCENTAJE";
+export const DELETEPORCENTAJE = "DELETEPORCENTAJE";
 
 //todo para la moneda
-export const POSTMONEDA = 'POSTMONEDA';
+export const POSTMONEDA = "POSTMONEDA";
 
 //todo para las quincenas
-export const POSTQUINCENA = 'POSTQUINCENA';
-export const GETALLQUINCENA = 'GETALLQUINCENA';
-export const GETBIQUINCENA = 'GETBIQUINCENA';
-
+export const POSTQUINCENA = "POSTQUINCENA";
+export const GETALLQUINCENA = "GETALLQUINCENA";
+export const GETBIQUINCENA = "GETBIQUINCENA";
 
 //todo para los userName
-export const POSTUSERNAME ='POSTUSERNAME';
+export const POSTUSERNAME = "POSTUSERNAME";
 
 //todo para los comments
-export const POSTCOMMENT = 'POSTCOMMENT';
-export const GETCOMMENT = 'GETCOMMENT';
-export const GETCOMMENTBI = 'GETCOMMENTBI';
-export const UPDATECOMMENT = 'UPDATECOMMENT'
-export const DELETECOMMENT = 'DELETECOMMENT';
+export const POSTCOMMENT = "POSTCOMMENT";
+export const GETCOMMENT = "GETCOMMENT";
+export const GETCOMMENTBI = "GETCOMMENTBI";
+export const UPDATECOMMENT = "UPDATECOMMENT";
+export const DELETECOMMENT = "DELETECOMMENT";
 
 //todo para los productos
 export const POSTPRODUCTO = "PPRODUCTO";
@@ -43,11 +42,11 @@ export const UPDATEPRODUCTO = "UPDATEPRODUCTO";
 export const DELETEPRODUCTO = "DELETEPRODUCTO";
 
 //todo para las compras
-export const POSTCOMPRA = 'POSTCOMPRA';
-export const GETCOMPRA = 'GETCOMPRA';
-export const GETBICOMPRA = 'GETBICOMPRA';
-export const UPDATECOMPRA = 'UPDATECOMPRA';
-export const DELETECOMPRA = 'DELETECOMPRA';
+export const POSTCOMPRA = "POSTCOMPRA";
+export const GETCOMPRA = "GETCOMPRA";
+export const GETBICOMPRA = "GETBICOMPRA";
+export const UPDATECOMPRA = "UPDATECOMPRA";
+export const DELETECOMPRA = "DELETECOMPRA";
 
 //todo para usuarios
 export const RU = "RU";
@@ -70,7 +69,8 @@ export const DELETEPAG = "DELETEPAG";
 export const LOGOUT = "LOGOUT";
 
 //todo para errores
-export const ERROR = "ERROR";
+export const PERROR = "PERROR";
+export const GERROR = "GERROR";
 export const RESETERROR = "RESETERROR";
 //todo para adult corte
 export const PAD = "PAD";

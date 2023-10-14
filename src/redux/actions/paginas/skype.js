@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PSK, GSK, ERROR } from "../../actionsTypes.js";
+import { PSK, GSK, PERROR, GERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const SK = import.meta.env.VITE_REACT_APP_SK;

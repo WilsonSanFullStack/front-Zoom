@@ -45,8 +45,7 @@ const User = () => {
 
       // Crea un objeto de fecha
       const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
-      console.log(fechaInicio);
-      // console.log(q)
+
       const quincenaFinal = q.final;
       const partesFechaFinal = quincenaFinal.split("/");
 
@@ -57,15 +56,12 @@ const User = () => {
 
       // Crea un objeto de fecha
       const fechaFinal = new Date(añoFinal, mesFinal, diaFinal);
-      console.log(fechaFinal);
-      const fechaActual = new Date();
-      // console.log(fechaActual)
-      console.log(fechaActual);
 
-      console.log(fechaActual >= fechaInicio && fechaActual <= fechaFinal);
+      const fechaActual = new Date();
+
       return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
     });
-    console.log(quincenas);
+
     if (quincenaActual) {
       setId(quincenaActual.id); // Establecer la quincena actual como valor predeterminado en el selector
     }
@@ -74,8 +70,6 @@ const User = () => {
   const handleQuincena = (event) => {
     setId(event.target.value);
   };
-  console.log(user);
-  console.log(quincena);
 
   const handleUser = () => {
     quincena.q_a.map((x) => {});
@@ -102,7 +96,7 @@ const User = () => {
         {quincena && quincena?.nombre ? (
           <Moneda quincena={quincena} />
         ) : (
-          <div className="loader m-auto my-2"></div>
+          <div className="loade1 m-auto my-2"></div>
         )}
         <div className="grid grid-cols-2">
           {quincena &&
@@ -131,9 +125,12 @@ const User = () => {
               return null;
             })}
         </div>
-          <div>
-            <h1 className=" font-bold text-2xl">{user && user?.nombre.split(' ')[0]} {user && user?.apellido.split(' ')[0]}</h1>
-          </div>
+        <div>
+          <h1 className=" font-bold text-2xl">
+            {user && user?.nombre?.split(" ")[0]}{" "}
+            {user && user?.apellido?.split(" ")[0]}
+          </h1>
+        </div>
       </div>
     </div>
   );

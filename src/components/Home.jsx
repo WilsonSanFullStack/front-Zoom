@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Moneda from "./Moneda.jsx";
-import VerEstadisticas from "./VerEstadisticas.jsx";
 
 import {
   getAllQuincena,
   getByIdQuincena,
 } from "../redux/actions/registro/registrarQuincena.js";
-import Fecha from "./Fecha.jsx";
-import date from "./date.js";
 
 const Home = () => {
-  // const fecha = date();
-  // console.log(fecha)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const users = useSelector((state) => state.user);
@@ -31,9 +26,10 @@ const Home = () => {
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual
-    const quincenaActual = quincenas.find((q) => {
-      const quincenaInicio = q.inicia;
-      const partesFechaInicio = quincenaInicio.split("/");
+
+    const quincenaActual = quincenas?.find((q) => {
+      const quincenaInicio = q?.inicia;
+      const partesFechaInicio = quincenaInicio?.split("/");
 
       // Obtén el día, el mes y el año como números
       const diaInicio = parseInt(partesFechaInicio[0], 10);
@@ -42,29 +38,24 @@ const Home = () => {
 
       // Crea un objeto de fecha
       const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
-      console.log(fechaInicio);
-      // console.log(q)
-      const quincenaFinal = q.final;
-      const partesFechaFinal = quincenaFinal.split("/");
+
+      const quincenaFinal = q?.final;
+      const partesFechaFinal = quincenaFinal?.split("/");
 
       // Obtén el día, el mes y el año como números
       const diaFinal = parseInt(partesFechaFinal[0], 10);
       const mesFinal = parseInt(partesFechaFinal[1], 10) - 1;
       const añoFinal = parseInt(partesFechaFinal[2], 10);
 
-      // Crea un objeto de fecha
       const fechaFinal = new Date(añoFinal, mesFinal, diaFinal);
-      console.log(fechaFinal);
-      const fechaActual = new Date();
-      // console.log(fechaActual)
-      console.log(fechaActual);
 
-      console.log(fechaActual >= fechaInicio && fechaActual <= fechaFinal);
+      const fechaActual = new Date();
+
       return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
     });
-    console.log(quincenas);
+
     if (quincenaActual) {
-      setId(quincenaActual.id);
+      setId(quincenaActual?.id);
     }
   }, [quincenas]);
 
@@ -93,9 +84,8 @@ const Home = () => {
       {quincena && quincena.nombre ? (
         <Moneda quincena={quincena} />
       ) : (
-        <div className="loader m-auto my-2"></div>
+        <div className="loade1 m-auto my-2"></div>
       )}
-      
     </div>
   );
 };

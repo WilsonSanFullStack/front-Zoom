@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 
-
 import { registroUser } from "../../redux/actions/registro/registroUser.js";
+import { resetError } from "../../redux/resetError.js";
 
 const validacion = (input) => {
   let error = {};
@@ -72,7 +72,7 @@ const validacion = (input) => {
       error.fechaDeNacimiento = "Debes ser mayor de 18 años";
     }
   }
-  
+
   // validacion de telefono
   if (!/^3(0[0-5]|1[0-9]|2[0-9]|3[0-6])[0-9]{7}$/.test(input.telefono)) {
     error.telefono = "Numero de telefono no es valido";
@@ -91,7 +91,8 @@ const validacion = (input) => {
 const RegisterUser = () => {
   const navigate = useNavigate();
   const users = useSelector((state) => state.user);
-  const eror = useSelector(state => state.error)
+  const perror = useSelector((state) => state.perror);
+  const gerror = useSelector((state) => state.perror);
   // const [isRegister, setIsRegister] = useState(false);
   const { user } = useUser();
 
@@ -109,6 +110,11 @@ const RegisterUser = () => {
     whatsapp: "",
     direccion: "",
   });
+  console.log(perror);
+
+  useEffect(() => {
+    dispatch(resetError());
+  }, [dispatch]);
 
   useEffect(() => {
     if (user) {
@@ -124,14 +130,6 @@ const RegisterUser = () => {
     }
   }, [user]);
 
-useEffect(() => {
-if (users.id) {
-  if (users.admin) {
-    navigate('/home')
-  }
-  navigate('/user')
-} 
-}, [users, navigate])
   const handleNombre = (event) => {
     setInput({
       ...input,
@@ -227,6 +225,7 @@ if (users.id) {
       })
     );
   };
+  console.log(input);
   const handleDireccion = (event) => {
     setInput({
       ...input,
@@ -240,59 +239,63 @@ if (users.id) {
     );
   };
 
-  
-
-  const handleCrear =  (e) => {
+  const handleCrear = async (e) => {
     e.preventDefault();
     const errores = validacion(input);
     if (Object.keys(errores).length === 0) {
-      dispatch(registroUser(input))
+      dispatch(registroUser(input));
 
-          setInput({
-            nombre: "",
-            apellido: "",
-            nacionalidad: "",
-            cedula: "",
-            telefono: "",
-            fechaDeNacimiento: "",
-            whatsapp: "",
-            direccion: "",
-          });
-          setShowForm(false);
-          setConfirmacion("se envio la solicitud.");
-        
-            if (user.id) {
-              setConfirmacion("");
-          }
-        
+      if (!perror) {
+        setConfirmacion("SE ENVIO LA SOLICITUD.");
+        setTimeout(() => {
+          setConfirmacion("");
+          navigate("/loader");
+        }, 15000);
+        setInput({
+          nombre: "",
+          apellido: "",
+          nacionalidad: "",
+          cedula: "",
+          telefono: "",
+          fechaDeNacimiento: "",
+          whatsapp: "",
+          direccion: "",
+        });
+        setShowForm(false);
+      } else {
+        setShowForm(true);
+      }
     }
+
     setError(errores);
   };
 
-  const paises = [
-    "Colombia",
-    "Venezuela",
-  ];
+  const paises = ["Colombia", "Venezuela"];
   return (
-    <div className="contenedor1">
+    <div className="contenedor1 -mt-14">
       {confirmacion && (
-        <div>
-          <h1>{confirmacion}</h1>
+        <div className="contenedor2 mt-64 flex justify-center">
+          <div className="text-6xl bg-indigo-300 p-4 rounded-3xl border-2 border-r-8 border-b-8 border-indigo-950">
+            <h1 className="font-bold">{confirmacion}</h1>
+          </div>
         </div>
       )}
       {showForm && (
         <div className="contenedor2">
-          <h1 className="bg-indigo-200 w-auto justify-center mt-2 m-1 p-1 px-4 rounded-xl font-bold text-3xl">
-            Registro De Usuario
-          </h1>
+          <div className="divTitulo">
+            <h1 className="titulo">Registro De Usuario</h1>
+          </div>
+          {perror && (
+            <div className="error">
+              <h1>{perror}</h1>
+            </div>
+          )}
           <div>
             <form onSubmit={handleCrear}>
-              <section className="flex flex-col items-center px-10 bg-indigo-300 min-w-min mx-20 rounded-lg m-2 p-1 ">
-                <h1 className=" font-bold text-black text-2xl">
-                  Datos Personales
-                </h1>
-                <section className="grid grid-cols-1 text-right">
-                  <section className=" grid grid-cols-2">
+              <section className="form">
+                <h1 className="subTitulo">Datos Personales</h1>
+                <section className="sectionGlobal">
+                  <section className="section">
                     <label className="label">Nombre:</label>
                     <input
                       type="text"
@@ -303,12 +306,8 @@ if (users.id) {
                       className="input"
                     />
                   </section>
-                  {error && (
-                    <div className="text-center text-red-500 font-bold">
-                      {error.nombre}
-                    </div>
-                  )}
-                  <section className=" grid grid-cols-2">
+                  {error && <div className="error">{error.nombre}</div>}
+                  <section className="section">
                     <label className="label">Apellido:</label>
                     <input
                       type="text"
@@ -319,15 +318,11 @@ if (users.id) {
                       className="input"
                     />
                   </section>
-                  {error && (
-                    <div className="text-center text-red-500 font-bold">
-                      {error.apellido}
-                    </div>
-                  )}
-                  <section className=" grid grid-cols-2">
+                  {error && <div className="error">{error.apellido}</div>}
+                  <section className="section">
                     <label className="label">Nacionalidad:</label>
-                    <select className="input" onChange={handleNacionalidad}>
-                      <option value="">selecciones una opcion</option>
+                    <select className="select" onChange={handleNacionalidad}>
+                      <option value="" hidden>selecciones una opcion</option>
                       {paises.map((pais) => (
                         <option value={pais} name="nacionalidad" key={pais}>
                           {pais}
@@ -335,11 +330,7 @@ if (users.id) {
                       ))}
                     </select>
                   </section>
-                  {error && (
-                    <div className="text-center text-red-500 font-bold">
-                      {error.nacionalidad}
-                    </div>
-                  )}
+                  {error && <div className="error">{error.nacionalidad}</div>}
                   <section className=" grid grid-cols-2">
                     <label className="label">Numero De Cedula:</label>
                     <input
@@ -351,11 +342,7 @@ if (users.id) {
                       className="input no-spin"
                     />
                   </section>
-                  {error && (
-                    <div className="text-center text-red-500 font-bold">
-                      {error.cedula}
-                    </div>
-                  )}
+                  {error && <div className="error">{error.cedula}</div>}
                   <section className=" grid grid-cols-2">
                     <label className="label">Fecha De Nacimiento:</label>
                     <DatePicker
@@ -385,20 +372,15 @@ if (users.id) {
                     />
                   </section>
                   {error && (
-                    <div className="text-center text-red-500 font-bold">
-                      {error.fechaDeNacimiento}
-                    </div>
-                  )}          
+                    <div className="error">{error.fechaDeNacimiento}</div>
+                  )}
                 </section>
-
-
               </section>
-              <section className="flex flex-col items-center px-10 bg-indigo-300 min-w-min mx-20 rounded-lg m-2 p-1">
-                <h1 className=" font-bold text-black text-2xl">
-                  Datos De Contacto:
-                </h1>
-                <section className="grid grid-cols-1 text-right">
-                  <section className=" grid grid-cols-2">
+
+              <section className="form">
+                <h1 className="subTitulo">Datos De Contacto:</h1>
+                <section className="sectionGlobal">
+                  <section className="section">
                     <label className="label">Telefono:</label>
                     <input
                       type="number"
@@ -409,12 +391,8 @@ if (users.id) {
                       className="input no-spin"
                     />
                   </section>
-                  {error && (
-                    <div className="text-center text-red-500 font-bold">
-                      {error.telefono}
-                    </div>
-                  )}
-                  <section className="grid grid-cols-2">
+                  {error && <div className="error">{error.telefono}</div>}
+                  <section className="section">
                     <label className="label">WhatsApp:</label>
                     <input
                       type="number"
@@ -423,15 +401,12 @@ if (users.id) {
                       value={input.whatsapp}
                       name="whatsapp"
                       onChange={handleWhtsapp}
+                      min="+"
                       className="input no-spin"
                     />
                   </section>
-                  {error && (
-                    <div className="text-center text-red-500 font-bold">
-                      {error.whatsapp}
-                    </div>
-                  )}
-                  <section className="grid grid-cols-2">
+                  {error && <div className="error">{error.whatsapp}</div>}
+                  <section className="section">
                     <label className="label">Direccion:</label>
                     <input
                       type="text"
@@ -442,17 +417,13 @@ if (users.id) {
                       className="input"
                     />
                   </section>
-                  {error && (
-                    <div className="text-center text-red-500 font-bold">
-                      {error.direccion}
-                    </div>
-                  )}
+                  {error && <div className="error">{error.direccion}</div>}
                 </section>
               </section>
 
-              <section className="flex items-center justify-center">
-                <button className="btn-w w-auto font-bold text-4xl" type="submit">
-                  <BiSend />
+              <section>
+                <button className="btn-w" type="submit">
+                  <BiSend className="BiSend" />
                 </button>
               </section>
             </form>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { POSTUSERNAME, ERROR } from "../../actionsTypes.js";
+import { POSTUSERNAME, PERROR, GERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const USERNAME = import.meta.env.VITE_REACT_APP_URL_USERNAME;
@@ -16,7 +16,7 @@ export const postUserName = (input) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }

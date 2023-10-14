@@ -5,7 +5,8 @@ import {
   GETALLUBICACION,
   UPDATEUBICACION,
   DELETEUBICACION,
-  ERROR,
+  PERROR,
+  GERROR,
 } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -23,7 +24,7 @@ export const postUbicacion = (ubicacion) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }
@@ -41,7 +42,7 @@ export const getAllUbicacion = () => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -59,7 +60,7 @@ export const getUbicacionById = (id) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -77,7 +78,7 @@ export const updateUbicacion = (id, nUbicacion) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }
@@ -95,7 +96,7 @@ export const deleteUbicacion = (id) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }

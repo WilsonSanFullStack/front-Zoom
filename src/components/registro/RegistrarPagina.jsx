@@ -65,13 +65,17 @@ const RegistrarPagina = () => {
       )}
       {showForm && (
         <div className="contenedor2">
-          <h1 className=" font-bold text-4xl m-5">Registro De Paginas</h1>
+          <div className="divTitulo">
+          <h1 className="titulo">Registro De Paginas</h1>
+          </div>
           <form
             onSubmit={handleSubmit}
             className="flex justify-center items-center flex-col"
           >
+            <section className="form">
+
             <section className=" w-96 m-5">
-              <label>Nombre De La Pagina</label>
+              <label className="subTitulo">Nombre De La Pagina</label>
               <input
                 type="text"
                 className="input"
@@ -89,6 +93,7 @@ const RegistrarPagina = () => {
                 <BiSend />
               </button>
             </section>
+      </section>
           </form>
         </div>
       )}

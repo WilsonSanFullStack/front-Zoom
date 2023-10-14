@@ -1,4 +1,3 @@
-import "./App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
   SignIn,
@@ -25,6 +24,7 @@ import Stripchat from "./components/paginas/Stripchat.jsx";
 import Vx from "./components/paginas/Vx.jsx";
 import Xlove from "./components/paginas/Xlove.jsx";
 import XloveNueva from "./components/paginas/XloveNueva.jsx";
+
 import Registro from "./components/registro/RegistroUserName.jsx";
 import Login from "./components/Login.jsx";
 import RegisterUser from "./components/registro/RegisterUser.jsx";
@@ -36,6 +36,7 @@ import RegistrarPagina from "./components/registro/RegistrarPagina.jsx";
 import RegistrarProducto from "./components/registro/RegistrarProducto.jsx";
 import Modelos from "./components/Modelos.jsx";
 import DetailUser from "./components/DetailUser.jsx";
+
 import RegistrarComment from "./components/registro/RegistrarComment.jsx";
 import RegistrarQuincena from "./components/registro/RegistrarQuincena.jsx";
 import RegistrarMoneda from "./components/registro/RegisterMoneda.jsx";
@@ -47,7 +48,7 @@ import RegisterUbicacion from "./components/registro/RegisterUbicacion";
 function App() {
   const { pathname } = useLocation();
   return (
-    <div className="font-mono text-xl">
+    <div>
       {pathname !== "/" &&
         pathname !== "/registro" &&
         pathname !== "/sign-in" &&

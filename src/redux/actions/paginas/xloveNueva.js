@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PXLN, GXLN, ERROR } from "../../actionsTypes.js";
+import { PXLN, GXLN, PERROR, GERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const XLN = import.meta.env.VITE_REACT_APP_XLN;
@@ -22,7 +22,7 @@ export const pxln = (coxln) => {
   };
 };
 
-export const gxln =  () => {
+export const gxln = () => {
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${XLN}`;

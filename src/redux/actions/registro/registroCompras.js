@@ -5,7 +5,8 @@ import {
   GETCOMPRA,
   UPDATECOMPRA,
   DELETECOMPRA,
-  ERROR,
+  PERROR,
+  GERROR,
 } from "../../actionsTypes.JS";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;

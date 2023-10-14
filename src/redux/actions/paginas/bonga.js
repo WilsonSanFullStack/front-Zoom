@@ -1,14 +1,8 @@
-import axios from 'axios';
-import { 
-  PBO,
-  GBO,
-  ERROR,
-} from '../../actionsTypes.js'
-
+import axios from "axios";
+import { PBO, GBO, PERROR, GERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const BO = import.meta.env.VITE_REACT_APP_BO;
-
 
 export const pbo = (cobo) => {
   return async (dispatch) => {
@@ -18,14 +12,14 @@ export const pbo = (cobo) => {
       dispatch({
         type: PBO,
         payload: data,
-      })
+      });
     } catch (error) {
       dispatch({
         type: ERROR,
         payload: error,
-      })
+      });
     }
-  }
+  };
 };
 
 export const gbo = () => {
@@ -36,12 +30,12 @@ export const gbo = () => {
       dispatch({
         type: GBO,
         payload: data,
-      })
+      });
     } catch (error) {
       dispatch({
         type: ERROR,
         payload: error,
-      })
+      });
     }
-  }
+  };
 };

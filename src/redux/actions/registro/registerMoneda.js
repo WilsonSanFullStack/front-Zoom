@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { POSTMONEDA, ERROR } from "../../actionsTypes.js";
+import { POSTMONEDA, PERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const MONEDA = import.meta.env.VITE_REACT_APP_URL_MONEDA;
@@ -16,7 +16,7 @@ export const postMoneda = (moneda) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }

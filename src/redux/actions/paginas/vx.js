@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PVX, ERROR, GVX } from "../../actionsTypes.js";
+import { PVX, PERROR, GERROR, GVX } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const VX = import.meta.env.VITE_REACT_APP_VX;

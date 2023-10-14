@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ERROR, GSE, PSE } from "../../actionsTypes.js";
+import { PERROR, GERROR, GSE, PSE } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const SE = import.meta.env.VITE_REACT_APP_SE;

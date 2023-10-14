@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PIL, GIL, ERROR } from "../../actionsTypes.js";
+import { PIL, GIL, PERROR, GERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const IL = import.meta.env.VITE_REACT_APP_IL;

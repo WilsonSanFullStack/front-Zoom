@@ -5,7 +5,8 @@ import {
   GETBIPRODUCTO,
   UPDATEPRODUCTO,
   DELETEPRODUCTO,
-  ERROR,
+  PERROR,
+  GERROR,
 } from "../../actionsTypes";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;

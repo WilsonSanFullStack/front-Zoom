@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
-import { useNavigate } from "react-router-dom";
+import { Await, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { checkUserById, getUserId } from "../redux/actions/registro/registroUser.js";
+import {
+  checkUserById,
+  getUserId,
+} from "../redux/actions/registro/registroUser.js";
 
 const Loading = () => {
   const init = useSelector((state) => state.init);
@@ -14,50 +17,38 @@ const Loading = () => {
 
   const [id, setId] = useState("");
 
-  // console.log(users);
-  // console.log(user);
-  // console.log(init);
-  // console.log(error)
-
-
   useEffect(() => {
     if (user || id) {
-      // console.log('tengo datos ')
       setId(user.id);
     }
     const checkUser = async () => {
-      if (id) {
-        // console.log("tengo id");
-        dispatch(checkUserById(id));
-        // console.log("ejecucion de checkuser");
-        dispatch(getUserId(id));
-        // console.log("ejecucion de getuser");
-      }
-      if (init !== "") {
-        console.log("ejecucion de if");
-        if (init === true) {
-          if (users.admin === true) {
-            console.log("home");
-            navigate("/home");
-          } else {
-            console.log("user");
-            navigate("/user");
+      dispatch(checkUserById(id));
+      dispatch(getUserId(id));
+
+      console.log(users);
+      console.log(error);
+      console.log(init);
+      setTimeout(() => {
+        if (init !== "") {
+          if (init === true) {
+            if (users.admin === true) {
+              navigate("/home");
+            } else {
+              navigate("/user");
+            }
           }
-        }
-        if (init === false) {
-          // console.log("registro");
+        } else {
           navigate("/registro");
         }
-      }
+      }, 3000);
     };
     checkUser();
   }, [init, user, users, navigate, id, dispatch]);
 
-
   return (
     <div>
-      <div className=" bg-fuchsia-400 min-h-screen flex justify-center items-center">
-        <span className="loader scale-150"></span>
+      <div className=" bg-indigo-200 min-h-screen flex justify-center items-center">
+        <span className="loader"></span>
       </div>
     </div>
   );

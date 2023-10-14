@@ -4,7 +4,8 @@ import {
   POSTQUINCENA,
   GETALLQUINCENA,
   GETBIQUINCENA,
-  ERROR,
+  PERROR,
+  GERROR,
 } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;

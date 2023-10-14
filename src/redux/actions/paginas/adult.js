@@ -1,5 +1,13 @@
 import axios from "axios";
-import { ERROR, GAD, GPA, PAD, PPA, RESETERROR } from "../../actionsTypes.js";
+import {
+  PERROR,
+  GERROR,
+  GAD,
+  GPA,
+  PAD,
+  PPA,
+  RESETERROR,
+} from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const CAD = import.meta.env.VITE_REACT_APP_CAD;
@@ -15,7 +23,7 @@ export const pad = (coad) => {
         payload: data,
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       dispatch({
         type: ERROR,
         payload: error,

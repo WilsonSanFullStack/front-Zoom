@@ -126,86 +126,72 @@ const RegistrarProducto = () => {
       )}
       {showForm && (
         <div className="contenedor2">
+          <div className="divTitulo">
           <h1 className="titulo">Registro De Productos </h1>
+          </div>
           <form onSubmit={handleSubmit} className="flex justify-center">
             <section className="flex flex-col items-center  px-10 bg-indigo-300 max-w-min rounded-lg m-2 p-1 ">
-            <section className="w-96 m-4">
-              <label>Nombre Del Producto:</label>
-              <input
-                type="text"
-                value={producto.nombre}
-                onChange={handleNombre}
-                name="nombre"
-                placeholder="Escriba el nombre del producto"
-                className="input"
-              />
-            </section>
-            {error && (
-              <div className="text-center text-red-500 font-bold">{error}</div>
-            )}
-            <section className="w-96 m-4">
-              <label>Descripcion Del Producto:</label>
-              <input
-                type="text"
-                value={producto.descripcion}
-                onChange={handleDescripcion}
-                name="descripcion"
-                placeholder="Escriba un texto que describa el producto"
-                className="input"
-              />
-            </section>
-            {warning && (
-              <div className="text-center text-red-500 font-bold">
-                {warning.descripcion}
-              </div>
-            )}
-            <section className="w-96 m-4">
-              <label>Link De La Imagen Del Producto:</label>
-              <input
-                type="text"
-                value={producto.imagen}
-                onChange={handleImagen}
-                name="imagen"
-                placeholder="https://www.google.com/imagen/gatos"
-                className="input"
-              />
-            </section>
-            {warning && (
-              <div className="text-center text-red-500 font-bold">
-                {warning.imagen}
-              </div>
-            )}
-            <section className="flex items-center justify-center">
-              <button type="submit" className="btn-w w-auto font-bold text-4xl">
-                <BiSend />
-              </button>
-            </section>
+              <section className="w-96 m-4">
+                <label className="subTitulo">Nombre Del Producto:</label>
+                <input
+                  type="text"
+                  value={producto.nombre}
+                  onChange={handleNombre}
+                  name="nombre"
+                  placeholder="Escriba el nombre del producto"
+                  className="input"
+                />
+              </section>
+              {error && (
+                <div className="text-center text-red-500 font-bold">
+                  {error}
+                </div>
+              )}
+              <section className="w-96 m-4">
+                <label className="subTitulo">Descripcion Del Producto:</label>
+                <input
+                  type="text"
+                  value={producto.descripcion}
+                  onChange={handleDescripcion}
+                  name="descripcion"
+                  maxLength='146'
+                  placeholder="Describa el producto"
+                  className="input"
+                />
+              </section>
+              {warning && (
+                <div className="text-center text-red-500 font-bold">
+                  {warning.descripcion}
+                </div>
+              )}
+              <section className="w-96 m-4">
+                <label className="subTitulo">Link De La Imagen:</label>
+                <input
+                  type="text"
+                  value={producto.imagen}
+                  onChange={handleImagen}
+                  name="imagen"
+                  placeholder="https://www.google.com/imagen/gatos"
+                  className="input"
+                />
+              </section>
+              {warning && (
+                <div className="text-center text-red-500 font-bold">
+                  {warning.imagen}
+                </div>
+              )}
+              <section className="flex items-center justify-center">
+                <button
+                  type="submit"
+                  className="btn-w w-auto font-bold text-4xl"
+                >
+                  <BiSend />
+                </button>
+              </section>
             </section>
           </form>
         </div>
       )}
-
-      <section>
-        <h1>compras</h1>
-        <h1>una lista donde selecciona el producto a comprar </h1>
-        <h1> cantida
-        </h1>
-        <h1>precio compra</h1>
-        <h1>precio venta</h1>
-        <h1>precio de venta diferido</h1>
-        <select name="" id="">
-
-        <option value="">selection</option>
-        </select>
-
-      </section>
-
-      <section>
-        <h1>ventas</h1>
-        <h1>una lista de las modelos</h1>
-        <h1>kista productos</h1>
-
-      </section>
     </div>
   );
 };
