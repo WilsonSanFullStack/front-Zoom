@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pil } from "../../redux/actions/paginas/isLive.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
-import TextareaForm from "../Textarea.jsx";
+import TextareaForm from "../resource/Textarea.jsx";
 
 const IsLive = () => {
   const dispatch = useDispatch();
@@ -22,36 +22,35 @@ const IsLive = () => {
     setInput(event.target.value);
     // Procesa la entrada aquí mismo y actualiza corteChat
     const lines = event.target.value.split("\n");
-  const promocodePattern = /Promocode:\s+(\d+)/;
+    const promocodePattern = /Promocode:\s+(\d+)/;
 
+    const subtotalPattern = /Subtotaal\s+([\d,]+)/;
 
-  const subtotalPattern = /Subtotaal\s+([\d,]+)/;
+    const promocodes = [];
+    let currentPromocode = null;
+    let currentSubtotal = null;
 
-  const promocodes = [];
-  let currentPromocode = null;
-  let currentSubtotal = null;
+    for (const line of lines) {
+      const promocodeMatch = line.match(promocodePattern);
+      const subtotalMatch = line.match(subtotalPattern);
 
-  for (const line of lines) {
-    const promocodeMatch = line.match(promocodePattern);
-    const subtotalMatch = line.match(subtotalPattern);
-
-    if (promocodeMatch) {
-      currentPromocode = promocodeMatch[1];
-    } else if (subtotalMatch) {
-      currentSubtotal = parseFloat(subtotalMatch[1].replace(",", "."));
-      if (currentPromocode !== null && currentSubtotal !== null) {
-        promocodes.push({
-          codigo: currentPromocode,
-          euros: currentSubtotal,
-        });
-        currentPromocode = null;
-        currentSubtotal = null;
+      if (promocodeMatch) {
+        currentPromocode = promocodeMatch[1];
+      } else if (subtotalMatch) {
+        currentSubtotal = parseFloat(subtotalMatch[1].replace(",", "."));
+        if (currentPromocode !== null && currentSubtotal !== null) {
+          promocodes.push({
+            codigo: currentPromocode,
+            euros: currentSubtotal,
+          });
+          currentPromocode = null;
+          currentSubtotal = null;
+        }
       }
     }
-  }
-  promocodes.sort((a, b) => {
-    return a.codigo.localeCompare(b.codigo);
-  })
+    promocodes.sort((a, b) => {
+      return a.codigo.localeCompare(b.codigo);
+    });
     setCoil(promocodes);
   };
   const handlerSubmit = () => {
@@ -77,9 +76,7 @@ const IsLive = () => {
 
       <div className="contenedor3">
         <div className="contenedor4">
-          <h2 className="titulo">
-            Creditos a subir
-          </h2>
+          <h2 className="titulo">Creditos a subir</h2>
           {coil?.map((x, i) => {
             return (
               <div key={i}>
@@ -95,9 +92,7 @@ const IsLive = () => {
           })}
         </div>
         <div className="contenedor4">
-          <h2 className="titulo">
-            Creditos subidos
-          </h2>
+          <h2 className="titulo">Creditos subidos</h2>
           {!errors && (
             <div>
               {reporte?.map((x, i) => {

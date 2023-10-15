@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 
-import { registroUser } from "../../redux/actions/registro/registroUser.js";
-import { resetError } from "../../redux/resetError.js";
+import { registroUser } from "../../redux/actions/registro/registerUser.js";
+import { resetError } from "../../redux/actions/resetError.js";
 
 const validacion = (input) => {
   let error = {};
@@ -250,7 +250,7 @@ const RegisterUser = () => {
         setTimeout(() => {
           setConfirmacion("");
           navigate("/loader");
-        }, 15000);
+        }, 2000);
         setInput({
           nombre: "",
           apellido: "",

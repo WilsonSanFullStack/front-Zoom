@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import { BiSend } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+
+import { postVenta } from "../../redux/actions/registro/registerVenta.js";
 
 const Store = ({ props }) => {
-  console.log(props);
+  const dispatch = useDispatch();
+  const [venta, setVentas] = useState(props);
+  console.log(venta);
+
+  const handleSubmit = (venta) => {
+    dispatch(postVenta(venta));
+  };
 
   return (
     <div className="flex max-w-2xl justify-end  mx-auto">
@@ -24,6 +34,11 @@ const Store = ({ props }) => {
           }
         })}
       </div>
+      <section className="flex justify-center items-center">
+        <button className="btn-w" onSubmit={handleSubmit()}>
+          <BiSend className="BiSend" />
+        </button>
+      </section>
     </div>
   );
 };

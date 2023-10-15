@@ -7,11 +7,8 @@ import {
   SignUp,
 } from "@clerk/clerk-react";
 
-import NavBar from "./components/NavBar.jsx";
-import Home from "./components/Home.jsx";
-// import Estadisticas from "./components/Estadisticas.jsx";
-import Adultregular from "./components/paginas/adult/Adultregular";
-import Adultparcial from "./components/paginas/adult/Adultparcial";
+import Adultregular from "./components/paginas/Adultregular";
+import Adultparcial from "./components/paginas/Adultparcial";
 import Amateur from "./components/paginas/Amateur.jsx";
 import Bonga from "./components/paginas/Bonga.jsx";
 import Cam4 from "./components/paginas/Cam4.jsx";
@@ -25,23 +22,25 @@ import Vx from "./components/paginas/Vx.jsx";
 import Xlove from "./components/paginas/Xlove.jsx";
 import XloveNueva from "./components/paginas/XloveNueva.jsx";
 
-import Registro from "./components/registro/RegistroUserName.jsx";
-import Login from "./components/Login.jsx";
+import NavBar from "./components/view/NavBar.jsx";
+import Home from "./components/view/Home.jsx";
+import Login from "./components/view/Login.jsx";
+import User from "./components/View/User.jsx";
+import Loading from "./components/view/Loading.jsx";
+import Crear from "./components/view/Crear.jsx";
+import Editar from "./components/view/Editar.jsx";
+import Modelos from "./components/view/Modelos.jsx";
+import DetailUser from "./components/view/DetailUser.jsx";
+import Ventas from "./components/view/Ventas.jsx";
+
 import RegisterUser from "./components/registro/RegisterUser.jsx";
-import User from "./components/User.jsx";
-import Loading from "./components/Loading.jsx";
-import Crear from "./components/Crear.jsx";
-import Editar from "./components/Editar";
 import RegistrarPagina from "./components/registro/RegistrarPagina.jsx";
 import RegistrarProducto from "./components/registro/RegistrarProducto.jsx";
-import Modelos from "./components/Modelos.jsx";
-import DetailUser from "./components/DetailUser.jsx";
-
+import Registro from "./components/registro/RegistroUserName.jsx";
 import RegistrarComment from "./components/registro/RegistrarComment.jsx";
 import RegistrarQuincena from "./components/registro/RegistrarQuincena.jsx";
 import RegistrarMoneda from "./components/registro/RegisterMoneda.jsx";
 import CargarEstadisticas from "./components/registro/CargarEstadisticas.jsx";
-import Ventas from "./components/Ventas";
 import RegisterPorcentaje from "./components/registro/RegisterPorcentaje.jsx";
 import RegisterUbicacion from "./components/registro/RegisterUbicacion";
 

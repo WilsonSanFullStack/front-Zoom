@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   checkUserById,
   getUserId,
-} from "../redux/actions/registro/registroUser.js";
+} from "../../redux/actions/registro/registerUser.js";
 
 const Loading = () => {
   const init = useSelector((state) => state.init);
@@ -32,15 +32,15 @@ const Loading = () => {
         if (init !== "") {
           if (init === true) {
             if (users.admin === true) {
-              navigate("/home");
+              return navigate("/home");
             } else {
-              navigate("/user");
+              return navigate("/user");
             }
+          } else {
+            return navigate("/registro");
           }
-        } else {
-          navigate("/registro");
         }
-      }, 3000);
+      }, 2000);
     };
     checkUser();
   }, [init, user, users, navigate, id, dispatch]);

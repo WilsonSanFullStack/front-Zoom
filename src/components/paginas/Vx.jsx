@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { pvx } from "../../redux/actions/paginas/vx.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
 
-import TextareaForm from "../Textarea.jsx";
+import TextareaForm from "../resource/Textarea.jsx";
 
 const Vx = () => {
   const [input, setInput] = useState([]);

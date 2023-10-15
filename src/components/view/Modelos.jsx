@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUser } from "../redux/actions/registro/registroUser.js";
+import { getAllUser } from "../../redux/actions/registro/registerUser.js";
 import { Link } from "react-router-dom";
 
 const Modelos = () => {

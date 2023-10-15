@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   postPagina,
   getAllPagina,
-} from "../../redux/actions/registro/registroPaginas.js";
+} from "../../redux/actions/registro/registerPaginas.js";
 
 const valida = (pagina, paginas) => {
   let error = "";

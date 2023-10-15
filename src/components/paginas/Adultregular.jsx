@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pad, resetError } from "../../../redux/actions/paginas/adult.js";
-import TextareaForm from "../../Textarea.jsx";
+import { pad, resetError } from "../../redux/actions/paginas/adult.js";
+import TextareaForm from "../resource/Textarea.jsx";
 
 import {
   getAllQuincena,
   getByIdQuincena,
-} from "../../../redux/actions/registro/registrarQuincena.js";
-// import Fecha from "./Fecha.jsx";
-import date from "../../date.js";
+} from "../../redux/actions/registro/registerQuincena.js";
+
+import date from "../js/date.js";
 
 function Adultregular() {
   const reporte = useSelector((state) => state.spg);
@@ -18,7 +18,7 @@ function Adultregular() {
 
   const dispatch = useDispatch();
 
-  console.log(errors)
+  console.log(errors);
 
   useEffect(() => {
     // Llama a la acción de reinicio cuando el componente se desmonte
@@ -53,7 +53,7 @@ function Adultregular() {
         return result;
       });
   };
-console.log(coad)
+  console.log(coad);
   const handlerSubmit = () => {
     dispatch(pad(coad));
     setInput([]);
@@ -119,21 +119,21 @@ console.log(coad)
   return (
     <div className="min-h-screen bg-indigo-200 top-0">
       <div className="pt-14 text-center ">
-      <div>
-        <select onChange={handleQuincena} value={id}>
-          <option value="" hidden>
-            Seleccione Una Quincena
-          </option>
-          {quincenas &&
-            quincenas?.map((x) => {
-              return (
-                <option value={x.id} key={x.id}>
-                  {x.nombre}
-                </option>
-              );
-            })}
-        </select>
-      </div>
+        <div>
+          <select onChange={handleQuincena} value={id}>
+            <option value="" hidden>
+              Seleccione Una Quincena
+            </option>
+            {quincenas &&
+              quincenas?.map((x) => {
+                return (
+                  <option value={x.id} key={x.id}>
+                    {x.nombre}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
         <TextareaForm
           value={input}
           onChange={handleTextarea}

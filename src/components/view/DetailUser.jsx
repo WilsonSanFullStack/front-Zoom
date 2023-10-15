@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserBI } from "../redux/actions/registro/registroUser.js";
+import { getUserBI } from "../../redux/actions/registro/registerUser.js";
+import { getAllPagina } from "../../redux/actions/registro/registerPaginas.js";
 import { useParams, Link } from "react-router-dom";
 import { AiOutlineContainer } from "react-icons/ai";
-import { getAllPagina } from "../redux/actions/registro/registroPaginas.js";
 import { TiCogOutline } from "react-icons/ti";
 
 const DetailUser = () => {

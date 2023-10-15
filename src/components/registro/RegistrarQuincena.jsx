@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import {
   postQuincena,
   getAllQuincena,
-} from "../../redux/actions/registro/registrarQuincena.js";
+} from "../../redux/actions/registro/registerQuincena.js";
 
 const RegistrarQuincena = () => {
   const dispatch = useDispatch();

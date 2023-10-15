@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { pxln } from "../../redux/actions/paginas/xloveNueva.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
 
-import TextareaForm from "../Textarea.jsx";
+import TextareaForm from "../resource/Textarea.jsx";
 
 const XloveNueva = () => {
   const [input, setInput] = useState([]);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pbo } from "../../redux/actions/paginas/bonga.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
-import TextareaForm from "../Textarea.jsx";
+import TextareaForm from "../resource/Textarea.jsx";
 
 const Bonga = () => {
   const [input, setInput] = useState([]);

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserId } from "../redux/actions/registro/registroUser.js";
-import Moneda from "./Moneda.jsx";
+import Moneda from "../resource/Moneda.jsx";
+
+import { getUserId } from "../../redux/actions/registro/registerUser.js";
 import {
   getAllQuincena,
   getByIdQuincena,
-} from "../redux/actions/registro/registrarQuincena.js";
+} from "../../redux/actions/registro/registerQuincena.js";
 
 const User = () => {
   const dispatch = useDispatch();

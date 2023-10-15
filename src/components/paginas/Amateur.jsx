@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { pam } from "../../redux/actions/paginas/amateur.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
 
-import TextareaForm from "../Textarea.jsx";
+import TextareaForm from "../resource/Textarea.jsx";
 
 const Amateur = () => {
   const [input, setInput] = useState([]);
@@ -25,14 +25,14 @@ const Amateur = () => {
     const exchangeRate = 2000; // 2000 tokens = 1 dolar
 
     const regex = /^(\w+)\s+[\d.,]+\s+([\d.]+)/gm;
-const matches = [...event.target.value.matchAll(regex)];
+    const matches = [...event.target.value.matchAll(regex)];
 
-const result = matches.map(match => {
-  const [, user, tokens] = match;
-  const tokensValue = parseFloat(tokens.replace(',', ''));
-  const dolaresValue = parseFloat((tokensValue / exchangeRate).toFixed(2));
-  return { user, tokens: tokensValue, dolares: dolaresValue };
-});
+    const result = matches.map((match) => {
+      const [, user, tokens] = match;
+      const tokensValue = parseFloat(tokens.replace(",", ""));
+      const dolaresValue = parseFloat((tokensValue / exchangeRate).toFixed(2));
+      return { user, tokens: tokensValue, dolares: dolaresValue };
+    });
 
     result.sort((a, b) => {
       return a.user.localeCompare(b.user);

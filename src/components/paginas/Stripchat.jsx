@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { pst } from "../../redux/actions/paginas/stripchat.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
 
-import TextareaForm from "../Textarea.jsx";
+import TextareaForm from "../resource/Textarea.jsx";
 
 const Stripchat = () => {
   const [input, setInput] = useState([]);

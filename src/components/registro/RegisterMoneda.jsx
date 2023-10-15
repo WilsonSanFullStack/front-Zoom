@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BiSend } from "react-icons/bi";
 
-import { getAllQuincena } from "../../redux/actions/registro/registrarQuincena.js";
+import { getAllQuincena } from "../../redux/actions/registro/registerQuincena.js";
 import { useDispatch, useSelector } from "react-redux";
 import { postMoneda } from "../../redux/actions/registro/registerMoneda.js";
 import { useNavigate } from "react-router-dom";

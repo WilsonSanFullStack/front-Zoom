@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { pxl } from "../../redux/actions/paginas/xlove.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
 
-import TextareaForm from "../Textarea.jsx";
+import TextareaForm from "../resource/Textarea.jsx";
 
 const Xlove = () => {
   const [input, setInput] = useState([]);
@@ -23,11 +23,15 @@ const Xlove = () => {
     setInput(event.target.value);
 
     setCoxl(() => {
-      const lines = event.target.value.trim().split('\n');
+      const lines = event.target.value.trim().split("\n");
       const data = [];
 
       for (let i = 0; i < lines.length; i++) {
-        if (!lines[i].includes('*') && !lines[i].includes('=') && !lines[i].includes('TOTAL')) {
+        if (
+          !lines[i].includes("*") &&
+          !lines[i].includes("=") &&
+          !lines[i].includes("TOTAL")
+        ) {
           const parts = lines[i].split(/\s+/);
           if (parts.length >= 9) {
             const user = parts[0];
@@ -38,7 +42,6 @@ const Xlove = () => {
           }
         }
       }
-
 
       data.sort((a, b) => {
         return a.user.localeCompare(b.user); // Cambia userName por user

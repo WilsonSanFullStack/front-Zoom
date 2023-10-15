@@ -1,5 +1,5 @@
 import React from "react";
-import date from "./date.js";
+import date from "../js/date.js";
 
 const Fecha = () => {
   

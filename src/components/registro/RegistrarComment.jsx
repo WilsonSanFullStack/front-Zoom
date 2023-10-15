@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BiSend } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { postComment } from "../../redux/actions/registro/registrarComment";
+import { postComment } from "../../redux/actions/registro/registerComment.js";
 
 const RegistrarComment = () => {
   const navigate = useNavigate()

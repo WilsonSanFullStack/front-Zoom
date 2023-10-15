@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pca } from "../../redux/actions/paginas/cam4.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
 
-import TextareaForm from "../Textarea.jsx";
+import TextareaForm from "../resource/Textarea.jsx";
 
 const Cam4 = () => {
   const [input, setInput] = useState([]);
@@ -24,11 +24,11 @@ const Cam4 = () => {
 
     setCoca(() => {
       const pattern = /(\S+)\s+(\d+)/g;
-const matches = [...event.target.value.matchAll(pattern)];
+      const matches = [...event.target.value.matchAll(pattern)];
 
-const result = matches
-  .map(match => ({ user: match[1], dolares: parseInt(match[2]) }))
-  .filter(entry => entry.dolares !== 0);
+      const result = matches
+        .map((match) => ({ user: match[1], dolares: parseInt(match[2]) }))
+        .filter((entry) => entry.dolares !== 0);
       result.sort((a, b) => {
         return a.user.localeCompare(b.user); // Cambia userName por user
       });
@@ -106,6 +106,6 @@ const result = matches
       </div>
     </div>
   );
-}
+};
 
-export default Cam4
+export default Cam4;

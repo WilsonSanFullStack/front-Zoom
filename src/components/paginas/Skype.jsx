@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { psk } from "../../redux/actions/paginas/skype.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
 
-import TextareaForm from '../Textarea.jsx';
+import TextareaForm from "../resource/Textarea.jsx";
 
 const Skype = () => {
   const [input, setInput] = useState([]);
@@ -24,20 +24,20 @@ const Skype = () => {
 
     setCosk(() => {
       const lines = event.target.value.trim().split("\n");
-const data = [];
+      const data = [];
 
-for (const line of lines) {
-  const parts = line.split("\t");
-  if (parts.length === 2) {
-    const user = parts[0];
-    const dolares = parseFloat(parts[1]);
-    if (!isNaN(dolares)) {
-      const dolaresConPorcentaje = (dolares * 0.75).toFixed(2); // Multiplicar por 75%
-      data.push({ user, dolares: dolaresConPorcentaje });
-    }
-  }
-}
-      
+      for (const line of lines) {
+        const parts = line.split("\t");
+        if (parts.length === 2) {
+          const user = parts[0];
+          const dolares = parseFloat(parts[1]);
+          if (!isNaN(dolares)) {
+            const dolaresConPorcentaje = (dolares * 0.75).toFixed(2); // Multiplicar por 75%
+            data.push({ user, dolares: dolaresConPorcentaje });
+          }
+        }
+      }
+
       data.sort((a, b) => {
         return a.user.localeCompare(b.user); // Cambia userName por user
       });
@@ -117,6 +117,6 @@ for (const line of lines) {
       </div>
     </div>
   );
-}
+};
 
 export default Skype;

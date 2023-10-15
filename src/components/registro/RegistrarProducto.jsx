@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import {
   getAllProductos,
   postProducto,
-} from "../../redux/actions/registro/registroProductos.js";
+} from "../../redux/actions/registro/registerProductos.js";
 
 const valida = (nombre, productos) => {
   let error = "";

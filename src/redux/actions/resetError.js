@@ -1,4 +1,4 @@
-import { RESETERROR } from "./actionsTypes";
+import { RESETERROR } from "../actionsTypes";
 
 export const resetError = () => {
   return {

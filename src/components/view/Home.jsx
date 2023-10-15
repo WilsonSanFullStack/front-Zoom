@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Moneda from "./Moneda.jsx";
+import Moneda from "../resource/Moneda.jsx";
 
 import {
   getAllQuincena,
   getByIdQuincena,
-} from "../redux/actions/registro/registrarQuincena.js";
+} from "../../redux/actions/registro/registerQuincena.js";
 
 const Home = () => {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pse } from "../../redux/actions/paginas/sender.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
-import TextareaForm from "../Textarea.jsx";
+import TextareaForm from "../resource/Textarea.jsx";
 
 const Sender = () => {
   const dispatch = useDispatch();
@@ -58,19 +58,13 @@ const Sender = () => {
           titulo="Corte De Sender"
         />
         <div className="mt-24">
-          {errors && (
-            <p className="error">
-              {errors.message}
-            </p>
-          )}
+          {errors && <p className="error">{errors.message}</p>}
         </div>
       </div>
 
       <div className="contenedor3">
         <div className="cotenedor4">
-          <h2 className="titulo">
-            Creditos a subir
-          </h2>
+          <h2 className="titulo">Creditos a subir</h2>
           {cose?.map((x, i) => {
             return (
               <div key={i}>
@@ -88,9 +82,7 @@ const Sender = () => {
           })}
         </div>
         <div className="contenedor4">
-          <h2 className="titulo">
-            Creditos subidos
-          </h2>
+          <h2 className="titulo">Creditos subidos</h2>
           {!errors && (
             <div>
               {reporte?.map((x, i) => {

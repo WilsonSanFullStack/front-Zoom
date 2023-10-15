@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ppad, resetError } from "../../../redux/actions/paginas/adult.js";
-import TextareaForm from "../../Textarea.jsx";
+import { ppad, resetError } from "../../redux/actions/paginas/adult.js";
+import TextareaForm from "../resource/Textarea.jsx";
 
 function Adultparcial() {
   const reporte = useSelector((state) => state.spg);

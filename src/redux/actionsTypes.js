@@ -48,6 +48,13 @@ export const GETBICOMPRA = "GETBICOMPRA";
 export const UPDATECOMPRA = "UPDATECOMPRA";
 export const DELETECOMPRA = "DELETECOMPRA";
 
+//todo para las ventas
+export const POSTVENTA = "POSTVENTA";
+export const GETALLVENTA = "GETALLVENTA";
+export const GETVENTABYID = "GETVENTABYID";
+export const UPDATEVENTA = "UPDATEVENTA";
+export const DELETEVENTA = "DELETEVENTA";
+
 //todo para usuarios
 export const RU = "RU";
 export const GUS = "GUS";

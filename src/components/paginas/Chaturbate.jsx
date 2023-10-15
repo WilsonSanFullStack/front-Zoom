@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pch } from "../../redux/actions/paginas/chaturbate.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
-import TextareaForm from "../Textarea.jsx";
+import TextareaForm from "../resource/Textarea.jsx";
 
 const Chaturbate = () => {
   const [input, setInput] = useState([]);
