@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .btnStore {
   @apply mx-2 rounded-md scale-125 bg-orange-100  hover:bg-orange-100  active:bg-indigo-200;
 }
@@ -59,9 +58,7 @@
   @apply text-right mx-4 font-bold;
 }
 
-.sectionSelect {
-  @apply bg-indigo-200 rounded-lg px-4 w-96;
-}
+
 
 .menu-container {
   @apply bg-indigo-100 rounded-xl border-2 border-t-8 border-r-8 border-indigo-400 p-2;
@@ -75,7 +72,7 @@
 }
 /*todo   ya esta verificada */
 .BiSend {
-  @apply text-3xl
+  @apply text-3xl;
 }
 /*todo   ya esta verificada */
 .btn-w {
@@ -87,7 +84,7 @@
 }
 /*todo   ya esta verificada */
 .contenedor2 {
-  @apply pt-14 text-center;
+  @apply pt-20 text-center;
 }
 /*todo   ya esta verificada */
 .error {
@@ -107,11 +104,15 @@
 }
 /*todo   ya esta verificada */
 .sectionGlobal {
-  @apply text-right
+  @apply text-right;
+}
+/*todo   ya esta verificada */
+.sectionSelect {
+  @apply rounded-lg px-4 w-auto justify-center items-center flex;
 }
 /*todo   ya esta verificada */
 .select {
-  @apply bg-indigo-200 rounded-lg px-4 m-1 w-auto h-6;
+  @apply bg-indigo-400 rounded-lg px-4 m-1 w-auto h-6  text-center;
 }
 /*todo   ya esta verificada */
 .form {
@@ -134,7 +135,7 @@
   @apply bg-indigo-300 m-2 w-52 h-52 rounded-2xl flex justify-center items-center flex-col p-2;
 }
 .divButtonP {
-  @apply flex grid-cols-4 bg-indigo-500 mt-3 rounded-xl justify-between items-center h-8 w-44 mx-6
+  @apply flex grid-cols-4 bg-indigo-500 mt-3 rounded-xl justify-between items-center h-8 w-44 mx-6;
 }
 
 .no-spin {
@@ -148,14 +149,13 @@
   margin: 0;
 }
 
-
 body {
   background: #c7d2fe;
 }
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .loader {
@@ -167,7 +167,7 @@ body {
   border-radius: 8px;
 }
 .loader::before {
-  content: '';
+  content: "";
   position: absolute;
   border: 5px solid #fff;
   width: 32px;
@@ -175,13 +175,12 @@ body {
   border-radius: 50% 50% 0 0;
   left: 50%;
   top: 0;
-  transform: translate(-50% , -100%)
-
+  transform: translate(-50%, -100%);
 }
 .loader::after {
-  content: '';
+  content: "";
   position: absolute;
-  transform: translate(-50% , -50%);
+  transform: translate(-50%, -50%);
   left: 50%;
   top: 50%;
   width: 8px;
@@ -199,43 +198,43 @@ body {
   }
   50% {
     background-color: rgba(255, 255, 255, 1);
-    box-shadow: 16px 0 rgba(255, 255, 255, 0.25), -16px 0 rgba(255, 255, 255, 0.25);
+    box-shadow: 16px 0 rgba(255, 255, 255, 0.25),
+      -16px 0 rgba(255, 255, 255, 0.25);
   }
   100% {
     background-color: rgba(255, 255, 255, 0.25);
     box-shadow: 16px 0 rgba(255, 255, 255, 1), -16px 0 rgba(255, 255, 255, 0.25);
   }
 }
-    
 
 .loade1 {
   width: 48px;
   height: 12px;
   margin-top: 40px;
-  background: #FFF;
+  background: #fff;
   display: inline-block;
   position: relative;
 }
 .loade1::after {
-  content: '';  
+  content: "";
   left: 50%;
   top: -47px;
   transform: translate(-50%, 0);
   position: absolute;
   border: 15px solid transparent;
-  border-bottom-color: #FFF;
+  border-bottom-color: #fff;
   box-sizing: border-box;
   animation: bump 0.4s ease-in-out infinite alternate;
 }
 .loade1::before {
-  content: '';  
+  content: "";
   left: 50%;
   bottom: 15px;
   transform: translate(-50%, 0);
   position: absolute;
   width: 15px;
   height: 20px;
-  background: #FFF;
+  background: #fff;
   box-sizing: border-box;
   animation: bump 0.4s ease-in-out infinite alternate;
 }
@@ -248,20 +247,25 @@ body {
     transform: translate(-50%, -5px);
   }
 }
-    
-
-
 
 .cintaAjedrez {
   scale: 0.7;
   width: 130px;
   height: 48px;
   display: inline-block;
-  background: linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000 100%), linear-gradient(45deg, #000 25%, white 25%, white 75%, #000 75%, #000 100%);
+  background: linear-gradient(
+      45deg,
+      #000 25%,
+      transparent 25%,
+      transparent 75%,
+      #000 75%,
+      #000 100%
+    ),
+    linear-gradient(45deg, #000 25%, white 25%, white 75%, #000 75%, #000 100%);
   font-size: 10px;
   background-size: 32px 32px;
   box-sizing: border-box;
-  animation: raceBoard .7s linear infinite;
+  animation: raceBoard 0.7s linear infinite;
   background-position: 0 0, 16px 16px;
 }
 

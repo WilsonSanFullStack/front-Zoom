@@ -118,11 +118,9 @@ const Registro = () => {
 
   return (
     <div className="contenedor1">
-        <div className="contenedor2">
-      <div className="divTitulo">
-        <h1 className="titulo">
-          Registro De Usuarios
-        </h1>
+      <div className="contenedor2">
+        <div className="divTitulo">
+          <h1 className="titulo">Registro De Usuarios</h1>
           <form onSubmit={handlerSubmit}>
             <section className=" px-20 grid min-w-min mx-20 rounded-lg m-5 p-5 bg-indigo-300">
               <h1 className=" font-bold text-black text-3xl">

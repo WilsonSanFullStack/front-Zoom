@@ -43,6 +43,8 @@ import RegistrarMoneda from "./components/registro/RegisterMoneda.jsx";
 import CargarEstadisticas from "./components/registro/CargarEstadisticas.jsx";
 import RegisterPorcentaje from "./components/registro/RegisterPorcentaje.jsx";
 import RegisterUbicacion from "./components/registro/RegisterUbicacion";
+import RegisterCompras from "./components/registro/RegisterCompras.jsx";
+import RegisterRojos from "./components/registro/RegisterRojos";
 
 function App() {
   const { pathname } = useLocation();
@@ -56,6 +58,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/loader" element={<Loading />} />
         <Route path="/registro" element={<RegisterUser />} />
+
+        <Route path="/crear" element={<Crear />} />
         <Route path="/crear/username" element={<Registro />} />
         <Route path="/crear/pagina" element={<RegistrarPagina />} />
         <Route path="/crear/producto" element={<RegistrarProducto />} />
@@ -64,7 +68,9 @@ function App() {
         <Route path="/crear/estadisticas" element={<CargarEstadisticas />} />
         <Route path="/crear/porcentaje" element={<RegisterPorcentaje />} />
         <Route path="/crear/ubicacion" element={<RegisterUbicacion />} />
-        <Route path="/crear" element={<Crear />} />
+        <Route path="/crear/compras" element={<RegisterCompras />} />
+        <Route path="/crear/rojos" element={<RegisterRojos />} />
+
         <Route path="/editar" element={<Editar />} />
         <Route path="/user" element={<User />} />
         <Route path="/modelo" element={<Modelos />} />

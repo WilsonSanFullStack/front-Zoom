@@ -92,7 +92,7 @@ const RegisterUser = () => {
   const navigate = useNavigate();
   const users = useSelector((state) => state.user);
   const perror = useSelector((state) => state.perror);
-  const gerror = useSelector((state) => state.perror);
+  const gerror = useSelector((state) => state.gerror);
   // const [isRegister, setIsRegister] = useState(false);
   const { user } = useUser();
 
@@ -322,7 +322,7 @@ const RegisterUser = () => {
                   <section className="section">
                     <label className="label">Nacionalidad:</label>
                     <select className="select" onChange={handleNacionalidad}>
-                      <option value="" hidden>selecciones una opcion</option>
+                      <option value="" hidden>selecciones un pais</option>
                       {paises.map((pais) => (
                         <option value={pais} name="nacionalidad" key={pais}>
                           {pais}

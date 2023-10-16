@@ -9,17 +9,17 @@ const Moneda = ({ quincena }) => {
 
   return (
     <div className="flex-col text-center font-bold bg-indigo-300 rounded-2xl mx-20 my-5">
-      <Fecha />
-      <p>Quincena Actual: {quincena && quincena?.nombre}</p>
-      <div className="flex grid-cols-2 mx-8 justify-center">
-        <section className="absolute ml-2 m-1 right-20 top-28 font-bold">
+        <section className="flex justify-end m-1 p-1">
           <Link to="/editar">
             <div className="flex items-center justify-center">
               <TiCogOutline className=" text-5xl btn-n" />
             </div>
           </Link>
         </section>
+      <div className="-mt-16 m-2 p-2"><Fecha />
+      <p>Quincena Actual: {quincena && quincena?.nombre}</p></div>
 
+      <div className="flex grid-cols-2 mx-8 justify-center m-2 p-2">
         <div className=" text-center">
           <p className=" text-red-500 text-2xl">
             {monedas && monedas?.descripcion.toUpperCase()}{" "}

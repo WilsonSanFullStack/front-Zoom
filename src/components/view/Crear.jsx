@@ -11,12 +11,24 @@ const Crear = () => {
             <button className="btn-w h-20 w-48">Registrar Pagina</button>
           </NavLink>
 
+          <NavLink to="/crear/username">
+            <button className="btn-w h-20 w-48">Registrar UserName</button>
+          </NavLink>
+
+          <NavLink to="/crear/estadisticas">
+            <button className="btn-w h-20 w-48">Registrar Estadisticas</button>
+          </NavLink>
+
           <NavLink to="/crear/producto">
             <button className="btn-w h-20 w-48">Registrar Producto</button>
           </NavLink>
+          
+          <NavLink to="/crear/compras">
+            <button className="btn-w h-20 w-48">Registrar Compras</button>
+          </NavLink>
 
-          <NavLink to="/crear/username">
-            <button className="btn-w h-20 w-48">Registrar UserName</button>
+          <NavLink to="/crear/rojos">
+            <button className="btn-w h-20 w-48">Registrar Rojos</button>
           </NavLink>
 
           <NavLink to="/crear/quincena">
@@ -24,10 +36,6 @@ const Crear = () => {
           </NavLink>
           <NavLink to="/crear/moneda">
             <button className="btn-w h-20 w-48">Registrar Moneda</button>
-          </NavLink>
-
-          <NavLink to="/crear/estadisticas">
-            <button className="btn-w h-20 w-48">Registrar Estadisticas</button>
           </NavLink>
 
           <NavLink to="/crear/porcentaje">

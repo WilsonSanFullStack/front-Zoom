@@ -56,7 +56,7 @@ const User = () => {
       const añoFinal = parseInt(partesFechaFinal[2], 10);
 
       // Crea un objeto de fecha
-      const fechaFinal = new Date(añoFinal, mesFinal, diaFinal);
+      const fechaFinal = new Date(añoFinal, mesFinal, diaFinal, 23, 59, 59);
 
       const fechaActual = new Date();
 

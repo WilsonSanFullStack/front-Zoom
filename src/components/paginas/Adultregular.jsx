@@ -117,8 +117,8 @@ function Adultregular() {
   };
 
   return (
-    <div className="min-h-screen bg-indigo-200 top-0">
-      <div className="pt-14 text-center ">
+    <div className="contenedor1">
+      <div className="contenedor2">
         <div>
           <select onChange={handleQuincena} value={id}>
             <option value="" hidden>

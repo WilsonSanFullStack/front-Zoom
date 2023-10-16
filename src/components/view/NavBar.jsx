@@ -38,7 +38,6 @@ const NavBar = () => {
     }, 20000);
   }, []);
 
-  console.log(loadingProfileImage);
   return (
     <nav className="w-full bg-indigo-300 p-1 text-lg flex justify-between items-center font-bold fixed top-0 z-10 ">
       <NavLink to="/home">

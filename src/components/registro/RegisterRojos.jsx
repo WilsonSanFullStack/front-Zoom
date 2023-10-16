@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { BiSend } from "react-icons/bi";
+
 import Moneda from "../resource/Moneda.jsx";
 
 import {
@@ -8,14 +10,14 @@ import {
   getByIdQuincena,
 } from "../../redux/actions/registro/registerQuincena.js";
 
-const Home = () => {
+const RegisterRojos = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const users = useSelector((state) => state.user);
   const quincenas = useSelector((state) => state.quincenas);
   const quincena = useSelector((state) => state.quincena);
   const [id, setId] = useState("");
-
+  console.log(id);
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
@@ -26,28 +28,27 @@ const Home = () => {
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual
-
-    const quincenaActual = quincenas?.find((q) => {
-      const quincenaInicio = q?.inicia;
-      const partesFechaInicio = quincenaInicio?.split("/");
+    const quincenaActual = quincenas.find((q) => {
+      const quincenaInicio = q.inicia;
+      const partesFechaInicio = quincenaInicio.split("/");
 
       // Obtén el día, el mes y el año como números
       const diaInicio = parseInt(partesFechaInicio[0], 10);
       const mesInicio = parseInt(partesFechaInicio[1], 10) - 1;
-      const añoInicio = parseInt(partesFechaInicio[2], 10);
+      const yearInit = parseInt(partesFechaInicio[2], 10);
 
       // Crea un objeto de fecha
-      const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
+      const fechaInicio = new Date(yearInit, mesInicio, diaInicio);
 
-      const quincenaFinal = q?.final;
-      const partesFechaFinal = quincenaFinal?.split("/");
+      const quincenaFinal = q.final;
+      const partesFechaFinal = quincenaFinal.split("/");
 
       // Obtén el día, el mes y el año como números
       const diaFinal = parseInt(partesFechaFinal[0], 10);
       const mesFinal = parseInt(partesFechaFinal[1], 10) - 1;
-      const añoFinal = parseInt(partesFechaFinal[2], 10);
+      const yearEnd = parseInt(partesFechaFinal[2], 10);
 
-      const fechaFinal = new Date(añoFinal, mesFinal, diaFinal, 23, 59, 59);
+      const fechaFinal = new Date(yearEnd, mesFinal, diaFinal, 23, 59, 59);
 
       const fechaActual = new Date();
 
@@ -55,9 +56,10 @@ const Home = () => {
     });
 
     if (quincenaActual) {
-      setId(quincenaActual?.id);
+      setId(quincenaActual.id);
     }
-  }, [quincenas]);
+    console.log(quincenaActual);
+  }, [quincena]);
 
   const handleQuincena = (event) => {
     setId(event.target.value);
@@ -66,6 +68,14 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-indigo-200 text-xl pt-14 text-center">
       <div className="mt-2">
+        <div className="divTitulo">
+          <h1 className="titulo">Registro Rojos</h1>
+        </div>
+        {quincena && quincena.nombre ? (
+          <Moneda quincena={quincena} />
+        ) : (
+          <div className="loade1 m-auto my-2"></div>
+        )}
         <select onChange={handleQuincena} value={id} className="select">
           <option value="" hidden>
             Seleccione Una Quincena
@@ -81,12 +91,13 @@ const Home = () => {
         </select>
       </div>
 
-      {quincena && quincena.nombre ? (
-        <Moneda quincena={quincena} />
-      ) : (
-        <div className="loade1 m-auto my-2"></div>
-      )}
+      <section>
+        <button className="btn-w" type="submit">
+          <BiSend className="BiSend" />
+        </button>
+      </section>
     </div>
   );
 };
-export default Home;
+
+export default RegisterRojos;
