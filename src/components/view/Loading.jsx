@@ -25,16 +25,13 @@ const Loading = () => {
       dispatch(checkUserById(id));
       dispatch(getUserId(id));
 
-      console.log(users);
-      console.log(error);
-      console.log(init);
       setTimeout(() => {
         if (init !== "") {
           if (init === true) {
             if (users.admin === true) {
               return navigate("/home");
             } else {
-              return navigate("/user");
+              return navigate(`/user/${user.id}`);
             }
           } else {
             return navigate("/registro");
@@ -43,7 +40,7 @@ const Loading = () => {
       }, 2000);
     };
     checkUser();
-  }, [init, user, users, navigate, id, dispatch]);
+  }, [init, user, users]);
 
   return (
     <div>

@@ -17,7 +17,7 @@ export const postUbicacion = (ubicacion) => {
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${UBICACION}`;
-      const { data } = await axios.post(endpoint, ubicacion);
+      const { data } = await axios.post(endpoint, { ubicacion });
       dispatch({
         type: POSTUBICACION,
         payload: data,

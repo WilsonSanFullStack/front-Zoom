@@ -22,14 +22,12 @@ export const registroUser = (input) => {
     try {
       const endpoint = `${URL}/${REGISTRO}`;
       const { data } = await axios.post(endpoint, input);
-      console.log('actions')
-      console.log(data)
+
       dispatch({
         type: RU,
         payload: data,
       });
     } catch (error) {
-      console.log(error.response.data.error)
       dispatch({
         type: PERROR,
         payload: error.response.data.error,
@@ -68,7 +66,6 @@ export const checkUserById = (id) => {
     try {
       const endpoint = `${URL}/${REGISTRO}/${CHECK}/${id}`;
       const { data } = await axios.get(endpoint);
-      console.log(data)
       let check = "";
       if (data) {
         check = true;
@@ -110,7 +107,6 @@ export const getUserBI = (id) => {
     try {
       const endpoint = `${URL}/${REGISTRO}/${id}`;
       const { data } = await axios.get(endpoint);
-      console.log(data);
       dispatch({
         type: GETUSERBI,
         payload: data,

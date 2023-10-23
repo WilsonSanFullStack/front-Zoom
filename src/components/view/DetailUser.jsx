@@ -91,11 +91,11 @@ const DetailUser = () => {
           </div>
           <div className="divDetail">
             Sitio De Trabajo:
-            <p className="detalles">{userBI?.p_u?.location}</p>
+            <p className="detalles">{userBI?.p_ubicacion?.ubicacion}</p>
           </div>
           <div className="divDetail">
             Porcentaje:
-            <p className="detalles">{userBI?.p_u?.porcentaje}</p>
+            <p className="detalles">{userBI?.p_porcentaje?.nombre}</p>
           </div>
         <div>
           

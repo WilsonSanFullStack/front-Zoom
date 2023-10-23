@@ -24,7 +24,7 @@ export const postProducto = (producto) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error.message,
       });
     }
@@ -42,7 +42,7 @@ export const getAllProductos = () => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -60,7 +60,7 @@ export const getProductoById = (id) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -78,7 +78,7 @@ export const updateProducto = (id, nProducto) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }
@@ -96,7 +96,7 @@ export const deleteProducto = (id) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }

@@ -13,6 +13,16 @@ const NavBar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [showLogout, setShowLogout] = useState(false);
+  const [showPhoto, setShowPhto] = useState(true);
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    if (user.admin) {
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+  }, [user]);
 
   useEffect(() => {
     if (user.id) {
@@ -21,6 +31,7 @@ const NavBar = () => {
 
   const handleProfileClick = () => {
     setShowLogout(!showLogout);
+    setShowPhto(false);
   };
 
   const handleSignOut = async () => {
@@ -30,55 +41,47 @@ const NavBar = () => {
     await persistor.purge();
     navigate("/");
   };
-  const [loadingProfileImage, setLoadingProfileImage] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoadingProfileImage(false);
-    }, 20000);
-  }, []);
 
   return (
-    <nav className="w-full bg-indigo-300 p-1 text-lg flex justify-between items-center font-bold fixed top-0 z-10 ">
-      <NavLink to="/home">
+    <nav className="w-full bg-indigo-300 p-1 px-6 text-lg flex justify-between h-12 items-center font-bold fixed top-0 z-10 ">
+      {showButton && (<NavLink to="/home">
         <button className="btn-n">Home</button>
-      </NavLink>
-      <NavLink to="/editar">
+      </NavLink>)}
+      {showButton && (<NavLink to="/editar">
         <button className="btn-n">Editar</button>
-      </NavLink>
-      <NavLink to={"/crear"}>
+      </NavLink>)}
+     {showButton && ( <NavLink to={"/crear"}>
         <button className="btn-n">Registros</button>
-      </NavLink>
-      <NavLink to={"/ventas"}>
+      </NavLink>)}
+      {showButton && (<NavLink to={"/ventas"}>
         <button className="btn-n">Ventas</button>
-      </NavLink>
-      <NavLink to={"/user"}>
-        <button className="btn-n">User</button>
-      </NavLink>
-      <NavLink to={"/modelo"}>
+      </NavLink>)}
+      {!showButton && (<NavLink to={`/user/${user.id}`}>
+        <button className="btn-n">Estadisticas</button>
+      </NavLink>)}
+      {!showButton && (<NavLink to={`/modelo/${user.id}`}>
+        <button className="btn-n">Detalles</button>
+      </NavLink>)}
+      {showButton && (<NavLink to={"/modelo"}>
         <button className="btn-n">Modelos</button>
-      </NavLink>
+      </NavLink>)}
 
-      <div className="grid grid-cols-2">
-        <div className=" w-10 mr-5 -my-2 ">
-          {loadingProfileImage ? (
-            <div className="cintaAjedrez"></div>
-          ) : (
-            <img
-              key={user.image}
-              src={user.image}
-              alt={user.nombre}
-              className="rounded-full"
-              onClick={handleProfileClick}
-            />
-          )}
+      {showPhoto && (
+        <div className="w-11 rounded-full border-2 border-black ">
+          <img
+            key={user.image}
+            src={user.image}
+            alt={user.nombre}
+            className="rounded-full"
+            onClick={handleProfileClick}
+          />
         </div>
-        {showLogout && (
-          <button className="btn-n" onClick={() => handleSignOut()}>
-            Salir
-          </button>
-        )}
-      </div>
+      )}
+      {showLogout && (
+        <button className="btn-n" onClick={() => handleSignOut()}>
+          Salir
+        </button>
+      )}
     </nav>
   );
 };

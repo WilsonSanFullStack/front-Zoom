@@ -1,42 +1,92 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Moneda from "../resource/Moneda.jsx";
+import { useParams } from "react-router-dom";
 
-import { getUserId } from "../../redux/actions/registro/registerUser.js";
 import {
   getAllQuincena,
-  getByIdQuincena,
+  getQuincenaMoneda,
+  getQuincenaAdult,
+  getQuincenaAmateur,
+  getQuincenaBonga,
+  getQuincenaCam4,
+  getQuincenaChaturbate,
+  getQuincenaDirty,
+  getQuincenaIsLive,
+  getQuincenaSender,
+  getQuincenaSkype,
+  getQuincenaStripchat,
+  getQuincenaVx,
+  getQuincenaXlove,
+  getQuincenaXloveNueva,
 } from "../../redux/actions/registro/registerQuincena.js";
 
+import { getUserId } from "../../redux/actions/registro/registerUser.js";
+import { getAllPagina } from "../../redux/actions/registro/registerPaginas.js";
+
 const User = () => {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const paginas = useSelector((state) => state.paginas);
   const quincenas = useSelector((state) => state.quincenas);
-  const quincena = useSelector((state) => state.quincena);
-  const [id, setId] = useState("");
+  const quincenaMoneda = useSelector((state) => state.quincenaMoneda);
+  const quincenaAdult = useSelector((state) => state.quincenaAdult);
+  const quincenaAmateur = useSelector((state) => state.quincenaAmateur);
+  const quincenaBonga = useSelector((state) => state.quincenaBonga);
+  const quincenaCam4 = useSelector((state) => state.quincenaCam4);
+  const quincenaChaturbate = useSelector((state) => state.quincenaChaturbate);
+  const quincenaDirty = useSelector((state) => state.quincenaDirty);
+  const quincenaIslive = useSelector((state) => state.quincenaIslive);
+  const quincenaSender = useSelector((state) => state.quincenaSender);
+  const quincenaSkype = useSelector((state) => state.quincenaSkype);
+  const quincenaStripchat = useSelector((state) => state.quincenaStripchat);
+  const quincenaVx = useSelector((state) => state.quincenaVx);
+  const quincenaXlove = useSelector((state) => state.quincenaXlove);
+  const quincenaXloveNueva = useSelector((state) => state.quincenaXloveNueva);
 
-  const dolar = quincena?.monedas?.map((x) => {
-    return x.edolar;
+  const [ids, setIds] = useState("");
+
+  const dolar = quincenaMoneda?.monedas?.map((x) => {
+    return x.dolar;
   });
-  const euro = quincena?.monedas?.map((x) => {
-    return x.eeuro;
+  const euro = quincenaMoneda?.monedas?.map((x) => {
+    return x.euro;
   });
-  const libra = quincena?.monedas?.map((x) => {
-    return x.elibra;
+
+  const libra = quincenaMoneda?.monedas?.map((x) => {
+    return x.libra;
   });
 
   useEffect(() => {
     dispatch(getAllQuincena());
+    dispatch(getUserId(id));
+    dispatch(getAllPagina());
   }, [dispatch]);
 
   useEffect(() => {
-    id || id !== "" ? dispatch(getByIdQuincena(id)) : "";
+    id || id !== "" ? dispatch(getQuincenaMoneda(ids)) : "";
+    setTimeout(() => {
+      dispatch(getQuincenaAdult(ids));
+      dispatch(getQuincenaAmateur(ids));
+      dispatch(getQuincenaBonga(ids));
+      dispatch(getQuincenaCam4(ids));
+      dispatch(getQuincenaChaturbate(ids));
+      dispatch(getQuincenaDirty(ids));
+      dispatch(getQuincenaIsLive(ids));
+      dispatch(getQuincenaSender(ids));
+      dispatch(getQuincenaSkype(ids));
+      dispatch(getQuincenaStripchat(ids));
+      dispatch(getQuincenaVx(ids));
+      dispatch(getQuincenaXlove(ids));
+      dispatch(getQuincenaXloveNueva(ids));
+    },50000)
   }, [dispatch, id]);
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual
     const quincenaActual = quincenas.find((q) => {
-      const quincenaInicio = q.inicia;
+      const quincenaInicio = q?.inicia;
       const partesFechaInicio = quincenaInicio.split("/");
 
       // Obtén el día, el mes y el año como números
@@ -47,7 +97,7 @@ const User = () => {
       // Crea un objeto de fecha
       const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
 
-      const quincenaFinal = q.final;
+      const quincenaFinal = q?.final;
       const partesFechaFinal = quincenaFinal.split("/");
 
       // Obtén el día, el mes y el año como números
@@ -64,17 +114,51 @@ const User = () => {
     });
 
     if (quincenaActual) {
-      setId(quincenaActual.id); // Establecer la quincena actual como valor predeterminado en el selector
+      setIds(quincenaActual?.id); // Establecer la quincena actual como valor predeterminado en el selector
     }
   }, [quincenas]);
 
   const handleQuincena = (event) => {
-    setId(event.target.value);
+    setIds(event.target.value);
+  };
+  const pages = {};
+  const UserNames = {};
+  for (const x of paginas) {
+    pages[x.nombrePagina] = x.id;
+    for (const y of user?.useres) {
+      if (y.pagina === pages?.[x.nombrePagina]) {
+        UserNames[x.nombrePagina] = y.userName;
+      }
+    }
+  }
+  console.log(pages);
+  console.log(UserNames);
+  let creditos = quincenaAdult?.q_adult
+    ?.reduce((x, y) => {
+      return x + y.creditos;
+    }, 0)
+    .toFixed(2);
+
+  let porcentaje = "";
+  if (creditos < user.p_porcentaje?.meta) {
+    porcentaje = user.p_porcentaje?.inicial;
+  } else {
+    porcentaje = user.p_porcentaje?.final;
+  }
+  console.log(user);
+  // console.log(quincena);
+  const [showDetail, setShowDetail] = useState(false);
+  const handleShowDetail = () => {
+    if (showDetail) {
+      setShowDetail(false);
+    } else {
+      setShowDetail(true);
+    }
   };
 
-  const handleUser = () => {
-    quincena.q_a.map((x) => {});
-  };
+  console.log(
+    quincenaAdult?.q_adult?.find((x) => x.userName === UserNames?.Adultwork)
+  );
   return (
     <div className="contenedor1">
       <div className="contenedor2">
@@ -87,50 +171,109 @@ const User = () => {
               quincenas?.map((x) => {
                 return (
                   <option value={x.id} key={x.id}>
-                    {x.nombre}
+                    {x?.nombre}
                   </option>
                 );
               })}
           </select>
         </div>
 
-        {quincena && quincena?.nombre ? (
-          <Moneda quincena={quincena} />
+        {quincenaMoneda && quincenaMoneda?.nombre ? (
+          <Moneda quincena={quincenaMoneda} />
         ) : (
           <div className="loade1 m-auto my-2"></div>
         )}
-        <div className="grid grid-cols-2">
-          {quincena &&
-            quincena?.q_a?.map((corte, x) => {
-              const mostrarcreditos = user.useres.find(
-                (apodo) => apodo.UserName === corte.UserName
-              );
-              if (mostrarcreditos) {
-                return (
-                  <div key={corte.id} className=" bg-indigo-300 m-2 p-2 w-max">
-                    {/* <section className="bg-indigo-100 w-max"> */}
-                    <p className=" font-bold">Corte N°{x + 1} Adult </p>
-                    <p className=" ">Fecha Adult: {corte.fecha} </p>
-                    <p className=" font-bold">Libras: {corte.creditos} </p>
-                    <p>
-                      Pesos: $
-                      {Intl.NumberFormat("es-CP").format(
-                        corte.creditos * libra
-                      )}
-                    </p>
-
-                    {/* </section> */}
-                  </div>
-                );
-              }
-              return null;
-            })}
-        </div>
+        <div className="grid grid-cols-2"></div>
         <div>
           <h1 className=" font-bold text-2xl">
             {user && user?.nombre?.split(" ")[0]}{" "}
             {user && user?.apellido?.split(" ")[0]}
           </h1>
+          <div
+            className="grid grid-cols-5 border-2 m-2 border-indigo-500 font-bold"
+            onClick={handleShowDetail}
+          >
+            <section className="sectionPage sectionIconPage">
+              <img src="/AWLogo_on.png" alt="Adult" className="iconPage" />
+            </section>
+            <section className="sectionPage">
+              <h1>Cortes</h1>
+              <h1>
+                {quincenaAdult?.q_adult?.find(
+                  (x) => x.userName === UserNames?.Adultwork
+                )
+                  ? quincenaAdult?.q_adult?.length
+                  : "No trabajo"}
+              </h1>
+            </section>
+            <section className="sectionPage">
+              <h1>Total Libras</h1>
+              <h1>
+                {}
+                {quincenaAdult?.q_adult?.find(
+                  (x) => x.userName === UserNames?.Adultwork
+                )
+                  ? "£ " +
+                    Intl.NumberFormat("en-GB").format(
+                      ((creditos * porcentaje) / 100).toFixed(2)
+                    )
+                  : "No trabajo"}
+              </h1>
+            </section>
+            <section className="sectionPage">
+              <h1>Porcentaje</h1>
+              <h1>
+                {quincenaAdult?.q_adult?.find(
+                  (x) => x.userName === UserNames?.Adultwork
+                )
+                  ? "% " + porcentaje
+                  : "No trabajo"}
+              </h1>
+            </section>
+            <section className="">
+              <h1>Total Pesos</h1>
+              <h1>
+                {quincenaAdult?.q_adult?.find(
+                  (x) => x.userName === UserNames?.Adultwork
+                )
+                  ? "$ " + Intl.NumberFormat("es-CP").format(creditos * libra)
+                  : "No trabajo"}
+              </h1>
+            </section>
+          </div>
+          {showDetail && (
+            <div className="grid grid-cols-3">
+              {quincenaAdult?.q_adult?.find(
+                (x) => x.userName === UserNames?.Adultwork
+              ) &&
+                quincenaAdult?.q_adult?.map((corte, x) => {
+                  const mostrarcreditos = user?.useres?.find(
+                    (apodo) => apodo?.UserName === corte?.UserName
+                  );
+                  if (mostrarcreditos) {
+                    return (
+                      <div
+                        key={corte?.id}
+                        className=" bg-indigo-300 m-2 p-2 w-max rounded-3xl"
+                      >
+                        <p className=" font-bold">Corte N°{x + 1} Adult </p>
+                        <p className=" ">Fecha Adult: {corte?.fecha} </p>
+                        <p className=" font-bold">
+                          Libras: £ {corte?.creditos}{" "}
+                        </p>
+                        <p>
+                          Pesos: ${" "}
+                          {Intl.NumberFormat("es-CP").format(
+                            corte?.creditos * libra
+                          )}
+                        </p>
+                      </div>
+                    );
+                  }
+                  return null;
+                })}
+            </div>
+          )}
         </div>
       </div>
     </div>

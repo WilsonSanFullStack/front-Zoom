@@ -116,7 +116,7 @@ const RegistrarProducto = () => {
       navigate("/crear");
     }
   };
-  console.log(errorServer);
+  // console.log(errorServer);
   return (
     <div className="contenedor1">
       {confirmacion && (

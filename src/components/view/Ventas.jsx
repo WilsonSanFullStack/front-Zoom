@@ -21,11 +21,6 @@ const Ventas = () => {
   console.log(productos);
   const [showProduct, setShowProduct] = useState({});
   const [counters, setCounters] = useState([]);
-  const [showStore, setShowStore] = useState(false);
-
-  const handleStore = () => {
-    setShowStore((showStore) => !showStore);
-  };
 
   const toggleProduct = (productId) => {
     // Use a copy of the current state to avoid mutating the state directly
@@ -78,15 +73,15 @@ const Ventas = () => {
   console.log(counters);
 
   return (
-    <div className="contenedor1">
-      <div className="contenedor2">
-        <div onClick={handleStore} className="w-10 h-10">
+    <div className="contenedorVentas">
+      <div className="contenedorVentas2">
+        {/* <div onClick={handleStore} className="w-10 h-10">
           <BiStoreAlt className="btn-w w-10 h-8 justify-end right-4 absolute m-5 scale-150" />
-        </div>
+        </div> */}
         <h1 className="text-2xl font-bold">VENTAS DE PRODUCTOS</h1>
-        {showStore && <Store props={counters} />}
+        {/* {showStore && <Store props={counters} />} */}
 
-        <div className="grid grid-cols-5 justify-between p-5">
+        <div className="grid grid-cols-4 justify-between p-5">
           {productos?.map((x) => {
             return (
               <div key={x.id}>
@@ -122,6 +117,9 @@ const Ventas = () => {
             );
           })}
         </div>
+      </div>
+      <div className="contenedorVentas3">
+        <div className="divTitulo"><h1 className="titulo">Pedido</h1></div>
       </div>
     </div>
   );

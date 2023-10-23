@@ -23,7 +23,6 @@ export const postPorcentaje = (porcentajes) => {
         payload: data,
       });
     } catch (error) {
-      console.log(error.message);
       dispatch({
         type: PERROR,
         payload: error.message,

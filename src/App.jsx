@@ -25,7 +25,7 @@ import XloveNueva from "./components/paginas/XloveNueva.jsx";
 import NavBar from "./components/view/NavBar.jsx";
 import Home from "./components/view/Home.jsx";
 import Login from "./components/view/Login.jsx";
-import User from "./components/View/User.jsx";
+import User from "./components/view/User.jsx";
 import Loading from "./components/view/Loading.jsx";
 import Crear from "./components/view/Crear.jsx";
 import Editar from "./components/view/Editar.jsx";
@@ -44,7 +44,9 @@ import CargarEstadisticas from "./components/registro/CargarEstadisticas.jsx";
 import RegisterPorcentaje from "./components/registro/RegisterPorcentaje.jsx";
 import RegisterUbicacion from "./components/registro/RegisterUbicacion";
 import RegisterCompras from "./components/registro/RegisterCompras.jsx";
-import RegisterRojos from "./components/registro/RegisterRojos";
+// import RegisterRojos from "./components/registro/RegisterRojos";
+
+import RelationUbicationAndPorcenaje from "./components/registro/RelationUbicacionAndPorcentaje";
 
 function App() {
   const { pathname } = useLocation();
@@ -69,10 +71,12 @@ function App() {
         <Route path="/crear/porcentaje" element={<RegisterPorcentaje />} />
         <Route path="/crear/ubicacion" element={<RegisterUbicacion />} />
         <Route path="/crear/compras" element={<RegisterCompras />} />
-        <Route path="/crear/rojos" element={<RegisterRojos />} />
+        {/* <Route path="/crear/rojos" element={<RegisterRojos />} /> */}
+        <Route path="/crear/ralacion" element={<RelationUbicationAndPorcenaje />} />
+
 
         <Route path="/editar" element={<Editar />} />
-        <Route path="/user" element={<User />} />
+        <Route path="/user/:id" element={<User />} />
         <Route path="/modelo" element={<Modelos />} />
         <Route path="/modelo/:id" element={<DetailUser />} />
         <Route path="/modelo/comment/:id" element={<RegistrarComment />} />

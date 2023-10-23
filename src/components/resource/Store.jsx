@@ -7,7 +7,6 @@ import { postVenta } from "../../redux/actions/registro/registerVenta.js";
 const Store = ({ props }) => {
   const dispatch = useDispatch();
   const [venta, setVentas] = useState(props);
-  console.log(venta);
 
   const handleSubmit = (venta) => {
     dispatch(postVenta(venta));

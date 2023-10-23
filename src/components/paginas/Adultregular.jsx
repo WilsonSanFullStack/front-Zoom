@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { pad, resetError } from "../../redux/actions/paginas/adult.js";
 import TextareaForm from "../resource/Textarea.jsx";
+import ButtonPage from "../resource/ButtonPage.jsx";
 
 import {
   getAllQuincena,
-  getByIdQuincena,
+  getQuincenaMoneda,
 } from "../../redux/actions/registro/registerQuincena.js";
 
 import date from "../js/date.js";
@@ -17,8 +18,6 @@ function Adultregular() {
   const [coad, setCoad] = useState(input);
 
   const dispatch = useDispatch();
-
-  console.log(errors);
 
   useEffect(() => {
     // Llama a la acción de reinicio cuando el componente se desmonte
@@ -53,16 +52,15 @@ function Adultregular() {
         return result;
       });
   };
-  console.log(coad);
+
   const handlerSubmit = () => {
     dispatch(pad(coad));
     setInput([]);
     setCoad([]);
   };
 
-  const fecha = date();
   const quincenas = useSelector((state) => state.quincenas);
-  const quincena = useSelector((state) => state.quincena);
+  // const quincena = useSelector((state) => state.quincena);
   const [id, setId] = useState("");
 
   useEffect(() => {
@@ -70,7 +68,7 @@ function Adultregular() {
   }, [dispatch]);
 
   useEffect(() => {
-    id || id !== "" ? dispatch(getByIdQuincena(id)) : "";
+    id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -86,8 +84,7 @@ function Adultregular() {
 
       // Crea un objeto de fecha
       const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
-      console.log(fechaInicio);
-      // console.log(q)
+
       const quincenaFinal = q.final;
       const partesFechaFinal = quincenaFinal.split("/");
 
@@ -98,15 +95,12 @@ function Adultregular() {
 
       // Crea un objeto de fecha
       const fechaFinal = new Date(añoFinal, mesFinal, diaFinal);
-      console.log(fechaFinal);
-      const fechaActual = new Date();
-      // console.log(fechaActual)
-      console.log(fechaActual);
 
-      console.log(fechaActual >= fechaInicio && fechaActual <= fechaFinal);
+      const fechaActual = new Date();
+
       return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
     });
-    console.log(quincenas);
+
     if (quincenaActual) {
       setId(quincenaActual.id);
     }
@@ -119,8 +113,9 @@ function Adultregular() {
   return (
     <div className="contenedor1">
       <div className="contenedor2">
+        <ButtonPage />
         <div>
-          <select onChange={handleQuincena} value={id}>
+          <select className="select" onChange={handleQuincena} value={id}>
             <option value="" hidden>
               Seleccione Una Quincena
             </option>

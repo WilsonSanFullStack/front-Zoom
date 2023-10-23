@@ -54,6 +54,20 @@ import {
   GETUBICACIONBYID,
   UPDATEUBICACION,
   DELETEUBICACION,
+  GETQUINCENAMONEDA,
+  GETQUINCENAADULT,
+  GETQUINCENAAMATEUR,
+  GETQUINCENABONGA,
+  GETQUINCENACAM4,
+  GETQUINCENACHATURBATE,
+  GETQUINCENADIRTY,
+  GETQUINCENAISLIVE,
+  GETQUINCENASENDER,
+  GETQUINCENASKYPE,
+  GETQUINCENASTRIPCHAT,
+  GETQUINCENAVX,
+  GETQUINCENAXLOVE,
+  GETQUINCENAXLOVENUEVA,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -64,6 +78,7 @@ const initialState = {
   cobo: [], //corte bonga
   coca: [], //corte cam4
   coch: [], //corte chaturbate
+  codi: [], //corte dirty
   codi: [], //corte dirty
   coil: [], //corte islive
   cose: [], //corte sender
@@ -82,7 +97,22 @@ const initialState = {
   productos: [],
   comment: [],
   quincenas: [],
-  quincena: {},
+
+  quincenaMoneda: {},
+  quincenaAdult: {},
+  quincenaAmateur: {},
+  quincenaBonga: {},
+  quincenaCam4: {},
+  quincenaChaturbate: {},
+  quincenaDirty: {},
+  quincenaIslive: {},
+  quincenaSender: {},
+  quincenaSkype: {},
+  quincenaStripchat: {},
+  quincenaVx: {},
+  quincenaXlove: {},
+  quincenaXloveNueva: {},
+
   porcentajes: [],
   porcentaje: {},
   ubicaciones: [],
@@ -279,11 +309,13 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         coxln: action.payload,
       };
+
     case RU:
       return {
         ...state,
         user: action.payload,
       };
+
     case GUS:
       return {
         ...state,
@@ -295,16 +327,19 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
       };
+
     case CHECKUSE:
       return {
         ...state,
         init: action.payload,
       };
+
     case GETUSER:
       return {
         ...state,
         allUser: action.payload,
       };
+
     case GETUSERBI:
       return {
         ...state,
@@ -316,16 +351,19 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         pagina: action.payload,
       };
+
     case GETPAG:
       return {
         ...state,
         paginas: action.payload,
       };
+
     case POSTPRODUCTO:
       return {
         ...state,
         producto: action.payload,
       };
+
     case GETPRODUCTO:
       return {
         ...state,
@@ -343,6 +381,7 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         quincenas: action.payload,
       };
+
     case GETBIQUINCENA:
       return {
         ...state,
@@ -354,47 +393,56 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         porcentaje: action.payload,
       };
+
     case GETALLPORCENTAJE:
       return {
         ...state,
         porcentajes: action.payload,
       };
+
     case GETPORCENTAJEBYID:
       return {
         ...state,
         porcentaje: action.payload,
       };
+
     case UPDATEPORCENTAJE:
       return {
         ...state,
         porcentaje: action.payload,
       };
+
     case DELETEPORCENTAJE:
       return {
         ...state,
         porcentaje: action.payload,
       };
+
     //? para la ubicacion
     case POSTUBICACION:
       return {
         ...state,
         ubicacion: action.payload,
       };
+
     case GETALLUBICACION:
       return {
         ...state,
         ubicaciones: action.payload,
       };
+
     case GETUBICACIONBYID:
       return {
         ...state,
         ubicacion: action.payload,
       };
+
     case UPDATEUBICACION:
       return {
         ...state,
         ubicacion: action.payload,
       };
+
     case DELETEUBICACION:
       return {
         ...state,
@@ -404,6 +452,77 @@ export const rootReducer = (state = initialState, action) => {
     case LOGOUT:
       return {
         ...initialState,
+      };
+
+    case GETQUINCENAMONEDA:
+      return {
+        ...state,
+        quincenaMoneda: action.payload,
+      };
+    case GETQUINCENAADULT:
+      return {
+        ...state,
+        quincenaAdult: action.payload,
+      };
+    case GETQUINCENAAMATEUR:
+      return {
+        ...state,
+        quincenaAmateur: action.payload,
+      };
+    case GETQUINCENABONGA:
+      return {
+        ...state,
+        quincenaBonga: action.payload,
+      };
+    case GETQUINCENACAM4:
+      return {
+        ...state,
+        quincenaCam4: action.payload,
+      };
+    case GETQUINCENACHATURBATE:
+      return {
+        ...state,
+        quincenaChaturbate: action.payload,
+      };
+    case GETQUINCENADIRTY:
+      return {
+        ...state,
+        quincenaDirty: action.payload,
+      };
+    case GETQUINCENAISLIVE:
+      return {
+        ...state,
+        quincenaIslive: action.payload,
+      };
+    case GETQUINCENASENDER:
+      return {
+        ...state,
+        quincenaSender: action.payload,
+      };
+    case GETQUINCENASKYPE:
+      return {
+        ...state,
+        quincenaSkype: action.payload,
+      };
+    case GETQUINCENASTRIPCHAT:
+      return {
+        ...state,
+        quincenaStripchat: action.payload,
+      };
+    case GETQUINCENAVX:
+      return {
+        ...state,
+        quincenaVx: action.payload,
+      };
+    case GETQUINCENAXLOVE:
+      return {
+        ...state,
+        quincenaXlove: action.payload,
+      };
+    case GETQUINCENAXLOVENUEVA:
+      return {
+        ...state,
+        quincenaXloveNueva: action.payload,
       };
 
     default:

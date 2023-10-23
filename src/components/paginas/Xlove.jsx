@@ -4,6 +4,12 @@ import { pxl } from "../../redux/actions/paginas/xlove.js";
 import { resetError } from "../../redux/actions/paginas/adult.js";
 
 import TextareaForm from "../resource/Textarea.jsx";
+import ButtonPage from "../resource/ButtonPage.jsx";
+
+import {
+  getAllQuincena,
+  getQuincenaMoneda,
+} from "../../redux/actions/registro/registerQuincena.js";
 
 const Xlove = () => {
   const [input, setInput] = useState([]);
@@ -11,6 +17,56 @@ const Xlove = () => {
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
+  const quincenas = useSelector((state) => state.quincenas);
+  const quincenaMoneda = useSelector((state) => state.quincena);
+  const [id, setId] = useState("");
+
+  useEffect(() => {
+    dispatch(getAllQuincena());
+  }, [dispatch]);
+
+  useEffect(() => {
+    id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    // Encontrar la quincena que coincide con la fecha actual
+    const quincenaActual = quincenas.find((q) => {
+      const quincenaInicio = q.inicia;
+      const partesFechaInicio = quincenaInicio.split("/");
+
+      // Obtén el día, el mes y el año como números
+      const diaInicio = parseInt(partesFechaInicio[0], 10);
+      const mesInicio = parseInt(partesFechaInicio[1], 10) - 1;
+      const añoInicio = parseInt(partesFechaInicio[2], 10);
+
+      // Crea un objeto de fecha
+      const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
+
+      const quincenaFinal = q.final;
+      const partesFechaFinal = quincenaFinal.split("/");
+
+      // Obtén el día, el mes y el año como números
+      const diaFinal = parseInt(partesFechaFinal[0], 10);
+      const mesFinal = parseInt(partesFechaFinal[1], 10) - 1;
+      const añoFinal = parseInt(partesFechaFinal[2], 10);
+
+      // Crea un objeto de fecha
+      const fechaFinal = new Date(añoFinal, mesFinal, diaFinal);
+
+      const fechaActual = new Date();
+
+      return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
+    });
+
+    if (quincenaActual) {
+      setId(quincenaActual.id);
+    }
+  }, [quincenas]);
+
+  const handleQuincena = (event) => {
+    setId(event.target.value);
+  };
 
   useEffect(() => {
     // Llama a la acción de reinicio cuando el componente se desmonte
@@ -37,7 +93,7 @@ const Xlove = () => {
             const user = parts[0];
             const euros = parseFloat(parts[parts.length - 2]);
             if (!isNaN(euros) && euros !== 0) {
-              data.push({ user, euros });
+              data.push({ user, euros, quincena: id, });
             }
           }
         }
@@ -57,17 +113,31 @@ const Xlove = () => {
     setCoxl([]);
   };
   return (
-    <div className="min-h-screen bg-fuchsia-400 top-0">
-      <div className="pt-14 text-center">
-        <div className="w-full px-20 h-80 mb-8">
-          <TextareaForm
-            value={input}
-            onChange={handleTextarea}
-            onSubmit={handlerSubmit}
-            placeholder="Pegue aquí el corte de Xlove"
-            titulo="Corte De Xlove"
-          />
+    <div className="contenedor1">
+      <div className="contenedor2">
+        <ButtonPage />
+        <div>
+          <select className="select" onChange={handleQuincena} value={id}>
+            <option value="" hidden>
+              Seleccione Una Quincena
+            </option>
+            {quincenas &&
+              quincenas?.map((x) => {
+                return (
+                  <option value={x.id} key={x.id}>
+                    {x.nombre}
+                  </option>
+                );
+              })}
+          </select>
         </div>
+        <TextareaForm
+          value={input}
+          onChange={handleTextarea}
+          onSubmit={handlerSubmit}
+          placeholder="Pegue aquí el corte de Xlove"
+          titulo="Corte De Xlove"
+        />
         <div className="mt-24">
           {errors && (
             <p className="font-bold bg-black text-red-600 max-w-md m-auto">

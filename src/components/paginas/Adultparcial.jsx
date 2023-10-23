@@ -2,16 +2,70 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ppad, resetError } from "../../redux/actions/paginas/adult.js";
 import TextareaForm from "../resource/Textarea.jsx";
+import ButtonPage from "../resource/ButtonPage.jsx";
+
+import {
+  getAllQuincena,
+  getQuincenaMoneda,
+} from "../../redux/actions/registro/registerQuincena.js";
 
 function Adultparcial() {
+  const dispatch = useDispatch();
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
   const [input, setInput] = useState([]);
   const [copad, setCopad] = useState(input);
-  const dispatch = useDispatch();
+  const quincenas = useSelector((state) => state.quincenas);
+  const quincena = useSelector((state) => state.quincena);
+  const [id, setId] = useState("");
 
   useEffect(() => {
-    // Llama a la acción de reinicio cuando el componente se desmonte
+    dispatch(getAllQuincena());
+  }, [dispatch]);
+
+  useEffect(() => {
+    id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    // Encontrar la quincena que coincide con la fecha actual
+    const quincenaActual = quincenas.find((q) => {
+      const quincenaInicio = q.inicia;
+      const partesFechaInicio = quincenaInicio.split("/");
+
+      // Obtén el día, el mes y el año como números
+      const diaInicio = parseInt(partesFechaInicio[0], 10);
+      const mesInicio = parseInt(partesFechaInicio[1], 10) - 1;
+      const añoInicio = parseInt(partesFechaInicio[2], 10);
+      const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
+      const quincenaFinal = q.final;
+      const partesFechaFinal = quincenaFinal.split("/");
+
+      const diaFinal = parseInt(partesFechaFinal[0], 10);
+      const mesFinal = parseInt(partesFechaFinal[1], 10) - 1;
+      const añoFinal = parseInt(partesFechaFinal[2], 10);
+
+      const fechaFinal = new Date(añoFinal, mesFinal, diaFinal);
+
+      const fechaActual = new Date();
+
+      return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
+    });
+    if (quincenaActual) {
+      setId(quincenaActual.id);
+    }
+  }, [quincenas]);
+
+  const handleQuincena = (event) => {
+    setId(event.target.value);
+  };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetError());
+    };
+  }, [dispatch]);
+  useEffect(() => {
     return () => {
       dispatch(resetError());
     };
@@ -27,7 +81,7 @@ function Adultparcial() {
         while ((match = regex.exec(event.target.value)) !== null) {
           const user = match[1];
           const creditos = parseFloat(match[2]);
-          extractedData.push({ user, creditos, parcial: true });
+          extractedData.push({ user, creditos, parcial: true, quincena: id, });
           extractedData.sort((a, b) => {
             return a.user.localeCompare(b.user);
           });
@@ -43,17 +97,33 @@ function Adultparcial() {
   };
 
   return (
-    <div className="min-h-screen bg-fuchsia-400 top-0">
-      <div className="pt-14 text-center">
-        <div className="w-full px-20 h-80 mb-8">
-          <TextareaForm
-            value={input}
-            onChange={handleTextarea}
-            onSubmit={handlerSubmit}
-            placeholder="Pegue aquí el corte de Adult Parcial"
-            titulo="Corte De Adult Parcial"
-          />
+    <div className="contenedor1">
+      <div className="contenedor2">
+        <ButtonPage />
+        <div>
+          <select className="select" onChange={handleQuincena} value={id}>
+            <option value="" hidden>
+              Seleccione Una Quincena
+            </option>
+            {quincenas &&
+              quincenas?.map((x) => {
+                return (
+                  <option value={x.id} key={x.id}>
+                    {x.nombre}
+                  </option>
+                );
+              })}
+          </select>
         </div>
+
+        <TextareaForm
+          value={input}
+          onChange={handleTextarea}
+          onSubmit={handlerSubmit}
+          placeholder="Pegue aquí el corte de Adult Parcial"
+          titulo="Corte De Adult Parcial"
+        />
+
         <div className="mt-24">
           {errors && (
             <p className="font-bold bg-black text-red-600 max-w-md m-auto">

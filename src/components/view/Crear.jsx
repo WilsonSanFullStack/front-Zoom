@@ -5,7 +5,10 @@ const Crear = () => {
   return (
     <div className="contenedor1">
       <div className="contenedor2">
-        <h1>Que Desea Hacer Hoy</h1>
+        <div className="divTitulo">
+
+        <h1 className="titulo">Que Desea Hacer Hoy</h1>
+        </div>
         <section className=" grid grid-cols-3">
           <NavLink to="/crear/pagina">
             <button className="btn-w h-20 w-48">Registrar Pagina</button>
@@ -13,6 +16,10 @@ const Crear = () => {
 
           <NavLink to="/crear/username">
             <button className="btn-w h-20 w-48">Registrar UserName</button>
+          </NavLink>
+
+          <NavLink to="/crear/ralacion">
+            <button className="btn-w h-20 w-48">Relacion Ubicacion Y Porcentaje</button>
           </NavLink>
 
           <NavLink to="/crear/estadisticas">

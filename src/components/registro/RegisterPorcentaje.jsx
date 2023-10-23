@@ -180,7 +180,7 @@ const RegisterPorcentaje = () => {
                 type="number"
                 value={porcentajes.meta}
                 onChange={handleMeta}
-                min="573"
+                min='1'
                 className="no-spin"
               />
             </section>

@@ -18,14 +18,9 @@ const Registro = () => {
   const [input, setInput] = useState({
     paginas: [],
     user: "",
-    ubicacion: "",
-    porcentaje: "",
   });
 
   const [show, setShow] = useState({});
-  console.log(paginas);
-  console.log(input);
-  console.log(allUser);
 
   useEffect(() => {
     dispatch(getAllPagina());
@@ -33,8 +28,12 @@ const Registro = () => {
     dispatch(getAllPorcentaje());
     dispatch(getAllUbicacion());
   }, [dispatch]);
-
   const handlePaginas = (idPagina) => {
+    console.log(
+      allUser
+        ?.find((x) => x.id === input.user)
+        ?.useres?.find((y) => y.pagina === idPagina)
+    );
     // Busca la página correspondiente al ID seleccionado
     const paginaSeleccionada = paginas.find((pagina) => pagina.id === idPagina);
     if (paginaSeleccionada) {
@@ -67,20 +66,6 @@ const Registro = () => {
     setInput({
       ...input,
       user: event.target.value,
-    });
-  };
-
-  const handlePorcentaje = (event) => {
-    setInput({
-      ...input,
-      porcentaje: event.target.value,
-    });
-  };
-
-  const handleUbicacion = (event) => {
-    setInput({
-      ...input,
-      ubicacion: event.target.value,
     });
   };
 
@@ -129,12 +114,10 @@ const Registro = () => {
               <section className="m-5">
                 <select
                   onChange={handleUser}
-                  className="selectMoneda m-2"
+                  className="select"
                   value={input.user}
                 >
-                  <option value="" hidden>
-                    Seleccione usuario
-                  </option>
+                  <option value="">Seleccione usuario</option>
                   {allUser?.map((x) => {
                     return (
                       <option value={x.id} key={x.id} className="font-bold">
@@ -143,42 +126,6 @@ const Registro = () => {
                     );
                   })}
                 </select>
-
-                <section>
-                  <select
-                    onChange={handleUbicacion}
-                    value={input.ubicacion}
-                    className="selectMoneda m-2"
-                  >
-                    <option value="" hidden>
-                      Seleccione Una Ubicacion
-                    </option>
-                    {ubicacion?.map((x) => {
-                      return (
-                        <option value={x.id} key={x.id}>
-                          {x.ubicacion}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </section>
-
-                <section>
-                  <select
-                    onChange={handlePorcentaje}
-                    value={input.porcentaje}
-                    className="selectMoneda m-2"
-                  >
-                    <option value="" hidden>
-                      Seleccione Un Porcentaje
-                    </option>
-                    {porcentaje?.map((x) => {
-                      <option value={x.id} key={x.id}>
-                        {x.nombre}
-                      </option>;
-                    })}
-                  </select>
-                </section>
               </section>
               <label className="label">Paginas:</label>
               <h2>
@@ -188,13 +135,16 @@ const Registro = () => {
               <section className="">
                 <select
                   onChange={(e) => handlePaginas(e.target.value)}
-                  className="selectMoneda m-2"
+                  className="select"
                 >
-                  <option value="" hidden>
-                    Seleccione Páginas
-                  </option>
+                  <option value="">Seleccione Páginas</option>
                   {paginas.map((pagina) => {
-                    if (!input.paginas.includes(pagina.id)) {
+                    if (
+                      !input.paginas.includes(pagina.id) &&
+                      !allUser
+                        ?.find((x) => x.id === input.user)
+                        ?.useres?.find((y) => y.pagina === pagina.id)
+                    ) {
                       return (
                         <option
                           value={pagina.id}
