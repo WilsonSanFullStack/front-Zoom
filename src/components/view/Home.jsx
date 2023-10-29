@@ -60,21 +60,45 @@ console.log(quincenaMoneda)
 
   useEffect(() => {
     id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
-    // setTimeout(() => {
+    setTimeout(() => {
       dispatch(getQuincenaAdult(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaAmateur(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaBonga(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaCam4(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaChaturbate(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaDirty(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaIsLive(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaSender(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaSkype(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaStripchat(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaVx(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaXlove(id));
+    }, 500);
+    setTimeout(() => {
       dispatch(getQuincenaXloveNueva(id));
-    // }, 5000);
+    }, 500);
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -190,7 +214,33 @@ console.log(quincenaMoneda)
     }, 0)
     .toFixed(2);
 
-  // console.log(quincena);
+  const uniqueUserNames = new Set(); // Utilizamos un Set para almacenar nombres de usuario únicos
+quincenaAdult?.q_adult?.forEach(item => {
+  const userName = item.userName;
+  uniqueUserNames.add(userName); // Agregamos cada nombre de usuario al Set
+});
+
+const userNameCounts = {}; // Objeto para almacenar el recuento de cada userName
+let maxUserNameCount = 0; // Para mantener un seguimiento del recuento máximo
+let mostCommonUserName = null; // Para almacenar el userName más común
+
+quincenaAdult?.q_adult?.forEach(item => {
+  const userName = item.userName;
+
+  if (!userNameCounts[userName]) {
+    userNameCounts[userName] = 1; // Inicializamos el recuento en 1 si es la primera vez que lo encontramos
+  } else {
+    userNameCounts[userName]++; // Incrementamos el recuento si ya lo hemos encontrado antes
+  }
+
+  if (userNameCounts[userName] > maxUserNameCount) {
+    maxUserNameCount = userNameCounts[userName];
+    mostCommonUserName = userName;
+  }
+});
+console.log(maxUserNameCount)
+console.log(uniqueUserNames.size)
+  console.log(quincenaAdult);
   return (
     <div className="min-h-screen bg-indigo-200 text-xl pt-14 text-center">
       <div className="mt-2">
@@ -222,8 +272,8 @@ console.log(quincenaMoneda)
           </section>
           {/* <section></section> */}
           <section className="sectionPage">
-            <h1>Cortes</h1>
-            <h1>{quincenaAdult?.q_adult?.length}</h1>
+            <h1>Modelos</h1>
+            <h1>{uniqueUserNames.size}</h1>
           </section>
           <section className="sectionPage">
             <h1>Total Libras</h1>
@@ -452,7 +502,7 @@ console.log(quincenaMoneda)
         {/* //todo Vx   */}
         <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-200">
           <section className="sectionPage sectionIconPage bg-black max-w-fit">
-            <img src="/VxMaster.jpg" alt="Vx" className="iconPage" />
+            <img src="/VxMaster.svg" alt="Vx" className="iconPage" />
           </section>
           {/* <section></section> */}
           <section className="sectionPage">

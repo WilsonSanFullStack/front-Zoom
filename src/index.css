@@ -30,10 +30,10 @@
   resize: none;
 }
 .contenedor3 {
-  @apply flex justify-center;
+  @apply flex grid-cols-2 justify-center;
 }
 .contenedor4 {
-  @apply mt-8 font-bold m-10 px-10 py-3 bg-indigo-100 max-w-xl;
+  @apply mt-8 font-bold m-2 px-2 py-3 bg-indigo-100 max-w-fit;
 }
 .mostrarcorte {
   @apply border-b-2 border-black;
@@ -268,20 +268,4 @@ body {
   100% {
     transform: translate(-50%, -5px);
   }
-}
-
-.fondoDolar {
-  background-image: url('/dolar.png');
-  background-size: 13rem;
-  background-repeat: round;
-}
-.fondoEuro {
-  background-image: url('/euro.png');
-  background-size: 13rem;
-  background-repeat: round;
-}
-.fondoLibra {
-  background-image: url('/libra.png');
-  background-size: 13rem;
-  background-repeat: round;
 }

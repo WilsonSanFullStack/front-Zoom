@@ -87,6 +87,45 @@ const CargarEstadisticas = () => {
           </Link>
         </section>
 
+        <section className="w-48 img-e ">
+          <Link to="/estadisticas/carga/mondo">
+            <p>Mondo</p>
+          <div className="bg-black mt-8 p-2 rounded-xl h-16 w-30 flex justify-center items-center">
+            <img
+              src="/logo-mondocamgirls.svg"
+              alt="logo mondo cam girls"
+              className=" rounded-xl h-20"
+            />
+            </div>
+          </Link>
+        </section>
+
+        <section className="w-48 img-e ">
+          <Link to="/estadisticas/carga/myfreecams">
+            <p>My Free Cams</p>
+          <div className="bg-white mt-8 p-2 rounded-xl h-16 w-30 flex justify-center items-center">
+            <img
+              src="/MyFreeCams_-_logo.svg"
+              alt="logo myFreecams"
+              className=" rounded-xl h-20"
+            />
+            </div>
+          </Link>
+        </section>
+
+        <section className="w-48 img-e ">
+          <Link to="/estadisticas/carga/sakura">
+            <p>Sakura</p>
+          <div className="bg-pink-950 mt-8 p-2 rounded-xl h-16 w-30 flex justify-center items-center">
+            <img
+              src="/Logo-SakuraLive.png"
+              alt="logo sakura"
+              className=" rounded-xl"
+            />
+            </div>
+          </Link>
+        </section>
+
         <section className="w-48 img-e">
           <Link to="/estadisticas/carga/sender">
             <p>Sender</p>
@@ -105,6 +144,24 @@ const CargarEstadisticas = () => {
           </Link>
         </section>
 
+        <section className="w-48 img-e">
+          <Link to="/estadisticas/carga/streamate">
+            <p>Streamate</p>
+            <div className="bg-black mt-6 p-2 rounded-xl h-20 w-30 flex justify-center items-center">
+              <img src="/92393-1569967393-Streamate_on_dark.png" alt="logo Streamete"  />
+            </div>
+          </Link>
+        </section>
+
+        <section className="w-48 img-e">
+          <Link to="/estadisticas/carga/streamray">
+            <p>Stream Ray</p>
+            <div className="bg-sky-950 mt-6 p-2 rounded-xl h-20 w-30 flex justify-center items-center">
+              <img src="/Streamray_250x50_2021.svg" alt="logo Stream Ray"  />
+            </div>
+          </Link>
+        </section>
+
         <section className="img-e w-48 flex justify-center">
           <Link to="/estadisticas/carga/stripchat">
             <p>Stripchat</p>
@@ -118,7 +175,7 @@ const CargarEstadisticas = () => {
           <Link to="/estadisticas/carga/vx">
             <p>Vx</p>
             <div className="bg-black mt-6  rounded-xl h-20 w-30 flex justify-center items-center">
-              <img src="/VxMaster.jpg" alt="logo Vx master" className="w-36 h-16 m-1 rounded-2xl " />
+              <img src="/VxMaster.svg" alt="logo Vx master" className="w-36 h-16 m-1 rounded-2xl " />
             </div>
           </Link>
         </section>
@@ -141,12 +198,6 @@ const CargarEstadisticas = () => {
           </Link>
         </section>
 
-        <section className="w-48 img-e">
-          <Link to="/estadisticas/carga/">
-            <p>Siguiente pagina</p>
-            <img src="/" alt="logo siguiente pagina" />
-          </Link>
-        </section>
       </div>
       </div>
     </div>

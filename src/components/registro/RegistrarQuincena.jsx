@@ -15,7 +15,7 @@ const RegistrarQuincena = () => {
     fechaDeInicio: "",
     fechaFinal: "",
   });
-  console.log(quincena);
+  // console.log(quincena);
   const [fechaInicio, setFechaInicio] = useState(null);
 
   const handleFechaDeInicio = (date) => {

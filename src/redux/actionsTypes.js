@@ -123,12 +123,22 @@ export const GDI = "GDI";
 //todo para isLive
 export const PIL = "PIL";
 export const GIL = "GIL";
+//todo para mondo
+export const MONDO = ' MONDO';
+//todo para mYFREECAMS
+export const MYFREECAMS = ' MYFREECAMS';
+//todo para SAKURA
+export const SAKURA = ' SAKURA';
 //todo para sender
 export const PSE = "PSE";
 export const GSE = "GSE";
 //todo para SKYPE
 export const PSK = "PSK";
 export const GSK = "GSK";
+//TODO PARA STREAMATE
+export const STREAMATE = ' STREAMATE'
+//TODO PARA STREAMRay
+export const STREAMRAY = ' STREAMRAY'
 //todo para STRIPCHAT
 export const PST = "PST";
 export const GST = "GST";

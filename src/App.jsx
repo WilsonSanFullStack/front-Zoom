@@ -15,6 +15,10 @@ import Cam4 from "./components/paginas/Cam4.jsx";
 import Chaturbate from "./components/paginas/Chaturbate.jsx";
 import Dirty from "./components/paginas/Dirty.jsx";
 import IsLive from "./components/paginas/IsLive.jsx";
+import Mondo from "./components/paginas/Mondo.jsx";
+import MyFreeCams from "./components/paginas/MyFreeCams.jsx";
+import Sakura from './components/paginas/Sakura.jsx'
+import StreamRay from './components/paginas/StreamRay.jsx'
 import Sender from "./components/paginas/Sender.jsx";
 import Skype from "./components/paginas/Skype.jsx";
 import Stripchat from "./components/paginas/Stripchat.jsx";
@@ -103,8 +107,12 @@ function App() {
         <Route path="/estadisticas/carga/chaturbate" element={<Chaturbate />} />
         <Route path="/estadisticas/carga/dirty" element={<Dirty />} />
         <Route path="/estadisticas/carga/islive" element={<IsLive />} />
+        <Route path="/estadisticas/carga/mondo" element={<Mondo />} />
+        <Route path="/estadisticas/carga/myfreecams" element={<MyFreeCams />} />
+        <Route path="/estadisticas/carga/sakura" element={<Sakura />} />
         <Route path="/estadisticas/carga/sender" element={<Sender />} />
         <Route path="/estadisticas/carga/skype" element={<Skype />} />
+        <Route path="/estadisticas/carga/streamray" element={<StreamRay />} />
         <Route path="/estadisticas/carga/stripchat" element={<Stripchat />} />
         <Route path="/estadisticas/carga/vx" element={<Vx />} />
         <Route path="/estadisticas/carga/xlove" element={<Xlove />} />

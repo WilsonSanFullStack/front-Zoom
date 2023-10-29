@@ -80,7 +80,7 @@ export const getQuincenaMoneda = (id) => {
     try {
       const endpoint = `${URL}/${QUINCENA}/${MONEDA}/${id}`;
       const { data } = await axios.get(endpoint);
-      console.log(data)
+      // console.log(data)
       dispatch({
         type: GETQUINCENAMONEDA,
         payload: data,

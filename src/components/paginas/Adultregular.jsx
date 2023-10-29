@@ -138,16 +138,16 @@ function Adultregular() {
         />
         <div className="mt-24">
           {errors && (
-            <p className="font-bold bg-black text-red-600 max-w-md m-auto">
+            <p className="error">
               {errors.message}
             </p>
           )}
         </div>
       </div>
 
-      <div className="flex justify-center">
-        <div className="mt-8 font-bold m-6 px-10 py-3 bg-indigo-300 max-w-lg">
-          <h2 className="f text-2xl text-center text-fuchsia-700">
+      <div className="contenedor3">
+        <div className="contenedor4">
+          <h2 className="titulo">
             Creditos a subir
           </h2>
           {coad?.map((x, i) => {
@@ -166,8 +166,8 @@ function Adultregular() {
           })}
         </div>
 
-        <div className="mt-8 m-10 px-6 py-3 bg-indigo-300 font-bold max-w-xl">
-          <h2 className="f text-2xl text-center text-fuchsia-700">
+        <div className="contenedor4">
+          <h2 className="titulo">
             Creditos a subidos
           </h2>
           {!errors && (
