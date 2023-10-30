@@ -159,7 +159,15 @@
 .divButtonP {
   @apply flex grid-cols-4 bg-indigo-500 mt-3 rounded-xl justify-between items-center h-8 w-44 mx-6;
 }
-
+.containerDetails {
+  @apply grid grid-cols-4
+}
+.details {
+  @apply bg-indigo-200 m-1 p-1 border-2 border-indigo-400 rounded-2xl max-w-fit text-center font-bold flex-col
+}
+.details h1 {
+  @apply font-normal text-center 
+}
 .no-spin {
   -moz-appearance: textfield; /* Firefox */
   appearance: textfield; /* Otros navegadores */
