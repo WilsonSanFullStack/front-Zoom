@@ -20,7 +20,10 @@ const Sender = () => {
   const quincenas = useSelector((state) => state.quincenas);
   // const quincena = useSelector((state) => state.quincena);
   const [id, setId] = useState("");
-
+console.log(cose)
+useEffect(() => {
+  setInput([])
+}, [id])
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);

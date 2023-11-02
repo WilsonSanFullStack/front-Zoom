@@ -154,7 +154,6 @@ const RegistrarProducto = () => {
                   value={producto.descripcion}
                   onChange={handleDescripcion}
                   name="descripcion"
-                  maxLength='146'
                   placeholder="Describa el producto"
                   className="input"
                 />

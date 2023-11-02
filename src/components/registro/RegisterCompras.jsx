@@ -4,6 +4,8 @@ import { BiSend } from "react-icons/bi";
 
 import { getAllProductos } from "../../redux/actions/registro/registerProductos.js";
 import { postCompra } from "../../redux/actions/registro/registerCompras.js";
+import { resetError } from "../../redux/actions/resetError.js";
+import { useNavigate } from "react-router-dom";
 
 const validation = (compra) => {
   const { producto, cantidad, precioCompra, precioVenta, precioDiferido } =
@@ -35,6 +37,7 @@ const validation = (compra) => {
 
 const Compras = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const productos = useSelector((state) => state.productos);
   const perror = useSelector((state) => state.perror);
   const gerror = useSelector((state) => state.gerror);
@@ -52,6 +55,10 @@ const Compras = () => {
   useEffect(() => {
     dispatch(getAllProductos());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(resetError());
+  }, [compra]);
 
   const handleProducto = (event) => {
     setCompra({
@@ -113,12 +120,15 @@ const Compras = () => {
       })
     );
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errores = validation(compra);
     if (Object.keys(errores).length === 0) {
-      dispatch(postCompra(compra));
-      if (!perror) {
+      await dispatch(postCompra(compra));
+      if (perror.length !== 0) {
+        setShowForm(true);
+      } else {
         setConfirmacion("SE ENVIO LA SOLICITUD.");
         setTimeout(() => {
           setConfirmacion("");
@@ -133,13 +143,12 @@ const Compras = () => {
           cantidadDeCuotas: "",
         });
         setShowForm(false);
-      } else {
-        setShowForm(true);
       }
     }
     setError(errores);
   };
-
+  console.log(compra);
+  console.log(perror);
   return (
     <div className="contenedor1">
       {confirmacion && (
@@ -156,7 +165,7 @@ const Compras = () => {
           </div>
           {perror && (
             <div className="error">
-              <h1>{perror}</h1>
+              <h1>{`${perror?.response?.data} ${perror?.message}`}</h1>
             </div>
           )}
           <div>
@@ -187,7 +196,7 @@ const Compras = () => {
                       name="cantidad"
                       value={compra.cantidad}
                       onChange={handleCantidad}
-                      className="no-spinin input"
+                      className="no-spin input"
                       min="1"
                     />
                   </section>
@@ -202,7 +211,7 @@ const Compras = () => {
                       value={compra.precioCompra}
                       onChange={handlePrecioCompra}
                       min="1"
-                      className="no-spinin input"
+                      className="no-spin input"
                     />
                   </section>
                   {error && <div className="error">{error.precioCompra}</div>}
@@ -216,7 +225,7 @@ const Compras = () => {
                       value={compra.precioVenta}
                       onChange={handlePrecioVenta}
                       min="1"
-                      className="no-spinin input"
+                      className="no-spin input"
                     />
                   </section>
                   {error && <div className="error">{error.precioVenta}</div>}
@@ -230,7 +239,7 @@ const Compras = () => {
                       value={compra.precioDiferido}
                       onChange={handlePrecioDiferido}
                       min="1"
-                      className="no-spinin input"
+                      className="no-spin input"
                     />
                   </section>
                   {error && <div className="error">{error.precioDiferido}</div>}

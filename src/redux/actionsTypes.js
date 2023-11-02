@@ -43,6 +43,8 @@ export const POSTMONEDA = "POSTMONEDA";
 export const POSTQUINCENA = "POSTQUINCENA";
 export const GETALLQUINCENA = "GETALLQUINCENA";
 export const GETBIQUINCENA = "GETBIQUINCENA";
+export const QUINCENAUSERS = "QUINCENAUSERS";
+export const QUINCENAHOME = "QUINCENAHOME";
 
 //todo para los userName
 export const POSTUSERNAME = "POSTUSERNAME";
@@ -57,6 +59,7 @@ export const DELETECOMMENT = "DELETECOMMENT";
 //todo para los productos
 export const POSTPRODUCTO = "PPRODUCTO";
 export const GETPRODUCTO = "GPRODUCTO";
+export const SEARCHPRODUCTO = "SEARCHPRODUCTO";
 export const GETBIPRODUCTO = "GBIPRODUCTO";
 export const UPDATEPRODUCTO = "UPDATEPRODUCTO";
 export const DELETEPRODUCTO = "DELETEPRODUCTO";
@@ -81,6 +84,7 @@ export const GUS = "GUS";
 export const VACIAR_USE = "VACIAR_USE";
 export const CHECKUSE = "CHECKUSE";
 export const GETUSER = "GETUSER";
+export const GETUSERIDNAME = "GETUSERIDNAME";
 export const GETUSERBI = "GETUSERBI";
 export const UPDATEUSER = "UPDATEUSER";
 export const DELETEUSER = "DELETEUSER";

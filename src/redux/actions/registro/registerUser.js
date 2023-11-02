@@ -7,6 +7,7 @@ import {
   VACIAR_USE,
   CHECKUSE,
   GETUSER,
+  GETUSERIDNAME,
   GETUSERBI,
   UPDATEUSER,
   DELETEUSER,
@@ -14,6 +15,7 @@ import {
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const REGISTRO = import.meta.env.VITE_REACT_APP_URL_REGISTRO;
+const IDNAME = import.meta.env.VITE_REACT_APP_URL_IDNAME;
 const CHECK = import.meta.env.VITE_REACT_APP_URL_CHECK;
 const DELETE = import.meta.env.VITE_REACT_APP_URL_DELETE;
 
@@ -91,6 +93,23 @@ export const getAllUser = () => {
       const { data } = await axios.get(endpoint);
       dispatch({
         type: GETUSER,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GERROR,
+        payload: error,
+      });
+    }
+  };
+};
+export const getAllUserIdName = () => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${REGISTRO}/${IDNAME}`;
+      const { data } = await axios.get(endpoint);
+      dispatch({
+        type: GETUSERIDNAME,
         payload: data,
       });
     } catch (error) {

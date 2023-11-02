@@ -7,10 +7,12 @@ import {
   DELETEPRODUCTO,
   PERROR,
   GERROR,
+  SEARCHPRODUCTO,
 } from "../../actionsTypes";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const PRODUCTO = import.meta.env.VITE_REACT_APP_URL_PRODUCTO;
+const PRODUCTOS = import.meta.env.VITE_REACT_APP_URL_PRODUCTOS;
 const DELETE = import.meta.env.VITE_REACT_APP_URL_DELETE;
 
 export const postProducto = (producto) => {
@@ -26,6 +28,24 @@ export const postProducto = (producto) => {
       dispatch({
         type: PERROR,
         payload: error.message,
+      });
+    }
+  };
+};
+
+export const searchProducto = () => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${PRODUCTOS}`;
+      const { data } = await axios.get(endpoint);
+      dispatch({
+        type: SEARCHPRODUCTO,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GERROR,
+        payload: error,
       });
     }
   };

@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 
 import { TiCogOutline } from "react-icons/ti";
 
-const Moneda = ({ quincena }) => {
+const Moneda = ( {quincena} ) => {
   const monedas = quincena && quincena?.monedas[0];
+  // console.log(quincena);
+  // console.log(monedas)
 
   return (
     <div className="flex-col text-center font-bold bg-indigo-300 rounded-2xl mx-20 my-5">

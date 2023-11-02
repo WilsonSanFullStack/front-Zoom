@@ -14,6 +14,7 @@ const COMPRA = import.meta.env.VITE_REACT_APP_URL_COMPRAS;
 const DELETE = import.meta.env.VITE_REACT_APP_URL_DELETE;
 
 export const postCompra = (compra) => {
+  console.log(compra)
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${COMPRA}`;
@@ -24,7 +25,7 @@ export const postCompra = (compra) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }
@@ -42,7 +43,7 @@ export const getAllCompras = () => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -60,7 +61,7 @@ export const getCompraById = (id) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -78,7 +79,7 @@ export const updateCompra = (id, nCompra) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }
@@ -96,7 +97,7 @@ export const deleteCompra = (id) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }

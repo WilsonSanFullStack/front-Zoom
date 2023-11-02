@@ -20,6 +20,8 @@ import {
   GETQUINCENAVX,
   GETQUINCENAXLOVE,
   GETQUINCENAXLOVENUEVA,
+  QUINCENAUSERS,
+  QUINCENAHOME
 } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
@@ -38,6 +40,7 @@ const STRIPCHAT = import.meta.env.VITE_REACT_APP_ST;
 const VX = import.meta.env.VITE_REACT_APP_VX;
 const XLOVE = import.meta.env.VITE_REACT_APP_XL;
 const XLOVENUEVA = import.meta.env.VITE_REACT_APP_XLN;
+const QUINCENAUSER = import.meta.env.VITE_REACT_APP_QUINCENAUSER;
 
 export const postQuincena = (quincena) => {
   return async (dispatch) => {
@@ -83,6 +86,42 @@ export const getQuincenaMoneda = (id) => {
       // console.log(data)
       dispatch({
         type: GETQUINCENAMONEDA,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GERROR,
+        payload: error,
+      });
+    }
+  };
+};
+
+export const searchUserByFortnight = (ids, id) => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${QUINCENAUSER}/${ids}/${id}`;
+      const { data } = await axios.get(endpoint);
+      dispatch({
+        type: QUINCENAUSERS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GERROR,
+        payload: error,
+      });
+    }
+  };
+};
+
+export const searchAllUserByFortnight = (id) => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${QUINCENAUSER}/${id}`;
+      const { data } = await axios.get(endpoint);
+      dispatch({
+        type: QUINCENAHOME,
         payload: data,
       });
     } catch (error) {

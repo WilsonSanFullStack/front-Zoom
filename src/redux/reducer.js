@@ -40,6 +40,7 @@ import {
   GETPRODUCTO,
   LOGOUT,
   GETUSER,
+  GETUSERIDNAME,
   GETUSERBI,
   POSTCOMMENT,
   GETALLQUINCENA,
@@ -68,6 +69,9 @@ import {
   GETQUINCENAVX,
   GETQUINCENAXLOVE,
   GETQUINCENAXLOVENUEVA,
+  SEARCHPRODUCTO,
+  QUINCENAUSERS,
+  QUINCENAHOME
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -87,7 +91,7 @@ const initialState = {
   covx: [], //corte vx
   coxl: [], //corte xlove
   coxln: [], //corte xlove
-  allUser: [],
+  allUserIdName: [],
   userB: {},
   user: {},
   init: "",
@@ -97,6 +101,8 @@ const initialState = {
   productos: [],
   comment: [],
   quincenas: [],
+  quincenaUser: [],
+  quincenaHome: [],
 
   quincenaMoneda: {},
   quincenaAdult: {},
@@ -118,8 +124,8 @@ const initialState = {
   ubicaciones: [],
   ubicacion: {},
 
-  perror: null,
-  gerror: null,
+  perror: "",
+  gerror: "",
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -140,6 +146,8 @@ export const rootReducer = (state = initialState, action) => {
         perror: action.payload,
         gerror: action.payload,
         spg: [],
+        quincenaUser: action.payload,
+        quincenaHome: action.payload,
       };
     //post corte adult
     case PAD:
@@ -340,6 +348,12 @@ export const rootReducer = (state = initialState, action) => {
         allUser: action.payload,
       };
 
+    case GETUSERIDNAME:
+      return {
+        ...state,
+        allUserIdName: action.payload,
+      };
+
     case GETUSERBI:
       return {
         ...state,
@@ -362,6 +376,12 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         producto: action.payload,
+      };
+
+    case SEARCHPRODUCTO:
+      return {
+        ...state,
+        productos: action.payload,
       };
 
     case GETPRODUCTO:
@@ -523,6 +543,16 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         quincenaXloveNueva: action.payload,
+      };
+    case QUINCENAUSERS:
+      return {
+        ...state,
+        quincenaUser: action.payload,
+      };
+    case QUINCENAHOME:
+      return {
+        ...state,
+        quincenaHome: action.payload,
       };
 
     default:
