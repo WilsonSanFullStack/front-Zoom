@@ -24,7 +24,9 @@ const Vx = () => {
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
-
+  useEffect(() => {
+    setInput([])
+  }, [id])
   useEffect(() => {
     id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
   }, [dispatch, id]);

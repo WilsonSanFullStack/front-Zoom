@@ -3,12 +3,12 @@ import axios from "axios";
 import { MONDO, PERROR } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
-const MONDO = import.meta.env.VITE_REACT_APP_MONDO;
+const MONDOS = import.meta.env.VITE_REACT_APP_MONDO;
 
-export const portMondo = (mondo) => {
+export const postMondo = (mondo) => {
   return async (dispatch) => {
     try {
-      const endpoint = `${URL}/${MONDO}`;
+      const endpoint = `${URL}/${MONDOS}`;
       const { data } = await axios.post(endpoint, mondo);
       dispatch({
         type: MONDO,

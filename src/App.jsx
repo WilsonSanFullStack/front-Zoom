@@ -18,6 +18,7 @@ import IsLive from "./components/paginas/IsLive.jsx";
 import Mondo from "./components/paginas/Mondo.jsx";
 import MyFreeCams from "./components/paginas/MyFreeCams.jsx";
 import Sakura from './components/paginas/Sakura.jsx'
+import Streamate from "./components/paginas/Streamate";
 import StreamRay from './components/paginas/StreamRay.jsx'
 import Sender from "./components/paginas/Sender.jsx";
 import Skype from "./components/paginas/Skype.jsx";
@@ -112,6 +113,7 @@ function App() {
         <Route path="/estadisticas/carga/sakura" element={<Sakura />} />
         <Route path="/estadisticas/carga/sender" element={<Sender />} />
         <Route path="/estadisticas/carga/skype" element={<Skype />} />
+        <Route path="/estadisticas/carga/streamate" element={<Streamate />} />
         <Route path="/estadisticas/carga/streamray" element={<StreamRay />} />
         <Route path="/estadisticas/carga/stripchat" element={<Stripchat />} />
         <Route path="/estadisticas/carga/vx" element={<Vx />} />

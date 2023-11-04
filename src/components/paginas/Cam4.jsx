@@ -20,7 +20,9 @@ const Cam4 = () => {
   const quincenas = useSelector((state) => state.quincenas);
   // const quincena = useSelector((state) => state.quincena);
   const [id, setId] = useState("");
-
+  useEffect(() => {
+    setInput([])
+  }, [id])
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);

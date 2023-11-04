@@ -8,6 +8,7 @@ import {
   getAllQuincena,
   getQuincenaMoneda,
 } from "../../redux/actions/registro/registerQuincena.js";
+import { postMyFreeCams } from "../../redux/actions/paginas/myFreeCams.js";
 
 const MyFreeCams = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,10 @@ const MyFreeCams = () => {
   const [input, setInput] = useState([]);
   const [myFreeCams, setMyFreeCams] = useState(input);
   const [id, setId] = useState("");
+
+  useEffect(() => {
+    setInput([]);
+  }, [id]);
 
   useEffect(() => {
     dispatch(getAllQuincena());
@@ -69,20 +74,23 @@ const MyFreeCams = () => {
 
       while ((match = regex.exec(event.target.value)) !== null) {
         const user = match[1];
-        console.log(user)
+        console.log(user);
         const dolares = parseFloat(match[2]);
-        console.log(dolares)
+        console.log(dolares);
         const tokens = parseInt(match[3]);
-        console.log(tokens)
+        console.log(tokens);
         result.push({ user, dolares, tokens, quincena: id });
       }
-      console.log(result)
+      console.log(result);
       return result;
     });
   };
 
-  console.log(myFreeCams);
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    dispatch(postMyFreeCams(myFreeCams));
+    setInput([]);
+    setMyFreeCams([]);
+  };
 
   return (
     <div className="contenedor1">

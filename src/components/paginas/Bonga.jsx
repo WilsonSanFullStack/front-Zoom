@@ -23,7 +23,9 @@ const Bonga = () => {
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
-
+  useEffect(() => {
+    setInput([]);
+  }, [id]);
   useEffect(() => {
     id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
   }, [dispatch, id]);
@@ -41,7 +43,7 @@ const Bonga = () => {
 
       // Crea un objeto de fecha
       const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
-     
+
       const quincenaFinal = q.final;
       const partesFechaFinal = quincenaFinal.split("/");
 
@@ -52,9 +54,9 @@ const Bonga = () => {
 
       // Crea un objeto de fecha
       const fechaFinal = new Date(añoFinal, mesFinal, diaFinal);
-     
+
       const fechaActual = new Date();
-    
+
       return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
     });
 

@@ -18,7 +18,9 @@ function Adultregular() {
   const [coad, setCoad] = useState(input);
 
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    setInput([])
+  }, [id])
   useEffect(() => {
     // Llama a la acción de reinicio cuando el componente se desmonte
     return () => {

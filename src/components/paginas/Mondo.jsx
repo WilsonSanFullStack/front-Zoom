@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import {} from "../../redux/actions/paginas/adult.js";
+import { postMondo } from "../../redux/actions/paginas/mondo.js";
 import TextareaForm from "../resource/Textarea.jsx";
 import ButtonPage from "../resource/ButtonPage.jsx";
-
 
 import {
   getAllQuincena,
@@ -23,7 +22,9 @@ const Mondo = () => {
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
-
+  useEffect(() => {
+    setInput([])
+  }, [id])
   useEffect(() => {
     id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
   }, [dispatch, id]);
@@ -81,7 +82,11 @@ const Mondo = () => {
   };
 
   console.log(mondo);
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    dispatch(postMondo(mondo));
+    setInput([]);
+    setMondo([]);
+  };
 
   return (
     <div className="contenedor1">

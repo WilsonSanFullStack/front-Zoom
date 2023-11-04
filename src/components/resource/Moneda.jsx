@@ -23,9 +23,9 @@ const Moneda = ( {quincena} ) => {
         <p>Quincena Actual: {quincena && quincena?.nombre}</p>
       </div>
 
-      <div className="flex grid-cols-2 mx-8 justify-center m-2 p-2">
+      <div className="flex grid-cols-2 mx-8 justify-center">
         <div className=" text-center">
-          <p className="text-4xl m-2">
+          <p className="text-4xl ">
             {monedas && monedas?.descripcion.toUpperCase()}{" "}
           </p>
           <section className="grid grid-cols-3 px-2 border-2 border-indigo-900 text-4xl text-black">

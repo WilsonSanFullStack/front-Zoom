@@ -128,7 +128,7 @@ export const GDI = "GDI";
 export const PIL = "PIL";
 export const GIL = "GIL";
 //todo para mondo
-export const MONDO = ' MONDO';
+export const MONDO = 'MONDO';
 //todo para mYFREECAMS
 export const MYFREECAMS = ' MYFREECAMS';
 //todo para SAKURA

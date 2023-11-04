@@ -66,6 +66,10 @@ const Amateur = () => {
   };
 
   useEffect(() => {
+    setInput([])
+  }, [id])
+  
+  useEffect(() => {
     // Llama a la acción de reinicio cuando el componente se desmonte
     return () => {
       dispatch(resetError());

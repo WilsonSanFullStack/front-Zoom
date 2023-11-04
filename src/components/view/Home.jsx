@@ -29,9 +29,9 @@ const Home = () => {
     return x.libra;
   });
 
-  // useEffect(() => {
-  //   dispatch(resetError());
-  // }, [id]);
+  useEffect(() => {
+    dispatch(resetError());
+  }, [id]);
 
   useEffect(() => {
     dispatch(getAllQuincena());
@@ -39,6 +39,7 @@ const Home = () => {
 
   useEffect(() => {
     id || id !== "" ? dispatch(searchAllUserByFortnight(id)) : "";
+    // dispatch(resetError());
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -72,50 +73,19 @@ const Home = () => {
     });
 
     if (quincenaActual) {
-      setId(quincenaActual?.id);
+      setId(quincenaActual.id);
     }
   }, [quincenas]);
 
   const handleQuincena = (event) => {
     setId(event.target.value);
   };
-
-  const [showDetail, setShowDetail] = useState({
-    Adult: false,
-    Amateur: false,
-    Bonga: false,
-    Cam4: false,
-    Chaturbate: false,
-    DirtyEuros: false,
-    DirtyDolares: false,
-    IsLive: false,
-    Sender: false,
-    Skype: false,
-    Stripchat: false,
-    Vx: false,
-    Xlove: false,
-    XloveNueva: false,
-  });
-
-  const handleShowDetail = (selectedOption) => {
-    // Crear una copia del estado actual
-    const updatedShowDetail = { ...showDetail };
-
-    // Verificar si la opción seleccionada ya está abierta
-    if (updatedShowDetail[selectedOption]) {
-      // Si ya está abierta, ocultarla
-      updatedShowDetail[selectedOption] = false;
-    } else {
-      // Si no está abierta, abrir la opción seleccionada y cerrar las demás
-      for (const option in updatedShowDetail) {
-        updatedShowDetail[option] = option === selectedOption;
-      }
-    }
-
-    // Actualizar el estado con las opciones modificadas
-    setShowDetail(updatedShowDetail);
-  };
-const rojos = []
+  const [show, setShow] = useState(false);
+  const [showDetail, setShowDetail] = useState(false);
+  const handleShow = () => (show ? (setShow(false), setShowDetail(false)) : setShow(true));
+  const handleShowDetail = () =>
+    showDetail ? setShowDetail(false) : setShowDetail(true) || !show?setShowDetail(false):showDetail;
+  const rojos = [];
   return (
     <div className="min-h-screen bg-indigo-200 text-xl pt-14 text-center">
       <div className="mt-2">
@@ -172,97 +142,48 @@ const rojos = []
                   ? x?.porcentaje?.final
                   : x?.porcentaje?.inical;
 
-                  console.log(((
-                    ((((x?.adultworkTotal?.creditos || 0) +
-                      (x?.adultworkParcial?.creditos || 0)) *
-                      porcentaje) /
-                      100) *
-                      libra
-                  ) +
-                    (
-                      ((((x?.dirty?.moneda === "euro"
-                        ? x?.dirty?.plata || 0
-                        : 0) +
-                        (x?.islive?.euros || 0) +
-                        (x?.mondo?.euros || 0) +
-                        (x?.sender?.euros - x?.senderAnterior?.euros
-                          ? x?.sender?.euros - x?.senderAnterior?.euros
-                          : "" || 0) +
-                        (x?.vx?.euros || 0) +
-                        (x?.xlove?.euros || 0) +
-                        (x?.xlovenueva?.euros || 0) +
-                        (x?.siete?.euros || 0)) *
-                        porcentaje) /
-                        100) *
-                        euro
-                    ) +
-                    (
-                      ((((x?.amateur?.dolares || 0) +
-                        (x?.bongaTotal?.dolares || 0) +
-                        (x?.cam4?.dolares || 0) +
-                        (x?.chaturbate?.dolares || 0) +
-                        (x?.dirty?.moneda === "dolar"
-                          ? x?.dirty?.plata || 0
-                          : 0) +
-                        (x?.myfreecams?.dolares || 0) +
-                        (x?.sakura?.dolares || 0) +
-                        (x?.skype?.dolares || 0) +
-                        (x?.streamate?.dolares || 0) +
-                        (x?.streamray?.dolares || 0) +
-                        (x?.stripchat?.dolares || 0)) *
-                        porcentaje) /
-                        100) *
-                        dolar
-                    )).toFixed(2))
-                    const totalPesos = ((
-                      ((((x?.adultworkTotal?.creditos || 0) +
-                        (x?.adultworkParcial?.creditos || 0)) *
-                        porcentaje) /
-                        100) *
-                        libra
-                    ) +
-                      (
-                        ((((x?.dirty?.moneda === "euro"
-                          ? x?.dirty?.plata || 0
-                          : 0) +
-                          (x?.islive?.euros || 0) +
-                          (x?.mondo?.euros || 0) +
-                          (x?.sender?.euros - x?.senderAnterior?.euros
-                            ? x?.sender?.euros - x?.senderAnterior?.euros
-                            : "" || 0) +
-                          (x?.vx?.euros || 0) +
-                          (x?.xlove?.euros || 0) +
-                          (x?.xlovenueva?.euros || 0) +
-                          (x?.siete?.euros || 0)) *
-                          porcentaje) /
-                          100) *
-                          euro
-                      ) +
-                      (
-                        ((((x?.amateur?.dolares || 0) +
-                          (x?.bongaTotal?.dolares || 0) +
-                          (x?.cam4?.dolares || 0) +
-                          (x?.chaturbate?.dolares || 0) +
-                          (x?.dirty?.moneda === "dolar"
-                            ? x?.dirty?.plata || 0
-                            : 0) +
-                          (x?.myfreecams?.dolares || 0) +
-                          (x?.sakura?.dolares || 0) +
-                          (x?.skype?.dolares || 0) +
-                          (x?.streamate?.dolares || 0) +
-                          (x?.streamray?.dolares || 0) +
-                          (x?.stripchat?.dolares || 0)) *
-                          porcentaje) /
-                          100) *
-                          dolar
-                      )).toFixed(2)
-                    const gastos = 15000000
-                    const saldo = -totalPesos-gastos
-                    saldo < 0 ? rojos.push({id: x?.id, rojo: saldo, quincena: id}):"";
-                    console.log(rojos)
-                    const [show, setShow] = useState(false)
-                    const handleShow = () => show?setShow(false):setShow(true)
-              // if (x?.userNamePage.length)
+              const totalPesos = (
+                ((((x?.adultworkTotal?.creditos || 0) +
+                  (x?.adultworkParcial?.creditos || 0)) *
+                  porcentaje) /
+                  100) *
+                  libra +
+                ((((x?.dirty?.moneda === "euro" ? x?.dirty?.plata || 0 : 0) +
+                  (x?.islive?.euros || 0) +
+                  (x?.mondo?.euros || 0) +
+                  (x?.sender?.euros - x?.senderAnterior?.euros
+                    ? x?.sender?.euros - x?.senderAnterior?.euros
+                    : "" || 0) +
+                  (x?.vx?.euros || 0) +
+                  (x?.xlove?.euros || 0) +
+                  (x?.xlovenueva?.euros || 0) +
+                  (x?.siete?.euros || 0)) *
+                  porcentaje) /
+                  100) *
+                  euro +
+                ((((x?.amateur?.dolares || 0) +
+                  (x?.bongaTotal?.dolares || 0) +
+                  (x?.cam4?.dolares || 0) +
+                  (x?.chaturbate?.dolares || 0) +
+                  (x?.dirty?.moneda === "dolar" ? x?.dirty?.plata || 0 : 0) +
+                  (x?.myfreecams?.dolares || 0) +
+                  (x?.sakura?.dolares || 0) +
+                  (x?.skype?.dolares || 0) +
+                  (x?.streamate?.dolares || 0) +
+                  (x?.streamray?.dolares || 0) +
+                  (x?.stripchat?.dolares || 0)) *
+                  porcentaje) /
+                  100) *
+                  dolar
+              ).toFixed(2);
+              const gastos = 15000000;
+              const saldo = -totalPesos - gastos;
+              saldo < 0
+                ? rojos.push({ id: x?.id, rojo: saldo, quincena: id })
+                : "";
+              console.log(rojos);
+
+              if (x?.userNamePage.length)
               return (
                 <div key={x.id} className="divPageContainer">
                   <h1 className="text-2xl font-bold">
@@ -277,9 +198,7 @@ const rojos = []
                     </section>
                     <section className="pt-2">
                       <h1>Meta: </h1>
-                      {x?.porcentaje && (
-                        <h1>{x?.porcentaje?.meta} creditos</h1>
-                      )}
+                      {x?.porcentaje && <h1>{x?.porcentaje?.meta} creditos</h1>}
                     </section>
 
                     <section className="pt-2">
@@ -293,207 +212,233 @@ const rojos = []
                     </section>
                     <section className="pt-2">
                       <h1>Total Gastos</h1>
-                      {cp && (<h1>$ {Intl.NumberFormat("es-CP").format(gastos)}</h1>)}
-
+                      {cp && (
+                        <h1>$ {Intl.NumberFormat("es-CP").format(gastos)}</h1>
+                      )}
                     </section>
                     <section className="pt-2">
                       <h1>Total Pesos: </h1>
                       {cp && (
-                        <h1>
-                          {
-                            
-                            Intl.NumberFormat("en-GB").format(totalPesos)}
-                        </h1>
+                        <h1>{Intl.NumberFormat("en-GB").format(totalPesos)}</h1>
                       )}
                     </section>
-                    <section className={saldo > 0 ? "saldoPositivo":"saldoRojo"} >
+                    <section
+                      className={saldo > 0 ? "saldoPositivo" : "saldoRojo"}
+                    >
                       <h1>Saldo</h1>
-                      {cp&&(<h1>{Intl.NumberFormat("es-CP").format(saldo)}</h1>)}
+                      {cp && (
+                        <h1>{Intl.NumberFormat("es-CP").format(saldo)}</h1>
+                      )}
                     </section>
                   </section>
 
-                  {show && (<div className="divPages">
-                    {x?.adultworkTotal && (
-                      <section className="sectionPage1">
-                        <h1>Adultwork</h1>
-                        <h1>Libras</h1>{" "}
-                        <h2>{x?.adultworkTotal?.creditos.toFixed(2)}</h2>
-                      </section>
-                    )}
+                  {show && (
+                    <div
+                      className="divPages"
+                      onClick={() => handleShowDetail()}
+                    >
+                      {x?.adultworkTotal && (
+                        <section className="sectionPage1">
+                          <h1>Adultwork</h1>
+                          <h1>Libras</h1>{" "}
+                          <h2>{x?.adultworkTotal?.creditos.toFixed(2)}</h2>
+                        </section>
+                      )}
 
-                    {x?.awParcial && (
-                      <section className="sectionPage1">
-                        <h1>AW Parcial</h1>
-                        <h1>Libras</h1>{" "}
-                        <h2>{x?.adultworkParcial?.creditos.toFixed(2)}</h2>
-                      </section>
-                    )}
+                      {x?.awParcial && (
+                        <section className="sectionPage1">
+                          <h1>AW Parcial</h1>
+                          <h1>Libras</h1>{" "}
+                          <h2>{x?.adultworkParcial?.creditos.toFixed(2)}</h2>
+                        </section>
+                      )}
 
-                    {x?.amateur && (
-                      <section className="sectionPage1">
-                        <h1>Amateur</h1>
-                        <section className="sectionPage2">
-                          <section>
-                            <h1>dolares</h1> <h2>{x?.amateur?.dolares}</h2>
-                          </section>
-                          <section>
-                            <h1>Tokens</h1> <h2>{x?.amateur?.tokens}</h2>
+                      {x?.amateur && (
+                        <section className="sectionPage1">
+                          <h1>Amateur</h1>
+                          <section className="sectionPage2">
+                            <section>
+                              <h1>dolares</h1> <h2>{x?.amateur?.dolares}</h2>
+                            </section>
+                            <section>
+                              <h1>Tokens</h1> <h2>{x?.amateur?.tokens}</h2>
+                            </section>
                           </section>
                         </section>
-                      </section>
-                    )}
+                      )}
 
-                    {x?.bongaTotal && (
-                      <section className="sectionPage1">
-                        <h1>Bonga</h1>
-                        <h1>Dolares</h1>{" "}
-                        <h2>{x?.bongaTotal?.dolares.toFixed(2)}</h2>
-                      </section>
-                    )}
+                      {x?.bongaTotal && (
+                        <section className="sectionPage1">
+                          <h1>Bonga</h1>
+                          <h1>Dolares</h1>{" "}
+                          <h2>{x?.bongaTotal?.dolares.toFixed(2)}</h2>
+                        </section>
+                      )}
 
-                    {x?.cam4 && (
-                      <section className="sectionPage1">
-                        <h1>Cam4</h1>
-                        <h1>Dolares</h1> <h2>{x?.cam4?.dolares}</h2>
-                      </section>
-                    )}
+                      {x?.cam4 && (
+                        <section className="sectionPage1">
+                          <h1>Cam4</h1>
+                          <h1>Dolares</h1> <h2>{x?.cam4?.dolares}</h2>
+                        </section>
+                      )}
 
-                    {x?.chaturbate && (
-                      <section className="sectionPage1">
-                        <h1>Chaturbate</h1>
-                        <section className="sectionPage2">
-                          <section>
-                            <h1>Tokens </h1> <h2>{x?.chaturbate?.tokens}</h2>
-                          </section>
-                          <section>
-                            <h1>Dolares </h1> <h2>{x?.chaturbate?.dolares}</h2>
+                      {x?.chaturbate && (
+                        <section className="sectionPage1">
+                          <h1>Chaturbate</h1>
+                          <section className="sectionPage2">
+                            <section>
+                              <h1>Tokens </h1> <h2>{x?.chaturbate?.tokens}</h2>
+                            </section>
+                            <section>
+                              <h1>Dolares </h1>{" "}
+                              <h2>{x?.chaturbate?.dolares}</h2>
+                            </section>
                           </section>
                         </section>
-                      </section>
-                    )}
+                      )}
 
-                    {x?.dirty && (
-                      <section className="sectionPage1">
-                        <h1>Dirty</h1>
-                        <h1>
-                          {x?.dirty?.moneda === "euro" ? "Euros" : "Dolar"}
-                        </h1>{" "}
-                        <h2>{x?.dirty?.plata}</h2>
-                      </section>
-                    )}
+                      {x?.dirty && (
+                        <section className="sectionPage1">
+                          <h1>Dirty</h1>
+                          <h1>
+                            {x?.dirty?.moneda === "euro" ? "Euros" : "Dolar"}
+                          </h1>{" "}
+                          <h2>{x?.dirty?.plata}</h2>
+                        </section>
+                      )}
 
-                    {x?.islive && (
-                      <section className="sectionPage1">
-                        <h1>Is Live</h1>
-                        <h1>Euros</h1> <h2>{x?.islive?.euros}</h2>
-                      </section>
-                    )}
+                      {x?.islive && (
+                        <section className="sectionPage1">
+                          <h1>Is Live</h1>
+                          <h1>Euros</h1> <h2>{x?.islive?.euros}</h2>
+                        </section>
+                      )}
 
-                    {x?.mondo && (
-                      <section className="sectionPage1">
-                        <h1>Mondo</h1>
-                        <h1>Euros</h1> <h2>{x?.mondo?.euros}</h2>
-                      </section>
-                    )}
+                      {x?.mondo && (
+                        <section className="sectionPage1">
+                          <h1>Mondo</h1>
+                          <h1>Euros</h1> <h2>{x?.mondo?.euros}</h2>
+                        </section>
+                      )}
 
-                    {x?.myfreecams && (
-                      <section className="sectionPage1">
-                        <h1>My Free Cams</h1>
-                        <section className="sectionPage2">
-                          <section>
-                            <h1>Dolares</h1> <h2>{x?.myfreecams?.dolares}</h2>
-                          </section>
-                          <section>
-                            <h1>Tokens</h1> <h2>{x?.myfreecams?.tokens}</h2>
+                      {x?.myfreecams && (
+                        <section className="sectionPage1">
+                          <h1>My Free Cams</h1>
+                          <section className="sectionPage2">
+                            <section>
+                              <h1>Dolares</h1> <h2>{x?.myfreecams?.dolares}</h2>
+                            </section>
+                            <section>
+                              <h1>Tokens</h1> <h2>{x?.myfreecams?.tokens}</h2>
+                            </section>
                           </section>
                         </section>
-                      </section>
-                    )}
+                      )}
 
-                    {x?.sakura && (
-                      <section className="sectionPage1">
-                        <h1>Sakura</h1>
-                        <h1>Dolares</h1> <h2>{x?.sakura?.dolares}</h2>
-                      </section>
-                    )}
+                      {x?.sakura && (
+                        <section className="sectionPage1">
+                          <h1>Sakura</h1>
+                          <h1>Dolares</h1> <h2>{x?.sakura?.dolares}</h2>
+                        </section>
+                      )}
 
-                    {x?.sender && (
-                      <section className="sectionPage1">
-                        <h1>Sender</h1>
-                        <h1>Euros</h1>{" "}
-                        <h2>
-                          {x?.sender?.euros - x?.senderAnterior?.euros
-                            ? x?.sender?.euros - x?.senderAnterior?.euros
-                            : ""}
-                        </h2>
-                      </section>
-                    )}
+                      {x?.sender && (
+                        <section className="sectionPage1">
+                          <h1>Sender</h1>
+                          <h1>Euros</h1>{" "}
+                          <h2>
+                            {x?.sender?.euros - x?.senderAnterior?.euros
+                              ? x?.sender?.euros - x?.senderAnterior?.euros
+                              : ""}
+                          </h2>
+                        </section>
+                      )}
 
-                    {x?.skype && (
-                      <section className="sectionPage1">
-                        <h1>Skype</h1>
-                        <h1>Dolares</h1> <h2>{x?.skype?.dolares}</h2>
-                      </section>
-                    )}
+                      {x?.skype && (
+                        <section className="sectionPage1">
+                          <h1>Skype</h1>
+                          <h1>Dolares</h1> <h2>{x?.skype?.dolares}</h2>
+                        </section>
+                      )}
 
-                    {x?.streamate && (
-                      <section className="sectionPage1">
-                        <h1>Streamate</h1>
-                        <h1>Dolares</h1> <h2>{x?.streamate?.dolares}</h2>
-                      </section>
-                    )}
+                      {x?.streamate && (
+                        <section className="sectionPage1">
+                          <h1>Streamate</h1>
+                          <h1>Dolares</h1> <h2>{x?.streamate?.dolares}</h2>
+                        </section>
+                      )}
 
-                    {x?.streamray && (
-                      <section className="sectionPage1">
-                        <h1>StreamRay</h1>
-                        <h1>Dolares</h1> <h2>{x?.streamray?.dolares}</h2>
-                      </section>
-                    )}
+                      {x?.streamray && (
+                        <section className="sectionPage1">
+                          <h1>StreamRay</h1>
+                          <h1>Dolares</h1> <h2>{x?.streamray?.dolares}</h2>
+                        </section>
+                      )}
 
-                    {x?.stripchat && (
-                      <section className="sectionPage1">
-                        <h1>Stripchat</h1>
-                        <section className="sectionPage2">
+                      {x?.stripchat && (
+                        <section className="sectionPage1">
+                          <h1>Stripchat</h1>
+                          <section className="sectionPage2">
+                            <section>
+                              <h1>Dolares</h1> <h2>{x?.stripchat?.dolares}</h2>
+                            </section>
+                            <section>
+                              <h1>Tokens</h1> <h2>{x?.stripchat?.tokens}</h2>
+                            </section>
+                          </section>
+                        </section>
+                      )}
+
+                      {x?.vx && (
+                        <section className="sectionPage1">
+                          <h1>Vx</h1>
+                          <h1>Euros</h1> <h2>{x?.vx?.euros}</h2>
+                        </section>
+                      )}
+
+                      {x?.xlove && (
+                        <section className="sectionPage1">
+                          <h1>Xlove</h1>
+                          <h1>Euros</h1> <h2>{x?.xlove?.euros}</h2>
+                        </section>
+                      )}
+
+                      {x?.xlovenueva && (
+                        <section className="sectionPage1">
+                          <h1>Xlove Nueva</h1>
+                          <h1>Euros</h1> <h2>{x?.xlovenueva?.euros}</h2>
+                          {/* <h1>Fecha</h1> <h2>{x?.xlovenueva?.fecha}</h2> */}
+                        </section>
+                      )}
+
+                      {x?.siete && (
+                        <section className="sectionPage1">
+                          <h1>777</h1>
                           <section>
-                            <h1>Dolares</h1> <h2>{x?.stripchat?.dolares}</h2>
+                            <h1>Euros</h1> <h2>{x?.siete?.euros}</h2>
                           </section>
                           <section>
-                            <h1>Tokens</h1> <h2>{x?.stripchat?.tokens}</h2>
-                          </section>{" "}
+                            <h1>Fecha</h1> <h2>{x?.xlovenueva?.fecha}</h2>
+                          </section>
                         </section>
-                      </section>
-                    )}
-
-                    {x?.vx && (
-                      <section className="sectionPage1">
-                        <h1>Vx</h1>
-                        <h1>Euros</h1> <h2>{x?.vx?.euros}</h2>
-                      </section>
-                    )}
-
-                    {x?.xlove && (
-                      <section className="sectionPage1">
-                        <h1>Xlove</h1>
-                        <h1>Euros</h1> <h2>{x?.xlove?.euros}</h2>
-                      </section>
-                    )}
-
-                    {x?.xlovenueva && (
-                      <section className="sectionPage1">
-                        <h1>Xlove Nueva</h1>
-                        <h1>Euros</h1> <h2>{x?.xlovenueva?.euros}</h2>
-                        {/* <h1>Fecha</h1> <h2>{x?.xlovenueva?.fecha}</h2> */}
-                      </section>
-                    )}
-
-                    {x?.siete && (
-                      <section className="sectionPage1">
-                        <h1>777</h1>
-                        <h1>Euros</h1> <h2>{x?.siete?.euros}</h2>
-                        {/* <h1>Fecha</h1> <h2>{x?.xlovenueva?.fecha}</h2> */}
-                      </section>
-                    )}
-                  </div>)}
+                      )}
+                    </div>
+                  )}
+                  {showDetail && (
+                    <div className="grid grid-cols-3">
+                      {x?.adultwork?.map((detalle) => {
+                        return (
+                          <section key={detalle?.id}>
+                            <h1>UserName:</h1> <h2>{detalle?.userName}</h2>
+                            <h1>Libras:</h1> <h2>{detalle?.creditos}</h2>
+                            <h1>Tipo:</h1>{" "}
+                            <h2>{detalle?.parcial ? "Parcial" : "Regular"}</h2>
+                            <h1>Fecha Adultwork</h1> <h2>{detalle?.fecha}</h2>
+                          </section>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               );
             })}
