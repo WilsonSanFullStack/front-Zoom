@@ -26,6 +26,10 @@ const Crear = () => {
             <button className="btn-w h-20 w-48">Registrar Estadisticas</button>
           </NavLink>
 
+          <NavLink to="/crear/prestamos">
+            <button className="btn-w h-20 w-48">Registrar Prestamos</button>
+          </NavLink>
+
           <NavLink to="/crear/producto">
             <button className="btn-w h-20 w-48">Registrar Producto</button>
           </NavLink>

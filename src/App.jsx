@@ -52,6 +52,7 @@ import RegisterCompras from "./components/registro/RegisterCompras.jsx";
 // import RegisterRojos from "./components/registro/RegisterRojos";
 
 import RelationUbicationAndPorcenaje from "./components/registro/RelationUbicacionAndPorcentaje";
+import Prestamos from "./components/registro/Prestamos.jsx";
 
 function App() {
   const { pathname } = useLocation();
@@ -76,6 +77,7 @@ function App() {
         <Route path="/crear/porcentaje" element={<RegisterPorcentaje />} />
         <Route path="/crear/ubicacion" element={<RegisterUbicacion />} />
         <Route path="/crear/compras" element={<RegisterCompras />} />
+        <Route path="/crear/prestamos" element={<Prestamos />} />
         {/* <Route path="/crear/rojos" element={<RegisterRojos />} /> */}
         <Route path="/crear/ralacion" element={<RelationUbicationAndPorcenaje />} />
 

@@ -18,9 +18,7 @@ function Adultregular() {
   const [coad, setCoad] = useState(input);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    setInput([])
-  }, [id])
+  
   useEffect(() => {
     // Llama a la acción de reinicio cuando el componente se desmonte
     return () => {
@@ -65,6 +63,9 @@ function Adultregular() {
   // const quincena = useSelector((state) => state.quincena);
   const [id, setId] = useState("");
 
+  useEffect(() => {
+    setInput([])
+  }, [id])
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
