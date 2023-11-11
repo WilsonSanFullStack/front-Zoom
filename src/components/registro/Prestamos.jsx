@@ -8,7 +8,20 @@ const Prestamos = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.allUserIdName);
   const quincenas = useSelector((state) => state.quincenas);
-  const [id, setId] = useState("");
+
+
+  const handleQuincena = (event) => {
+    setPrestamo({
+      ...prestamo,
+      quincenaId: event.target.value,
+    });
+  };
+
+  const [prestamo, setPrestamo] = useState({
+    quincenaId: "",
+    userId: "",
+    prestamo: "",
+  });
 
   useEffect(() => {
     dispatch(getAllQuincena());
@@ -46,54 +59,74 @@ const Prestamos = () => {
     });
 
     if (quincenaActual) {
-      setId(quincenaActual.id);
+      setPrestamo({
+        ...prestamo,
+        quincenaId: quincenaActual.id,
+      })
     }
   }, [quincenas]);
-  const handleQuincena = (event) => {
-    setId(event.target.value);
+
+  const handleUser = (event) => {
+    setPrestamo({
+      ...prestamo,
+      userId: event.target.value,
+    });
   };
+  const handlePrestamos = (event) => {
+    setPrestamo({
+      ...prestamo,
+      prestamo: event.target.value,
+    });
+  };
+  console.log(prestamo);
+  
   return (
     <div className="contenedor1">
       <div className="contenedor2">
-      <div className="divTitulo">
-            <h1 className="titulo">Registro De Compras</h1>
-          </div>
+        <div className="divTitulo">
+          <h1 className="titulo">Registro De Compras</h1>
+        </div>
         <form>
           <section className="form text-right">
-
-          
-          <section className="sectionSelect">
-            <select className="select" onChange={handleQuincena} value={id}>
-              <option value="" hidden>
-                Seleccione Una Quincena
-              </option>
-              {quincenas &&
-                quincenas?.map((x) => {
-                  return (
-                    <option value={x.id} key={x.id}>
-                      {x.nombre}
-                    </option>
-                  );
-                })}
-            </select>
-          </section>
-          <section>
-            <select className="select">
-              <option value="">Seleccione Un usuario</option>
-              {users &&
-                users.map((x) => {
-                  return (
-                    <option value={x.id}>
-                      {x.nombre} {x.apellido}
-                    </option>
-                  );
-                })}
-            </select>
-          </section>
-          <section className="section">
-            <label className="label">Cantidad</label>
-            <input type="number" className="no-spin input" />
-          </section>
+            <section className="sectionSelect">
+              <select className="select" onChange={handleQuincena} value={prestamo.quincenaId}>
+                <option value="" hidden>
+                  Seleccione Una Quincena
+                </option>
+                {quincenas &&
+                  quincenas?.map((x) => {
+                    return (
+                      <option value={x.id} key={x.id}>
+                        {x.nombre}
+                      </option>
+                    );
+                  })}
+              </select>
+            </section>
+            <section>
+              <select className="select" onChange={handleUser}>
+                <option value="">Seleccione Un usuario</option>
+                {users &&
+                  users.map((x) => {
+                    return (
+                      <option value={x.id} key={x.id}>
+                        {x.nombre} {x.apellido}
+                      </option>
+                    );
+                  })}
+              </select>
+            </section>
+            <section className="section">
+              <label className="label">Cantidad</label>
+              <input
+                type="number"
+                className="no-spin input"
+                name="prestamo"
+                value={prestamo.prestamo}
+                onChange={handlePrestamos}
+                min="1"
+              />
+            </section>
           </section>
         </form>
       </div>
