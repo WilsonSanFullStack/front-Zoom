@@ -110,7 +110,7 @@ const RegisterUser = () => {
     whatsapp: "",
     direccion: "",
   });
-  console.log(perror);
+  // console.log(perror);
 
   useEffect(() => {
     dispatch(resetError());
@@ -225,7 +225,7 @@ const RegisterUser = () => {
       })
     );
   };
-  console.log(input);
+  // console.log(input);
   const handleDireccion = (event) => {
     setInput({
       ...input,

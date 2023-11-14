@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { BiSend } from "react-icons/bi";
 import { getAllUserIdName } from "../../redux/actions/registro/registerUser";
 import { getAllQuincena } from "../../redux/actions/registro/registerQuincena";
+import { postPrestamos } from "../../redux/actions/registro/registerPrestamos";
 
 const Prestamos = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.allUserIdName);
   const quincenas = useSelector((state) => state.quincenas);
-
 
   const handleQuincena = (event) => {
     setPrestamo({
@@ -62,7 +62,7 @@ const Prestamos = () => {
       setPrestamo({
         ...prestamo,
         quincenaId: quincenaActual.id,
-      })
+      });
     }
   }, [quincenas]);
 
@@ -79,17 +79,24 @@ const Prestamos = () => {
     });
   };
   console.log(prestamo);
-  
+
+  const handleSubmit = () => {
+    dispatch(postPrestamos(prestamo));
+  };
   return (
     <div className="contenedor1">
       <div className="contenedor2">
         <div className="divTitulo">
           <h1 className="titulo">Registro De Compras</h1>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <section className="form text-right">
             <section className="sectionSelect">
-              <select className="select" onChange={handleQuincena} value={prestamo.quincenaId}>
+              <select
+                className="select"
+                onChange={handleQuincena}
+                value={prestamo.quincenaId}
+              >
                 <option value="" hidden>
                   Seleccione Una Quincena
                 </option>
@@ -128,6 +135,11 @@ const Prestamos = () => {
               />
             </section>
           </section>
+          <section>
+                <button className="btn-w" type="submit">
+                  <BiSend className="BiSend" />
+                </button>
+              </section>
         </form>
       </div>
     </div>

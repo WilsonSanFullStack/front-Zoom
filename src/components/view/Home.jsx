@@ -15,9 +15,6 @@ const Home = () => {
   const quincenas = useSelector((state) => state.quincenas);
   const quincenaHome = useSelector((state) => state.quincenaHome);
   const [id, setId] = useState("");
-console.log(quincenaHome)
-  // const [rojo, setRojo] = useState([])
-
   
   const dolar = quincenaHome?.moneda?.monedas?.map((x) => {
     return x.dolar;
@@ -39,13 +36,12 @@ console.log(quincenaHome)
   }, [dispatch]);
 
   useEffect(() => {
-    id || id !== "" ? dispatch(searchAllUserByFortnight(id)) : "";
-    // dispatch(resetError());
+    if (id) {
+      dispatch(searchAllUserByFortnight(id));
+    }
   }, [dispatch, id]);
 
   useEffect(() => {
-    // Encontrar la quincena que coincide con la fecha actual
-
     const quincenaActual = quincenas?.find((q) => {
       const quincenaInicio = q?.inicia;
       const partesFechaInicio = quincenaInicio?.split("/");
@@ -73,7 +69,7 @@ console.log(quincenaHome)
       return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
     });
 
-    if (quincenaActual) {
+    if (quincenaActual && quincenaActual.id) {
       setId(quincenaActual.id);
     }
   }, [quincenas]);
@@ -83,27 +79,31 @@ console.log(quincenaHome)
   };
   const [show, setShow] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
-  const handleShow = () =>
-    show ? (setShow(false), setShowDetail(false)) : setShow(true);
-  const handleShowDetail = () =>
-    showDetail
-      ? setShowDetail(false)
-      : setShowDetail(true) || !show
-      ? setShowDetail(false)
-      : showDetail;
 
-const handleRojo = (userId, saldo) => {
-    console.log(userId)
-    console.log(saldo)
-    console.log(id)
-    setRojo()
-  }
+  const handleShow = () => {
+    setShow(!show);
+    setShowDetail(false);
+  };
+
+  const handleShowDetail = () => {
+    setShowDetail(!showDetail);
+    if (!show) {
+      setShow(false);
+    }
+  };
+
+  const handleRojo = (userId, saldo) => {
+    // console.log(userId);
+    // console.log(saldo);
+    // console.log(id);
+    setRojo();
+  };
   const [showRojos, setShowRojos] = useState(false);
 
   // const handleRojos = () => {
   //   showRojos ? setShowRojos(false) : setShowRojos(true);
   // };
- 
+
   return (
     <div className="min-h-screen bg-indigo-200 text-xl pt-14 text-center">
       <div className="mt-2">
@@ -164,7 +164,7 @@ const handleRojo = (userId, saldo) => {
                 (x?.sakura?.dolares || 0) +
                 ((x?.sender?.euros - x?.senderAnterior?.euros
                   ? x?.sender?.euros - x?.senderAnterior?.euros
-                  : 0) ||0) +
+                  : 0) || 0) +
                 (x?.skype?.dolares || 0) +
                 (x?.streamate?.dolares || 0) +
                 (x?.streamray?.dolares || 0) +
@@ -173,7 +173,7 @@ const handleRojo = (userId, saldo) => {
                 (x?.xlove?.euros || 0) +
                 (x?.xlovenueva?.euros || 0) +
                 (x?.siete?.euros || 0);
-                
+
               const porcentaje =
                 cp >= x?.porcentaje?.meta
                   ? x?.porcentaje?.final
@@ -185,12 +185,12 @@ const handleRojo = (userId, saldo) => {
                   porcentaje) /
                   100) *
                   libra +
-                (((((x?.dirty?.moneda === "euro" ? x?.dirty?.plata  : 0)|| 0) +
+                (((((x?.dirty?.moneda === "euro" ? x?.dirty?.plata : 0) || 0) +
                   (x?.islive?.euros || 0) +
                   (x?.mondo?.euros || 0) +
                   ((x?.senderAnterior?.euros
                     ? x?.sender?.euros - x?.senderAnterior?.euros
-                    : 0 )|| 0) +
+                    : 0) || 0) +
                   (x?.vx?.euros || 0) +
                   (x?.xlove?.euros || 0) +
                   (x?.xlovenueva?.euros || 0) +
@@ -202,7 +202,7 @@ const handleRojo = (userId, saldo) => {
                   (x?.bongaTotal?.dolares || 0) +
                   (x?.cam4?.dolares || 0) +
                   (x?.chaturbate?.dolares || 0) +
-                  ((x?.dirty?.moneda === "dolar" ? x?.dirty?.plata  : 0)|| 0) +
+                  ((x?.dirty?.moneda === "dolar" ? x?.dirty?.plata : 0) || 0) +
                   (x?.myFreeCams?.dolares || 0) +
                   (x?.sakura?.dolares || 0) +
                   (x?.skype?.dolares || 0) +

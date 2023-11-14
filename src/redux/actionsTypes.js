@@ -1,5 +1,8 @@
 //todo funcionalidad
 
+//todo funcionalidad
+export const PRESTAMO = 'PRESTAMO'
+
 //todo para las diferentes quincenas
 export const GETQUINCENAMONEDA = 'GETQUINCENAMONEDA'
 export const GETQUINCENAADULT = 'GETQUINCENAADULT'

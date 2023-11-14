@@ -38,7 +38,7 @@ const User = () => {
 
   useEffect(() => {
     ids || ids !== "" ? dispatch(searchUserByFortnight(ids, id)) : "";
-  }, [dispatch, ids]);
+  }, [dispatch]);
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual
@@ -132,7 +132,7 @@ const User = () => {
   
     setShowPage(newShowPage);
   }, [id, quincenaUser]);
-  console.log(showPage);
+  
   const cp = (
     quincenaUser?.adultwork?.reduce((x, y) => {
       return x + y.creditos;
