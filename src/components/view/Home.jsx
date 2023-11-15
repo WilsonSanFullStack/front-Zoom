@@ -15,17 +15,15 @@ const Home = () => {
   const quincenas = useSelector((state) => state.quincenas);
   const quincenaHome = useSelector((state) => state.quincenaHome);
   const [id, setId] = useState("");
-  
-  const dolar = quincenaHome?.moneda?.monedas?.map((x) => {
-    return x.dolar;
-  });
-  const euro = quincenaHome?.moneda?.monedas?.map((x) => {
-    return x.euro;
-  });
 
-  const libra = quincenaHome?.moneda?.monedas?.map((x) => {
-    return x.libra;
-  });
+  const monedaEstadisticas = quincenaHome?.moneda?.monedas?.find(
+    (x) => x.descripcion === "estadisticas"
+  );
+  const monedaPago = quincenaHome?.moneda?.monedas?.find((x) => x.descripcion === "pago");
+  const monedaSeleccionada = monedaPago || monedaEstadisticas;
+  const dolar = monedaSeleccionada?.dolar || 0;
+  const euro = monedaSeleccionada?.euro || 0;
+  const libra = monedaSeleccionada?.libra || 0;
 
   useEffect(() => {
     dispatch(resetError());
@@ -77,19 +75,72 @@ const Home = () => {
   const handleQuincena = (event) => {
     setId(event.target.value);
   };
-  const [show, setShow] = useState(false);
-  const [showDetail, setShowDetail] = useState(false);
 
-  const handleShow = () => {
-    setShow(!show);
-    setShowDetail(false);
+  const [show, setShow] = useState(() => {
+    const initialState = {};
+    quincenaHome?.modelos?.forEach((modelo) => {
+      initialState[modelo.id] = false;
+    });
+    return initialState;
+  });
+
+  const [showDetail, setShowDetail] = useState(() => {
+    const initialState = {};
+    quincenaHome?.modelos?.forEach((modelo) => {
+      initialState[modelo.id] = false;
+    });
+    return initialState;
+  });
+  const [showPrestamos, setShowPrestamos] = useState(() => {
+    const initialState = {};
+    quincenaHome?.modelos?.forEach((modelo) => {
+      initialState[modelo.id] = false;
+    });
+    return initialState;
+  });
+
+  const handleShow = (modeloId) => {
+    setShow((prevShow) => ({
+      ...prevShow,
+      [modeloId]: !prevShow[modeloId],
+    }));
+    setShowDetail((prevShowDetail) => ({
+      ...prevShowDetail,
+      [modeloId]: false,
+    }));
+    setShowPrestamos((prevShowPrestamos) => ({
+      ...prevShowPrestamos,
+      [modeloId]: false,
+    }));
   };
 
-  const handleShowDetail = () => {
-    setShowDetail(!showDetail);
-    if (!show) {
-      setShow(false);
-    }
+  const handleShowDetail = (modeloId) => {
+    setShowDetail((prevShowDetail) => ({
+      ...prevShowDetail,
+      [modeloId]: !prevShowDetail[modeloId],
+    }));
+  };
+
+  const handleShowPrestamos = (modeloId) => {
+    setShowPrestamos((prevShowPrestamos) => {
+      const shouldShowPrestamos = !prevShowPrestamos[modeloId];
+      return {
+        ...prevShowPrestamos,
+        [modeloId]: shouldShowPrestamos,
+      };
+    });
+
+    // Utilizamos la función de devolución de llamada para asegurar que estamos
+    // trabajando con el valor más reciente de show
+    setShow((prevShow) => {
+      if (!prevShow[modeloId]) {
+        setShowPrestamos((prevShowPrestamos) => ({
+          ...prevShowPrestamos,
+          [modeloId]: false,
+        }));
+      }
+      return prevShow;
+    });
   };
 
   const handleRojo = (userId, saldo) => {
@@ -103,7 +154,7 @@ const Home = () => {
   // const handleRojos = () => {
   //   showRojos ? setShowRojos(false) : setShowRojos(true);
   // };
-
+  console.log(quincenaHome);
   return (
     <div className="min-h-screen bg-indigo-200 text-xl pt-14 text-center">
       <div className="mt-2">
@@ -177,126 +228,141 @@ const Home = () => {
               const porcentaje =
                 cp >= x?.porcentaje?.meta
                   ? x?.porcentaje?.final
-                  : x?.porcentaje?.inical;
+                  : x?.porcentaje?.inicial;
 
-              const totalPesos = (
-                ((((x?.adultworkTotal?.creditos || 0) +
-                  (x?.adultworkParcial?.creditos || 0)) *
-                  porcentaje) /
-                  100) *
-                  libra +
-                (((((x?.dirty?.moneda === "euro" ? x?.dirty?.plata : 0) || 0) +
-                  (x?.islive?.euros || 0) +
-                  (x?.mondo?.euros || 0) +
-                  ((x?.senderAnterior?.euros
-                    ? x?.sender?.euros - x?.senderAnterior?.euros
-                    : 0) || 0) +
-                  (x?.vx?.euros || 0) +
-                  (x?.xlove?.euros || 0) +
-                  (x?.xlovenueva?.euros || 0) +
-                  (x?.siete?.euros || 0)) *
-                  porcentaje) /
-                  100) *
-                  euro +
-                ((((x?.amateur?.dolares || 0) +
-                  (x?.bongaTotal?.dolares || 0) +
-                  (x?.cam4?.dolares || 0) +
-                  (x?.chaturbate?.dolares || 0) +
-                  ((x?.dirty?.moneda === "dolar" ? x?.dirty?.plata : 0) || 0) +
-                  (x?.myFreeCams?.dolares || 0) +
-                  (x?.sakura?.dolares || 0) +
-                  (x?.skype?.dolares || 0) +
-                  (x?.streamate?.dolares || 0) +
-                  (x?.streamray?.dolares || 0) +
-                  (x?.stripchat?.dolares || 0)) *
-                  porcentaje) /
-                  100) *
-                  dolar
-              ).toFixed(2);
+              const totalPesos =((x?.adultworkTotal?.creditos * porcentaje) / 100) * libra;
+                // (((((x?.dirty?.moneda === "euro" ? x?.dirty?.plata : 0) || 0) +
+                //   (x?.islive?.euros || 0) +
+                //   (x?.mondo?.euros || 0) +
+                //   ((x?.senderAnterior?.euros
+                //     ? x?.sender?.euros - x?.senderAnterior?.euros
+                //     : 0) || 0) +
+                //   (x?.vx?.euros || 0) +
+                //   (x?.xlove?.euros || 0) +
+                //   (x?.xlovenueva?.euros || 0) +
+                //   (x?.siete?.euros || 0)) *
+                //   porcentaje) /
+                //   100) *
+                //   euro +
+                // ((((x?.amateur?.dolares || 0) +
+                //   (x?.bongaTotal?.dolares || 0) +
+                //   (x?.cam4?.dolares || 0) +
+                //   (x?.chaturbate?.dolares || 0) +
+                //   ((x?.dirty?.moneda === "dolar" ? x?.dirty?.plata : 0) || 0) +
+                //   (x?.myFreeCams?.dolares || 0) +
+                //   (x?.sakura?.dolares || 0) +
+                //   (x?.skype?.dolares || 0) +
+                //   (x?.streamate?.dolares || 0) +
+                //   (x?.streamray?.dolares || 0) +
+                //   (x?.stripchat?.dolares || 0)) *
+                //   porcentaje) /
+                //   100) *
+                //   dolar
+              console.log(totalPesos);
+              const gastos = 1500000000000;
 
-              const gastos = 15000000;
-
-              const saldo = -totalPesos - gastos;
+              const saldo = totalPesos - gastos;
 
               // if (saldo < 0) {
               //   const userId = x?.id;
               //   handleRojo(userId, saldo)
               // }
 
-              if (x?.userNamePage.length)
+              if (x?.userNamePage.length || x?.totales?.totalPrestamos > 0)
                 return (
-                  <div key={x.id} className="divPageContainer">
+                  <div
+                    key={x.id}
+                    className="divPageContainer hover:bg-emerald-300 py-2 px-2"
+                  >
                     <h1 className="text-2xl font-bold">
                       {x.nombre} {x.apellido}
                     </h1>
-                    <section
-                      className="porcentaje"
-                      onClick={() => handleShow()}
+                    <table
+                      className="min-w-full divide-y-4 divide-indigo-700 border-4 border-indigo-700"
+                      onClick={() => handleShow(x?.id)}
                     >
-                      <section className="pt-2">
-                        <h1>Nombre</h1>
-                        {x?.porcentaje && (
-                          <h1 className="">{x?.porcentaje?.nombre}</h1>
-                        )}
-                      </section>
-                      <section className="pt-2">
-                        <h1>Meta: </h1>
-                        {x?.porcentaje && (
-                          <h1>{x?.porcentaje?.meta} creditos</h1>
-                        )}
-                      </section>
+                      <tbody className="bg-indigo-400 divide-y-2 divide-indigo-700">
+                        <tr className="text-center bg-indigo-600 font-bold">
+                          <td className="px-6 py-3 text-lg uppercase tracking-wider">
+                            Nombre
+                          </td>
+                          <td className="px-6 py-3  uppercase tracking-wider">
+                            Meta
+                          </td>
+                          <td className="px-6 py-3  uppercase tracking-wider">
+                            Total Créditos
+                          </td>
+                          <td className="px-6 py-3  uppercase tracking-wider">
+                            Porcentaje
+                          </td>
+                          <td className="px-6 py-3  uppercase tracking-wider">
+                            Total Gastos
+                          </td>
+                          <td className="px-6 py-3  uppercase tracking-wider">
+                            Total Pesos
+                          </td>
+                          <td className="px-6 py-3  uppercase tracking-wider">
+                            Saldo
+                          </td>
+                        </tr>
+                        <tr className="font-bold">
+                          <td className="px-6 py-2 whitespace-nowrap">
+                            {x?.porcentaje && <h1>{x?.porcentaje?.nombre}</h1>}
+                          </td>
+                          <td className="px-6 py-2 whitespace-nowrap">
+                            {x?.porcentaje && (
+                              <h1>{x?.porcentaje?.meta} créditos</h1>
+                            )}
+                          </td>
+                          <td className="px-6 py-2 whitespace-nowrap">
+                            {cp && <h1>{cp}</h1>}
+                          </td>
+                          <td className="px-6 py-2 whitespace-nowrap">
+                            {x?.porcentaje && <h1>{porcentaje}%</h1>}
+                          </td>
+                          <td className="px-6 py-2 whitespace-nowrap">
+                            {cp && (
+                              <h1>
+                                $ {Intl.NumberFormat("es-CP").format(gastos)}
+                              </h1>
+                            )}
+                          </td>
+                          <td className="px-6 py-2 whitespace-nowrap">
+                            {cp && (
+                              <h1>
+                                {Intl.NumberFormat("es-CP").format(totalPesos)}
+                              </h1>
+                            )}
+                          </td>
+                          <td
+                            className={
+                              saldo > 0 ? "saldoPositivo" : "saldoRojo"
+                            }
+                          >
+                            {cp && (
+                              <h1>
+                                {Intl.NumberFormat("es-CP").format(saldo)}
+                              </h1>
+                            )}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-                      <section className="pt-2">
-                        <h1>Total Creditos</h1>
-                        {cp && <h1>{cp}</h1>}
-                      </section>
-
-                      <section className="pt-2">
-                        <h1>Porcentaje: </h1>
-                        {x?.porcentaje && <h1 className="">{porcentaje}%</h1>}
-                      </section>
-                      <section className="pt-2">
-                        <h1>Total Gastos</h1>
-                        {cp && (
-                          <h1>$ {Intl.NumberFormat("es-CP").format(gastos)}</h1>
-                        )}
-                      </section>
-                      <section className="pt-2">
-                        <h1>Total Pesos: </h1>
-                        {cp && (
-                          <h1>
-                            {Intl.NumberFormat("en-GB").format(totalPesos)}
-                          </h1>
-                        )}
-                      </section>
-                      <section
-                        className={saldo > 0 ? "saldoPositivo" : "saldoRojo"}
-                      >
-                        <h1>Saldo</h1>
-                        {cp && (
-                          <h1>{Intl.NumberFormat("es-CP").format(saldo)}</h1>
-                        )}
-                      </section>
-                    </section>
-
-                    {show && (
-                      <div
-                        className="divPages"
-                        onClick={() => handleShowDetail()}
-                      >
+                    {show[x?.id] && (
+                      <div className="divPages">
                         {x?.adultworkTotal && (
-                          <section className="sectionPage1">
+                          <section
+                            className="sectionPage1"
+                            onClick={() => handleShowDetail(x?.id)}
+                          >
                             <h1>Adultwork</h1>
                             <h1>Libras</h1>{" "}
-                            <h2>{x?.adultworkTotal?.creditos.toFixed(2)}</h2>
-                          </section>
-                        )}
-
-                        {x?.awParcial && (
-                          <section className="sectionPage1">
-                            <h1>AW Parcial</h1>
-                            <h1>Libras</h1>{" "}
-                            <h2>{x?.adultworkParcial?.creditos.toFixed(2)}</h2>
+                            <h2>
+                              {parseFloat(x?.adultworkTotal?.creditos).toFixed(
+                                2
+                              )}
+                            </h2>
                           </section>
                         )}
 
@@ -472,43 +538,155 @@ const Home = () => {
                             </section>
                           </section>
                         )}
+                        {x?.prestamos && (
+                          <section
+                            className="sectionPage1"
+                            onClick={() => handleShowPrestamos(x?.id)}
+                          >
+                            <h1>Prestamos</h1>
+                            <section className="sectionPage2">
+                              <section>
+                                <h1>Total</h1>{" "}
+                                <h2>
+                                  ${" "}
+                                  {Intl.NumberFormat("es-CP").format(
+                                    x?.totales?.totalPrestamos
+                                  )}
+                                </h2>
+                              </section>
+                              <section>
+                                <h1>Cantidad</h1> <h2>{x?.prestamos.length}</h2>
+                              </section>
+                            </section>
+                          </section>
+                        )}
                       </div>
                     )}
-                    {showDetail && (
-                      <div className="grid grid-cols-3">
-                        {x?.adultwork?.map((detalle) => {
-                          return (
-                            <section
-                              key={detalle?.id}
-                              className="grid grid-cols-2 m-2 bg-indigo-400 border-4 border-indigo-200 rounded-xl"
-                            >
-                              <h1 className="font-bold text-right m-1">
-                                UserName:
-                              </h1>{" "}
-                              <h2 className="text-left m-1">
-                                {detalle?.userName}
-                              </h2>
-                              <h1 className="font-bold text-right m-1">
-                                Libras:
-                              </h1>{" "}
-                              <h2 className="text-left m-1">
-                                {detalle?.creditos}
-                              </h2>
-                              <h1 className="font-bold text-right m-1">
-                                Tipo:
-                              </h1>{" "}
-                              <h2 className="text-left m-1">
-                                {detalle?.parcial ? "Parcial" : "Regular"}
-                              </h2>
-                              <h1 className="font-bold text-right m-1">
-                                Fecha Adultwork:
-                              </h1>{" "}
-                              <h2 className="text-left m-1">
-                                {detalle?.fecha}
-                              </h2>
-                            </section>
-                          );
-                        })}
+
+                    {showDetail[x?.id] && (
+                      <div className="overflow-x-auto px-2 py-2">
+                        <table className="min-w-full divide-y-4 divide-indigo-700 border-4 border-indigo-700">
+                          <thead className="bg-indigo-600">
+                            <tr>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                              >
+                                #
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                              >
+                                UserName
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                              >
+                                Libras
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                              >
+                                Tipo
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                              >
+                                Fecha Adultwork
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-indigo-400 divide-y-2 divide-indigo-700">
+                            {x?.adultwork?.map((detalle, index) => (
+                              <tr
+                                key={detalle?.id}
+                                className="hover:bg-green-300"
+                              >
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  {index + 1}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  {detalle?.userName}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                  {detalle?.creditos}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                  {detalle?.parcial ? "Parcial" : "Regular"}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  {detalle?.parcial
+                                    ? detalle?.createdAt
+                                    : detalle?.fecha}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+
+                    {showPrestamos[x?.id] && (
+                      <div className="overflow-x-auto px-2 py-2">
+                        <table className="min-w-full divide-y-4 divide-indigo-700 border-4 border-indigo-700">
+                          <thead className="bg-indigo-600">
+                            <tr>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                              >
+                                #
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                              >
+                                Fechas
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-lg uppercase tracking-wider"
+                              >
+                                Valor
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-indigo-400 divide-y-2 divide-indigo-700">
+                            {x?.prestamos?.map((p, n) => {
+                              const fecha = new Date(p?.createdAt);
+                              const opcionesFecha = {
+                                day: "numeric",
+                                month: "short",
+                                year: "2-digit",
+                              };
+                              const fechaFormateada = fecha.toLocaleDateString(
+                                "es-ES",
+                                opcionesFecha
+                              );
+
+                              return (
+                                <tr key={p?.id} className=" hover:bg-green-300">
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    {n + 1}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    {fechaFormateada}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-left font-bold">
+                                    ${" "}
+                                    {Intl.NumberFormat("ES-CP").format(
+                                      p?.cantidad
+                                    )}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
                       </div>
                     )}
                   </div>
