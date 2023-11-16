@@ -157,8 +157,9 @@
 }
 /*todo   ya esta verificada */
 .sectionProducto {
-  @apply bg-indigo-300 m-1 rounded-2xl border-2 border-indigo-400 text-justify h-72;
+  @apply bg-indigo-300 m-1 rounded-2xl border-2 border-indigo-400 text-justify;
 }
+
 .divButtonP {
   @apply flex grid-cols-4 bg-indigo-500 mt-3 rounded-xl justify-between items-center h-8 w-44 mx-6;
 }
