@@ -18,7 +18,7 @@ export const postVenta = (venta) => {
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${VENTA}`;
-      const { data } = await axios.post(endpoint);
+      const { data } = await axios.post(endpoint, venta);
       dispatch({
         type: POSTVENTA,
         payload: data,

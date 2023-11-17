@@ -4,6 +4,7 @@ import { TiPlusOutline, TiMinusOutline } from "react-icons/ti";
 import { searchProducto } from "../../redux/actions/registro/registerProductos.js";
 import { getAllUserIdName } from "../../redux/actions/registro/registerUser.js";
 import { getAllQuincena } from "../../redux/actions/registro/registerQuincena.js";
+import { postVenta } from "../../redux/actions/registro/registerVenta.js";
 
 const Ventas = () => {
   const dispatch = useDispatch();
@@ -25,17 +26,19 @@ const Ventas = () => {
 
   const handleVentas = (producto) => {
     const nuevaCantidad = cantidades[producto.id] || 0;
-    const nuevasCuota = cuotas[producto.id] || 0;
+    const nuevasCuotas = cuotas[producto.id] || 0;
   
     // Verifica que la cantidad y las cuotas sean mayores a cero
-    if ((nuevaCantidad === 0 || nuevaCantidad > 0) && (nuevasCuota === 0 || nuevasCuota > 0)) {
+    if ((nuevaCantidad === 0 || nuevaCantidad > 0) && (nuevasCuotas === 0 || nuevasCuotas > 0)) {
       // Agrega los detalles a la venta
       const ventaItem = {
         productoId: producto.id,
         userId,
         quincenaId,
         cantidad: nuevaCantidad,
-        cuotas: nuevasCuota,
+        cuotas: nuevasCuotas,
+        precioVenta: producto.precioVenta,
+        precioVentaDiferido: producto.precioVentaDiferido
       };
   
       // Verifica si el producto ya está en la lista de ventas
@@ -43,8 +46,9 @@ const Ventas = () => {
         setVenta([...venta, ventaItem]);
       }
     }
-    const nuevasCantidades = { ...cantidades };
   
+    // Actualiza las cantidades
+    const nuevasCantidades = { ...cantidades };
     if (producto.id in nuevasCantidades) {
       if (nuevasCantidades[producto.id] < producto.existencia) {
         nuevasCantidades[producto.id] += 1;
@@ -54,23 +58,21 @@ const Ventas = () => {
     } else {
       nuevasCantidades[producto.id] = 0;
     }
-  
     setCantidades(nuevasCantidades);
   
-    const nuevasCuotas = { ...cuotas };
-  
-    if (producto.id in nuevasCuotas) {
-      if (nuevasCantidades[producto.id] < producto.existencia) {
-        nuevasCantidades[producto.id] += 1;
-      } else {
-        return;
-      }
+    // Actualiza las cuotas
+    const nuevasCuotasVenta = { ...cuotas };
+  if (producto.id in nuevasCuotasVenta) {
+    if (nuevasCuotasVenta[producto.id] < maxCuotas) {
+      nuevasCuotasVenta[producto.id] += 1;
     } else {
-      nuevasCuotas[producto.id] = 0;
+      return;
     }
-  
-    setCuotas(nuevasCuotas);
-  };
+  } else {
+    nuevasCuotasVenta[producto.id] = 0;
+  }
+  setCuotas(nuevasCuotasVenta);
+};
 
   useEffect(() => {
     if (quincenaId && quincenas) {
@@ -86,48 +88,50 @@ const Ventas = () => {
 
   const handleModificarCantidad = (productoId, cantidad) => {
     const nuevasCantidades = { ...cantidades };
-
+  
     if (productoId in nuevasCantidades) {
       nuevasCantidades[productoId] = Math.max(
         0,
         nuevasCantidades[productoId] + cantidad
       );
     }
-
+  
     setCantidades(nuevasCantidades);
-
+  
     // Actualiza la cantidad del producto en la lista de ventas
-    const productoEnVenta = venta.find((x) => x.id === productoId);
+    const productoEnVenta = venta.find((x) => x.productoId === productoId);
     if (productoEnVenta) {
       productoEnVenta.cantidad = nuevasCantidades[productoId];
       setVenta([...venta]); // Actualiza la lista de ventas
     }
   };
+  
 
   const handleModificarCuotas = (productoId, incremento) => {
     const nuevasCuotas = { ...cuotas };
-
+  
     if (productoId in nuevasCuotas) {
       nuevasCuotas[productoId] = Math.max(
         0,
         nuevasCuotas[productoId] + incremento
       );
     }
-
+  
     if (
       nuevasCuotas[productoId] >= 1 &&
       nuevasCuotas[productoId] <= maxCuotas
     ) {
       setCuotas(nuevasCuotas);
-
+  
       // Actualiza las cuotas del producto en la lista de ventas
-      const productoEnVenta = venta.find((x) => x.id === productoId);
+      const productoEnVenta = venta.find((x) => x.productoId === productoId);
       if (productoEnVenta) {
         productoEnVenta.cuotas = nuevasCuotas[productoId];
         setVenta([...venta]); // Actualiza la lista de ventas
       }
     }
   };
+  
 
   const handleQuincena = (event) => {
     setQuincenaId(event.target.value);
@@ -138,12 +142,28 @@ const Ventas = () => {
   };
 
   const handleEliminarProducto = (productoId) => {
-    const nuevaVenta = venta.filter((x) => x.id !== productoId);
+    const nuevaVenta = venta.filter((x) => x.productoId !== productoId);
     setVenta(nuevaVenta);
   };
+  useEffect(() => {
+    // Reiniciar todas las variables relacionadas con la venta
+    setVenta([]);
+    setCantidades({});
+    setCuotas({});
+  }, [userId]);
+  
   console.log(venta);
-  // console.log(cantidades);
-  // console.log(cuotas);
+  const handleSubmit = () => {
+    if (venta.length >= 1) {
+      dispatch(postVenta(venta))
+      setVenta([])
+      setQuincenaId('')
+      setUserId('')
+      setCantidades({})
+      setCuotas({})
+      setMaxCuotas(0)
+    }
+  }
   return (
     <div className="contenedorVentas pt-12">
       <div className="contenedorVentas2 overflow-x-auto">
@@ -151,6 +171,7 @@ const Ventas = () => {
 
         {quincenaId && userId && (
           <div className="grid grid-cols-3 ">
+            
             {productos?.map((x) => {
               if (x.existencia > 0) {
                 return (
@@ -246,6 +267,7 @@ const Ventas = () => {
                 );
               }
             })}
+            
           </div>
         )}
       </div>
@@ -253,6 +275,7 @@ const Ventas = () => {
         <div className="divTitulo">
           <h1 className="titulo">Pedido</h1>
         </div>
+        <form onSubmit={handleSubmit}>
         <div className="flex justify-center items-center">
           <select className="select" onChange={handleQuincena}>
             <option value="">Seleccione Una Quincena</option>
@@ -294,13 +317,13 @@ const Ventas = () => {
                 {venta.map((f) => (
                   <tr key={f?.productoId} className="bg-indigo-400">
                     <td className="border border-indigo-700 p-2">
-                      {f?.productoId}
+                      {productos.find((x) => x.id === f.productoId)?.nombre}
                     </td>
                     <td className="border border-indigo-700 p-2">
                       {f?.cantidad}
                     </td>
                     <td className="border border-indigo-700 p-2">
-                      {f?.cuotas}
+                      {f?.cuotas >= maxCuotas?maxCuotas:f?.cuotas}
                     </td>
                     <td className="border border-indigo-700 p-2">
                       <TiMinusOutline
@@ -314,9 +337,10 @@ const Ventas = () => {
             </table>
           )}
           {quincenaId && userId && (
-            <button className="btn-n mt-4">Comprar</button>
+            <button className="btn-n mt-4" type="submit">Comprar</button>
           )}
         </div>
+        </form>
       </div>
     </div>
   );

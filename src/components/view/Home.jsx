@@ -19,7 +19,9 @@ const Home = () => {
   const monedaEstadisticas = quincenaHome?.moneda?.monedas?.find(
     (x) => x.descripcion === "estadisticas"
   );
-  const monedaPago = quincenaHome?.moneda?.monedas?.find((x) => x.descripcion === "pago");
+  const monedaPago = quincenaHome?.moneda?.monedas?.find(
+    (x) => x.descripcion === "pago"
+  );
   const monedaSeleccionada = monedaPago || monedaEstadisticas;
   const dolar = monedaSeleccionada?.dolar || 0;
   const euro = monedaSeleccionada?.euro || 0;
@@ -98,6 +100,13 @@ const Home = () => {
     });
     return initialState;
   });
+  const [showVitrina, setShowVitrina] = useState(() => {
+    const initialState = {};
+    quincenaHome?.modelos?.forEach((modelo) => {
+      initialState[modelo.id] = false;
+    });
+    return initialState;
+  });
 
   const handleShow = (modeloId) => {
     setShow((prevShow) => ({
@@ -110,6 +119,10 @@ const Home = () => {
     }));
     setShowPrestamos((prevShowPrestamos) => ({
       ...prevShowPrestamos,
+      [modeloId]: false,
+    }));
+    setShowVitrina((prevShowVitrina) => ({
+      ...prevShowVitrina,
       [modeloId]: false,
     }));
   };
@@ -140,6 +153,15 @@ const Home = () => {
         }));
       }
       return prevShow;
+    });
+  };
+  const handleShowVitrina = (modeloId) => {
+    setShowVitrina((prevShowVitrina) => {
+      const shouldShowVitrina = !prevShowVitrina[modeloId];
+      return {
+        ...prevShowVitrina,
+        [modeloId]: shouldShowVitrina,
+      };
     });
   };
 
@@ -201,74 +223,7 @@ const Home = () => {
 
           <div>
             {quincenaHome?.modelos?.map((x) => {
-              const cp =
-                (x?.adultworkTotal?.creditos || 0) +
-                (x?.adultworkParcial?.creditos || 0) +
-                (x?.amateur?.dolares || 0) +
-                (x?.bongaTotal?.dolares || 0) +
-                (x?.cam4?.dolares || 0) +
-                (x?.chaturbate?.dolares || 0) +
-                (x?.dirty?.plata || 0) +
-                (x?.islive?.euros || 0) +
-                (x?.mondo?.euros || 0) +
-                (x?.myfreecams?.dolares || 0) +
-                (x?.sakura?.dolares || 0) +
-                ((x?.sender?.euros - x?.senderAnterior?.euros
-                  ? x?.sender?.euros - x?.senderAnterior?.euros
-                  : 0) || 0) +
-                (x?.skype?.dolares || 0) +
-                (x?.streamate?.dolares || 0) +
-                (x?.streamray?.dolares || 0) +
-                (x?.stripchat?.dolares || 0) +
-                (x?.vx?.euros || 0) +
-                (x?.xlove?.euros || 0) +
-                (x?.xlovenueva?.euros || 0) +
-                (x?.siete?.euros || 0);
-
-              const porcentaje =
-                cp >= x?.porcentaje?.meta
-                  ? x?.porcentaje?.final
-                  : x?.porcentaje?.inicial;
-
-              const totalPesos =((x?.adultworkTotal?.creditos * porcentaje) / 100) * libra;
-                // (((((x?.dirty?.moneda === "euro" ? x?.dirty?.plata : 0) || 0) +
-                //   (x?.islive?.euros || 0) +
-                //   (x?.mondo?.euros || 0) +
-                //   ((x?.senderAnterior?.euros
-                //     ? x?.sender?.euros - x?.senderAnterior?.euros
-                //     : 0) || 0) +
-                //   (x?.vx?.euros || 0) +
-                //   (x?.xlove?.euros || 0) +
-                //   (x?.xlovenueva?.euros || 0) +
-                //   (x?.siete?.euros || 0)) *
-                //   porcentaje) /
-                //   100) *
-                //   euro +
-                // ((((x?.amateur?.dolares || 0) +
-                //   (x?.bongaTotal?.dolares || 0) +
-                //   (x?.cam4?.dolares || 0) +
-                //   (x?.chaturbate?.dolares || 0) +
-                //   ((x?.dirty?.moneda === "dolar" ? x?.dirty?.plata : 0) || 0) +
-                //   (x?.myFreeCams?.dolares || 0) +
-                //   (x?.sakura?.dolares || 0) +
-                //   (x?.skype?.dolares || 0) +
-                //   (x?.streamate?.dolares || 0) +
-                //   (x?.streamray?.dolares || 0) +
-                //   (x?.stripchat?.dolares || 0)) *
-                //   porcentaje) /
-                //   100) *
-                //   dolar
-              console.log(totalPesos);
-              const gastos = 1500000000000;
-
-              const saldo = totalPesos - gastos;
-
-              // if (saldo < 0) {
-              //   const userId = x?.id;
-              //   handleRojo(userId, saldo)
-              // }
-
-              if (x?.userNamePage.length || x?.totales?.totalPrestamos > 0)
+              if (x?.userNamePage.length || x?.totales?.totalPrestamos > 0 || x?.totales?.totalVitrina > 0)
                 return (
                   <div
                     key={x.id}
@@ -296,7 +251,10 @@ const Home = () => {
                             Porcentaje
                           </td>
                           <td className="px-6 py-3  uppercase tracking-wider">
-                            Total Gastos
+                            Total Prestamos
+                          </td>
+                          <td className="px-6 py-3  uppercase tracking-wider">
+                            Total Vitrina
                           </td>
                           <td className="px-6 py-3  uppercase tracking-wider">
                             Total Pesos
@@ -315,33 +273,40 @@ const Home = () => {
                             )}
                           </td>
                           <td className="px-6 py-2 whitespace-nowrap">
-                            {cp && <h1>{cp}</h1>}
+                            {x?.totales && <h1>{x?.totales?.totalCreditos}</h1>}
                           </td>
                           <td className="px-6 py-2 whitespace-nowrap">
-                            {x?.porcentaje && <h1>{porcentaje}%</h1>}
+                            {x?.totales?.porcentajeFinal && <h1>{x?.totales?.porcentajeFinal}%</h1>}
                           </td>
                           <td className="px-6 py-2 whitespace-nowrap">
-                            {cp && (
+                            {x?.totales?.totalPrestamos && (
                               <h1>
-                                $ {Intl.NumberFormat("es-CP").format(gastos)}
+                                $ {Intl.NumberFormat("es-CP").format(x?.totales?.totalPrestamos)}
                               </h1>
                             )}
                           </td>
                           <td className="px-6 py-2 whitespace-nowrap">
-                            {cp && (
+                            {x?.totales?.totalVitrina && (
                               <h1>
-                                {Intl.NumberFormat("es-CP").format(totalPesos)}
+                                $ {Intl.NumberFormat("es-CP").format(x?.totales?.totalVitrina)}
+                              </h1>
+                            )}
+                          </td>
+                          <td className="px-6 py-2 whitespace-nowrap">
+                            {x?.totales?.totalPesos && (
+                              <h1>
+                                {Intl.NumberFormat("es-CP").format(x?.totales?.totalPesos)}
                               </h1>
                             )}
                           </td>
                           <td
                             className={
-                              saldo > 0 ? "saldoPositivo" : "saldoRojo"
+                              x?.totales?.saldo > 0 ? "saldoPositivo" : "saldoRojo"
                             }
                           >
-                            {cp && (
+                            {x?.totales?.saldo && (
                               <h1>
-                                {Intl.NumberFormat("es-CP").format(saldo)}
+                                {Intl.NumberFormat("es-CP").format(x?.totales?.saldo)}
                               </h1>
                             )}
                           </td>
@@ -560,6 +525,28 @@ const Home = () => {
                             </section>
                           </section>
                         )}
+                        {x?.vitrina && (
+                          <section
+                            className="sectionPage1"
+                            onClick={() => handleShowVitrina(x?.id)}
+                          >
+                            <h1>Vitrina</h1>
+                            <section className="sectionPage2">
+                              <section>
+                                <h1>Total</h1>{" "}
+                                <h2>
+                                  ${" "}
+                                  {Intl.NumberFormat("es-CP").format(
+                                    x?.totales?.totalVitrina
+                                  )}
+                                </h2>
+                              </section>
+                              <section>
+                                <h1>Cantidad</h1> <h2>{x?.vitrina.length}</h2>
+                              </section>
+                            </section>
+                          </section>
+                        )}
                       </div>
                     )}
 
@@ -681,6 +668,83 @@ const Home = () => {
                                     {Intl.NumberFormat("ES-CP").format(
                                       p?.cantidad
                                     )}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                    {showVitrina[x?.id] && (
+                      <div className="overflow-x-auto px-2 py-2">
+                        <table className="min-w-full divide-y-4 divide-indigo-700 border-4 border-indigo-700">
+                          <thead className="bg-indigo-600">
+                            <tr>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                              >
+                                #
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                              >
+                                Fechas
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-lg uppercase tracking-wider"
+                              >
+                                Nombre
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-lg uppercase tracking-wider"
+                              >
+                                Valor
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-lg uppercase tracking-wider"
+                              >
+                                Cantidad
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-indigo-400 divide-y-2 divide-indigo-700">
+                            {x?.vitrina?.map((p, n) => {
+                              const fecha = new Date(p?.createdAt);
+                              const opcionesFecha = {
+                                day: "numeric",
+                                month: "short",
+                                year: "2-digit",
+                              };
+                              const fechaFormateada = fecha.toLocaleDateString(
+                                "es-ES",
+                                opcionesFecha
+                              );
+
+                              return (
+                                <tr key={p?.id} className=" hover:bg-green-300">
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    {n + 1}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    {fechaFormateada}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-left font-bold">
+                                    {p?.nombre}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-left font-bold">
+                                    ${" "}
+                                    {Intl.NumberFormat("ES-CP").format(
+                                      p?.valor
+                                    )}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap text-left font-bold">
+                                    {p?.cantidad}
                                   </td>
                                 </tr>
                               );
