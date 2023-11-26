@@ -1,10 +1,13 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
-  SignIn,
+  ClerkProvider,
   SignedIn,
   SignedOut,
-  UserButton,
+  RedirectToSignIn,
+  SignIn,
   SignUp,
+  UserButton,
+  useAuth,
 } from "@clerk/clerk-react";
 
 import Adultregular from "./components/paginas/Adultregular";
@@ -17,9 +20,9 @@ import Dirty from "./components/paginas/Dirty.jsx";
 import IsLive from "./components/paginas/IsLive.jsx";
 import Mondo from "./components/paginas/Mondo.jsx";
 import MyFreeCams from "./components/paginas/MyFreeCams.jsx";
-import Sakura from './components/paginas/Sakura.jsx'
+import Sakura from "./components/paginas/Sakura.jsx";
 import Streamate from "./components/paginas/Streamate";
-import StreamRay from './components/paginas/StreamRay.jsx'
+import StreamRay from "./components/paginas/StreamRay.jsx";
 import Sender from "./components/paginas/Sender.jsx";
 import Skype from "./components/paginas/Skype.jsx";
 import Stripchat from "./components/paginas/Stripchat.jsx";
@@ -54,8 +57,55 @@ import RegisterCompras from "./components/registro/RegisterCompras.jsx";
 import RelationUbicationAndPorcenaje from "./components/registro/RelationUbicacionAndPorcentaje";
 import Prestamos from "./components/registro/Prestamos.jsx";
 
+import Protected from "./components/resource/Protected.jsx";
+
 function App() {
+  const { isLoaded, userId, sessionId, getToken } = useAuth();
+
   const { pathname } = useLocation();
+  const protecte = [
+    "/home",
+    "/loader",
+    "/registro",
+    "/crear",
+    "/crear/username",
+    "/crear/pagina",
+    "/crear/producto",
+    "/crear/quincena",
+    "/crear/moneda",
+    "/crear/estadisticas",
+    "/crear/porcentaje",
+    "/crear/ubicacion",
+    "/crear/compras",
+    "/crear/prestamos",
+    "/crear/ralacion",
+    "/editar",
+    "/user/:id",
+    "/modelo/comment/:id",
+    "/ventas",
+    "/estadisticas/carga/adultparcial",
+    "/estadisticas/carga/adultregular",
+    "/estadisticas/carga/amateur",
+    "/estadisticas/carga/bonga",
+    "/estadisticas/carga/cam4",
+    "/estadisticas/carga/chaturbate",
+    "/estadisticas/carga/dirty",
+    "/estadisticas/carga/islive",
+    "/estadisticas/carga/mondo",
+    "/estadisticas/carga/myfreecams",
+    "/estadisticas/carga/sakura",
+    "/estadisticas/carga/sender",
+    "/estadisticas/carga/skype",
+    "/estadisticas/carga/streamate",
+    "/estadisticas/carga/streamray",
+    "/estadisticas/carga/stripchat",
+    "/estadisticas/carga/vx",
+    "/estadisticas/carga/xlove",
+    "/estadisticas/carga/xlovenueva",
+  ];
+  if (!isLoaded || (!userId && protecte.includes(pathname))) {
+    return <Protected />;
+  }
   return (
     <div>
       {pathname !== "/" &&
@@ -63,10 +113,18 @@ function App() {
         pathname !== "/sign-in" &&
         pathname !== "/loader" && <NavBar />}
       <Routes>
+        <Route path="/protected" element={<Protected />} />
+        <Route
+          path="/sign-in"
+          element={
+            <div className="flex justify-center items-center h-screen">
+              <SignIn />
+            </div>
+          }
+        />
         <Route path="/" element={<Login />} />
         <Route path="/loader" element={<Loading />} />
         <Route path="/registro" element={<RegisterUser />} />
-
         <Route path="/crear" element={<Crear />} />
         <Route path="/crear/username" element={<Registro />} />
         <Route path="/crear/pagina" element={<RegistrarPagina />} />
@@ -79,16 +137,16 @@ function App() {
         <Route path="/crear/compras" element={<RegisterCompras />} />
         <Route path="/crear/prestamos" element={<Prestamos />} />
         {/* <Route path="/crear/rojos" element={<RegisterRojos />} /> */}
-        <Route path="/crear/ralacion" element={<RelationUbicationAndPorcenaje />} />
-
-
+        <Route
+          path="/crear/ralacion"
+          element={<RelationUbicationAndPorcenaje />}
+        />
         <Route path="/editar" element={<Editar />} />
         <Route path="/user/:id" element={<User />} />
         <Route path="/modelo" element={<Modelos />} />
         <Route path="/modelo/:id" element={<DetailUser />} />
         <Route path="/modelo/comment/:id" element={<RegistrarComment />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
         <Route path="/ventas" element={<Ventas />} />
         <Route
           path="/sign-up/*"
@@ -121,7 +179,7 @@ function App() {
         <Route path="/estadisticas/carga/vx" element={<Vx />} />
         <Route path="/estadisticas/carga/xlove" element={<Xlove />} />
         <Route path="/estadisticas/carga/xlovenueva" element={<XloveNueva />} />
-        <Route path="/registrod" element={<Registro />} />
+        {/* <Route path="/registrod" element={<Registro />} /> */}
       </Routes>
     </div>
   );

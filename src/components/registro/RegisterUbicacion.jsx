@@ -6,7 +6,7 @@ import { BiSend } from "react-icons/bi";
 import {
   postUbicacion,
   getAllUbicacion,
-} from "../../redux/actions/registro/registerUbicacion.js";
+} from "../../redux/actions/registro/RegisterUbicacion.js";
 
 const validationsError = (ubicacion) => {
   let error = {};

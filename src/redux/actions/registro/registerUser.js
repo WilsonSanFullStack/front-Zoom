@@ -20,6 +20,7 @@ const CHECK = import.meta.env.VITE_REACT_APP_URL_CHECK;
 const DELETE = import.meta.env.VITE_REACT_APP_URL_DELETE;
 
 export const registroUser = (input) => {
+  console.log(input)
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${REGISTRO}`;

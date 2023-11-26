@@ -3,7 +3,7 @@ import { FcCancel } from "react-icons/fc";
 import { BiSend } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUser } from "../../redux/actions/registro/registerUser.js";
-import { getAllUbicacion } from "../../redux/actions/registro/registerUbicacion.js";
+import { getAllUbicacion } from "../../redux/actions/registro/RegisterUbicacion.js";
 import { getAllPorcentaje } from "../../redux/actions/registro/registerPorcentaje.js";
 import { relationUbicationAndPorcentaje } from "../../redux/actions/registro/relationUbicationAndPorcentaje.js";
 
@@ -39,34 +39,34 @@ const RelationUbicationAndPorcenaje = () => {
   useEffect(() => {
     setOk((prevOk) => {
       const newOk = { ...prevOk }; // Crear una copia del estado actual
-  
+
       if (
         userSelect?.p_porcentaje !== null &&
         userSelect?.p_porcentaje !== undefined
       ) {
-        setShowPorcentaje(false)
+        setShowPorcentaje(false);
         newOk.porcentaje = "El usuario ya tiene porcentaje";
       } else {
-        setShowPorcentaje(true)
+        setShowPorcentaje(true);
         newOk.porcentaje = "";
       }
-  
+
       if (
         userSelect?.p_ubicacion !== null &&
         userSelect?.p_ubicacion !== undefined
       ) {
-        setShowUbication(false)
+        setShowUbication(false);
         newOk.ubicacion = "El usuario ya tiene Ubicacion";
       } else {
-        setShowUbication(true)
+        setShowUbication(true);
         newOk.ubicacion = "";
       }
-  
+
       return newOk; // Devolver el nuevo estado actualizado
     });
   }, [userSelect]);
-  console.log(ok)
-  console.log(input)
+  console.log(ok);
+  console.log(input);
 
   // useEffect(() => {
   // }, [userSelect]);

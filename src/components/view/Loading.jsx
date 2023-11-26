@@ -37,7 +37,7 @@ const Loading = () => {
             return navigate("/registro");
           }
         }
-      }, 2000);
+      }, 1000);
     };
     checkUser();
   }, [init, user, users]);

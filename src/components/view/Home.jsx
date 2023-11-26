@@ -9,7 +9,9 @@ import {
   searchAllUserByFortnight,
 } from "../../redux/actions/registro/registerQuincena.js";
 
+
 const Home = () => {
+ 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const quincenas = useSelector((state) => state.quincenas);

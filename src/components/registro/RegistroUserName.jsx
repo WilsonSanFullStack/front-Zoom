@@ -4,7 +4,7 @@ import { BiSend } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPagina } from "../../redux/actions/registro/registerPaginas.js";
 import { getAllUser } from "../../redux/actions/registro/registerUser.js";
-import { getAllUbicacion } from "../../redux/actions/registro/registerUbicacion.js";
+import { getAllUbicacion } from "../../redux/actions/registro/RegisterUbicacion.js";
 import { getAllPorcentaje } from "../../redux/actions/registro/registerPorcentaje.js";
 import { postUserName } from "../../redux/actions/registro/registerUserName.js";
 
