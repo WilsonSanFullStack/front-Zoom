@@ -8,7 +8,6 @@ import TextareaForm from "../resource/Textarea.jsx";
 
 import {
   getAllQuincena,
-  getQuincenaMoneda,
 } from "../../redux/actions/registro/registerQuincena.js";
 
 const Amateur = () => {
@@ -24,10 +23,6 @@ const Amateur = () => {
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
-
-  useEffect(() => {
-    id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
-  }, [dispatch, id]);
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual

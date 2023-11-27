@@ -7,30 +7,24 @@ import ButtonPage from "../resource/ButtonPage.jsx";
 
 import {
   getAllQuincena,
-  getQuincenaMoneda,
 } from "../../redux/actions/registro/registerQuincena.js";
 
 const IsLive = () => {
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.cil);
   const errors = useSelector((state) => state.error);
-
   const [input, setInput] = useState([]);
   const [coil, setCoil] = useState(input);
-
   const quincenas = useSelector((state) => state.quincenas);
-  // const quincena = useSelector((state) => state.quincena);
   const [id, setId] = useState("");
 
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
+
   useEffect(() => {
     setInput([])
   }, [id])
-  useEffect(() => {
-    id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
-  }, [dispatch, id]);
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual

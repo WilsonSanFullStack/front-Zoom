@@ -1,12 +1,19 @@
 import React from "react";
-import date from "../js/date.js";
 
 const Fecha = () => {
-  
+  const obtenerFechaActual = () => {
+    const fecha = new Date();
+    const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    const fechaFormateada = fecha.toLocaleDateString(undefined, opcionesFecha);
+
+    return `${fechaFormateada}`;
+  };
+
   return (
     <div>
       <section>
-        <span>Fecha Hoy: 📆{date()}</span>
+        <span>Fecha: 📆 {obtenerFechaActual()}</span>
       </section>
     </div>
   );

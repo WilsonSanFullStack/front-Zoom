@@ -6,7 +6,6 @@ import ButtonPage from "../resource/ButtonPage.jsx";
 
 import {
   getAllQuincena,
-  getQuincenaMoneda,
 } from "../../redux/actions/registro/registerQuincena.js";
 
 function Adultparcial() {
@@ -16,7 +15,6 @@ function Adultparcial() {
   const [input, setInput] = useState([]);
   const [copad, setCopad] = useState(input);
   const quincenas = useSelector((state) => state.quincenas);
-  const quincena = useSelector((state) => state.quincena);
   const [id, setId] = useState("");
 
   useEffect(() => {
@@ -25,9 +23,6 @@ function Adultparcial() {
   useEffect(() => {
     setInput([])
   }, [id])
-  useEffect(() => {
-    id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
-  }, [dispatch, id]);
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual

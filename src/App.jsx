@@ -1,3 +1,4 @@
+
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
   ClerkProvider,
@@ -58,11 +59,12 @@ import RelationUbicationAndPorcenaje from "./components/registro/RelationUbicaci
 import Prestamos from "./components/registro/Prestamos.jsx";
 
 import Protected from "./components/resource/Protected.jsx";
+import DarkMode from './components/resource/DarkMode.jsx';
 
 function App() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
-
   const { pathname } = useLocation();
+
   const protecte = [
     "/home",
     "/loader",
@@ -106,12 +108,15 @@ function App() {
   if (!isLoaded || (!userId && protecte.includes(pathname))) {
     return <Protected />;
   }
+  
   return (
     <div>
       {pathname !== "/" &&
         pathname !== "/registro" &&
         pathname !== "/sign-in" &&
         pathname !== "/loader" && <NavBar />}
+        
+     <DarkMode />
       <Routes>
         <Route path="/protected" element={<Protected />} />
         <Route

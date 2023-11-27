@@ -6,7 +6,6 @@ import ButtonPage from "../resource/ButtonPage.jsx";
 
 import {
   getAllQuincena,
-  getQuincenaMoneda,
 } from "../../redux/actions/registro/registerQuincena.js";
 
 const Sakura = () => {
@@ -14,7 +13,6 @@ const Sakura = () => {
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
   const quincenas = useSelector((state) => state.quincenas);
-  const quincena = useSelector((state) => state.quincena);
   const [input, setInput] = useState([]);
   const [sakura, setSakura] = useState(input);
   const [id, setId] = useState("");
@@ -25,9 +23,6 @@ const Sakura = () => {
   useEffect(() => {
     setInput([])
   }, [id])
-  useEffect(() => {
-    id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
-  }, [dispatch, id]);
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual
@@ -80,7 +75,6 @@ const Sakura = () => {
     });
   };
 
-  console.log(sakura);
   const handleSubmit = () => {};
 
   return (

@@ -4,17 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import TextareaForm from "../resource/Textarea.jsx";
 import ButtonPage from "../resource/ButtonPage.jsx";
 
-import {
-  getAllQuincena,
-  getQuincenaMoneda,
-} from "../../redux/actions/registro/registerQuincena.js";
+import { getAllQuincena } from "../../redux/actions/registro/registerQuincena.js";
 
 const StreamRay = () => {
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
   const quincenas = useSelector((state) => state.quincenas);
-  const quincena = useSelector((state) => state.quincena);
   const [input, setInput] = useState([]);
   const [streamRay, setStreamRay] = useState(input);
   const [id, setId] = useState("");
@@ -22,12 +18,10 @@ const StreamRay = () => {
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
+
   useEffect(() => {
-    setInput([])
-  }, [id])
-  useEffect(() => {
-    id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
-  }, [dispatch, id]);
+    setInput([]);
+  }, [id]);
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual
@@ -79,7 +73,6 @@ const StreamRay = () => {
     });
   };
 
-  console.log(streamRay);
   const handleSubmit = () => {};
 
   return (

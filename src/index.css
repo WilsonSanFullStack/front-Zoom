@@ -96,10 +96,10 @@
 }
 /*todo   ya esta verificada */
 .contenedor1 {
-  @apply max-h-full bg-indigo-200 top-0;
+  @apply max-h-full bg-indigo-200 dark:bg-slate-900 h-screen top-0;
 }
 .contenedorVentas {
-  @apply h-screen bg-indigo-200 top-0 min-w-full flex;
+  @apply h-screen bg-indigo-200 dark:bg-slate-900 top-0 min-w-full flex;
 }
 /*todo   ya esta verificada */
 .contenedorVentas2 {
@@ -218,7 +218,7 @@ body {
 * {
   margin: 0;
   padding: 0;
-  font-family: "Courier New", Courier, monospace;
+  font-family: 'Victor Mono', monospace;
 }
 
 .loader {

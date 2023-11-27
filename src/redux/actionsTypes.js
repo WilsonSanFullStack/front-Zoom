@@ -1,5 +1,5 @@
 //todo funcionalidad
-
+export const DARKMODE = 'DARKMODE'
 //todo funcionalidad
 export const PRESTAMO = 'PRESTAMO'
 

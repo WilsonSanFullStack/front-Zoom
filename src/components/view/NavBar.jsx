@@ -29,7 +29,7 @@ const NavBar = () => {
     }
   }, [user]);
   return (
-    <nav className="w-full bg-indigo-300 p-1 px-6 text-lg flex justify-between h-12 items-center font-bold fixed top-0 z-10 ">
+    <nav className="w-full bg-indigo-300 dark:bg-slate-700 p-1 px-6 text-lg flex justify-between h-12 items-center font-bold fixed top-0 z-10 ">
       {showButton && (
         <NavLink to="/home">
           <button className="btn-n">Home</button>

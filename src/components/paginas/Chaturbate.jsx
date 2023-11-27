@@ -7,7 +7,6 @@ import ButtonPage from "../resource/ButtonPage.jsx";
 
 import {
   getAllQuincena,
-  getQuincenaMoneda,
 } from "../../redux/actions/registro/registerQuincena.js";
 
 const Chaturbate = () => {
@@ -17,18 +16,16 @@ const Chaturbate = () => {
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
   const quincenas = useSelector((state) => state.quincenas);
-  // const quincena = useSelector((state) => state.quincena);
   const [id, setId] = useState("");
 
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
+  
   useEffect(() => {
     setInput([])
   }, [id])
-  useEffect(() => {
-    id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
-  }, [dispatch, id]);
+
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual

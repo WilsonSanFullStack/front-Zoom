@@ -11,7 +11,6 @@ import {
 
 
 const Home = () => {
- 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const quincenas = useSelector((state) => state.quincenas);
@@ -180,7 +179,8 @@ const Home = () => {
   // };
   console.log(quincenaHome);
   return (
-    <div className="min-h-screen bg-indigo-200 text-xl pt-14 text-center">
+    <div className="contenedor1">
+      <div className="contenedor2">
       <div className="mt-2">
         <select onChange={handleQuincena} value={id} className="select">
           <option value="" hidden>
@@ -760,6 +760,7 @@ const Home = () => {
             })}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

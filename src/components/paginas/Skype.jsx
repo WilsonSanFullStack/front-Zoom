@@ -6,10 +6,7 @@ import { resetError } from "../../redux/actions/paginas/adult.js";
 import TextareaForm from "../resource/Textarea.jsx";
 import ButtonPage from "../resource/ButtonPage.jsx";
 
-import {
-  getAllQuincena,
-  getQuincenaMoneda,
-} from "../../redux/actions/registro/registerQuincena.js";
+import { getAllQuincena } from "../../redux/actions/registro/registerQuincena.js";
 
 const Skype = () => {
   const [input, setInput] = useState([]);
@@ -18,18 +15,15 @@ const Skype = () => {
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
   const quincenas = useSelector((state) => state.quincenas);
-  // const quincena = useSelector((state) => state.quincena);
   const [id, setId] = useState("");
 
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
+
   useEffect(() => {
-    setInput([])
-  }, [id])
-  useEffect(() => {
-    id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
-  }, [dispatch, id]);
+    setInput([]);
+  }, [id]);
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual

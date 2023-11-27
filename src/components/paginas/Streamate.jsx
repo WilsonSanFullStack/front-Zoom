@@ -5,32 +5,23 @@ import { resetError } from "../../redux/actions/paginas/adult.js";
 import TextareaForm from "../resource/Textarea.jsx";
 import ButtonPage from "../resource/ButtonPage.jsx";
 
-import {
-  getAllQuincena,
-  getQuincenaMoneda,
-} from "../../redux/actions/registro/registerQuincena.js";
+import { getAllQuincena } from "../../redux/actions/registro/registerQuincena.js";
 
 const Streamate = () => {
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
-
   const [input, setInput] = useState([]);
   const [streamate, setStreamate] = useState(input);
   const quincenas = useSelector((state) => state.quincenas);
-  // const quincena = useSelector((state) => state.quincena);
   const [id, setId] = useState("");
-console.log(streamate)
-useEffect(() => {
-  setInput([])
-}, [id])
+  console.log(streamate);
+  useEffect(() => {
+    setInput([]);
+  }, [id]);
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
-
-  useEffect(() => {
-    id || id !== "" ? dispatch(getQuincenaMoneda(id)) : "";
-  }, [dispatch, id]);
 
   useEffect(() => {
     // Encontrar la quincena que coincide con la fecha actual
@@ -80,56 +71,57 @@ useEffect(() => {
   const handleTextarea = (event) => {
     setInput(event.target.value);
     setStreamate(() => {
-      const regex = /\{[\s\S]*?userName: (\w+),[\s\S]*?fecha: (\d{2}\/((0[1-9]|1[0-5])|(1[6-9]|2[0-9]|30|31)\/(0[1-9]|1[0-2])\/23)),[\s\S]*?dolares: (\d+)\}/g;
+      const regex =
+        /\{[\s\S]*?userName: (\w+),[\s\S]*?fecha: (\d{2}\/((0[1-9]|1[0-5])|(1[6-9]|2[0-9]|30|31)\/(0[1-9]|1[0-2])\/23)),[\s\S]*?dolares: (\d+)\}/g;
       const result = [];
       let match;
-  
+
       while ((match = regex.exec(event.target.value)) !== null) {
         const userName = match[1];
         const fecha = match[2];
         const dolares = parseFloat(match[4]);
-  
+
         result.push({ userName, fecha, dolares });
       }
-  
+
       console.log(result);
       return result;
     });
   };
-  
+
   //! regex aun en creacion
-//   const patron_fechas = /(\w{3}\s\d{2},\s\d{4})/g;
-// const resultado_fechas = [...texto.matchAll(patron_fechas)];
-// const fechas = resultado_fechas.map(match => new Date(match[0]).getTime()); // Convierte las fechas a milisegundos desde 1970-01-01
-// const fechaInicial = new Date(Math.min(...fechas)).toLocaleDateString(); // Encuentra la fecha más antigua y la convierte de nuevo a formato legible
-// const fechaFinal = new Date(Math.max(...fechas)).toLocaleDateString(); // Encuentra la fecha más reciente y la convierte de nuevo a formato legible
+  //   const patron_fechas = /(\w{3}\s\d{2},\s\d{4})/g;
+  // const resultado_fechas = [...texto.matchAll(patron_fechas)];
+  // const fechas = resultado_fechas.map(match => new Date(match[0]).getTime()); // Convierte las fechas a milisegundos desde 1970-01-01
+  // const fechaInicial = new Date(Math.min(...fechas)).toLocaleDateString(); // Encuentra la fecha más antigua y la convierte de nuevo a formato legible
+  // const fechaFinal = new Date(Math.max(...fechas)).toLocaleDateString(); // Encuentra la fecha más reciente y la convierte de nuevo a formato legible
 
-// const patron_totalRevenue = /Total Revenue: \$([0-9.]+)/;
-// const resultado_totalRevenue = texto.match(patron_totalRevenue);
-// const totalRevenue = resultado_totalRevenue ? parseFloat(resultado_totalRevenue[1]) : null;
+  // const patron_totalRevenue = /Total Revenue: \$([0-9.]+)/;
+  // const resultado_totalRevenue = texto.match(patron_totalRevenue);
+  // const totalRevenue = resultado_totalRevenue ? parseFloat(resultado_totalRevenue[1]) : null;
 
-// const patron_totalTimeOnline = /Total Time Online: (\d+h \d+m \d+s)/;
-// const resultado_totalTimeOnline = texto.match(patron_totalTimeOnline);
-// const totalTimeOnline = resultado_totalTimeOnline ? resultado_totalTimeOnline[1] : null;
+  // const patron_totalTimeOnline = /Total Time Online: (\d+h \d+m \d+s)/;
+  // const resultado_totalTimeOnline = texto.match(patron_totalTimeOnline);
+  // const totalTimeOnline = resultado_totalTimeOnline ? resultado_totalTimeOnline[1] : null;
 
-// const patron_earnings = /Earnings for (.+?) earned \$(\d+\.\d+)/g;
-// const usuarios = [];
+  // const patron_earnings = /Earnings for (.+?) earned \$(\d+\.\d+)/g;
+  // const usuarios = [];
 
-// let match;
-// while ((match = patron_earnings.exec(texto)) !== null) {
-//   let userName = match[1].replace("Studio", ""); // Elimina "Studio" del nombre de usuario
-//   const earnings = parseFloat(match[2]);
-  
-//   // Filtrar los datos solo a partir del día 16 del mes
-//   if (new Date(match[0]).getDate() >= 16) {
-//     usuarios.push({ userName, dolares: earnings, fechaInicial, fechaFinal, totalTimeOnline });
-//   }
-// }
+  // let match;
+  // while ((match = patron_earnings.exec(texto)) !== null) {
+  //   let userName = match[1].replace("Studio", ""); // Elimina "Studio" del nombre de usuario
+  //   const earnings = parseFloat(match[2]);
 
-// usuarios.sort((a, b) => a.userName.localeCompare(b.userName)); // Ordena alfabéticamente por userName
+  //   // Filtrar los datos solo a partir del día 16 del mes
+  //   if (new Date(match[0]).getDate() >= 16) {
+  //     usuarios.push({ userName, dolares: earnings, fechaInicial, fechaFinal, totalTimeOnline });
+  //   }
+  // }
 
-// console.log(usuarios);
-//!fin del regex en creacion
+  // usuarios.sort((a, b) => a.userName.localeCompare(b.userName)); // Ordena alfabéticamente por userName
+
+  // console.log(usuarios);
+  //!fin del regex en creacion
 
   const handlerSubmit = () => {
     // dispatch(pse(cose));

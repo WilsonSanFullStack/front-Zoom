@@ -55,23 +55,10 @@ import {
   GETUBICACIONBYID,
   UPDATEUBICACION,
   DELETEUBICACION,
-  GETQUINCENAMONEDA,
-  GETQUINCENAADULT,
-  GETQUINCENAAMATEUR,
-  GETQUINCENABONGA,
-  GETQUINCENACAM4,
-  GETQUINCENACHATURBATE,
-  GETQUINCENADIRTY,
-  GETQUINCENAISLIVE,
-  GETQUINCENASENDER,
-  GETQUINCENASKYPE,
-  GETQUINCENASTRIPCHAT,
-  GETQUINCENAVX,
-  GETQUINCENAXLOVE,
-  GETQUINCENAXLOVENUEVA,
   SEARCHPRODUCTO,
   QUINCENAUSERS,
-  QUINCENAHOME
+  QUINCENAHOME,
+  DARKMODE
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -103,29 +90,13 @@ const initialState = {
   quincenas: [],
   quincenaUser: [],
   quincenaHome: [],
-
-  quincenaMoneda: {},
-  quincenaAdult: {},
-  quincenaAmateur: {},
-  quincenaBonga: {},
-  quincenaCam4: {},
-  quincenaChaturbate: {},
-  quincenaDirty: {},
-  quincenaIslive: {},
-  quincenaSender: {},
-  quincenaSkype: {},
-  quincenaStripchat: {},
-  quincenaVx: {},
-  quincenaXlove: {},
-  quincenaXloveNueva: {},
-
   porcentajes: [],
   porcentaje: {},
   ubicaciones: [],
   ubicacion: {},
-
   perror: "",
   gerror: "",
+  darkMode: ''
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -149,6 +120,12 @@ export const rootReducer = (state = initialState, action) => {
         quincenaUser: action.payload,
         quincenaHome: action.payload,
       };
+      case DARKMODE:
+      return {
+      ...state,
+      darkMode: action.payload,
+      };
+      
     //post corte adult
     case PAD:
       return {
@@ -459,7 +436,7 @@ export const rootReducer = (state = initialState, action) => {
 
     case UPDATEUBICACION:
       return {
-        ...state,
+      ...state,
         ubicacion: action.payload,
       };
 
@@ -474,82 +451,13 @@ export const rootReducer = (state = initialState, action) => {
         ...initialState,
       };
 
-    case GETQUINCENAMONEDA:
-      return {
-        ...state,
-        quincenaMoneda: action.payload,
-      };
-    case GETQUINCENAADULT:
-      return {
-        ...state,
-        quincenaAdult: action.payload,
-      };
-    case GETQUINCENAAMATEUR:
-      return {
-        ...state,
-        quincenaAmateur: action.payload,
-      };
-    case GETQUINCENABONGA:
-      return {
-        ...state,
-        quincenaBonga: action.payload,
-      };
-    case GETQUINCENACAM4:
-      return {
-        ...state,
-        quincenaCam4: action.payload,
-      };
-    case GETQUINCENACHATURBATE:
-      return {
-        ...state,
-        quincenaChaturbate: action.payload,
-      };
-    case GETQUINCENADIRTY:
-      return {
-        ...state,
-        quincenaDirty: action.payload,
-      };
-    case GETQUINCENAISLIVE:
-      return {
-        ...state,
-        quincenaIslive: action.payload,
-      };
-    case GETQUINCENASENDER:
-      return {
-        ...state,
-        quincenaSender: action.payload,
-      };
-    case GETQUINCENASKYPE:
-      return {
-        ...state,
-        quincenaSkype: action.payload,
-      };
-    case GETQUINCENASTRIPCHAT:
-      return {
-        ...state,
-        quincenaStripchat: action.payload,
-      };
-    case GETQUINCENAVX:
-      return {
-        ...state,
-        quincenaVx: action.payload,
-      };
-    case GETQUINCENAXLOVE:
-      return {
-        ...state,
-        quincenaXlove: action.payload,
-      };
-    case GETQUINCENAXLOVENUEVA:
-      return {
-        ...state,
-        quincenaXloveNueva: action.payload,
-      };
     case QUINCENAUSERS:
       return {
         ...state,
         quincenaUser: action.payload,
       };
-    case QUINCENAHOME:
+    
+      case QUINCENAHOME:
       return {
         ...state,
         quincenaHome: action.payload,
