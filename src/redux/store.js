@@ -26,7 +26,7 @@ const persistConfig = {
     "coxl", //corte xlove
     "coxln",
     "user",
-    
+    "darkMode",
   ], //corte xlove
   // agregar una whiteList si queremos que se guarde solo una parte de nuestros estados globales
   blacklist: ["init", "error"],

@@ -58,7 +58,7 @@ import {
   SEARCHPRODUCTO,
   QUINCENAUSERS,
   QUINCENAHOME,
-  DARKMODE
+  DARKMODE,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -96,7 +96,7 @@ const initialState = {
   ubicacion: {},
   perror: "",
   gerror: "",
-  darkMode: ''
+  darkMode: "",
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -120,12 +120,12 @@ export const rootReducer = (state = initialState, action) => {
         quincenaUser: action.payload,
         quincenaHome: action.payload,
       };
-      case DARKMODE:
+    case DARKMODE:
       return {
-      ...state,
-      darkMode: action.payload,
+        ...state,
+        darkMode: action.payload,
       };
-      
+
     //post corte adult
     case PAD:
       return {
@@ -436,7 +436,7 @@ export const rootReducer = (state = initialState, action) => {
 
     case UPDATEUBICACION:
       return {
-      ...state,
+        ...state,
         ubicacion: action.payload,
       };
 
@@ -456,8 +456,8 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         quincenaUser: action.payload,
       };
-    
-      case QUINCENAHOME:
+
+    case QUINCENAHOME:
       return {
         ...state,
         quincenaHome: action.payload,

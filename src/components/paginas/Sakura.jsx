@@ -7,6 +7,7 @@ import ButtonPage from "../resource/ButtonPage.jsx";
 import {
   getAllQuincena,
 } from "../../redux/actions/registro/registerQuincena.js";
+import { postSakura } from "../../redux/actions/paginas/sakura.js";
 
 const Sakura = () => {
   const dispatch = useDispatch();
@@ -75,7 +76,11 @@ const Sakura = () => {
     });
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    dispatch(postSakura(sakura))
+    setInput([])
+    setSakura([])
+  };
 
   return (
     <div className="contenedor1">

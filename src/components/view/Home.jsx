@@ -402,16 +402,16 @@ const Home = () => {
                           </section>
                         )}
 
-                        {x?.myfreecams && (
+                        {x?.myFreeCams && (
                           <section className="sectionPage1">
                             <h1>My Free Cams</h1>
                             <section className="sectionPage2">
                               <section>
                                 <h1>Dolares</h1>{" "}
-                                <h2>{x?.myfreecams?.dolares}</h2>
+                                <h2>{x?.myFreeCams?.dolares}</h2>
                               </section>
                               <section>
-                                <h1>Tokens</h1> <h2>{x?.myfreecams?.tokens}</h2>
+                                <h1>Tokens</h1> <h2>{x?.myFreeCams?.tokens}</h2>
                               </section>
                             </section>
                           </section>

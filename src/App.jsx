@@ -45,7 +45,7 @@ import Ventas from "./components/view/Ventas.jsx";
 import RegisterUser from "./components/registro/RegisterUser.jsx";
 import RegistrarPagina from "./components/registro/RegistrarPagina.jsx";
 import RegistrarProducto from "./components/registro/RegistrarProducto.jsx";
-import Registro from "./components/registro/RegistroUserName.jsx";
+import RegistroUserName from "./components/registro/RegistroUserName.jsx";
 import RegistrarComment from "./components/registro/RegistrarComment.jsx";
 import RegistrarQuincena from "./components/registro/RegistrarQuincena.jsx";
 import RegistrarMoneda from "./components/registro/RegisterMoneda.jsx";
@@ -131,7 +131,7 @@ function App() {
         <Route path="/loader" element={<Loading />} />
         <Route path="/registro" element={<RegisterUser />} />
         <Route path="/crear" element={<Crear />} />
-        <Route path="/crear/username" element={<Registro />} />
+        <Route path="/crear/username" element={<RegistroUserName />} />
         <Route path="/crear/pagina" element={<RegistrarPagina />} />
         <Route path="/crear/producto" element={<RegistrarProducto />} />
         <Route path="/crear/quincena" element={<RegistrarQuincena />} />

@@ -8,12 +8,10 @@ import { getAllUbicacion } from "../../redux/actions/registro/RegisterUbicacion.
 import { getAllPorcentaje } from "../../redux/actions/registro/registerPorcentaje.js";
 import { postUserName } from "../../redux/actions/registro/registerUserName.js";
 
-const Registro = () => {
+const RegistroUserName = () => {
   const dispatch = useDispatch();
   const paginas = useSelector((state) => state.paginas);
   const allUser = useSelector((state) => state.allUser);
-  const ubicacion = useSelector((state) => state.ubicaciones);
-  const porcentaje = useSelector((state) => state.porcentajes);
 
   const [input, setInput] = useState({
     paginas: [],
@@ -215,4 +213,4 @@ const Registro = () => {
   );
 };
 
-export default Registro;
+export default RegistroUserName;

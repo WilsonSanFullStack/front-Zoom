@@ -27,9 +27,12 @@ const Ventas = () => {
   const handleVentas = (producto) => {
     const nuevaCantidad = cantidades[producto.id] || 0;
     const nuevasCuotas = cuotas[producto.id] || 0;
-  
+
     // Verifica que la cantidad y las cuotas sean mayores a cero
-    if ((nuevaCantidad === 0 || nuevaCantidad > 0) && (nuevasCuotas === 0 || nuevasCuotas > 0)) {
+    if (
+      (nuevaCantidad === 0 || nuevaCantidad > 0) &&
+      (nuevasCuotas === 0 || nuevasCuotas > 0)
+    ) {
       // Agrega los detalles a la venta
       const ventaItem = {
         productoId: producto.id,
@@ -38,15 +41,15 @@ const Ventas = () => {
         cantidad: nuevaCantidad,
         cuotas: nuevasCuotas,
         precioVenta: producto.precioVenta,
-        precioVentaDiferido: producto.precioVentaDiferido
+        precioVentaDiferido: producto.precioVentaDiferido,
       };
-  
+
       // Verifica si el producto ya está en la lista de ventas
       if (!venta.find((item) => item.productoId === producto.id)) {
         setVenta([...venta, ventaItem]);
       }
     }
-  
+
     // Actualiza las cantidades
     const nuevasCantidades = { ...cantidades };
     if (producto.id in nuevasCantidades) {
@@ -59,20 +62,20 @@ const Ventas = () => {
       nuevasCantidades[producto.id] = 0;
     }
     setCantidades(nuevasCantidades);
-  
+
     // Actualiza las cuotas
     const nuevasCuotasVenta = { ...cuotas };
-  if (producto.id in nuevasCuotasVenta) {
-    if (nuevasCuotasVenta[producto.id] < maxCuotas) {
-      nuevasCuotasVenta[producto.id] += 1;
+    if (producto.id in nuevasCuotasVenta) {
+      if (nuevasCuotasVenta[producto.id] < maxCuotas) {
+        nuevasCuotasVenta[producto.id] += 1;
+      } else {
+        return;
+      }
     } else {
-      return;
+      nuevasCuotasVenta[producto.id] = 0;
     }
-  } else {
-    nuevasCuotasVenta[producto.id] = 0;
-  }
-  setCuotas(nuevasCuotasVenta);
-};
+    setCuotas(nuevasCuotasVenta);
+  };
 
   useEffect(() => {
     if (quincenaId && quincenas) {
@@ -88,16 +91,16 @@ const Ventas = () => {
 
   const handleModificarCantidad = (productoId, cantidad) => {
     const nuevasCantidades = { ...cantidades };
-  
+
     if (productoId in nuevasCantidades) {
       nuevasCantidades[productoId] = Math.max(
         0,
         nuevasCantidades[productoId] + cantidad
       );
     }
-  
+
     setCantidades(nuevasCantidades);
-  
+
     // Actualiza la cantidad del producto en la lista de ventas
     const productoEnVenta = venta.find((x) => x.productoId === productoId);
     if (productoEnVenta) {
@@ -105,24 +108,23 @@ const Ventas = () => {
       setVenta([...venta]); // Actualiza la lista de ventas
     }
   };
-  
 
   const handleModificarCuotas = (productoId, incremento) => {
     const nuevasCuotas = { ...cuotas };
-  
+
     if (productoId in nuevasCuotas) {
       nuevasCuotas[productoId] = Math.max(
         0,
         nuevasCuotas[productoId] + incremento
       );
     }
-  
+
     if (
       nuevasCuotas[productoId] >= 1 &&
       nuevasCuotas[productoId] <= maxCuotas
     ) {
       setCuotas(nuevasCuotas);
-  
+
       // Actualiza las cuotas del producto en la lista de ventas
       const productoEnVenta = venta.find((x) => x.productoId === productoId);
       if (productoEnVenta) {
@@ -131,7 +133,6 @@ const Ventas = () => {
       }
     }
   };
-  
 
   const handleQuincena = (event) => {
     setQuincenaId(event.target.value);
@@ -151,27 +152,28 @@ const Ventas = () => {
     setCantidades({});
     setCuotas({});
   }, [userId]);
-  
+
   console.log(venta);
   const handleSubmit = () => {
     if (venta.length >= 1) {
-      dispatch(postVenta(venta))
-      setVenta([])
-      setQuincenaId('')
-      setUserId('')
-      setCantidades({})
-      setCuotas({})
-      setMaxCuotas(0)
+      dispatch(postVenta(venta));
+      setVenta([]);
+      setQuincenaId("");
+      setUserId("");
+      setCantidades({});
+      setCuotas({});
+      setMaxCuotas(0);
     }
-  }
+  };
   return (
     <div className="contenedorVentas pt-12">
       <div className="contenedorVentas2 overflow-x-auto">
-        <h1 className="text-2xl font-bold">VENTAS DE PRODUCTOS</h1>
+        <div className="divTitulo">
+          <h1 className="titulo">VENTAS DE PRODUCTOS</h1>
+        </div>
 
         {quincenaId && userId && (
           <div className="grid grid-cols-3 ">
-            
             {productos?.map((x) => {
               if (x.existencia > 0) {
                 return (
@@ -267,7 +269,6 @@ const Ventas = () => {
                 );
               }
             })}
-            
           </div>
         )}
       </div>
@@ -276,70 +277,72 @@ const Ventas = () => {
           <h1 className="titulo">Pedido</h1>
         </div>
         <form onSubmit={handleSubmit}>
-        <div className="flex justify-center items-center">
-          <select className="select" onChange={handleQuincena}>
-            <option value="">Seleccione Una Quincena</option>
-            {quincenas &&
-              quincenas?.map((x) => (
-                <option value={x.id} key={x.id}>
-                  {x?.nombre}
-                </option>
-              ))}
-          </select>
-        </div>
-        <div className="flex justify-center items-center">
-          <select className="select" onChange={handleUser}>
-            <option value="" hidden>
-              Seleccione El Usuario
-            </option>
-            {allUserIdName &&
-              allUserIdName?.map((x) => (
-                <option value={x?.id} key={x?.id}>
-                  {x?.nombre.split(" ")[0]} {x?.apellido?.split(" ")[0]}
-                </option>
-              ))}
-          </select>
-        </div>
-        <div className="text-center">
-          {venta.length > 0 && (
-            <table className="border-collapse border border-indigo-700 m-auto mt-4">
-              <thead>
-                <tr>
-                  <th className="border border-indigo-700 p-2">Nombre</th>
-                  <th className="border border-indigo-700 p-2">Cantidad</th>
-                  <th className="border border-indigo-700 p-2">Cuotas</th>
-                  <th className="border border-indigo-700 text-red-600 font-bold text-xl">
-                    X
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {venta.map((f) => (
-                  <tr key={f?.productoId} className="bg-indigo-400">
-                    <td className="border border-indigo-700 p-2">
-                      {productos.find((x) => x.id === f.productoId)?.nombre}
-                    </td>
-                    <td className="border border-indigo-700 p-2">
-                      {f?.cantidad}
-                    </td>
-                    <td className="border border-indigo-700 p-2">
-                      {f?.cuotas >= maxCuotas?maxCuotas:f?.cuotas}
-                    </td>
-                    <td className="border border-indigo-700 p-2">
-                      <TiMinusOutline
-                        onClick={() => handleEliminarProducto(f?.productoId)}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </td>
-                  </tr>
+          <div className="flex justify-center items-center">
+            <select className="select" onChange={handleQuincena}>
+              <option value="">Seleccione Una Quincena</option>
+              {quincenas &&
+                quincenas?.map((x) => (
+                  <option value={x.id} key={x.id}>
+                    {x?.nombre}
+                  </option>
                 ))}
-              </tbody>
-            </table>
-          )}
-          {quincenaId && userId && (
-            <button className="btn-n mt-4" type="submit">Comprar</button>
-          )}
-        </div>
+            </select>
+          </div>
+          <div className="flex justify-center items-center">
+            <select className="select" onChange={handleUser}>
+              <option value="" hidden>
+                Seleccione El Usuario
+              </option>
+              {allUserIdName &&
+                allUserIdName?.map((x) => (
+                  <option value={x?.id} key={x?.id}>
+                    {x?.nombre.split(" ")[0]} {x?.apellido?.split(" ")[0]}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <div className="text-center">
+            {venta.length > 0 && (
+              <table className="border-collapse border border-indigo-700 m-auto mt-4">
+                <thead>
+                  <tr>
+                    <th className="border border-indigo-700 p-2">Nombre</th>
+                    <th className="border border-indigo-700 p-2">Cantidad</th>
+                    <th className="border border-indigo-700 p-2">Cuotas</th>
+                    <th className="border border-indigo-700 text-red-600 font-bold text-xl">
+                      X
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {venta.map((f) => (
+                    <tr key={f?.productoId} className="bg-indigo-400">
+                      <td className="border border-indigo-700 p-2">
+                        {productos.find((x) => x.id === f.productoId)?.nombre}
+                      </td>
+                      <td className="border border-indigo-700 p-2">
+                        {f?.cantidad}
+                      </td>
+                      <td className="border border-indigo-700 p-2">
+                        {f?.cuotas >= maxCuotas ? maxCuotas : f?.cuotas}
+                      </td>
+                      <td className="border border-indigo-700 p-2">
+                        <TiMinusOutline
+                          onClick={() => handleEliminarProducto(f?.productoId)}
+                          style={{ cursor: "pointer" }}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+            {quincenaId && userId && (
+              <button className="btn-n mt-4" type="submit">
+                Comprar
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </div>

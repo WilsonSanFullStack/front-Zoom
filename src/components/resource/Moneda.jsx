@@ -32,7 +32,7 @@ const monedaSeleccionada = monedaPago || monedaEstadisticas;
           <p className="text-4xl ">
             {monedaSeleccionada && monedaSeleccionada?.descripcion.toUpperCase()}{" "}
           </p>
-          <section className="grid grid-cols-3 px-2 border-2 border-indigo-900 text-4xl text-black">
+          <section className="grid grid-cols-3 px-2 border-2 border-indigo-900 text-4xl text-black m-2 rounded-xl">
             <section className="mx-2 px-2 grid grid-cols-1  border-r-2 border-indigo-900 text-center">
               <h1>DOLAR: </h1>
               <h1>
