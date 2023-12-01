@@ -25,7 +25,7 @@ export const postComment = (nComment) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }

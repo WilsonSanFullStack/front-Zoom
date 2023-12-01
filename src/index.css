@@ -96,7 +96,7 @@
 }
 /*todo   ya esta verificada */
 .contenedor1 {
-  @apply max-h-full bg-indigo-200 dark:bg-slate-900 h-screen top-0;
+  @apply  bg-indigo-200 dark:bg-slate-900 min-h-screen top-0;
 }
 .contenedorVentas {
   @apply h-screen bg-indigo-200 dark:bg-slate-900 top-0 min-w-full flex;

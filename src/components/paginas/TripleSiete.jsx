@@ -5,15 +5,15 @@ import TextareaForm from "../resource/Textarea.jsx";
 import ButtonPage from "../resource/ButtonPage.jsx";
 
 import { getAllQuincena } from "../../redux/actions/registro/registerQuincena.js";
-import { postStreamRay } from "../../redux/actions/paginas/streamRay.js";
+import { postTripleSiete } from "../../redux/actions/paginas/tripleSiete.js";
 
-const StreamRay = () => {
+const TripleSiete = () => {
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.spg);
   const errors = useSelector((state) => state.error);
   const quincenas = useSelector((state) => state.quincenas);
   const [input, setInput] = useState([]);
-  const [streamRay, setStreamRay] = useState(input);
+  const [tripleSiete, setTripleSiete] = useState(input);
   const [id, setId] = useState("");
 
   useEffect(() => {
@@ -59,7 +59,7 @@ const StreamRay = () => {
 
   const handleTextarea = (event) => {
     setInput(event.target.value);
-    setStreamRay(() => {
+    setTripleSiete(() => {
       const regex = /(\w+)\s+([\d.]+)/g;
       const result = [];
       let match;
@@ -75,9 +75,9 @@ const StreamRay = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(postStreamRay(streamRay));
+    dispatch(postTripleSiete(tripleSiete));
     setInput([]);
-    setStreamRay([]);
+    setTripleSiete([]);
   };
 
   return (
@@ -104,8 +104,8 @@ const StreamRay = () => {
           value={input}
           onChange={handleTextarea}
           onSubmit={handleSubmit}
-          placeholder="Peque aqui el corte de Stream Ray"
-          titulo="Corte De Stream Ray"
+          placeholder="Peque aqui el corte de 777"
+          titulo="Corte De 777"
         />
 
         <div className="mt-24">
@@ -119,7 +119,7 @@ const StreamRay = () => {
         <div className="contenedor3">
           <div className="contenedor4">
             <h2 className="titulo">Creditos a Subir</h2>
-            {streamRay?.map((x, i) => {
+            {tripleSiete?.map((x, i) => {
               return (
                 <div key={i}>
                   <h3 className="mostrarcorte">
@@ -160,4 +160,4 @@ const StreamRay = () => {
   );
 };
 
-export default StreamRay;
+export default TripleSiete;

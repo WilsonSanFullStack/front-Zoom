@@ -1,23 +1,23 @@
 //todo funcionalidad
-export const DARKMODE = 'DARKMODE'
+export const DARKMODE = "DARKMODE";
 //todo funcionalidad
-export const PRESTAMO = 'PRESTAMO'
+export const PRESTAMO = "PRESTAMO";
 
 //todo para las diferentes quincenas
-export const GETQUINCENAMONEDA = 'GETQUINCENAMONEDA'
-export const GETQUINCENAADULT = 'GETQUINCENAADULT'
-export const GETQUINCENAAMATEUR = 'GETQUINCENAAMATEUR'
-export const GETQUINCENABONGA = 'GETQUINCENABONGA'
-export const GETQUINCENACAM4 = 'GETQUINCENACAM4'
-export const GETQUINCENACHATURBATE = 'GETQUINCENACHATURBATE'
-export const GETQUINCENADIRTY = 'GETQUINCENADIRTY'
-export const GETQUINCENAISLIVE = 'GETQUINCENAISLIVE'
-export const GETQUINCENASENDER = 'GETQUINCENASENDER'
-export const GETQUINCENASKYPE = 'GETQUINCENASKYPE'
-export const GETQUINCENASTRIPCHAT = 'GETQUINCENASTRIPCHAT'
-export const GETQUINCENAVX = 'GETQUINCENAVX'
-export const GETQUINCENAXLOVE = 'GETQUINCENAXLOVE'
-export const GETQUINCENAXLOVENUEVA = 'GETQUINCENAXLOVENUEVA'
+export const GETQUINCENAMONEDA = "GETQUINCENAMONEDA";
+export const GETQUINCENAADULT = "GETQUINCENAADULT";
+export const GETQUINCENAAMATEUR = "GETQUINCENAAMATEUR";
+export const GETQUINCENABONGA = "GETQUINCENABONGA";
+export const GETQUINCENACAM4 = "GETQUINCENACAM4";
+export const GETQUINCENACHATURBATE = "GETQUINCENACHATURBATE";
+export const GETQUINCENADIRTY = "GETQUINCENADIRTY";
+export const GETQUINCENAISLIVE = "GETQUINCENAISLIVE";
+export const GETQUINCENASENDER = "GETQUINCENASENDER";
+export const GETQUINCENASKYPE = "GETQUINCENASKYPE";
+export const GETQUINCENASTRIPCHAT = "GETQUINCENASTRIPCHAT";
+export const GETQUINCENAVX = "GETQUINCENAVX";
+export const GETQUINCENAXLOVE = "GETQUINCENAXLOVE";
+export const GETQUINCENAXLOVENUEVA = "GETQUINCENAXLOVENUEVA";
 
 //todo para la ubicacion
 
@@ -131,11 +131,11 @@ export const GDI = "GDI";
 export const PIL = "PIL";
 export const GIL = "GIL";
 //todo para mondo
-export const MONDO = 'MONDO';
+export const MONDO = "MONDO";
 //todo para mYFREECAMS
-export const MYFREECAMS = ' MYFREECAMS';
+export const MYFREECAMS = " MYFREECAMS";
 //todo para SAKURA
-export const SAKURA = ' SAKURA';
+export const SAKURA = " SAKURA";
 //todo para sender
 export const PSE = "PSE";
 export const GSE = "GSE";
@@ -143,12 +143,13 @@ export const GSE = "GSE";
 export const PSK = "PSK";
 export const GSK = "GSK";
 //TODO PARA STREAMATE
-export const STREAMATE = ' STREAMATE'
+export const STREAMATE = " STREAMATE";
 //TODO PARA STREAMRay
-export const STREAMRAY = ' STREAMRAY'
+export const STREAMRAY = " STREAMRAY";
 //todo para STRIPCHAT
 export const PST = "PST";
 export const GST = "GST";
+export const TRIPLESIETE = "TRIPLESIETE";
 //todo para VX
 export const PVX = "PVX";
 export const GVX = "GVX";

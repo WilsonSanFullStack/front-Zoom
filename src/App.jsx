@@ -60,6 +60,7 @@ import Prestamos from "./components/registro/Prestamos.jsx";
 
 import Protected from "./components/resource/Protected.jsx";
 import DarkMode from './components/resource/DarkMode.jsx';
+import TripleSiete from "./components/paginas/TripleSiete.jsx";
 
 function App() {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
@@ -181,6 +182,7 @@ function App() {
         <Route path="/estadisticas/carga/streamate" element={<Streamate />} />
         <Route path="/estadisticas/carga/streamray" element={<StreamRay />} />
         <Route path="/estadisticas/carga/stripchat" element={<Stripchat />} />
+        <Route path="/estadisticas/carga/triplesiete" element={<TripleSiete />} />
         <Route path="/estadisticas/carga/vx" element={<Vx />} />
         <Route path="/estadisticas/carga/xlove" element={<Xlove />} />
         <Route path="/estadisticas/carga/xlovenueva" element={<XloveNueva />} />

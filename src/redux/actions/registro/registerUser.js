@@ -31,6 +31,7 @@ export const registroUser = (input) => {
         payload: data,
       });
     } catch (error) {
+      console.log(error)
       dispatch({
         type: PERROR,
         payload: error.response.data.error,

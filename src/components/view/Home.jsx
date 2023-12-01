@@ -275,7 +275,7 @@ const Home = () => {
                             )}
                           </td>
                           <td className="px-6 py-2 whitespace-nowrap">
-                            {x?.totales && <h1>{x?.totales?.totalCreditos}</h1>}
+                            {x?.totales && <h1>{(x?.totales?.totalCreditos).toFixed(2)}</h1>}
                           </td>
                           <td className="px-6 py-2 whitespace-nowrap">
                             {x?.totales?.porcentajeFinal && <h1>{x?.totales?.porcentajeFinal}%</h1>}
@@ -450,10 +450,10 @@ const Home = () => {
                           </section>
                         )}
 
-                        {x?.streamray && (
+                        {x?.streamRay && (
                           <section className="sectionPage1">
                             <h1>StreamRay</h1>
-                            <h1>Dolares</h1> <h2>{x?.streamray?.dolares}</h2>
+                            <h1>Dolares</h1> <h2>{x?.streamRay?.dolares}</h2>
                           </section>
                         )}
 

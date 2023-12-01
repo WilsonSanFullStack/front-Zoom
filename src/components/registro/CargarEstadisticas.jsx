@@ -172,6 +172,15 @@ const CargarEstadisticas = () => {
         </section>
 
         <section className="w-48 img-e">
+          <Link to="/estadisticas/carga/triplesiete">
+            <p>7 7 7</p>
+            <div className="bg-red-950 mt-6 h-20 rounded-xl  w-30 flex justify-center items-center">
+              <img src="/logo777.png" alt="logo 777" className="w-48 h-28 m-1 rounded-2xl p-1 pt-3" />
+            </div>
+          </Link>
+        </section>
+
+        <section className="w-48 img-e">
           <Link to="/estadisticas/carga/vx">
             <p>Vx</p>
             <div className="bg-black mt-6  rounded-xl h-20 w-30 flex justify-center items-center">

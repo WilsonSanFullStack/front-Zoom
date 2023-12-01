@@ -15,8 +15,10 @@ const NavBar = () => {
   if (!isLoaded || !userId) {
     navigate("/");
   }
-  console.log(user);
   useEffect(() => {
+    if (Object.keys(user).length === 0) {
+      navigate('/')
+    }
     if (!isUserOrModelRoute && !user.admin && user.id && !pathname.includes('?')) {
       navigate(`user/${user.id}`);
     }
