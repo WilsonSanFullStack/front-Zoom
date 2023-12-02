@@ -60,20 +60,24 @@ const TripleSiete = () => {
   const handleTextarea = (event) => {
     setInput(event.target.value);
     setTripleSiete(() => {
-      const regex = /(\w+)\s+([\d.]+)/g;
-      const result = [];
-      let match;
+      const regex = /^(\w+)\s+([\d.]+)$/gm;
 
-      while ((match = regex.exec(event.target.value)) !== null) {
-        const user = match[1];
-        const dolares = parseFloat(match[2]);
-        result.push({ user, dolares, quincena: id });
-      }
-      console.log(result);
+let match;
+const result = [];
+
+while ((match = regex.exec(event.target.value)) !== null) {
+  const [_, user, dolares] = match;
+  const dolaresFloat = parseFloat(dolares);
+
+  // Omitir datos con dolares < 1
+  if (dolaresFloat > 0) {
+    result.push({ user, dolares: dolaresFloat, quincena: id });
+  }
+}
       return result;
     });
   };
-
+console.log(tripleSiete)
   const handleSubmit = () => {
     dispatch(postTripleSiete(tripleSiete));
     setInput([]);

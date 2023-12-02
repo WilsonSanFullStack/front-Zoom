@@ -8,7 +8,7 @@ export const postTripleSiete = (tripleSiete) => {
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${TRIPLESIETES}`;
-      const { data } = await axios.post(endpoint);
+      const { data } = await axios.post(endpoint, tripleSiete);
       dispatch({
         type: TRIPLESIETE,
         payload: data,

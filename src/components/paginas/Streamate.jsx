@@ -90,37 +90,75 @@ const Streamate = () => {
   };
 
   //! regex aun en creacion
-  //   const patron_fechas = /(\w{3}\s\d{2},\s\d{4})/g;
-  // const resultado_fechas = [...texto.matchAll(patron_fechas)];
-  // const fechas = resultado_fechas.map(match => new Date(match[0]).getTime()); // Convierte las fechas a milisegundos desde 1970-01-01
-  // const fechaInicial = new Date(Math.min(...fechas)).toLocaleDateString(); // Encuentra la fecha más antigua y la convierte de nuevo a formato legible
-  // const fechaFinal = new Date(Math.max(...fechas)).toLocaleDateString(); // Encuentra la fecha más reciente y la convierte de nuevo a formato legible
+  // const partes = texto.split(/={2,}|\n+(?=\s*Earnings for)/);
 
-  // const patron_totalRevenue = /Total Revenue: \$([0-9.]+)/;
-  // const resultado_totalRevenue = texto.match(patron_totalRevenue);
-  // const totalRevenue = resultado_totalRevenue ? parseFloat(resultado_totalRevenue[1]) : null;
-
-  // const patron_totalTimeOnline = /Total Time Online: (\d+h \d+m \d+s)/;
-  // const resultado_totalTimeOnline = texto.match(patron_totalTimeOnline);
-  // const totalTimeOnline = resultado_totalTimeOnline ? resultado_totalTimeOnline[1] : null;
-
-  // const patron_earnings = /Earnings for (.+?) earned \$(\d+\.\d+)/g;
-  // const usuarios = [];
-
-  // let match;
-  // while ((match = patron_earnings.exec(texto)) !== null) {
-  //   let userName = match[1].replace("Studio", ""); // Elimina "Studio" del nombre de usuario
-  //   const earnings = parseFloat(match[2]);
-
-  //   // Filtrar los datos solo a partir del día 16 del mes
-  //   if (new Date(match[0]).getDate() >= 16) {
-  //     usuarios.push({ userName, dolares: earnings, fechaInicial, fechaFinal, totalTimeOnline });
+  // let todosLosObjetos = [];
+  // let fechasUnicas = new Set();
+  
+  // for (let i = 0; i < partes.length; i++) {
+  //   let parte = partes[i];
+  
+  //   if (parte.includes("Earnings for")) {
+  //     const usuarioMatch = parte.match(/Earnings for (\S+) earned/);
+  //     const usuarioOriginal = usuarioMatch ? usuarioMatch[1] : null;
+  //     const usuario = usuarioOriginal ? usuarioOriginal.replace(/Studio$/, '') : null;
+  
+  //     if (usuario) {
+  //       let datos = parte.split('\n').slice(2, -1).map(linea => {
+  //         const [fecha, dolares] = linea.split('\t').slice(0, 2);
+  
+  //         if (fecha && dolares) {
+  //           // Intentar analizar la fecha en diferentes formatos
+  //           const fechaObj = new Date(fecha.trim()) || new Date(Date.parse(fecha.trim())) || new Date(fecha.trim().replace(/-/g, '/'));
+  
+  //           if (isNaN(fechaObj.getTime())) {
+  //             console.error("Error al analizar la fecha:", fecha);
+  //             return null;
+  //           }
+  
+  //           fechasUnicas.add(fechaObj); // Almacenar fechas directamente como objetos Date
+  
+  //           return { user: usuario, fecha, dolares: parseFloat(dolares.replace('$', '')) };
+  //         } else {
+  //           return null;
+  //         }
+  //       }).filter(Boolean);
+  
+  //       if (datos.length > 0 && datos[datos.length - 1].fecha.toLowerCase().includes('total')) {
+  //         datos.pop();
+  //       }
+  
+  //       todosLosObjetos = todosLosObjetos.concat(datos);
+  //     }
   //   }
   // }
-
-  // usuarios.sort((a, b) => a.userName.localeCompare(b.userName)); // Ordena alfabéticamente por userName
-
-  // console.log(usuarios);
+  
+  // // Obtener la primera y última fecha encontrada
+  // const fechasArray = Array.from(fechasUnicas);
+  // const fechaInicio = new Date(Math.min(...fechasArray));
+  // const fechaFin = new Date(Math.max(...fechasArray));
+  
+  // // Ajustar las fechas al rango del 1 al 15 o del 16 al último día del mes
+  // fechaInicio.setDate(1);
+  // if (fechaInicio.getDate() > 15) {
+  //   fechaInicio.setDate(16);
+  // }
+  
+  // fechaFin.setDate(1);
+  // fechaFin.setMonth(fechaFin.getMonth() + 1);
+  // fechaFin.setDate(0);
+  
+  // // Filtrar los objetos según las fechas
+  // const objetosFiltrados = todosLosObjetos.filter(objeto => {
+  //   const fechaObj = new Date(objeto.fecha.trim());
+  //   return fechaObj >= fechaInicio && fechaObj <= fechaFin;
+  // });
+  
+  // console.log("Fecha de inicio:", fechaInicio.toLocaleDateString());
+  // console.log("Fecha de fin:", fechaFin.toLocaleDateString());
+  
+  // console.log(objetosFiltrados);
+  
   //!fin del regex en creacion
 
   const handlerSubmit = () => {
