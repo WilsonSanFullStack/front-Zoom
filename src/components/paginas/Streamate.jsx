@@ -6,7 +6,7 @@ import TextareaForm from "../resource/Textarea.jsx";
 import ButtonPage from "../resource/ButtonPage.jsx";
 
 import { getAllQuincena } from "../../redux/actions/registro/registerQuincena.js";
-
+import { postStreamate } from "../../redux/actions/paginas/streamate.js";
 const Streamate = () => {
   const dispatch = useDispatch();
   const reporte = useSelector((state) => state.spg);
@@ -15,9 +15,14 @@ const Streamate = () => {
   const [streamate, setStreamate] = useState(input);
   const quincenas = useSelector((state) => state.quincenas);
   const [id, setId] = useState("");
-  console.log(streamate);
+  const [rango, setRango] = useState({
+    inicio: "",
+    fin: "",
+  });
+  console.log(id);
   useEffect(() => {
     setInput([]);
+    setStreamate([])
   }, [id]);
   useEffect(() => {
     dispatch(getAllQuincena());
@@ -61,7 +66,30 @@ const Streamate = () => {
   const handleQuincena = (event) => {
     setId(event.target.value);
   };
+  useEffect(() => {
+    const quincena = quincenas.find((x) => x.id === id);
+    console.log(quincena)
+    const fechaInicio = quincena.inicia;
+    const partesFecha = fechaInicio.split("/");
+    const fechaISO =
+      partesFecha[2] + "-" + partesFecha[1] + "-" + partesFecha[0];
+      console.log(fechaISO)
+    const fecha = new Date(fechaISO);
+    const diaInicio = fecha.getDate();
+    console.log(diaInicio)
+    const fechaFinal = quincena.final;
+    const partesFechas = fechaFinal.split("/");
+    const fechaISOS =
+      partesFechas[2] + "-" + partesFechas[1] + "-" + partesFechas[0];
+    const fechaFin = new Date(fechaISOS);
+    const diaFinal = fechaFin.getDate();
 
+    setRango({
+      inicio: diaInicio,
+      fin: diaFinal,
+    });
+  }, [id]);
+console.log(rango)
   useEffect(() => {
     return () => {
       dispatch(resetError());
@@ -71,98 +99,95 @@ const Streamate = () => {
   const handleTextarea = (event) => {
     setInput(event.target.value);
     setStreamate(() => {
-      const regex =
-        /\{[\s\S]*?userName: (\w+),[\s\S]*?fecha: (\d{2}\/((0[1-9]|1[0-5])|(1[6-9]|2[0-9]|30|31)\/(0[1-9]|1[0-2])\/23)),[\s\S]*?dolares: (\d+)\}/g;
-      const result = [];
-      let match;
-
-      while ((match = regex.exec(event.target.value)) !== null) {
-        const userName = match[1];
-        const fecha = match[2];
-        const dolares = parseFloat(match[4]);
-
-        result.push({ userName, fecha, dolares });
+      const partes = event.target.value.split(/={2,}|\n+(?=\s*Earnings for)/);
+      const partesEarnings = partes.filter((parte) =>
+        parte.includes("Earnings for")
+      );
+      let resultados = partesEarnings.map((parte) => {
+        const lineas = parte.split("\n").filter((linea) => linea.trim() !== "");
+        return lineas;
+      });
+      let final = [];
+      for (let i = 0; i < resultados.length; i++) {
+        let arrayActual = resultados[i];
+        if (arrayActual.length > 1 && arrayActual[0].includes("Earnings for")) {
+          const usuarioLinea = arrayActual[0];
+          const usuarioMatch = usuarioLinea.match(/Earnings for (\S+) earned/);
+          const usuarioOriginal = usuarioMatch ? usuarioMatch[1] : null;
+          const usuario = usuarioOriginal
+            ? usuarioOriginal.replace(/Studio$/, "")
+            : null;
+          if (usuario) {
+            function formatearFecha(fecha) {
+              const dia = fecha.getDate().toString().padStart(2, "0");
+              const mes = (fecha.getMonth() + 1).toString().padStart(2, "0");
+              const anio = fecha.getFullYear().toString().slice(-2);
+              return `${dia}/${mes}/${anio}`;
+            }
+            const datos = arrayActual
+              .slice(2, -1)
+              .map((linea) => {
+                const [fechaStr, dolares] = linea.split("\t").slice(0, 2);
+                if (fechaStr && dolares) {
+                  const fechaDate = new Date(fechaStr);
+                  if (!isNaN(fechaDate.getTime())) {
+                    const fechaFormateada = formatearFecha(fechaDate);
+                    if (
+                      fechaDate.getDate() >= rango.inicio &&
+                      fechaDate.getDate() <= rango.fin
+                    ) {
+                      return {
+                        user: usuario,
+                        fecha: fechaFormateada,
+                        dolares: parseFloat(dolares.replace("$", "")),
+                      };
+                    } else {
+                      return null;
+                    }
+                  } else {
+                    return null;
+                  }
+                } else {
+                  return null;
+                }
+              })
+              .filter(Boolean);
+            final.push(datos);
+          }
+        }
       }
 
-      console.log(result);
-      return result;
+      let consolidado = {};
+      for (let i = 0; i < final.length; i++) {
+        const arrayActual = final[i];
+        if (arrayActual.length > 0) {
+          const usuario = arrayActual[0].user;
+          const fechaInicio = arrayActual[0].fecha;
+          const fechaFin = arrayActual[arrayActual.length - 1].fecha;
+          const rangoFechas = `${fechaInicio} al ${fechaFin}`;
+          const totalDolares = arrayActual.reduce(
+            (suma, item) => suma + item.dolares,
+            0
+          );
+          if (totalDolares !== 0) {
+            consolidado[i] = {
+              user: usuario,
+              fecha: rangoFechas,
+              dolares: totalDolares.toFixed(2),
+              quincena: id,
+            };
+          }
+        }
+      }
+      const consolidadoArray = Object.values(consolidado);
+      consolidadoArray.sort((a, b) => a.user.localeCompare(b.user));
+      return consolidadoArray;
     });
   };
-
-  //! regex aun en creacion
-  // const partes = texto.split(/={2,}|\n+(?=\s*Earnings for)/);
-
-  // let todosLosObjetos = [];
-  // let fechasUnicas = new Set();
-  
-  // for (let i = 0; i < partes.length; i++) {
-  //   let parte = partes[i];
-  
-  //   if (parte.includes("Earnings for")) {
-  //     const usuarioMatch = parte.match(/Earnings for (\S+) earned/);
-  //     const usuarioOriginal = usuarioMatch ? usuarioMatch[1] : null;
-  //     const usuario = usuarioOriginal ? usuarioOriginal.replace(/Studio$/, '') : null;
-  
-  //     if (usuario) {
-  //       let datos = parte.split('\n').slice(2, -1).map(linea => {
-  //         const [fecha, dolares] = linea.split('\t').slice(0, 2);
-  
-  //         if (fecha && dolares) {
-  //           // Intentar analizar la fecha en diferentes formatos
-  //           const fechaObj = new Date(fecha.trim()) || new Date(Date.parse(fecha.trim())) || new Date(fecha.trim().replace(/-/g, '/'));
-  
-  //           if (isNaN(fechaObj.getTime())) {
-  //             console.error("Error al analizar la fecha:", fecha);
-  //             return null;
-  //           }
-  
-  //           fechasUnicas.add(fechaObj); // Almacenar fechas directamente como objetos Date
-  
-  //           return { user: usuario, fecha, dolares: parseFloat(dolares.replace('$', '')) };
-  //         } else {
-  //           return null;
-  //         }
-  //       }).filter(Boolean);
-  
-  //       if (datos.length > 0 && datos[datos.length - 1].fecha.toLowerCase().includes('total')) {
-  //         datos.pop();
-  //       }
-  
-  //       todosLosObjetos = todosLosObjetos.concat(datos);
-  //     }
-  //   }
-  // }
-  
-  // // Obtener la primera y última fecha encontrada
-  // const fechasArray = Array.from(fechasUnicas);
-  // const fechaInicio = new Date(Math.min(...fechasArray));
-  // const fechaFin = new Date(Math.max(...fechasArray));
-  
-  // // Ajustar las fechas al rango del 1 al 15 o del 16 al último día del mes
-  // fechaInicio.setDate(1);
-  // if (fechaInicio.getDate() > 15) {
-  //   fechaInicio.setDate(16);
-  // }
-  
-  // fechaFin.setDate(1);
-  // fechaFin.setMonth(fechaFin.getMonth() + 1);
-  // fechaFin.setDate(0);
-  
-  // // Filtrar los objetos según las fechas
-  // const objetosFiltrados = todosLosObjetos.filter(objeto => {
-  //   const fechaObj = new Date(objeto.fecha.trim());
-  //   return fechaObj >= fechaInicio && fechaObj <= fechaFin;
-  // });
-  
-  // console.log("Fecha de inicio:", fechaInicio.toLocaleDateString());
-  // console.log("Fecha de fin:", fechaFin.toLocaleDateString());
-  
-  // console.log(objetosFiltrados);
-  
-  //!fin del regex en creacion
+  console.log(streamate);
 
   const handlerSubmit = () => {
-    // dispatch(pse(cose));
+    dispatch(postStreamate(streamate));
     setInput([]);
     setCose([]);
   };
@@ -190,8 +215,8 @@ const Streamate = () => {
           value={input}
           onChange={handleTextarea}
           onSubmit={handlerSubmit}
-          placeholder="Pegue aquí el corte de Sender"
-          titulo="Corte De Sender"
+          placeholder="Pegue aquí el corte de Streamate"
+          titulo="Corte De Streamate"
         />
         <div className="mt-24">
           {errors && <p className="error">{errors.message}</p>}
@@ -207,8 +232,7 @@ const Streamate = () => {
                 <h3 className="mostrarcorte">
                   <p>{i + 1}</p>
                   <p>Nombre: {x.user}</p>
-                  <p>Coins: {x.coins}</p>
-                  <p>Euros: {x.euros}</p>
+                  <p>Dolares: {x.dolares}</p>
                   <p>Fecha: {x.fecha}</p>
                   <br />
                 </h3>
