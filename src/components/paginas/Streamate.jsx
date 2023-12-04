@@ -22,7 +22,7 @@ const Streamate = () => {
   console.log(id);
   useEffect(() => {
     setInput([]);
-    setStreamate([])
+    setStreamate([]);
   }, [id]);
   useEffect(() => {
     dispatch(getAllQuincena());
@@ -67,20 +67,23 @@ const Streamate = () => {
     setId(event.target.value);
   };
   useEffect(() => {
-    const quincena = quincenas.find((x) => x.id === id);
-    console.log(quincena)
-    const fechaInicio = quincena.inicia;
-    const partesFecha = fechaInicio.split("/");
-    const fechaISO =
-      partesFecha[2] + "-" + partesFecha[1] + "-" + partesFecha[0];
-      console.log(fechaISO)
+    const quincena = quincenas.find((x) => x?.id === id);
+    console.log(quincena);
+    const fechaInicio = quincena?.inicia;
+    const partesFecha = fechaInicio?.split("/");
+    let fechaISO = "";
+    if (partesFecha) {
+      fechaISO = partesFecha[2] + "-" + partesFecha[1] + "-" + partesFecha[0];
+    }
     const fecha = new Date(fechaISO);
     const diaInicio = fecha.getDate();
-    console.log(diaInicio)
-    const fechaFinal = quincena.final;
-    const partesFechas = fechaFinal.split("/");
-    const fechaISOS =
-      partesFechas[2] + "-" + partesFechas[1] + "-" + partesFechas[0];
+    const fechaFinal = quincena?.final;
+    const partesFechas = fechaFinal?.split("/");
+    let fechaISOS = "";
+    if (partesFechas) {
+      fechaISOS =
+        partesFechas[2] + "-" + partesFechas[1] + "-" + partesFechas[0];
+    }
     const fechaFin = new Date(fechaISOS);
     const diaFinal = fechaFin.getDate();
 
@@ -89,7 +92,6 @@ const Streamate = () => {
       fin: diaFinal,
     });
   }, [id]);
-console.log(rango)
   useEffect(() => {
     return () => {
       dispatch(resetError());
