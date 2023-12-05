@@ -13,67 +13,56 @@ const User = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const quincenas = useSelector((state) => state.quincenas);
-  const quincenaUser = useSelector((state) => state.quincenaUser);
-  console.log(quincenaUser);
+  const user = useSelector((state) => state.quincenaUser);
 
   const [ids, setIds] = useState("");
 
-  const dolar = quincenaUser?.moneda?.monedas?.map((x) => {
-    return x.dolar;
-  });
-  const euro = quincenaUser?.moneda?.monedas?.map((x) => {
-    return x.euro;
-  });
+  // useEffect(() => {
+  //   dispatch(resetError());
+  // }, [ids]);
 
-  const libra = quincenaUser?.moneda?.monedas?.map((x) => {
-    return x.libra;
-  });
-  useEffect(() => {
-    dispatch(resetError());
-  }, [ids]);
-  
   useEffect(() => {
     dispatch(getAllQuincena());
   }, [dispatch]);
 
   useEffect(() => {
     ids || ids !== "" ? dispatch(searchUserByFortnight(ids, id)) : "";
-  }, [dispatch]);
+  }, [ids]);
 
-  useEffect(() => {
-    // Encontrar la quincena que coincide con la fecha actual
-    const quincenaActual = quincenas.find((q) => {
-      const quincenaInicio = q?.inicia;
-      const partesFechaInicio = quincenaInicio.split("/");
+  // useEffect(() => {
+  //   // Encontrar la quincena que coincide con la fecha actual
+  //   const quincenaActual = quincenas.find((q) => {
+  //     const quincenaInicio = q?.inicia;
+  //     const partesFechaInicio = quincenaInicio.split("/");
 
-      // Obtén el día, el mes y el año como números
-      const diaInicio = parseInt(partesFechaInicio[0], 10);
-      const mesInicio = parseInt(partesFechaInicio[1], 10) - 1; // Restamos 1 al mes ya que en JavaScript los meses van de 0 a 11
-      const añoInicio = parseInt(partesFechaInicio[2], 10);
+  //     // Obtén el día, el mes y el año como números
+  //     const diaInicio = parseInt(partesFechaInicio[0], 10);
+  //     const mesInicio = parseInt(partesFechaInicio[1], 10) - 1; // Restamos 1 al mes ya que en JavaScript los meses van de 0 a 11
+  //     const añoInicio = parseInt(partesFechaInicio[2], 10);
 
-      // Crea un objeto de fecha
-      const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
+  //     // Crea un objeto de fecha
+  //     const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
 
-      const quincenaFinal = q?.final;
-      const partesFechaFinal = quincenaFinal.split("/");
+  //     const quincenaFinal = q?.final;
+  //     const partesFechaFinal = quincenaFinal.split("/");
 
-      // Obtén el día, el mes y el año como números
-      const diaFinal = parseInt(partesFechaFinal[0], 10);
-      const mesFinal = parseInt(partesFechaFinal[1], 10) - 1; // Restamos 1 al mes ya que en JavaScript los meses van de 0 a 11
-      const añoFinal = parseInt(partesFechaFinal[2], 10);
+  //     // Obtén el día, el mes y el año como números
+  //     const diaFinal = parseInt(partesFechaFinal[0], 10);
+  //     const mesFinal = parseInt(partesFechaFinal[1], 10) - 1; // Restamos 1 al mes ya que en JavaScript los meses van de 0 a 11
+  //     const añoFinal = parseInt(partesFechaFinal[2], 10);
 
-      // Crea un objeto de fecha
-      const fechaFinal = new Date(añoFinal, mesFinal, diaFinal, 23, 59, 59);
+  //     // Crea un objeto de fecha
+  //     const fechaFinal = new Date(añoFinal, mesFinal, diaFinal, 23, 59, 59);
 
-      const fechaActual = new Date();
+  //     const fechaActual = new Date();
 
-      return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
-    });
+  //     return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
+  //   });
 
-    if (quincenaActual) {
-      setIds(quincenaActual?.id); // Establecer la quincena actual como valor predeterminado en el selector
-    }
-  }, [quincenas]);
+  //   if (quincenaActual) {
+  //     setIds(quincenaActual?.id); // Establecer la quincena actual como valor predeterminado en el selector
+  //   }
+  // }, [quincenas]);
 
   const handleQuincena = (event) => {
     setIds(event.target.value);
@@ -95,79 +84,13 @@ const User = () => {
       setShowDetailBonga(true);
     }
   };
-
-  const [showPage, setShowPage] = useState({
-    showAdult: quincenaUser?.adultwork?.length >= 1 ? true : false,
-    showAmateur: quincenaUser?.amateur ? true : false,
-    showBonga: quincenaUser?.bonga?.length >= 1 ? true : false,
-    showCam4: quincenaUser?.cam4 ? true : false,
-    showChaturbate: quincenaUser?.chaturbate ? true : false,
-    showDirty: quincenaUser?.dirty ? true : false,
-    showIsLive: quincenaUser?.islive ? true : false,
-    showSender: quincenaUser?.sender ? true : false,
-    showSkype: quincenaUser?.skype ? true : false,
-    showStripchat: quincenaUser?.stripchat ? true : false,
-    showVx: quincenaUser?.vx ? true : false,
-    showXlove: quincenaUser?.xlove ? true : false,
-    showXloveNueva: quincenaUser?.xlovenueva ? true : false,
-  });
-  useEffect(() => {
-    // ... el código anterior
-  
-    const newShowPage = {
-      showAdult: quincenaUser?.adultwork?.length >= 1 ? true : false,
-      showAmateur: quincenaUser?.amateur ? true : false,
-      showBonga: quincenaUser?.bonga?.length >= 1 ? true : false,
-      showCam4: quincenaUser?.cam4 ? true : false,
-      showChaturbate: quincenaUser?.chaturbate ? true : false,
-      showDirty: quincenaUser?.dirty ? true : false,
-      showIsLive: quincenaUser?.islive ? true : false,
-      showSender: quincenaUser?.sender ? true : false,
-      showSkype: quincenaUser?.skype ? true : false,
-      showStripchat: quincenaUser?.stripchat ? true : false,
-      showVx: quincenaUser?.vx ? true : false,
-      showXlove: quincenaUser?.xlove ? true : false,
-      showXloveNueva: quincenaUser?.xlovenueva ? true : false,
-    };
-  
-    setShowPage(newShowPage);
-  }, [id, quincenaUser]);
-  
-  const cp = (
-    quincenaUser?.adultwork?.reduce((x, y) => {
-      return x + y.creditos;
-    }, 0) +
-    quincenaUser?.amateur?.dolares +
-    quincenaUser?.bonga?.reduce((x, y) => {
-      return x + y.dolares;
-    }, 0) +
-    (quincenaUser?.cam4?.dolares || 0) +
-    quincenaUser?.chaturbate?.dolares +
-    quincenaUser?.dirty?.plata +
-    quincenaUser?.islive?.euros +
-    quincenaUser?.sender?.euros +
-    quincenaUser?.skype?.dolares +
-    quincenaUser?.stripchat?.dolares +
-    quincenaUser?.vx?.euros +
-    quincenaUser?.xlove?.euros +
-    quincenaUser?.xlovenueva?.euros
-  ).toFixed(2);
-
-  let porcentaje = "";
-  if (cp < quincenaUser?.user?.porcentaje?.meta || cp === "NaN") {
-    porcentaje = quincenaUser?.user?.porcentaje?.inicial;
-  } else {
-    porcentaje = quincenaUser?.user.porcentaje?.final;
-  }
-
+  console.log(user);
   return (
     <div className="contenedor1">
       <div className="contenedor2 ">
         <div>
           <select onChange={handleQuincena} value={ids} className="select">
-            <option value="">
-              Seleccione Una Quincena
-            </option>
+            <option value="">Seleccione Una Quincena</option>
             {quincenas &&
               quincenas?.map((x) => {
                 return (
@@ -179,683 +102,623 @@ const User = () => {
           </select>
         </div>
 
-        {quincenaUser && quincenaUser?.moneda?.nombre ? (
-          <Moneda quincena={quincenaUser?.moneda} />
+        {user && user?.moneda?.nombre ? (
+          <Moneda quincena={user?.moneda} />
         ) : (
           <div className="loade1 m-auto my-2"></div>
         )}
 
-        <div className="grid grid-cols-2"></div>
-        <div className="pb-28">
+        <div className="pb-28 m-2">
           <h1 className=" font-bold text-3xl">
-            {quincenaUser && quincenaUser?.user?.nombre.split(" ")[0]}{" "}
-            {quincenaUser && quincenaUser?.user?.apellido?.split(" ")[0]}
+            {user && user?.nombre?.split(" ")[0]}{" "}
+            {user && user?.apellido?.split(" ")[0]}
           </h1>
-          <div className="grid grid-cols-2 font-bold text-xl mb-2 border-2 border-indigo-500 rounded-2xl bg-indigo-300 max-w-screen-sm mx-auto">
-            <section className=" ">
-              <h1>Total Creditos</h1>
-              <h1>{cp}</h1>
-            </section>
-            <section>
-              <h1>Porcentaje</h1>
-              <h1>{porcentaje} %</h1>
-            </section>
-          </div>
-          <div className="mx-28 bg-indigo-300 p-2 rounded-2xl border-4 border-indigo-400">
-            {/*  //todo Adultregular  */}
 
-            {showPage?.showAdult && (
-              <div
-                className="grid grid-cols-4 border-2 m-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-200"
-                onClick={handleShowDetail}
-              >
-                <section className="sectionPage adult sectionIconPage max-w-fit">
-                  <img src="/AWLogo_on.png" alt="Adult" className="iconPage" />
-                </section>
-                <section className="sectionPage border-l-2">
-                  <h1>Cortes</h1>
-                  <h1>{quincenaUser?.adultwork?.length}</h1>
-                </section>
-                <section className="sectionPage">
-                  <h1>Libras</h1>
-                  <h1>
-                    {quincenaUser?.adultwork
-                      ? "£ " +
-                        Intl.NumberFormat("en-GB").format(
-                          quincenaUser?.adultwork
-                            ?.reduce((x, y) => {
-                              return x + y.creditos;
-                            }, 0)
-                            .toFixed(2)
-                        )
-                      : "No trabajo"}
-                  </h1>
-                </section>
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      (
-                        (quincenaUser?.adultwork?.reduce((x, y) => {
-                          return x + y.creditos;
-                        }, 0) *
-                          porcentaje) /
-                        100
-                      ).toFixed(2) * libra
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
+          <table className="min-w-full divide-y-4 bg-indigo-400 divide-indigo-700 border-4 border-indigo-700">
+            <tbody className=" divide-y-2 divide-indigo-700">
+              <tr className="text-center bd-indigo-600 font-bold ">
+                <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                  Nombre
+                </td>
+                <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                  meta
+                </td>
+                <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                  total creditos
+                </td>
+                <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                  porcentaje
+                </td>
+                <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                  total prestamos
+                </td>
+                <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                  total vitrina
+                </td>
+                <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                  total pesos
+                </td>
+                <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                  saldo
+                </td>
+              </tr>
+              <tr className="bg-indigo-300">
+                <td className="px-6 py-2 whitespace-nowrap">
+                  {user?.porcentaje && <h1>{user.porcentaje?.nombre}</h1>}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap">
+                  {user?.porcentaje && <h1>{user.porcentaje?.meta}</h1>}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap">
+                  {user?.totales && (
+                    <h1>
+                      {Intl.NumberFormat("es-IN", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(user?.totales?.totalCreditos)}
+                    </h1>
+                  )}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap">
+                  {user?.totales && <h1>{user?.totales?.porcentajeFinal} %</h1>}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap">
+                  {user?.totales && (
+                    <h1>
+                      {Intl.NumberFormat("es-CO", {
+                        style: "currency",
+                        currency: "COP",
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(user?.totales?.totalPrestamos)}{" "}
+                    </h1>
+                  )}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap">
+                  {user?.totales && (
+                    <h1>
+                      {Intl.NumberFormat("es-CO", {
+                        style: "currency",
+                        currency: "COP",
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(user?.totales?.totalVitrina)}{" "}
+                    </h1>
+                  )}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap">
+                  {user?.totales && (
+                    <h1>
+                      {Intl.NumberFormat("es-CO", {
+                        style: "currency",
+                        currency: "COP",
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(user?.totales?.totalPesos)}{" "}
+                    </h1>
+                  )}
+                </td>
+                <td
+                  className={
+                    user?.totales?.saldo > 0
+                      ? "saldoPositivo px-6 py-2 whitespace-nowrap"
+                      : "saldoRojo px-6 py-2 whitespace-nowrap"
+                  }
+                >
+                  {user?.totales && (
+                    <h1>
+                      {Intl.NumberFormat("es-CO", {
+                        style: "currency",
+                        currency: "COP",
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }).format(user?.totales?.saldo)}
+                    </h1>
+                  )}
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-            {showDetail && (
-              <div className="grid grid-cols-3">
-                {quincenaUser?.adultwork
-                  ? quincenaUser?.adultwork?.map((corte, x) => {
-                      return (
-                        <div
-                          key={corte?.id}
-                          className=" bg-indigo-200 m-2 p-2 w-max rounded-3xl"
-                        >
-                          <p className=" font-bold">Corte N°{x + 1} Adult </p>
-                          <p className=" ">Fecha Adult: {corte?.fecha} </p>
-                          <p>UserName: {corte?.userName}</p>
-                          <p className=" font-bold">
-                            Libras: £ {(corte?.creditos).toFixed(2)}{" "}
-                          </p>
-                          <p>
-                            Pesos: ${" "}
-                            {Intl.NumberFormat("es-CP").format(
-                              ((corte?.creditos * porcentaje) / 100).toFixed(
-                                2
-                              ) * libra
+          <div className="my-2">
+            <table className="min-w-full divide-y-4 bg-indigo-400 divide-indigo-700 border-4 border-indigo-700">
+              <tbody className=" divide-y-2 divide-indigo-700">
+                <tr className="text-center bd-indigo-600 font-bold ">
+                  <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                    pagina
+                  </td>
+                  <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                    nombre
+                  </td>
+                  <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                    cortes
+                  </td>
+                  <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                    tokens
+                  </td>
+                  <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                    creditos
+                  </td>
+                  <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                    pesos
+                  </td>
+                </tr>
+                {/*//todo adultwork */}
+                {user?.adultwork && (
+                  <tr className="bg-indigo-300" onClick={handleShowDetail}>
+                    {/* logo */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      <img
+                        src="/AWLogo_on.png"
+                        alt="logo adultwork"
+                        className="w-32 h-10"
+                      />
+                    </td>
+                    {/* userName */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.adultwork && (
+                        <h1>{user?.adultwork[0]?.userName}</h1>
+                      )}
+                    </td>
+                    {/* cortes */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.adultwork && (
+                        <h1>{user?.adultwork?.length || 1}</h1>
+                      )}
+                    </td>
+                    {/* creditos */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.adultwork && <h1>Sin tokens</h1>}
+                    </td>
+                    {/* tokens */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.adultwork && (
+                        <h1>
+                          {Intl.NumberFormat("en-GB", {
+                            style: "currency",
+                            currency: "GBP",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(user.adultworkTotal)}
+                        </h1>
+                      )}
+                    </td>
+                    {/* total pesos */}
+                    <td className="px-6 py-2 whitespace-nowrap text-right">
+                      {user?.adultwork && user?.totales?.libra && (
+                        <h1>
+                          {Intl.NumberFormat("es-CO", {
+                            style: "currency",
+                            currency: "COP",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(
+                            ((user?.adultworkTotal *
+                              user?.totales?.porcentajeFinal) /
+                              100) *
+                              user?.totales?.libra
+                          )}
+                        </h1>
+                      )}
+                    </td>
+                  </tr>
+                )}
+                {/*//todo amateur */}
+                {user?.amateur && (
+                  <tr className="bg-indigo-300">
+                    {/* logo */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      <div className="bg-red-600 rounded-xl p-2 h-10 w-32 flex justify-center items-center">
+                        <img src="/Amateur.png" alt="logo Amateur" />
+                      </div>
+                    </td>
+                    {/* userName */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.amateur && <h1>{user?.amateur?.userName}</h1>}
+                    </td>
+                    {/* cortes */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.amateur && <h1>{user?.amateur?.length || 1}</h1>}
+                    </td>
+                    {/* tokens */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.amateur && (
+                        <h1>
+                          {Intl.NumberFormat("es-IN").format(
+                            user?.amateur?.tokens
+                          )}
+                        </h1>
+                      )}
+                    </td>
+                    {/* creditos */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.amateur && (
+                        <h1>
+                          {Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(user.amateur.dolares)}
+                        </h1>
+                      )}
+                    </td>
+                    {/* total pesos */}
+                    <td className="px-6 py-2 whitespace-nowrap text-right">
+                      {user?.amateur && user?.totales?.dolar && (
+                        <h1>
+                          {Intl.NumberFormat("es-CO", {
+                            style: "currency",
+                            currency: "COP",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(
+                            ((user?.amateur?.dolares *
+                              user?.totales?.porcentajeFinal) /
+                              100) *
+                              user?.totales?.dolar
+                          )}
+                        </h1>
+                      )}
+                    </td>
+                  </tr>
+                )}
+                {/*//todo BONGA */}
+                {user?.bonga && (
+                  <tr className="bg-indigo-300" onClick={handleShowDetailBonga}>
+                    {/* logo */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      <img
+                        src="/public/bonga.jpeg"
+                        alt="logo adultwork"
+                        className="w-32 h-10 rounded-xl"
+                      />
+                    </td>
+                    {/* userName */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.bonga && <h1>{user?.bonga[0]?.userName}</h1>}
+                    </td>
+                    {/* cortes */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.bonga && <h1>{user?.bonga?.length || 1}</h1>}
+                    </td>
+                    {/* tokens */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.bonga && <h1>Sin tokens</h1>}
+                    </td>
+                    {/* creditos */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.bonga && (
+                        <h1>
+                          {Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(user.bongaTotal)}
+                        </h1>
+                      )}
+                    </td>
+                    {/* total pesos */}
+                    <td className="px-6 py-2 whitespace-nowrap text-right">
+                      {user?.bonga && user?.totales?.dolar && (
+                        <h1>
+                          {Intl.NumberFormat("es-CO", {
+                            style: "currency",
+                            currency: "COP",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(
+                            ((user?.bongaTotal *
+                              user?.totales?.porcentajeFinal) /
+                              100) *
+                              user?.totales?.dolar
+                          )}
+                        </h1>
+                      )}
+                    </td>
+                  </tr>
+                )}
+                {/*//todo CAM4 */}
+                {user.cam4 && (
+                  <tr className="bg-indigo-300">
+                    {/* logo */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      <div className="bg-black rounded-xl h-10 p-2 w-32 flex justify-center items-center">
+                        <img src="/Cam4.png" alt="logo Cam4" />
+                      </div>
+                    </td>
+                    {/* userName */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.cam4 && <h1>{user?.cam4?.userName}</h1>}
+                    </td>
+                    {/* cortes */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.cam4 && <h1>{user?.cam4?.length || 1}</h1>}
+                    </td>
+                    {/* tokens */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.cam4 && <h1>Sin tokens</h1>}
+                    </td>
+                    {/* creditos */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.cam4 && (
+                        <h1>
+                          {Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(user.cam4.dolares)}
+                        </h1>
+                      )}
+                    </td>
+                    {/* total pesos */}
+                    <td className="px-6 py-2 whitespace-nowrap text-right">
+                      {user?.cam4 && user?.totales?.dolar && (
+                        <h1>
+                          {Intl.NumberFormat("es-CO", {
+                            style: "currency",
+                            currency: "COP",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(
+                            ((user?.cam4?.dolares *
+                              user?.totales?.porcentajeFinal) /
+                              100) *
+                              user?.totales?.dolar
+                          )}
+                        </h1>
+                      )}
+                    </td>
+                  </tr>
+                )}
+                {/* //todo CHATURBATE */}
+                {user?.chaturbate && (
+                  <tr className="bg-indigo-300">
+                    {/* logo */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      <div className=" bg-slate-200 p-2 h-10 w-32 rounded-xl flex justify-center items-center ">
+                        <img src="/Chaturbate_logo.svg" alt="logo Chaturbate" />
+                      </div>
+                    </td>
+                    {/* userName */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.chaturbate && (
+                        <h1>{user?.chaturbate?.userName}</h1>
+                      )}
+                    </td>
+                    {/* cortes */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.chaturbate && (
+                        <h1>{user?.chaturbate?.length || 1}</h1>
+                      )}
+                    </td>
+                    {/* tokens */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.chaturbate && (
+                        <h1>
+                          {Intl.NumberFormat("es-IN").format(
+                            user?.chaturbate?.tokens
+                          )}
+                        </h1>
+                      )}
+                    </td>
+                    {/* creditos */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.chaturbate && (
+                        <h1>
+                          {Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(user.chaturbate.dolares)}
+                        </h1>
+                      )}
+                    </td>
+                    {/* total pesos */}
+                    <td className="px-6 py-2 whitespace-nowrap text-right">
+                      {user?.chaturbate && user?.totales?.dolar && (
+                        <h1>
+                          {Intl.NumberFormat("es-CO", {
+                            style: "currency",
+                            currency: "COP",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(
+                            ((user?.chaturbate?.dolares *
+                              user?.totales?.porcentajeFinal) /
+                              100) *
+                              user?.totales?.dolar
+                          )}
+                        </h1>
+                      )}
+                    </td>
+                  </tr>
+                )}
+                {/* //todo DIRTY */}
+                {user?.dirty && (
+                  <tr className="bg-indigo-300">
+                    {/* logo */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      <div className="bg-stone-900 p-2 rounded-xl h-10 w-32 flex justify-center items-center">
+                        <img src="/mydirty.png" alt="logo Dirty" />
+                      </div>
+                    </td>
+                    {/* userName */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.dirty && <h1>{user?.dirty?.userName}</h1>}
+                    </td>
+                    {/* cortes */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.dirty && <h1>{user?.dirty?.length || 1}</h1>}
+                    </td>
+                    {/* tokens */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.dirty && <h1>Sin tokens</h1>}
+                    </td>
+                    {/* creditos */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.dirty && (
+                        <h1>
+                          {user?.dirty?.moneda.toLowerCase() === "dolar"
+                            ? Intl.NumberFormat("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }).format(user.dirty.plata)
+                            : Intl.NumberFormat("en-EU", {
+                                style: "currency",
+                                currency: "EUR",
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }).format(user.dirty.plata)}
+                        </h1>
+                      )}
+                    </td>
+                    {/* total pesos */}
+                    <td className="px-6 py-2 whitespace-nowrap text-right">
+                      {user?.dirty &&
+                        user?.totales?.dolar &&
+                        user?.totales?.euro && (
+                          <h1>
+                            {Intl.NumberFormat("es-CO", {
+                              style: "currency",
+                              currency: "COP",
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }).format(
+                              ((user?.dirty?.plata *
+                                user?.totales?.porcentajeFinal) /
+                                100) *
+                                (user?.dirty?.moneda.toLowerCase() === "dolar"
+                                  ? user?.totales?.dolar
+                                  : user?.totales?.euro)
                             )}
-                          </p>
-                        </div>
-                      );
-                    })
-                  : null}
-              </div>
-            )}
-
-            {/* //todo amateur   */}
-
-            {showPage?.showAmateur && (
-              <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-400">
-                <section className="sectionPage sectionIconPage bg-red-600 max-w-fit">
-                  <img src="/Amateur.png" alt="Amateur" className="iconPage" />
-                </section>
-                <section className="sectionPage border-l-2">
-                  <h1>Tokens</h1>
-                  <h1>
-                    {Intl.NumberFormat().format(
-                      parseFloat(quincenaUser?.amateur?.tokens)
-                    )}
-                  </h1>
-                </section>
-
-                <section className="sectionPage">
-                  <h1>Dolares</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("en-US").format(
-                      quincenaUser?.amateur?.dolares
-                    )}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      ((quincenaUser?.amateur?.dolares * porcentaje) / 100) *
-                        dolar
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-
-            {/* //todo Bonga */}
-
-            {showPage?.showBonga && (
-              <div
-                className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-200"
-                onClick={handleShowDetailBonga}
-              >
-                <section className="sectionPage sectionIconPage max-w-fit">
-                  <img src="/bonga.jpeg" alt="bonga" className="iconPage" />
-                </section>
-
-                <section className="sectionPage border-l-2">
-                  <h1>Cortes</h1>
-                  <h1>{quincenaUser?.bonga?.length}</h1>
-                </section>
-
-                <section className="sectionPage">
-                  <h1>Dolares</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("en-US").format(
-                      quincenaUser?.bonga?.reduce((x, y) => {
-                        return x + y.dolares;
-                      }, 0)
-                    )}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      ((quincenaUser?.bonga?.reduce((x, y) => {
-                        return x + y.dolares;
-                      }, 0) *
-                        porcentaje) /
-                        100) *
-                        dolar
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-
-            {showDetailBonga && (
-              <div className="grid grid-cols-3">
-                {quincenaUser?.bonga
-                  ? quincenaUser?.bonga?.map((corte, x) => {
-                      return (
-                        <div
-                          key={corte?.id}
-                          className=" bg-indigo-200 m-2 p-2 w-max rounded-3xl"
-                        >
-                          <p className=" font-bold">Corte N°{x + 1} Bonga </p>
-                          <p className=" ">Fecha Bonga: {corte?.fecha} </p>
-                          <p className=" font-bold">
-                            Dolares: $ {corte?.dolares}{" "}
-                          </p>
-                          <p>
-                            Pesos: ${" "}
-                            {Intl.NumberFormat("es-CP").format(
-                              ((corte?.dolares * porcentaje) / 100) * dolar
-                            )}
-                          </p>
-                        </div>
-                      );
-                    })
-                  : null}
-              </div>
-            )}
-
-            {/* //todo Cam4  */}
-
-            {showPage?.showCam4 && (
-              <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-400">
-                <section className="sectionPage sectionIconPage bg-black max-w-fit">
-                  <img src="/Cam4.png" alt="Cam4" className="iconPage" />
-                </section>
-                <section className="sectionPage"></section>
-                <section className="sectionPage">
-                  <h1>Dolares</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("en-US").format(
-                      quincenaUser?.cam4?.dolares
-                    )}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      ((quincenaUser?.cam4?.dolares * porcentaje) / 100) * dolar
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-            {/* //todo Chaturbate  */}
-
-            {showPage?.showChaturbate && (
-              <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-200">
-                <section className="sectionPage sectionIconPage bg-slate-200 max-w-fit">
-                  <img
-                    src="/Chaturbate_logo.svg"
-                    alt="Chaturbate"
-                    className="iconPage"
-                  />
-                </section>
-
-                <section className="sectionPage border-l-2">
-                  <h1>Tokens</h1>
-                  <h1>{quincenaUser?.chaturbate?.tokens}</h1>
-                </section>
-
-                <section className="sectionPage">
-                  <h1>Dolares</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("en-US").format(
-                      quincenaUser?.chaturbate?.dolares?.toFixed(2)
-                    )}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      ((quincenaUser?.chaturbate?.dolares * porcentaje) / 100) *
-                        dolar
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-            {/* //todo dirty  */}
-
-            {showPage?.showDirty && (
-              <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-400">
-                <section className="sectionPage sectionIconPage bg-stone-900 max-w-fit">
-                  <img src="/mydirty.png" alt="Dirty" className="iconPage" />
-                </section>
-
-                <section className="sectionPage">
-                  {/* <h1>Usuarios</h1>*/}
-                  <h1>{}</h1>
-                </section>
-
-                <section className="sectionPage">
-                  <h1>
-                    {quincenaUser?.dirty?.moneda === "dolar"
-                      ? "Dolares"
-                      : "Euros"}
-                  </h1>
-                  <h1>
-                    {quincenaUser?.dirty?.moneda === "dolar" ? "$" : "€"}{" "}
-                    {Intl.NumberFormat("en-US").format(
-                      quincenaUser?.dirty?.plata
-                    )}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      quincenaUser?.dirty?.moneda === "dolar"
-                        ? ((quincenaUser?.dirty?.plata * porcentaje) / 100) *
-                            dolar
-                        : ((quincenaUser?.dirty?.plata * porcentaje) / 100) *
-                            euro
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-
-            {/* //todo islive  */}
-
-            {showPage?.showIsLive && (
-              <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-200">
-                <section className="sectionPage sectionIconPage max-w-fit">
-                  <img
-                    src="/clubIsLive.png"
-                    alt="Islive"
-                    className="iconPage"
-                  />
-                </section>
-                <section className="sectionPage">
-                  {/* <h1>Usuarios</h1>*/}
-                  <h1>{}</h1>
-                </section>
-
-                <section className="sectionPage">
-                  <h1>Euros</h1>
-                  <h1>
-                    €{" "}
-                    {Intl.NumberFormat("en-US").format(
-                      quincenaUser?.islive?.euros
-                    )}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      ((quincenaUser?.islive?.euros * porcentaje) / 100) * euro
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-            {/* //todo Sender   */}
-
-            {showPage.showSender && (
-              <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-400">
-                <section className="sectionPage sectionIconPage bg-black max-w-fit">
-                  <img
-                    src="/livestrip.webp"
-                    alt="Sender"
-                    className="iconPage"
-                  />
-                </section>
-
-                <section className="sectionPage">
-                  {/* <h1>Usuarios</h1>*/}
-                  <h1>{}</h1>
-                </section>
-
-                <section className="sectionPage">
-                  <h1>Euros</h1>
-                  <h1>
-                    €{" "}
-                    {Intl.NumberFormat("en-ES").format(
-                      (quincenaUser?.sender?.euros * porcentaje) / 100
-                    )}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      ((quincenaUser?.sender?.euros * porcentaje) / 100) * euro
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-            {/* //todo Skype    */}
-
-            {showPage.showSkype && (
-              <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-200">
-                <section className="sectionPage sectionIconPage bg-white max-w-fit">
-                  <img src="/Skype.webp" alt="Skype" className="iconPage" />
-                </section>
-
-                <section className="sectionPage">
-                  {/* <h1>Usuarios</h1>*/}
-                  <h1>{}</h1>
-                </section>
-
-                <section className="sectionPage">
-                  <h1>Dolares</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("en-US").format(
-                      quincenaUser?.skype?.dolares
-                    )}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      ((quincenaUser?.skype?.dolares * porcentaje) / 100) *
-                        dolar
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-            {/* //todo Stripchat    */}
-
-            {showPage.showStripchat && (
-              <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-400">
-                <section className="sectionPage sectionIconPage bg-white max-w-fit">
-                  <img
-                    src="/stripchat.png"
-                    alt="Stripchat"
-                    className="w-14 mx-7"
-                  />
-                </section>
-
-                <section className="sectionPage border-l-2">
-                  <h1>tokens</h1>
-                  <h1>{quincenaUser?.stripchat?.tokens}</h1>
-                </section>
-
-                <section className="sectionPage">
-                  <h1>Dolares</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("en-US").format(
-                      quincenaUser?.stripchat?.dolares
-                    )}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    ${" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      ((quincenaUser?.stripchat?.dolares * porcentaje) / 100) *
-                        dolar
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-            {/* //todo Vx    */}
-
-            {showPage.showVx && (
-              <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-200">
-                <section className="sectionPage sectionIconPage bg-black max-w-fit">
-                  <img src="/VxMaster.svg" alt="Vx" className="iconPage" />
-                </section>
-                <section className="sectionPage">
-                  {/* <h1>Usuarios</h1>*/}
-                  <h1>{}</h1>
-                </section>
-
-                <section className="sectionPage">
-                  <h1>Euros</h1>
-                  <h1>
-                    €{" "}
-                    {Intl.NumberFormat("en-US").format(quincenaUser?.vx?.euros)}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    €{" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      ((quincenaUser?.vx?.euros * porcentaje) / 100) * euro
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-            {/* //todo xlove    */}
-            {showPage.showXlove && (
-              <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-400">
-                <section className="sectionPage sectionIconPage bg-red-800 max-w-fit">
-                  <img src="/xlove.png" alt="Xlove" className="iconPage" />
-                </section>
-
-                <section className="sectionPage">
-                  {/* <h1>Usuarios</h1>*/}
-                  <h1>{}</h1>
-                </section>
-
-                <section className="sectionPage">
-                  <h1>Euro</h1>
-                  <h1>
-                    €{" "}
-                    {Intl.NumberFormat("en-US").format(
-                      quincenaUser?.xlove?.euros
-                    )}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    €{" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      ((quincenaUser?.xlove?.euros * porcentaje) / 100) * euro
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-            {/* //todo xlove Nueva   */}
-            {showPage.showXloveNueva && (
-              <div className="grid grid-cols-4 border-2 border-indigo-500 mx-4 my-1 max-w-screen-lg bg-indigo-200">
-                <section className="sectionPage sectionIconPage bg-red-800 max-w-fit">
-                  <img src="/xlove.png" alt="Xlove" className="iconPage" />
-                </section>
-                <section className="sectionPage">
-                  {/* <h1>Usuarios</h1>*/}
-                  <h1>{}</h1>
-                </section>
-
-                <section className="sectionPage">
-                  <h1>Euro</h1>
-                  <h1>
-                    €{" "}
-                    {Intl.NumberFormat("en-US").format(
-                      quincenaUser?.xlovenueva?.euros
-                    )}
-                  </h1>
-                </section>
-
-                <section className="">
-                  <h1>Total Pesos</h1>
-                  <h1>
-                    €{" "}
-                    {Intl.NumberFormat("es-CP").format(
-                      ((quincenaUser?.xlovenueva?.euros * porcentaje) / 100) *
-                        euro
-                    )}
-                  </h1>
-                </section>
-              </div>
-            )}
-          </div>
-
-          {/* //! TOTALES */}
-          <div className="fixed bottom-1 font-bold text-lg grid grid-cols-7 border-2 border-indigo-500 my-1 min-w-full  bg-sky-400">
-            <section className="sectionPage sectionIconPage ">
-              {/* <img src="/xlove.png" alt="Xlove" className="iconPage" /> */}
-              <h1>TOTALES</h1>
-            </section>
-            <section className="sectionPage">
-              <h1 className="border-b-2 border-indigo-500">Prestamos</h1>
-              <h1>{123456789}</h1>
-            </section>
-            <section className="sectionPage">
-              <h1 className="border-b-2 border-indigo-500">Compras</h1>
-              <h1>{123456789}</h1>
-            </section>
-
-            <section className="sectionPage">
-              <h1 className="border-b-2 border-indigo-500">Total Libras</h1>
-              <h1>
-                £{" "}
-                {Intl.NumberFormat("en-GB").format(
-                  quincenaUser?.adultwork
-                    ?.reduce((x, y) => {
-                      return x + y.creditos;
-                    }, 0)
-                    .toFixed(2)
+                          </h1>
+                        )}
+                    </td>
+                  </tr>
                 )}
-              </h1>
-            </section>
-            <section className="sectionPage">
-              <h1 className="border-b-2 border-indigo-500">Total Euro</h1>
-              <h1>
-                €{" "}
-                {Intl.NumberFormat("es-ES").format(
-                  (
-                    (quincenaUser?.dirty?.moneda === "dolar"
-                      ? 0
-                      : quincenaUser?.dirty?.plata) +
-                    quincenaUser?.islive?.euros +
-                    quincenaUser?.sender?.euros +
-                    quincenaUser?.vx?.euros +
-                    quincenaUser?.xlove?.euros +
-                    quincenaUser?.xlovenueva?.euros
-                  ).toFixed(2)
+                {/* //todo ISLIVE */}
+                {user?.islive && (
+                  <tr className="bg-indigo-300">
+                    {/* logo */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      <img
+                        src="/clubIsLive.png"
+                        alt="logo Club Islive"
+                        className="w-32 h-10 rounded-xl"
+                      />
+                    </td>
+                    {/* userName */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.islive && <h1>{user?.islive?.codigo}</h1>}
+                    </td>
+                    {/* cortes */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.islive && <h1>{user?.islive?.length || 1}</h1>}
+                    </td>
+                    {/* tokens */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.islive && <h1>Sin tokens</h1>}
+                    </td>
+                    {/* creditos */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.islive && (
+                        <h1>
+                          {Intl.NumberFormat("en-EU", {
+                            style: "currency",
+                            currency: "EUR",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(user.islive.euros)}
+                        </h1>
+                      )}
+                    </td>
+                    {/* total pesos */}
+                    <td className="px-6 py-2 whitespace-nowrap text-right">
+                      {user?.islive && user?.totales?.euro && (
+                        <h1>
+                          {Intl.NumberFormat("es-CO", {
+                            style: "currency",
+                            currency: "COP",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(
+                            ((user?.islive?.euros *
+                              user?.totales?.porcentajeFinal) /
+                              100) *
+                              user?.totales?.euro
+                          )}
+                        </h1>
+                      )}
+                    </td>
+                  </tr>
                 )}
-              </h1>
-            </section>
-            <section className="sectionPage">
-              <h1 className="border-b-2 border-indigo-500">Total Dolares</h1>
-              <h1>
-                $
-                {Intl.NumberFormat("en-US").format(
-                  (
-                    quincenaUser?.amateur?.dolares +
-                    quincenaUser?.bonga?.reduce((x, y) => {
-                      return x + y.dolares;
-                    }, 0) +
-                    quincenaUser?.cam4?.dolares +
-                    quincenaUser?.chaturbate?.dolares +
-                    (quincenaUser?.dirty?.moneda === "dolar"
-                      ? quincenaUser?.dirty?.plata
-                      : 0) +
-                    quincenaUser?.skype?.dolares +
-                    quincenaUser?.stripchat?.dolares
-                  ).toFixed(2)
+                {/* //todo MONDO */}
+                {user?.mondo && (
+                  <tr className="bg-indigo-300">
+                    {/* logo */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      <div className="bg-black p-2 rounded-xl h-10 w-32 flex justify-center items-center">
+                        <img
+                          src="/logo-mondocamgirls.svg"
+                          alt="logo mondo cam girls"
+                          className=" rounded-xl h-20"
+                        />
+                      </div>
+                    </td>
+                    {/* userName */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.mondo && <h1>{user?.mondo?.userName}</h1>}
+                    </td>
+                    {/* cortes */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.mondo && <h1>{user?.mondo?.length || 1}</h1>}
+                    </td>
+                    {/* tokens */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.mondo && <h1>Sin tokens</h1>}
+                    </td>
+                    {/* creditos */}
+                    <td className="px-6 py-2 whitespace-nowrap">
+                      {user?.mondo && (
+                        <h1>
+                          {Intl.NumberFormat("en-EU", {
+                            style: "currency",
+                            currency: "EUR",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(user.mondo.euros)}
+                        </h1>
+                      )}
+                    </td>
+                    {/* total pesos */}
+                    <td className="px-6 py-2 whitespace-nowrap text-right">
+                      {user?.mondo && user?.totales?.euro && (
+                        <h1>
+                          {Intl.NumberFormat("es-CO", {
+                            style: "currency",
+                            currency: "COP",
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          }).format(
+                            ((user?.mondo?.euros *
+                              user?.totales?.porcentajeFinal) /
+                              100) *
+                              user?.totales?.euro
+                          )}
+                        </h1>
+                      )}
+                    </td>
+                  </tr>
                 )}
-              </h1>
-            </section>
-
-            <section className=" min-w-fit">
-              <h1 className="border-b-2 border-indigo-500">Total Pesos</h1>
-              <h1>
-                ${" "}
-                {Intl.NumberFormat("es-CP").format(
-                  (((quincenaUser?.amateur?.dolares +
-                    quincenaUser?.bonga?.reduce((x, y) => {
-                      return x + y.dolares;
-                    }, 0) +
-                    quincenaUser?.cam4?.dolares +
-                    quincenaUser?.chaturbate?.dolares +
-                    (quincenaUser?.dirty?.moneda === "dolar"
-                      ? quincenaUser?.dirty?.plata
-                      : 0) +
-                    quincenaUser?.skype?.dolares +
-                    quincenaUser?.stripchat?.dolares) *
-                    porcentaje) /
-                    100) *
-                    dolar +
-                    ((((quincenaUser?.dirty?.moneda === "dolar"
-                      ? 0
-                      : quincenaUser?.dirty?.plata) +
-                      quincenaUser?.islive?.euros +
-                      quincenaUser?.sender?.euros +
-                      quincenaUser?.vx?.euros +
-                      quincenaUser?.xlove?.euros +
-                      quincenaUser?.xlovenueva?.euros) *
-                      porcentaje) /
-                      100) *
-                      euro +
-                    ((quincenaUser?.adultwork?.reduce((x, y) => {
-                      return x + y.creditos;
-                    }, 0) *
-                      porcentaje) /
-                      100) *
-                      libra
-                )}
-              </h1>
-            </section>
+                
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

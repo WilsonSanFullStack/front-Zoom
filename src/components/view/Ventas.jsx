@@ -151,7 +151,7 @@ const Ventas = () => {
     setVenta([]);
     setCantidades({});
     setCuotas({});
-  }, [userId]);
+  }, [userId, quincenaId]);
 
   console.log(venta);
   const handleSubmit = () => {
@@ -170,6 +170,34 @@ const Ventas = () => {
       <div className="contenedorVentas2 overflow-x-auto">
         <div className="divTitulo">
           <h1 className="titulo">VENTAS DE PRODUCTOS</h1>
+        </div>
+        <div className="text-center  p-4">
+          <h1 className="text-2xl text-red-500">ADVERTENCIAS:</h1>
+          <lu className='text-justify'>
+            <li>
+              El numero de cuotas posible para un producto esta
+              sujeto a el numero de quincenas registradas al momento de la venta
+              del producto.
+            </li>
+            <li>
+              Igualmente la cantidad posible de productos esta sujeta a la
+              cantidad de existencias del producto en el momento de la venta.
+            </li>
+            <li>
+              Para que los productos disponibles salgan se debe poner la
+              quincena de la venta y el usuario al cual se le va a vender el
+              producto.
+            </li>
+            <li>
+              si cambia de quincena se borrara los productos selecionado
+              igualmente si cambia de usuario se borraran los productos
+              seleccionados.
+            </li>
+            <li>
+              el valor de cada producto estara sujeto al valor de la ultima
+              compra realizada.
+            </li>
+          </lu>
         </div>
 
         {quincenaId && userId && (
