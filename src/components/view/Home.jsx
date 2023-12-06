@@ -504,6 +504,15 @@ const Home = () => {
                             </section>
                           )}
 
+                          {x?.tripleSiete && (
+                            <section className="sectionPage1">
+                              <h1>777</h1>
+                              <section>
+                                <h1>Dolares</h1> <h2>{x?.tripleSiete?.dolares}</h2>
+                              </section>
+                            </section>
+                          )}
+                          
                           {x?.vx && (
                             <section className="sectionPage1">
                               <h1>Vx</h1>
@@ -526,17 +535,6 @@ const Home = () => {
                             </section>
                           )}
 
-                          {x?.siete && (
-                            <section className="sectionPage1">
-                              <h1>777</h1>
-                              <section>
-                                <h1>Euros</h1> <h2>{x?.siete?.euros}</h2>
-                              </section>
-                              <section>
-                                <h1>Fecha</h1> <h2>{x?.xlovenueva?.fecha}</h2>
-                              </section>
-                            </section>
-                          )}
                           {x?.prestamos && (
                             <section
                               className="sectionPage1"
@@ -587,6 +585,7 @@ const Home = () => {
 
                       {showDetail[x?.id] && (
                         <div className="overflow-x-auto px-2 py-2">
+                          <h1 className="text-xl font-bold m-2">CORTES ADULTWORK</h1>
                           <table className="min-w-full divide-y-4 divide-indigo-700 border-4 border-indigo-700">
                             <thead className="bg-indigo-600">
                               <tr>
@@ -654,6 +653,7 @@ const Home = () => {
 
                       {showPrestamos[x?.id] && (
                         <div className="overflow-x-auto px-2 py-2">
+                          <h1 className="text-xl font-bold m-2">PRESTAMOS DETALLADOS</h1>
                           <table className="min-w-full divide-y-4 divide-indigo-700 border-4 border-indigo-700">
                             <thead className="bg-indigo-600">
                               <tr>
@@ -717,6 +717,7 @@ const Home = () => {
                       )}
                       {showVitrina[x?.id] && (
                         <div className="overflow-x-auto px-2 py-2">
+                          <h1 className="text-xl font-bold m-2">VITRINA DETALLADO</h1>
                           <table className="min-w-full divide-y-4 divide-indigo-700 border-4 border-indigo-700">
                             <thead className="bg-indigo-600">
                               <tr>
