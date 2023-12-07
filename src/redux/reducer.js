@@ -59,6 +59,8 @@ import {
   QUINCENAUSERS,
   QUINCENAHOME,
   DARKMODE,
+  ROJOS,
+  GETROJOS,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -94,6 +96,7 @@ const initialState = {
   porcentaje: {},
   ubicaciones: [],
   ubicacion: {},
+  rojo: [],
   perror: "",
   gerror: "",
   darkMode: "",
@@ -461,6 +464,18 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         quincenaHome: action.payload,
+      };
+
+    case ROJOS:
+      return {
+        ...state,
+        rojo: action.payload,
+      };
+
+    case GETROJOS:
+      return {
+        ...state,
+        rojo: action.payload,
       };
 
     default:

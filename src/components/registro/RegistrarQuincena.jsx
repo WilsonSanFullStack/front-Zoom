@@ -48,8 +48,11 @@ const RegistrarQuincena = () => {
       const monthNameFinal = new Intl.DateTimeFormat("es-ES", options).format(
         fechaFinal
       );
+      const yearLastTwoDigits = year.toString().slice(-2);
 
-      const nombreQuincena = `${monthNameInicio}-${day === 2 ? "1" : "2"}`;
+      const nombreQuincena = `${monthNameInicio}-${
+        day === 2 ? "1" : "2"
+      }-${yearLastTwoDigits}`;
 
       // Verificar si la nueva quincena ya existe en la lista
       const quincenaExistente = quincenas.some(
@@ -100,7 +103,7 @@ const RegistrarQuincena = () => {
       console.log(error);
     }
   };
-console.log(quincenas)
+  console.log(quincenas);
   return (
     <div className="contenedor1">
       <div className="contenedor2">
@@ -143,7 +146,11 @@ console.log(quincenas)
             {error && <p className="text-red-500 text-sm">{error}</p>}
           </section>
           <section className="flex items-center justify-center">
-            <button className="btn-w w-auto font-bold text-4xl" type="submit" disabled={!!error}>
+            <button
+              className="btn-w w-auto font-bold text-4xl"
+              type="submit"
+              disabled={!!error}
+            >
               <BiSend />
             </button>
           </section>

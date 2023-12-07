@@ -1,3 +1,9 @@
+
+
+
+//todo funcionalidad
+export const ROJOS = 'ROJOS'
+export const GETROJOS = 'GETROJOS'
 //todo funcionalidad
 export const DARKMODE = "DARKMODE";
 //todo funcionalidad

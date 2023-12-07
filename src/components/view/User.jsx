@@ -17,9 +17,9 @@ const User = () => {
 
   const [ids, setIds] = useState("");
 
-  // useEffect(() => {
-  //   dispatch(resetError());
-  // }, [ids]);
+  useEffect(() => {
+    dispatch(resetError());
+  }, [ids]);
 
   useEffect(() => {
     dispatch(getAllQuincena());
@@ -29,40 +29,40 @@ const User = () => {
     ids || ids !== "" ? dispatch(searchUserByFortnight(ids, id)) : "";
   }, [ids]);
 
-  // useEffect(() => {
-  //   // Encontrar la quincena que coincide con la fecha actual
-  //   const quincenaActual = quincenas.find((q) => {
-  //     const quincenaInicio = q?.inicia;
-  //     const partesFechaInicio = quincenaInicio.split("/");
+  useEffect(() => {
+    // Encontrar la quincena que coincide con la fecha actual
+    const quincenaActual = quincenas.find((q) => {
+      const quincenaInicio = q?.inicia;
+      const partesFechaInicio = quincenaInicio.split("/");
 
-  //     // Obtén el día, el mes y el año como números
-  //     const diaInicio = parseInt(partesFechaInicio[0], 10);
-  //     const mesInicio = parseInt(partesFechaInicio[1], 10) - 1; // Restamos 1 al mes ya que en JavaScript los meses van de 0 a 11
-  //     const añoInicio = parseInt(partesFechaInicio[2], 10);
+      // Obtén el día, el mes y el año como números
+      const diaInicio = parseInt(partesFechaInicio[0], 10);
+      const mesInicio = parseInt(partesFechaInicio[1], 10) - 1; // Restamos 1 al mes ya que en JavaScript los meses van de 0 a 11
+      const añoInicio = parseInt(partesFechaInicio[2], 10);
 
-  //     // Crea un objeto de fecha
-  //     const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
+      // Crea un objeto de fecha
+      const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
 
-  //     const quincenaFinal = q?.final;
-  //     const partesFechaFinal = quincenaFinal.split("/");
+      const quincenaFinal = q?.final;
+      const partesFechaFinal = quincenaFinal.split("/");
 
-  //     // Obtén el día, el mes y el año como números
-  //     const diaFinal = parseInt(partesFechaFinal[0], 10);
-  //     const mesFinal = parseInt(partesFechaFinal[1], 10) - 1; // Restamos 1 al mes ya que en JavaScript los meses van de 0 a 11
-  //     const añoFinal = parseInt(partesFechaFinal[2], 10);
+      // Obtén el día, el mes y el año como números
+      const diaFinal = parseInt(partesFechaFinal[0], 10);
+      const mesFinal = parseInt(partesFechaFinal[1], 10) - 1; // Restamos 1 al mes ya que en JavaScript los meses van de 0 a 11
+      const añoFinal = parseInt(partesFechaFinal[2], 10);
 
-  //     // Crea un objeto de fecha
-  //     const fechaFinal = new Date(añoFinal, mesFinal, diaFinal, 23, 59, 59);
+      // Crea un objeto de fecha
+      const fechaFinal = new Date(añoFinal, mesFinal, diaFinal, 23, 59, 59);
 
-  //     const fechaActual = new Date();
+      const fechaActual = new Date();
 
-  //     return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
-  //   });
+      return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
+    });
 
-  //   if (quincenaActual) {
-  //     setIds(quincenaActual?.id); // Establecer la quincena actual como valor predeterminado en el selector
-  //   }
-  // }, [quincenas]);
+    if (quincenaActual) {
+      setIds(quincenaActual?.id); // Establecer la quincena actual como valor predeterminado en el selector
+    }
+  }, [quincenas]);
 
   const handleQuincena = (event) => {
     setIds(event.target.value);
@@ -918,7 +918,10 @@ const User = () => {
                       {user?.sender && (
                         <h1>
                           {Intl.NumberFormat("es-IN").format(
-                            user?.sender?.coins - user?.senderAnterior?.coins
+                            user?.senderAnterior?.coins
+                              ? user?.sender?.coins -
+                                  user?.senderAnterior?.coins
+                              : user?.sender?.coins
                           )}
                         </h1>
                       )}
@@ -933,7 +936,10 @@ const User = () => {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           }).format(
-                            user?.sender?.euros - user?.senderAnterior?.euros
+                            user?.senderAnterior?.euros
+                              ? user?.sender?.euros -
+                                  user?.senderAnterior?.euros
+                              : user?.sender?.euros
                           )}
                         </h1>
                       )}
@@ -948,8 +954,10 @@ const User = () => {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           }).format(
-                            (((user?.sender?.euros -
-                              user?.senderAnterior?.euros) *
+                            (((user?.senderAnterior?.euros
+                              ? user?.sender?.euros -
+                                user?.senderAnterior?.euros
+                              : user?.sender?.euros) *
                               user?.totales?.porcentajeFinal) /
                               100) *
                               user?.totales?.euro

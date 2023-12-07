@@ -130,8 +130,8 @@ function Adultparcial() {
         </div>
       </div>
       <div className="flex justify-center">
-        <div className="mt-8 font-bold m-10 px-20 py-3 bg-fuchsia-300 max-w-md ">
-          <h2 className="f text-2xl text-center text-fuchsia-700">
+        <div className="contenedor4">
+          <h2 className="titulo">
             Creditos a subir
           </h2>
           {copad?.map((x, i) => {
@@ -149,8 +149,8 @@ function Adultparcial() {
           })}
         </div>
 
-        <div className="mt-8 font-bold m-10 px-6 py-3 bg-fuchsia-300 max-w-xl">
-          <h2 className="f text-2xl text-center text-fuchsia-700">
+        <div className="contenedor4">
+          <h2 className="titulo">
             Creditos a subidos
           </h2>
           {!errors && (
