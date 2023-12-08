@@ -161,7 +161,7 @@ const Home = () => {
       );
 
       const modelosEnRojo = quincenaHome?.modelos?.filter(
-        (modelo) => modelo?.totales?.saldo <= 0
+        (modelo) => modelo?.totales?.saldo < 0
       );
       const modeloEnRojo = modelosEnRojo?.map((modelo) => ({
         id: modelo.id,

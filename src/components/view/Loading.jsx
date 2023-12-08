@@ -23,8 +23,9 @@ const Loading = () => {
     }
     const checkUser = async () => {
       try {
-       await dispatch(checkUserById(id));
-       await dispatch(getUserId(id));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await dispatch(checkUserById(id));
+        await dispatch(getUserId(id));
         if (init !== "") {
           if (init === true) {
             if (users.admin === true) {
@@ -36,10 +37,7 @@ const Loading = () => {
             return navigate("/registro");
           }
         }
-      } catch (error) {
-        
-      }
-      
+      } catch (error) {}
     };
     checkUser();
   }, [init, user, users]);
