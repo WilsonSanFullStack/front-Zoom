@@ -250,7 +250,7 @@ const RegisterUser = () => {
         setConfirmacion("SE ENVIO LA SOLICITUD.");
         setTimeout(() => {
           setConfirmacion("");
-          navigate("/loader");
+          navigate("/");
         }, 2000);
         setInput({
           nombre: "",
