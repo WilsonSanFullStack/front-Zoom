@@ -23,7 +23,7 @@ const Loading = () => {
     }
     const checkUser = async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         await dispatch(checkUserById(id));
         await dispatch(getUserId(id));
         if (init !== "") {
