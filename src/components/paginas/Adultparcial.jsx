@@ -78,7 +78,9 @@ function Adultparcial() {
         while ((match = regex.exec(event.target.value)) !== null) {
           const user = match[1];
           const creditos = parseFloat(match[2]);
-          extractedData.push({ user, creditos, parcial: true, quincena: id, });
+          if (creditos !== 0) {
+            extractedData.push({ user, creditos, parcial: true, quincena: id });
+          }
           extractedData.sort((a, b) => {
             return a.user.localeCompare(b.user);
           });
@@ -138,6 +140,7 @@ function Adultparcial() {
             return (
               <div key={i}>
                 <h3 className="border-b-2 border-black">
+                  <p>{i+1}</p>
                   <p>Nombre: {x.user}</p>
                   <p>Parcial: {x.parcial}</p>
                   <p>Creditos: {x.creditos}</p>

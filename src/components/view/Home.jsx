@@ -175,7 +175,7 @@ const Home = () => {
       }));
       setRojo(modeloEnRojo);
     }
-  }, [id, quincenaHome.modelos]);
+  }, [id, quincenaHome?.modelos]);
 
   const handleQuincena = (event) => {
     setId(event.target.value);
@@ -270,7 +270,7 @@ const Home = () => {
 
   const handleRojo = () => {
     if (rojo.length >= 1) {
-      dispatch(postRojo(rojo))
+      dispatch(postRojo(rojo));
       setRojo([]);
     }
   };
@@ -279,7 +279,6 @@ const Home = () => {
   const handleRojos = () => {
     showRojos ? setShowRojos(false) : setShowRojos(true);
   };
-  console.log(rojo);
   return (
     <div className="contenedor1">
       <div className="contenedor2">
@@ -299,8 +298,8 @@ const Home = () => {
           </select>
         </div>
 
-        {quincenaHome && quincenaHome.moneda ? (
-          <Moneda quincena={quincenaHome.moneda} />
+        {quincenaHome && quincenaHome?.moneda ? (
+          <Moneda quincena={quincenaHome?.moneda} />
         ) : (
           <div className="loade1 m-auto my-2"></div>
         )}
@@ -351,11 +350,14 @@ const Home = () => {
                 })}
               </tbody>
             </table>
-            <section className="flex items-center justify-center">
-              <button className="btn-w w-auto font-bold text-4xl" onClick={handleRojo}>
+            {rojo?.length > 0 && (<section className="flex items-center justify-center">
+              <button
+                className="btn-w w-auto font-bold text-4xl"
+                onClick={handleRojo}
+              >
                 <BiSend />
               </button>
-            </section>
+            </section>)}
           </div>
         )}
 
@@ -368,7 +370,7 @@ const Home = () => {
             <div>
               {quincenaHome?.modelos?.map((x) => {
                 if (
-                  x?.userNamePage.length ||
+                  x?.userNamePage?.length ||
                   x?.totales?.totalPrestamos > 0 ||
                   x?.totales?.totalVitrina > 0
                 )
@@ -535,11 +537,16 @@ const Home = () => {
                               onClick={() => handleShowDetail(x?.id)}
                             >
                               <h1>Adultwork</h1>
-                              <h1>Libras</h1>{" "}
+                              <h1>Libras</h1>
                               <h2>
-                                {parseFloat(
-                                  x?.adultworkTotal?.creditos
-                                ).toFixed(2)}
+                                {Intl.NumberFormat("en-GB", {
+                                  style: "currency",
+                                  currency: "GBP",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(
+                                  parseFloat(x?.adultworkTotal?.creditos)
+                                )}
                               </h2>
                             </section>
                           )}
@@ -549,11 +556,24 @@ const Home = () => {
                               <h1>Amateur</h1>
                               <section className="sectionPage2">
                                 <section>
-                                  <h1>dolares</h1>{" "}
-                                  <h2>{x?.amateur?.dolares}</h2>
+                                  <h1>dolares</h1>
+                                  <h2>
+                                    {Intl.NumberFormat("en-US", {
+                                      style: "currency",
+                                      currency: "USD",
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(x?.amateur?.dolares)}
+                                  </h2>
                                 </section>
                                 <section>
-                                  <h1>Tokens</h1> <h2>{x?.amateur?.tokens}</h2>
+                                  <h1>Tokens</h1>
+                                  <h2>
+                                    {Intl.NumberFormat("es-IN", {
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(x?.amateur?.tokens)}
+                                  </h2>
                                 </section>
                               </section>
                             </section>
@@ -562,15 +582,30 @@ const Home = () => {
                           {x?.bongaTotal && (
                             <section className="sectionPage1">
                               <h1>Bonga</h1>
-                              <h1>Dolares</h1>{" "}
-                              <h2>{x?.bongaTotal?.dolares.toFixed(2)}</h2>
+                              <h1>Dolares</h1>
+                              <h2>
+                                {Intl.NumberFormat("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(x?.bongaTotal?.dolares)}
+                              </h2>
                             </section>
                           )}
 
                           {x?.cam4 && (
                             <section className="sectionPage1">
                               <h1>Cam4</h1>
-                              <h1>Dolares</h1> <h2>{x?.cam4?.dolares}</h2>
+                              <h1>Dolares</h1>
+                              <h2>
+                                {Intl.NumberFormat("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(x?.cam4?.dolares)}
+                              </h2>
                             </section>
                           )}
 
@@ -579,12 +614,24 @@ const Home = () => {
                               <h1>Chaturbate</h1>
                               <section className="sectionPage2">
                                 <section>
-                                  <h1>Tokens </h1>{" "}
-                                  <h2>{x?.chaturbate?.tokens}</h2>
+                                  <h1>Tokens </h1>
+                                  <h2>
+                                    {Intl.NumberFormat("es-IN", {
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(x?.chaturbate?.tokens)}
+                                  </h2>
                                 </section>
                                 <section>
-                                  <h1>Dolares </h1>{" "}
-                                  <h2>{x?.chaturbate?.dolares}</h2>
+                                  <h1>Dolares </h1>
+                                  <h2>
+                                    {Intl.NumberFormat("en-US", {
+                                      style: "currency",
+                                      currency: "USD",
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(x?.chaturbate?.dolares)}
+                                  </h2>
                                 </section>
                               </section>
                             </section>
@@ -597,7 +644,7 @@ const Home = () => {
                                 {x?.dirty?.moneda === "euro"
                                   ? "Euros"
                                   : "Dolar"}
-                              </h1>{" "}
+                              </h1>
                               <h2>{x?.dirty?.plata}</h2>
                             </section>
                           )}
@@ -605,14 +652,30 @@ const Home = () => {
                           {x?.islive && (
                             <section className="sectionPage1">
                               <h1>Is Live</h1>
-                              <h1>Euros</h1> <h2>{x?.islive?.euros}</h2>
+                              <h1>Euros</h1>
+                              <h2>
+                                {Intl.NumberFormat("es-EU", {
+                                  style: "currency",
+                                  currency: "EUR",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(x?.islive?.euros)}
+                              </h2>
                             </section>
                           )}
 
                           {x?.mondo && (
                             <section className="sectionPage1">
                               <h1>Mondo</h1>
-                              <h1>Euros</h1> <h2>{x?.mondo?.euros}</h2>
+                              <h1>Euros</h1>
+                              <h2>
+                                {Intl.NumberFormat("es-EU", {
+                                  style: "currency",
+                                  currency: "EUR",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(x?.mondo?.euros)}
+                              </h2>
                             </section>
                           )}
 
@@ -621,12 +684,24 @@ const Home = () => {
                               <h1>My Free Cams</h1>
                               <section className="sectionPage2">
                                 <section>
-                                  <h1>Dolares</h1>{" "}
-                                  <h2>{x?.myFreeCams?.dolares}</h2>
+                                  <h1>Dolares</h1>
+                                  <h2>
+                                    {Intl.NumberFormat("en-US", {
+                                      style: "currency",
+                                      currency: "USD",
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(x?.myFreeCams?.dolares)}
+                                  </h2>
                                 </section>
                                 <section>
-                                  <h1>Tokens</h1>{" "}
-                                  <h2>{x?.myFreeCams?.tokens}</h2>
+                                  <h1>Tokens</h1>
+                                  <h2>
+                                    {Intl.NumberFormat("es-IN", {
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(x?.myFreeCams?.tokens)}
+                                  </h2>
                                 </section>
                               </section>
                             </section>
@@ -635,40 +710,93 @@ const Home = () => {
                           {x?.sakura && (
                             <section className="sectionPage1">
                               <h1>Sakura</h1>
-                              <h1>Dolares</h1> <h2>{x?.sakura?.dolares}</h2>
+                              <h1>Dolares</h1>
+                              <h2>
+                                {Intl.NumberFormat("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(x?.sakura?.dolares)}
+                              </h2>
                             </section>
                           )}
 
                           {x?.sender && (
                             <section className="sectionPage1">
                               <h1>Sender</h1>
-                              <h1>Euros</h1>{" "}
-                              <h2>
-                                {x?.senderAnterior?.euros
-                                  ? x?.sender?.euros - x?.senderAnterior?.euros
-                                  : x?.sender?.euros}
-                              </h2>
+                              <section>
+                                <section className="sectionPage2">
+                                  <h1>Euros</h1>
+                                  <h2>
+                                    {Intl.NumberFormat("es-EU", {
+                                      style: "currency",
+                                      currency: "EUR",
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format()}
+                                  </h2>
+                                </section>
+                                <section className="sectionPage2">
+                                  <h1>Tokens</h1>
+                                  <h2>
+                                    {Intl.NumberFormat("es-IN", {
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(
+                                      x?.senderAnterior?.coins
+                                        ? x?.sender?.coins -
+                                            x?.senderAnterior?.coins
+                                        : x?.sender?.coins
+                                    )}
+                                  </h2>
+                                </section>
+                              </section>
                             </section>
                           )}
 
                           {x?.skype && (
                             <section className="sectionPage1">
                               <h1>Skype</h1>
-                              <h1>Dolares</h1> <h2>{x?.skype?.dolares}</h2>
+                              <h1>Dolares</h1>
+                              <h2>
+                                {Intl.NumberFormat("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(x?.skype?.dolares)}
+                              </h2>
                             </section>
                           )}
 
                           {x?.streamate && (
                             <section className="sectionPage1">
                               <h1>Streamate</h1>
-                              <h1>Dolares</h1> <h2>{x?.streamate?.dolares}</h2>
+                              <h1>Dolares</h1>
+                              <h2>
+                                {Intl.NumberFormat("en-US", {
+                                  style: "currency",
+                                  currency: "UDS",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(x?.streamate?.dolares)}
+                              </h2>
                             </section>
                           )}
 
                           {x?.streamRay && (
                             <section className="sectionPage1">
                               <h1>StreamRay</h1>
-                              <h1>Dolares</h1> <h2>{x?.streamRay?.dolares}</h2>
+                              <h1>Dolares</h1>
+                              <h2>
+                                {Intl.NumberFormat("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(x?.streamRay?.dolares)}
+                              </h2>
                             </section>
                           )}
 
@@ -677,12 +805,24 @@ const Home = () => {
                               <h1>Stripchat</h1>
                               <section className="sectionPage2">
                                 <section>
-                                  <h1>Dolares</h1>{" "}
-                                  <h2>{x?.stripchat?.dolares}</h2>
+                                  <h1>Dolares</h1>
+                                  <h2>
+                                    {Intl.NumberFormat("en-US", {
+                                      style: "currency",
+                                      currency: "USD",
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(x?.stripchat?.dolares)}
+                                  </h2>
                                 </section>
                                 <section>
-                                  <h1>Tokens</h1>{" "}
-                                  <h2>{x?.stripchat?.tokens}</h2>
+                                  <h1>Tokens</h1>
+                                  <h2>
+                                    {Intl.NumberFormat("es-IN", {
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(x?.stripchat?.tokens)}
+                                  </h2>
                                 </section>
                               </section>
                             </section>
@@ -692,8 +832,15 @@ const Home = () => {
                             <section className="sectionPage1">
                               <h1>777</h1>
                               <section>
-                                <h1>Dolares</h1>{" "}
-                                <h2>{x?.tripleSiete?.dolares}</h2>
+                                <h1>Dolares</h1>
+                                <h2>
+                                  {Intl.NumberFormat("en-US", {
+                                    style: "currency",
+                                    currency: "USD",
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  }).format(x?.tripleSiete?.dolares)}
+                                </h2>
                               </section>
                             </section>
                           )}
@@ -701,21 +848,45 @@ const Home = () => {
                           {x?.vx && (
                             <section className="sectionPage1">
                               <h1>Vx</h1>
-                              <h1>Euros</h1> <h2>{x?.vx?.euros}</h2>
+                              <h1>Euros</h1>
+                              <h2>
+                                {Intl.NumberFormat("es-EU", {
+                                  style: "currency",
+                                  currency: "EUR",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(x?.vx?.euros)}
+                              </h2>
                             </section>
                           )}
 
                           {x?.xlove && (
                             <section className="sectionPage1">
                               <h1>Xlove</h1>
-                              <h1>Euros</h1> <h2>{x?.xlove?.euros}</h2>
+                              <h1>Euros</h1>
+                              <h2>
+                                {Intl.NumberFormat("es-EU", {
+                                  style: "currency",
+                                  currency: "EUR",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(x?.xlove?.euros)}
+                              </h2>
                             </section>
                           )}
 
                           {x?.xlovenueva && (
                             <section className="sectionPage1">
                               <h1>Xlove Nueva</h1>
-                              <h1>Euros</h1> <h2>{x?.xlovenueva?.euros}</h2>
+                              <h1>Euros</h1>
+                              <h2>
+                                {Intl.NumberFormat("es-EU", {
+                                  style: "currency",
+                                  currency: "EUR",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(x?.xlovenueva?.euros)}
+                              </h2>
                               {/* <h1>Fecha</h1> <h2>{x?.xlovenueva?.fecha}</h2> */}
                             </section>
                           )}
@@ -728,16 +899,18 @@ const Home = () => {
                               <h1>Prestamos</h1>
                               <section className="sectionPage2">
                                 <section>
-                                  <h1>Total</h1>{" "}
+                                  <h1>Total</h1>
                                   <h2>
-                                    ${" "}
-                                    {Intl.NumberFormat("es-CP").format(
-                                      x?.totales?.totalPrestamos
-                                    )}
+                                    {Intl.NumberFormat("es-CP", {
+                                      style: "currency",
+                                      currency: "COP",
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(x?.totales?.totalPrestamos)}
                                   </h2>
                                 </section>
                                 <section>
-                                  <h1>Cantidad</h1>{" "}
+                                  <h1>Cantidad</h1>
                                   <h2>{x?.prestamos.length}</h2>
                                 </section>
                               </section>
@@ -751,12 +924,14 @@ const Home = () => {
                               <h1>Vitrina</h1>
                               <section className="sectionPage2">
                                 <section>
-                                  <h1>Total</h1>{" "}
+                                  <h1>Total</h1>
                                   <h2>
-                                    ${" "}
-                                    {Intl.NumberFormat("es-CP").format(
-                                      x?.totales?.totalVitrina
-                                    )}
+                                    {Intl.NumberFormat("es-CP", {
+                                      style: "currency",
+                                      currency: "COP",
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(x?.totales?.totalVitrina)}
                                   </h2>
                                 </section>
                                 <section>
@@ -821,7 +996,12 @@ const Home = () => {
                                     {detalle?.userName}
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap font-bold">
-                                    {detalle?.creditos}
+                                    {Intl.NumberFormat("en-GB", {
+                                      style: "currency",
+                                      currency: "GBP",
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(detalle?.creditos)}
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap font-bold">
                                     {detalle?.parcial ? "Parcial" : "Regular"}
@@ -892,10 +1072,12 @@ const Home = () => {
                                       {fechaFormateada}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-left font-bold">
-                                      ${" "}
-                                      {Intl.NumberFormat("ES-CP").format(
-                                        p?.cantidad
-                                      )}
+                                      {Intl.NumberFormat("ES-CP", {
+                                        style: "currency",
+                                        currency: "COP",
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2,
+                                      }).format(p?.cantidad)}
                                     </td>
                                   </tr>
                                 );
@@ -974,9 +1156,12 @@ const Home = () => {
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-left font-bold">
                                       ${" "}
-                                      {Intl.NumberFormat("ES-CP").format(
-                                        p?.valor
-                                      )}
+                                      {Intl.NumberFormat("ES-CP", {
+                                        style: "currency",
+                                        currency: "COP",
+                                        minimumFractionDigits: 2,
+                                        maximumFractionDigits: 2,
+                                      }).format(p?.valor)}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-left font-bold">
                                       {p?.cantidad}

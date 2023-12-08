@@ -158,6 +158,12 @@ const User = () => {
                   porcentaje
                 </td>
                 <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                  rojo
+                </td>
+                <td className="px-6 py-3 text-lg  uppercase tracking-wider">
+                  interes
+                </td>
+                <td className="px-6 py-3 text-lg  uppercase tracking-wider">
                   total prestamos
                 </td>
                 <td className="px-6 py-3 text-lg  uppercase tracking-wider">
@@ -189,6 +195,30 @@ const User = () => {
                 </td>
                 <td className="px-6 py-2 whitespace-nowrap">
                   {user?.totales && <h1>{user?.totales?.porcentajeFinal} %</h1>}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap">
+                  {user?.totales && (
+                    <h1>
+                      {Intl.NumberFormat("es-CO", {
+                        style: "currency",
+                        currency: "COP",
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }).format(user?.totales?.rojo)}
+                    </h1>
+                  )}
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap">
+                  {user?.totales && (
+                    <h1>
+                      {Intl.NumberFormat("es-CO", {
+                        style: "currency",
+                        currency: "COP",
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      }).format(user?.totales?.interes)}
+                    </h1>
+                  )}
                 </td>
                 <td
                   className="px-6 py-2 whitespace-nowrap hover:bg-green-300"
@@ -1503,7 +1533,12 @@ const User = () => {
                             {detalle?.userName}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap font-bold">
-                            {detalle?.creditos}
+                            {Intl.NumberFormat("en-GB", {
+                              style: "currency",
+                              currency: "GBP",
+                              maximumFractionDigits: 2,
+                              minimumFractionDigits: 2,
+                            }).format(detalle?.creditos)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap font-bold">
                             {detalle?.parcial ? "Parcial" : "Regular"}
@@ -1565,7 +1600,12 @@ const User = () => {
                             {detalle?.userName}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap font-bold">
-                            {detalle?.dolares}
+                            {Intl.NumberFormat("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }).format(detalle?.dolares)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             {detalle?.fecha}
@@ -1622,7 +1662,12 @@ const User = () => {
                             {detalle?.userName}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap font-bold">
-                            {detalle?.dolares}
+                            {Intl.NumberFormat("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }).format(detalle?.dolares)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             {detalle?.fecha}
@@ -1757,7 +1802,12 @@ const User = () => {
                               {detalle?.cantidad}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              {detalle?.valor}
+                              {Intl.NumberFormat("es-CO", {
+                                style: "currency",
+                                currency: "COP",
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }).format(detalle?.valor)}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               {fechaFormateada}
