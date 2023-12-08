@@ -242,7 +242,8 @@ const RegisterUser = () => {
   const handleCrear = async (e) => {
     e.preventDefault();
     const errores = validacion(input);
-    if (Object.keys(errores).length === 0) {
+    try {
+      if (Object.keys(errores).length === 0) {
       dispatch(registroUser(input));
 
       if (!perror) {
@@ -268,6 +269,10 @@ const RegisterUser = () => {
     }
 
     setError(errores);
+    } catch (error) {
+      
+    }
+    
   };
 
   const paises = ["Colombia", "Venezuela"];
