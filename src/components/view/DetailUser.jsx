@@ -113,6 +113,7 @@ const DetailUser = () => {
               }
               return null;
             })} <p className=" text-left mx-5 detalles">{x.userName} </p>
+            <button>editar</button>
                 </div>
               </div>
             );

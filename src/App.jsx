@@ -53,7 +53,7 @@ import CargarEstadisticas from "./components/registro/CargarEstadisticas.jsx";
 import RegisterPorcentaje from "./components/registro/RegisterPorcentaje.jsx";
 import RegisterUbicacion from "./components/registro/RegisterUbicacion";
 import RegisterCompras from "./components/registro/RegisterCompras.jsx";
-// import RegisterRojos from "./components/registro/RegisterRojos";
+import Productos from "./components/editar/Productos.jsx";
 
 import RelationUbicationAndPorcenaje from "./components/registro/RelationUbicacionAndPorcentaje";
 import Prestamos from "./components/registro/Prestamos.jsx";
@@ -83,6 +83,7 @@ function App() {
     "/crear/prestamos",
     "/crear/ralacion",
     "/editar",
+    "/editar/producto",
     "/user/:id",
     "/modelo/comment/:id",
     "/ventas",
@@ -148,6 +149,7 @@ function App() {
           element={<RelationUbicationAndPorcenaje />}
         />
         <Route path="/editar" element={<Editar />} />
+        <Route path="/editar/producto" element={<Productos />} />
         <Route path="/user/:id" element={<User />} />
         <Route path="/modelo" element={<Modelos />} />
         <Route path="/modelo/:id" element={<DetailUser />} />

@@ -7,9 +7,7 @@ const Editar = () => {
       <div className="contenedor2">
         <h1 className="font-bold text-4xl m-2">Que Desea Editar Hoy</h1>
         <section className=" grid grid-cols-3">
-          <NavLink to="/editar/pagina">
-            <button className="btn-w h-20 w-48">Editar Pagina</button>
-          </NavLink>
+          
 
           <NavLink to="/editar/producto">
             <button className="btn-w h-20 w-48">Editar Producto</button>
