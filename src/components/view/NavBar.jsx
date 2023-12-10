@@ -55,7 +55,7 @@ const NavBar = () => {
           <button className="btn-n">Ventas</button>
         </NavLink>
       )}
-      {!showButton && (
+      {/* {!showButton && (
         <NavLink to={`/user/${user.id}`}>
           <button className="btn-n">Estadisticas</button>
         </NavLink>
@@ -64,7 +64,7 @@ const NavBar = () => {
         <NavLink to={`/modelo/${user.id}`}>
           <button className="btn-n">Detalles</button>
         </NavLink>
-      )}
+      )} */}
       {showButton && (
         <NavLink to={"/modelo"}>
           <button className="btn-n">Modelos</button>

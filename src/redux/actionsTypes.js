@@ -57,6 +57,9 @@ export const QUINCENAHOME = "QUINCENAHOME";
 
 //todo para los userName
 export const POSTUSERNAME = "POSTUSERNAME";
+export const GETUSERNAME = "GETUSERNAME";
+export const UPDATEUSERNAME = "UPDATEUSERNAME";
+export const DELETEUSERNAME = "DELETEUSERNAME";
 
 //todo para los comments
 export const POSTCOMMENT = "POSTCOMMENT";

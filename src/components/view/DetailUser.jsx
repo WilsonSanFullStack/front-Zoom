@@ -5,6 +5,8 @@ import { getAllPagina } from "../../redux/actions/registro/registerPaginas.js";
 import { useParams, Link } from "react-router-dom";
 import { AiOutlineContainer } from "react-icons/ai";
 import { TiCogOutline } from "react-icons/ti";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { deleteUserName } from "../../redux/actions/registro/registerUserName.js";
 
 const DetailUser = () => {
   const { id } = useParams();
@@ -13,15 +15,22 @@ const DetailUser = () => {
   const error = useSelector((state) => state.error);
   const paginas = useSelector((state) => state.paginas);
 
-
   useEffect(() => {
     dispatch(getUserBI(id));
     dispatch(getAllPagina());
   }, [dispatch]);
 
-  console.log(userBI);
-  console.log(error);
-  console.log(paginas);
+  const fecha = new Date(userBI?.createdAt);
+
+  const dia = fecha.getDate();
+  const mes = fecha.getMonth() + 1; // Los meses comienzan desde 0, así que sumamos 1
+  const ano = fecha.getFullYear();
+
+  const fechaFormateada = `${dia}/${mes}/${ano}`;
+
+  const handleDelete = (id) => {
+    dispatch(deleteUserName(id));
+  };
 
   return (
     <div className="contenedor1 pt-7 px-10">
@@ -37,13 +46,11 @@ const DetailUser = () => {
 
         <section className="absolute ml-2 m-1 right-0 top-12 font-bold">
           <div className="flex items-center justify-center">
-            <Link to='/editar'>
-            <TiCogOutline className=" text-5xl btn-n"/>
+            <Link to="/editar">
+              <TiCogOutline className=" text-5xl btn-n" />
             </Link>
           </div>
         </section>
-
-        
 
         <div key={userBI?.id} className="m-2">
           <img src={userBI?.image} alt="imagen" className="img-d" />
@@ -87,7 +94,7 @@ const DetailUser = () => {
           </div>
           <div className="divDetail">
             Fecha De Registro:
-            <p className="detalles">{userBI?.createdAt}</p>
+            <p className="detalles">{fechaFormateada}</p>
           </div>
           <div className="divDetail">
             Sitio De Trabajo:
@@ -97,39 +104,48 @@ const DetailUser = () => {
             Porcentaje:
             <p className="detalles">{userBI?.p_porcentaje?.nombre}</p>
           </div>
-        <div>
-          
-          {userBI.useres?.map((x) => {
-            return (
-              <div key={x.id}>
-                <div className="divDetail">
-                  {paginas.map((pagina) => {
-            if (pagina.id === x.pagina) {
+          <div>
+            {userBI.useres?.map((x) => {
               return (
-                <div key={pagina.id}>
-                {pagina.nombrePagina}:
+                <div key={x.id}>
+                  <div className="divDetail">
+                    {paginas.map((pagina) => {
+                      if (pagina.id === x.pagina) {
+                        return (
+                          <div key={pagina.id}>{pagina.nombrePagina}:</div>
+                        );
+                      }
+                      return null;
+                    })}
+                    <div className="flex items-center ">
+                      <Link to={`/editar/username/${x.id}`}>
+                        <p className=" text-left mx-5 detalles">
+                          {x.userName}{" "}
+                        </p>
+                      </Link>
+                      <button
+                        className="btn-n w-10"
+                        onClick={() => handleDelete(x.id)}
+                      >
+                        <RiDeleteBin6Line className="text-2xl" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                );
-              }
-              return null;
-            })} <p className=" text-left mx-5 detalles">{x.userName} </p>
-            <button>editar</button>
+              );
+            })}
+            {userBI.comments?.map((x) => {
+              return (
+                <div key={x.id}>
+                  <div className="divDetail ">
+                    Cometario creado: {x.createdAt}:
+                    <p className=" text-left mx-5 detalles">{x.comment}</p>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-          {userBI.comments?.map((x) => {
-            return (
-              <div key={x.id}>
-                <div className="divDetail ">
-                  Cometario creado: {x.createdAt}:
-                  <p className=" text-left mx-5 detalles">{x.comment}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-          </section>
+              );
+            })}
+          </div>
+        </section>
       </div>
     </div>
   );

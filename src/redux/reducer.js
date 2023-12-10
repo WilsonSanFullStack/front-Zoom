@@ -61,6 +61,7 @@ import {
   DARKMODE,
   ROJOS,
   GETROJOS,
+  GETUSERNAME,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -96,6 +97,7 @@ const initialState = {
   porcentaje: {},
   ubicaciones: [],
   ubicacion: {},
+  userName: {},
   rojo: [],
   perror: "",
   gerror: "",
@@ -477,6 +479,13 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         rojo: action.payload,
       };
+      //* getUserNameById
+      case GETUSERNAME:
+      return {
+      ...state,
+      userName: action.payload,
+      };
+      
 
     default:
       return state;

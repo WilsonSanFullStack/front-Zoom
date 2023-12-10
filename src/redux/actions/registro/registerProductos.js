@@ -88,11 +88,9 @@ export const getProductoById = (id) => {
 };
 
 export const updateProducto = (editProduct) => {
-  console.log(editProduct)
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${PRODUCTO}/${editProduct.id}`;
-      console.log(endpoint)
       const { data } = await axios.put(endpoint, editProduct);
       dispatch({
         type: UPDATEPRODUCTO,

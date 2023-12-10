@@ -25,7 +25,9 @@ const Productos = () => {
     dispatch(updateProducto(editProduct));
     setEditProduct(null);
   };
-
+const handleDelete = (id) => {
+  dispatch(deleteProducto(id))
+}
   return (
     <div className="contenedor1">
       <div className="contenedor2">
@@ -89,7 +91,7 @@ const Productos = () => {
                       >
                         <GrEdit className="text-2xl" />
                       </button>
-                      <button className="btn-n ">
+                      <button className="btn-n " onClick={() => handleDelete(producto.id)}>
                         <RiDeleteBin6Line className="text-2xl" />
                       </button>
                     </section>
