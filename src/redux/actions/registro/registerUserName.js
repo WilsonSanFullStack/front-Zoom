@@ -70,20 +70,19 @@ export const updateUserName = (id, editedUserName) => {
 };
 
 export const deleteUserName = (id) => {
-return async (dispatch) => {
-try {
-const endpoint = `${URL}/${USERNAME}/${DELETE}/${id}`;
-const { data } = await axios.delete(endpoint);
-dispatch({
-type: xx,
-payload: data,
-});
-} catch (error) {
-dispatch ({
-type: PERROR,
-payload: error,
-})
-}
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${USERNAME}/${DELETE}/${id}`;
+      const { data } = await axios.delete(endpoint);
+      dispatch({
+        type: DELETEUSERNAME,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: PERROR,
+        payload: error,
+      });
+    }
+  };
 };
-};
-

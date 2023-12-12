@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Moneda from "../resource/Moneda.jsx";
 import { BiSend } from "react-icons/bi";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 import { resetError } from "../../redux/actions/resetError.js";
 import {
@@ -10,6 +11,9 @@ import {
   searchAllUserByFortnight,
 } from "../../redux/actions/registro/registerQuincena.js";
 import { postRojo } from "../../redux/actions/registro/registerRojo.js";
+import { deleteCorte } from "../../redux/actions/paginas/adult.js";
+import { deleteBonga } from "../../redux/actions/paginas/bonga.js";
+import { deleteStreamate } from "../../redux/actions/paginas/streamate.js";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -65,7 +69,6 @@ const Home = () => {
       setId(quincenaActual.id);
     }
   }, [quincenas]);
-  // console.log(id)
 
   useEffect(() => {
     if (id.length > 1) {
@@ -180,7 +183,7 @@ const Home = () => {
   const handleQuincena = (event) => {
     setId(event.target.value);
   };
-
+  console.log(quincenaHome);
   const [show, setShow] = useState(() => {
     const initialState = {};
     quincenaHome?.modelos?.forEach((modelo) => {
@@ -190,6 +193,20 @@ const Home = () => {
   });
 
   const [showDetail, setShowDetail] = useState(() => {
+    const initialState = {};
+    quincenaHome?.modelos?.forEach((modelo) => {
+      initialState[modelo.id] = false;
+    });
+    return initialState;
+  });
+  const [showBonga, setShowBonga] = useState(() => {
+    const initialState = {};
+    quincenaHome?.modelos?.forEach((modelo) => {
+      initialState[modelo.id] = false;
+    });
+    return initialState;
+  });
+  const [showStreamate, setShowStreamate] = useState(() => {
     const initialState = {};
     quincenaHome?.modelos?.forEach((modelo) => {
       initialState[modelo.id] = false;
@@ -236,6 +253,28 @@ const Home = () => {
       [modeloId]: !prevShowDetail[modeloId],
     }));
   };
+  const handleShowBonga = (modeloId) => {
+    setShowBonga((prevShowBonga) => ({
+      ...prevShowBonga,
+      [modeloId]: !prevShowBonga[modeloId],
+    }));
+  };
+  const handleShowStreamate = (modeloId) => {
+    setShowStreamate((prevShowStreamate) => ({
+      ...prevShowStreamate,
+      [modeloId]: !prevShowStreamate[modeloId],
+    }));
+  };
+
+  const handleDeleteAdult = (id) => {
+    dispatch(deleteCorte(id));
+  };
+  const handleDeleteBonga = (id) => {
+    dispatch(deleteBonga(id));
+  };
+  const handleDeleteStreamate = (id) => {
+    dispatch(deleteStreamate(id));
+  };
 
   const handleShowPrestamos = (modeloId) => {
     setShowPrestamos((prevShowPrestamos) => {
@@ -275,7 +314,15 @@ const Home = () => {
     }
   };
   const [showRojos, setShowRojos] = useState(false);
-
+  useEffect(() => {
+    setRojo([]),
+      setShowRojos(false),
+      setShowDetail(false),
+      setShowPrestamos(false),
+      setShowVitrina(false);
+      setShowBonga(false)
+      setShowStreamate(false)
+  }, [id]);
   const handleRojos = () => {
     showRojos ? setShowRojos(false) : setShowRojos(true);
   };
@@ -350,22 +397,26 @@ const Home = () => {
                 })}
               </tbody>
             </table>
-            {rojo?.length > 0 && (<section className="flex items-center justify-center">
-              <button
-                className="btn-w w-auto font-bold text-4xl"
-                onClick={handleRojo}
-              >
-                <BiSend />
-              </button>
-            </section>)}
+            {rojo?.length > 0 && (
+              <section className="flex items-center justify-center">
+                <button
+                  className="btn-w w-auto font-bold text-4xl"
+                  onClick={handleRojo}
+                >
+                  <BiSend />
+                </button>
+              </section>
+            )}
           </div>
         )}
 
         <div className="pb-8">
           <div className="mx-2 bg-indigo-300 p-2 rounded-2xl border-4 border-indigo-400">
-            <button className="btn-rojos" onClick={() => handleRojos()}>
-              Generar Rojos
-            </button>
+            {rojo?.length > 0 && (
+              <button className="btn-rojos" onClick={() => handleRojos()}>
+                Generar Rojos
+              </button>
+            )}
 
             <div>
               {quincenaHome?.modelos?.map((x) => {
@@ -529,13 +580,13 @@ const Home = () => {
                         </tbody>
                       </table>
 
-                      {show[x?.id] && (
+                      {show[x?.id] && x.totales.totalCreditos > 0 && (
                         <div className="divPages">
                           {x?.adultworkTotal && (
                             <section
-                              className="sectionPage1"
+                              className="sectionPage1 cursor-pointer"
                               onClick={() => handleShowDetail(x?.id)}
-                            >
+                              >
                               <h1>Adultwork</h1>
                               <h1>Libras</h1>
                               <h2>
@@ -580,7 +631,9 @@ const Home = () => {
                           )}
 
                           {x?.bongaTotal && (
-                            <section className="sectionPage1">
+                            <section className="sectionPage1 cursor-pointer"
+                            onClick={() => handleShowBonga(x?.id)}
+                            >
                               <h1>Bonga</h1>
                               <h1>Dolares</h1>
                               <h2>
@@ -771,16 +824,18 @@ const Home = () => {
                           )}
 
                           {x?.streamate && (
-                            <section className="sectionPage1">
+                            <section className="sectionPage1 cursor-pointer"
+                            onClick={() => handleShowStreamate(x?.id)}
+                            >
                               <h1>Streamate</h1>
                               <h1>Dolares</h1>
                               <h2>
                                 {Intl.NumberFormat("en-US", {
                                   style: "currency",
-                                  currency: "UDS",
+                                  currency: "USD",
                                   minimumFractionDigits: 2,
                                   maximumFractionDigits: 2,
-                                }).format(x?.streamate?.dolares)}
+                                }).format(x?.streamateTotal?.dolares)}
                               </h2>
                             </section>
                           )}
@@ -981,6 +1036,12 @@ const Home = () => {
                                 >
                                   Fecha Adultwork
                                 </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                                >
+                                  eliminar
+                                </th>
                               </tr>
                             </thead>
                             <tbody className="bg-indigo-400 divide-y-2 divide-indigo-700">
@@ -1011,13 +1072,180 @@ const Home = () => {
                                       ? detalle?.createdAt
                                       : detalle?.fecha}
                                   </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <button
+                                      className="btn-n w-10"
+                                      onClick={() =>
+                                        handleDeleteAdult(detalle.id)
+                                      }
+                                    >
+                                      <RiDeleteBin6Line className="text-2xl" />
+                                    </button>
+                                  </td>
                                 </tr>
                               ))}
                             </tbody>
                           </table>
                         </div>
                       )}
-
+                      {showBonga[x?.id] && (
+                        <div className="overflow-x-auto px-2 py-2">
+                          <h1 className="text-xl font-bold m-2">
+                            CORTES BONGA
+                          </h1>
+                          <table className="min-w-full divide-y-4 divide-indigo-700 border-4 border-indigo-700">
+                            <thead className="bg-indigo-600">
+                              <tr>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                                >
+                                  #
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                                >
+                                  UserName
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                                >
+                                  dolares
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                                >
+                                  Fecha Adultwork
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                                >
+                                  eliminar
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody className="bg-indigo-400 divide-y-2 divide-indigo-700">
+                              {x?.bonga?.map((detalle, index) => (
+                                <tr
+                                  key={detalle?.id}
+                                  className="hover:bg-green-300"
+                                >
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    {index + 1}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    {detalle?.userName}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                    {Intl.NumberFormat("en-US", {
+                                      style: "currency",
+                                      currency: "USD",
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(detalle?.dolares)}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    {detalle?.fecha}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <button
+                                      className="btn-n w-10"
+                                      onClick={() =>
+                                        handleDeleteBonga(detalle.id)
+                                      }
+                                    >
+                                      <RiDeleteBin6Line className="text-2xl" />
+                                    </button>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
+                      {showStreamate[x?.id] && (
+                        <div className="overflow-x-auto px-2 py-2">
+                          <h1 className="text-xl font-bold m-2">
+                            CORTES STREAMATE
+                          </h1>
+                          <table className="min-w-full divide-y-4 divide-indigo-700 border-4 border-indigo-700">
+                            <thead className="bg-indigo-600">
+                              <tr>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                                >
+                                  #
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                                >
+                                  UserName
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                                >
+                                  dolares
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                                >
+                                  Fecha Adultwork
+                                </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-center text-lg uppercase tracking-wider"
+                                >
+                                  eliminar
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody className="bg-indigo-400 divide-y-2 divide-indigo-700">
+                              {x?.streamate?.map((detalle, index) => (
+                                <tr
+                                  key={detalle?.id}
+                                  className="hover:bg-green-300"
+                                >
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    {index + 1}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    {detalle?.userName}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap font-bold">
+                                    {Intl.NumberFormat("en-US", {
+                                      style: "currency",
+                                      currency: "USD",
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(detalle?.dolares)}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    {detalle?.fecha}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <button
+                                      className="btn-n w-10"
+                                      onClick={() =>
+                                        handleDeleteStreamate(detalle.id)
+                                      }
+                                    >
+                                      <RiDeleteBin6Line className="text-2xl" />
+                                    </button>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      )}
                       {showPrestamos[x?.id] && (
                         <div className="overflow-x-auto px-2 py-2">
                           <h1 className="text-xl font-bold m-2">

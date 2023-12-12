@@ -7,7 +7,7 @@
 }
 
 .btn-n {
-  @apply p-1 px-2 m-1 bg-amber-100 rounded-xl hover:bg-amber-300  active:bg-indigo-400;
+  @apply p-1 px-2 m-1 bg-amber-100 rounded-xl hover:bg-amber-300  active:bg-indigo-400 cursor-pointer;
 }
 
 .img-e {
@@ -141,6 +141,9 @@
 /*todo   ya esta verificada */
 .select {
   @apply bg-indigo-400 rounded-lg px-4 m-1 w-auto h-6  text-center;
+}
+.selectEdit {
+  @apply bg-indigo-400 rounded-lg px-4 m-1 w-96 h-7  text-center;
 }
 /*todo   ya esta verificada */
 .form {

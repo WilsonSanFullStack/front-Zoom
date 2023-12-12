@@ -55,6 +55,7 @@ import RegisterUbicacion from "./components/registro/RegisterUbicacion";
 import RegisterCompras from "./components/registro/RegisterCompras.jsx";
 import Productos from "./components/editar/Productos.jsx";
 import UserName from "./components/editar/UserName.jsx";
+import UserEdit from "./components/editar/User.jsx";
 
 
 import RelationUbicationAndPorcenaje from "./components/registro/RelationUbicacionAndPorcentaje";
@@ -87,6 +88,7 @@ function App() {
     "/editar",
     "/editar/producto",
     "/editar/username/:id",
+    "/editar/user/:id",
     "/user/:id",
     "/modelo/comment/:id",
     "/ventas",
@@ -154,6 +156,7 @@ function App() {
         <Route path="/editar" element={<Editar />} />
         <Route path="/editar/producto" element={<Productos />} />
         <Route path="/editar/username/:id" element={<UserName />} />
+        <Route path="/editar/user/:id" element={<UserEdit />} />
         <Route path="/user/:id" element={<User />} />
         <Route path="/modelo" element={<Modelos />} />
         <Route path="/modelo/:id" element={<DetailUser />} />

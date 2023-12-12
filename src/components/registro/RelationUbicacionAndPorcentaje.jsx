@@ -65,11 +65,7 @@ const RelationUbicationAndPorcenaje = () => {
       return newOk; // Devolver el nuevo estado actualizado
     });
   }, [userSelect]);
-  console.log(ok);
-  console.log(input);
-
-  // useEffect(() => {
-  // }, [userSelect]);
+  
   const handleUser = (event) => {
     setInput({
       ...input,

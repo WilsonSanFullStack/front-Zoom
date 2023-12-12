@@ -65,6 +65,12 @@ const DetailUser = () => {
             <p className="detalles">{userBI?.apellido}</p>
           </div>
           <div className="divDetail">
+            Administrador:
+            <p className="detalles">
+              {userBI?.admin ? "Es un administrador" : "No esta Administrador"}
+            </p>
+          </div>
+          <div className="divDetail">
             Correo:
             <p className="detalles">{userBI?.correo}</p>
           </div>
@@ -119,9 +125,7 @@ const DetailUser = () => {
                     })}
                     <div className="flex items-center ">
                       <Link to={`/editar/username/${x.id}`}>
-                        <p className=" text-left mx-5 detalles">
-                          {x.userName}{" "}
-                        </p>
+                        <p className=" text-left mx-5 detalles">{x.userName}</p>
                       </Link>
                       <button
                         className="btn-n w-10"

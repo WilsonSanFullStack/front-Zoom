@@ -118,6 +118,7 @@ export const RESETERROR = "RESETERROR";
 //todo para adult corte
 export const PAD = "PAD";
 export const GAD = "GAD";
+export const DELETEC = 'DELETEC'
 //todo para adult parcial
 export const PPA = "PPA";
 export const GPA = "GPA";
@@ -127,6 +128,7 @@ export const GAM = "GAM";
 //todo para bonga
 export const PBO = "PBO";
 export const GBO = "GBO";
+export const DELETEBO = 'DELETEBO'
 //todo para cam4
 export const PCA = "PCA";
 export const GCA = "GCA";
@@ -153,6 +155,7 @@ export const PSK = "PSK";
 export const GSK = "GSK";
 //TODO PARA STREAMATE
 export const STREAMATE = " STREAMATE";
+export const DELETEST = 'DELETEST'
 //TODO PARA STREAMRay
 export const STREAMRAY = " STREAMRAY";
 //todo para STRIPCHAT

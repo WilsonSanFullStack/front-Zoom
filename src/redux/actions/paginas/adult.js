@@ -7,11 +7,13 @@ import {
   PAD,
   PPA,
   RESETERROR,
+  DELETEC,
 } from "../../actionsTypes.js";
 
 const URL = import.meta.env.VITE_REACT_APP_URL;
 const CAD = import.meta.env.VITE_REACT_APP_CAD;
 const CPAD = import.meta.env.VITE_REACT_APP_CPAD;
+const DELETE = import.meta.env.VITE_REACT_APP_URL_DELETE;
 
 export const pad = (coad) => {
   return async (dispatch) => {
@@ -25,7 +27,7 @@ export const pad = (coad) => {
     } catch (error) {
       console.log(error);
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }
@@ -43,7 +45,7 @@ export const gad = () => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: GERROR,
         payload: error,
       });
     }
@@ -61,7 +63,7 @@ export const ppad = (copad) => {
       });
     } catch (error) {
       dispatch({
-        type: ERROR,
+        type: PERROR,
         payload: error,
       });
     }
@@ -78,9 +80,26 @@ export const gpad = () => {
         payload: data,
       });
     } catch (error) {
-      // console.log(error.response)
       dispatch({
-        type: ERROR,
+        type: GERROR,
+        payload: error,
+      });
+    }
+  };
+};
+
+export const deleteCorte = (id) => {
+  return async (dispatch) => {
+    try {
+      const endpoint = `${URL}/${CAD}/${DELETE}/${id}`;
+      const { data } = await axios.delete(endpoint);
+      dispatch({
+        type: DELETEC,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: PERROR,
         payload: error,
       });
     }

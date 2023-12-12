@@ -141,11 +141,13 @@ export const getUserBI = (id) => {
   };
 };
 
-export const updateUser = (id, nUser) => {
+export const updateUser = (id, editUser) => {
+  console.log(id)
+  console.log(editUser)
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${REGISTRO}/${id}`;
-      const { data } = await axios.update(endpoint, nUser);
+      const { data } = await axios.put(endpoint, editUser);
       dispatch({
         type: UPDATEUSER,
         payload: data,

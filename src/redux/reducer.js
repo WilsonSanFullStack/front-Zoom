@@ -62,6 +62,8 @@ import {
   ROJOS,
   GETROJOS,
   GETUSERNAME,
+  UPDATEUSERNAME,
+  DELETEUSERNAME,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -485,6 +487,18 @@ export const rootReducer = (state = initialState, action) => {
       ...state,
       userName: action.payload,
       };
+      case UPDATEUSERNAME:
+      return {
+      ...state,
+      userName: action.payload,
+      };
+      case DELETEUSERNAME:
+      return {
+      ...state,
+      userName: action.payload,
+      };
+      
+      
       
 
     default:
