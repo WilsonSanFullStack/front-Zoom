@@ -69,7 +69,6 @@ const StreamRay = () => {
         const dolares = parseFloat(match[2]);
         result.push({ user, dolares, quincena: id });
       }
-      console.log(result);
       return result;
     });
   };

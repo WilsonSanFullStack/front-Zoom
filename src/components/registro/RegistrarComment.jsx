@@ -27,7 +27,6 @@ const RegistrarComment = () => {
     dispatch(postComment(comments));
     navigate(`/modelo/${id}`)
   };
-  console.log(comments);
   return (
     <div className="contenedor1">
       <div className="contenedor2">

@@ -100,10 +100,10 @@ const RegistrarQuincena = () => {
     if (!error) {
       dispatch(postQuincena(quincena));
     } else {
-      console.log(error);
+
     }
   };
-  console.log(quincenas);
+
   return (
     <div className="contenedor1">
       <div className="contenedor2">

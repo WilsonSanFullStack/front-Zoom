@@ -14,7 +14,6 @@ const Moneda = () => {
     euro: "",
     libra: "",
   });
-  console.log(moneda);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,8 +37,7 @@ const Moneda = () => {
 
       // Crea un objeto de fecha
       const fechaInicio = new Date(añoInicio, mesInicio, diaInicio);
-      console.log(fechaInicio);
-      // console.log(q)
+
       const quincenaFinal = q.final;
       const partesFechaFinal = quincenaFinal.split("/");
 
@@ -50,15 +48,12 @@ const Moneda = () => {
 
       // Crea un objeto de fecha
       const fechaFinal = new Date(añoFinal, mesFinal, diaFinal);
-      console.log(fechaFinal);
-      const fechaActual = new Date();
-      // console.log(fechaActual)
-      console.log(fechaActual);
 
-      console.log(fechaActual >= fechaInicio && fechaActual <= fechaFinal);
+      const fechaActual = new Date();
+
       return fechaActual >= fechaInicio && fechaActual <= fechaFinal;
     });
-    console.log(quincenas);
+
     if (quincenaActual) {
       setMoneda({
         ...moneda,

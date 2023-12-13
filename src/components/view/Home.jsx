@@ -14,6 +14,8 @@ import { postRojo } from "../../redux/actions/registro/registerRojo.js";
 import { deleteCorte } from "../../redux/actions/paginas/adult.js";
 import { deleteBonga } from "../../redux/actions/paginas/bonga.js";
 import { deleteStreamate } from "../../redux/actions/paginas/streamate.js";
+import { deletePrestamos } from "../../redux/actions/registro/registerPrestamos.js";
+import { deleteVenta } from "../../redux/actions/registro/registerVenta.js";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -22,7 +24,6 @@ const Home = () => {
   const quincenaHome = useSelector((state) => state.quincenaHome);
   const [id, setId] = useState("");
   const [rojo, setRojo] = useState([]);
-  // console.log(quincenas);
   useEffect(() => {
     dispatch(resetError());
   }, [id]);
@@ -183,7 +184,6 @@ const Home = () => {
   const handleQuincena = (event) => {
     setId(event.target.value);
   };
-  console.log(quincenaHome);
   const [show, setShow] = useState(() => {
     const initialState = {};
     quincenaHome?.modelos?.forEach((modelo) => {
@@ -320,11 +320,20 @@ const Home = () => {
       setShowDetail(false),
       setShowPrestamos(false),
       setShowVitrina(false);
-      setShowBonga(false)
-      setShowStreamate(false)
+    setShowBonga(false);
+    setShowStreamate(false);
   }, [id]);
   const handleRojos = () => {
     showRojos ? setShowRojos(false) : setShowRojos(true);
+  };
+  const handleDeletePrestamo = (id) => {
+    dispatch(deletePrestamos(id));
+  };
+  const handleDeleteVitrina = (id) => {
+    dispatch(deleteVenta(id));
+  };
+  const handleEditPrestamo = (id) => {
+    navigate(`/editar/prestamo/${id}`);
   };
   return (
     <div className="contenedor1">
@@ -523,7 +532,6 @@ const Home = () => {
                             <td className="px-6 py-2 whitespace-nowrap">
                               {x?.totales?.totalPrestamos && (
                                 <h1>
-                                  ${" "}
                                   {Intl.NumberFormat("es-CO", {
                                     style: "currency",
                                     currency: "COP",
@@ -536,7 +544,6 @@ const Home = () => {
                             <td className="px-6 py-2 whitespace-nowrap">
                               {x?.totales?.totalVitrina && (
                                 <h1>
-                                  ${" "}
                                   {Intl.NumberFormat("es-CO", {
                                     style: "currency",
                                     currency: "COP",
@@ -586,7 +593,7 @@ const Home = () => {
                             <section
                               className="sectionPage1 cursor-pointer"
                               onClick={() => handleShowDetail(x?.id)}
-                              >
+                            >
                               <h1>Adultwork</h1>
                               <h1>Libras</h1>
                               <h2>
@@ -631,8 +638,9 @@ const Home = () => {
                           )}
 
                           {x?.bongaTotal && (
-                            <section className="sectionPage1 cursor-pointer"
-                            onClick={() => handleShowBonga(x?.id)}
+                            <section
+                              className="sectionPage1 cursor-pointer"
+                              onClick={() => handleShowBonga(x?.id)}
                             >
                               <h1>Bonga</h1>
                               <h1>Dolares</h1>
@@ -824,8 +832,9 @@ const Home = () => {
                           )}
 
                           {x?.streamate && (
-                            <section className="sectionPage1 cursor-pointer"
-                            onClick={() => handleShowStreamate(x?.id)}
+                            <section
+                              className="sectionPage1 cursor-pointer"
+                              onClick={() => handleShowStreamate(x?.id)}
                             >
                               <h1>Streamate</h1>
                               <h1>Dolares</h1>
@@ -1272,6 +1281,12 @@ const Home = () => {
                                 >
                                   Valor
                                 </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-lg uppercase tracking-wider"
+                                >
+                                  eliminar
+                                </th>
                               </tr>
                             </thead>
                             <tbody className="bg-indigo-400 divide-y-2 divide-indigo-700">
@@ -1293,19 +1308,38 @@ const Home = () => {
                                     key={p?.id}
                                     className=" hover:bg-green-300"
                                   >
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td
+                                      className="px-6 py-4 whitespace-nowrap cursor-pointer"
+                                      onClick={() => handleEditPrestamo(p.id)}
+                                    >
                                       {n + 1}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td
+                                      className="px-6 py-4 whitespace-nowrap cursor-pointer"
+                                      onClick={() => handleEditPrestamo(p.id)}
+                                    >
                                       {fechaFormateada}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-left font-bold">
+                                    <td
+                                      className="px-6 py-4 whitespace-nowrap text-left font-bold cursor-pointer"
+                                      onClick={() => handleEditPrestamo(p.id)}
+                                    >
                                       {Intl.NumberFormat("ES-CP", {
                                         style: "currency",
                                         currency: "COP",
                                         minimumFractionDigits: 2,
                                         maximumFractionDigits: 2,
                                       }).format(p?.cantidad)}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                      <button
+                                        className="btn-n w-10"
+                                        onClick={() =>
+                                          handleDeletePrestamo(p.id)
+                                        }
+                                      >
+                                        <RiDeleteBin6Line className="text-2xl" />
+                                      </button>
                                     </td>
                                   </tr>
                                 );
@@ -1352,6 +1386,12 @@ const Home = () => {
                                 >
                                   Cantidad
                                 </th>
+                                <th
+                                  scope="col"
+                                  className="px-6 py-3 text-left text-lg uppercase tracking-wider"
+                                >
+                                  eliminar
+                                </th>
                               </tr>
                             </thead>
                             <tbody className="bg-indigo-400 divide-y-2 divide-indigo-700">
@@ -1373,17 +1413,24 @@ const Home = () => {
                                     key={p?.id}
                                     className=" hover:bg-green-300"
                                   >
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td
+                                      className="px-6 py-4 whitespace-nowrap"
+                                    >
                                       {n + 1}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap">
+                                    <td
+                                      className="px-6 py-4 whitespace-nowrap"
+                                    >
                                       {fechaFormateada}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-left font-bold">
+                                    <td
+                                      className="px-6 py-4 whitespace-nowrap text-left font-bold"
+                                    >
                                       {p?.nombre}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-left font-bold">
-                                      ${" "}
+                                    <td
+                                      className="px-6 py-4 whitespace-nowrap text-left font-bold"
+                                    >
                                       {Intl.NumberFormat("ES-CP", {
                                         style: "currency",
                                         currency: "COP",
@@ -1391,8 +1438,20 @@ const Home = () => {
                                         maximumFractionDigits: 2,
                                       }).format(p?.valor)}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-left font-bold">
+                                    <td
+                                      className="px-6 py-4 whitespace-nowrap text-left font-bold"
+                                    >
                                       {p?.cantidad}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                      <button
+                                        className="btn-n w-10"
+                                        onClick={() =>
+                                          handleDeleteVitrina(p.id)
+                                        }
+                                      >
+                                        <RiDeleteBin6Line className="text-2xl" />
+                                      </button>
                                     </td>
                                   </tr>
                                 );

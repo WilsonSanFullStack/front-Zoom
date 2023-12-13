@@ -27,12 +27,6 @@ const RegistroUserName = () => {
     dispatch(getAllUbicacion());
   }, [dispatch]);
   const handlePaginas = (idPagina) => {
-    console.log(
-      allUser
-        ?.find((x) => x.id === input.user)
-        ?.useres?.find((y) => y.pagina === idPagina)
-    );
-    // Busca la página correspondiente al ID seleccionado
     const paginaSeleccionada = paginas.find((pagina) => pagina.id === idPagina);
     if (paginaSeleccionada) {
       setInput({

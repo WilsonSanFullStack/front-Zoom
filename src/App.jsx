@@ -37,7 +37,6 @@ import Login from "./components/view/Login.jsx";
 import User from "./components/view/User.jsx";
 import Loading from "./components/view/Loading.jsx";
 import Crear from "./components/view/Crear.jsx";
-import Editar from "./components/view/Editar.jsx";
 import Modelos from "./components/view/Modelos.jsx";
 import DetailUser from "./components/view/DetailUser.jsx";
 import Ventas from "./components/view/Ventas.jsx";
@@ -53,9 +52,11 @@ import CargarEstadisticas from "./components/registro/CargarEstadisticas.jsx";
 import RegisterPorcentaje from "./components/registro/RegisterPorcentaje.jsx";
 import RegisterUbicacion from "./components/registro/RegisterUbicacion";
 import RegisterCompras from "./components/registro/RegisterCompras.jsx";
+
 import Productos from "./components/editar/Productos.jsx";
 import UserName from "./components/editar/UserName.jsx";
 import UserEdit from "./components/editar/User.jsx";
+import Prestamo from "./components/editar/Prestamo.jsx";
 
 
 import RelationUbicationAndPorcenaje from "./components/registro/RelationUbicacionAndPorcentaje";
@@ -85,10 +86,10 @@ function App() {
     "/crear/compras",
     "/crear/prestamos",
     "/crear/ralacion",
-    "/editar",
     "/editar/producto",
     "/editar/username/:id",
     "/editar/user/:id",
+    "/editar/prestamo/:id",
     "/user/:id",
     "/modelo/comment/:id",
     "/ventas",
@@ -153,10 +154,10 @@ function App() {
           path="/crear/ralacion"
           element={<RelationUbicationAndPorcenaje />}
         />
-        <Route path="/editar" element={<Editar />} />
         <Route path="/editar/producto" element={<Productos />} />
         <Route path="/editar/username/:id" element={<UserName />} />
         <Route path="/editar/user/:id" element={<UserEdit />} />
+        <Route path="/editar/prestamo/:id" element={<Prestamo />} />
         <Route path="/user/:id" element={<User />} />
         <Route path="/modelo" element={<Modelos />} />
         <Route path="/modelo/:id" element={<DetailUser />} />

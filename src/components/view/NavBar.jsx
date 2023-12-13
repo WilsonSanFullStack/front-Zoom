@@ -41,8 +41,8 @@ const NavBar = () => {
         </NavLink>
       )}
       {showButton && (
-        <NavLink to="/editar">
-          <button className="btn-n">Editar</button>
+        <NavLink to="/editar/producto">
+          <button className="btn-n">Editar Producto</button>
         </NavLink>
       )}
       {showButton && (

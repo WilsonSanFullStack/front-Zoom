@@ -77,7 +77,6 @@ while ((match = regex.exec(event.target.value)) !== null) {
       return result;
     });
   };
-console.log(tripleSiete)
   const handleSubmit = () => {
     dispatch(postTripleSiete(tripleSiete));
     setInput([]);

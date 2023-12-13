@@ -20,7 +20,6 @@ const CHECK = import.meta.env.VITE_REACT_APP_URL_CHECK;
 const DELETE = import.meta.env.VITE_REACT_APP_URL_DELETE;
 
 export const registroUser = (input) => {
-  console.log(input)
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${REGISTRO}`;
@@ -31,7 +30,6 @@ export const registroUser = (input) => {
         payload: data,
       });
     } catch (error) {
-      console.log(error)
       dispatch({
         type: PERROR,
         payload: error.response.data.error,
@@ -142,8 +140,6 @@ export const getUserBI = (id) => {
 };
 
 export const updateUser = (id, editUser) => {
-  console.log(id)
-  console.log(editUser)
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${REGISTRO}/${id}`;

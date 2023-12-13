@@ -19,7 +19,6 @@ const Streamate = () => {
     inicio: "",
     fin: "",
   });
-  console.log(id);
   useEffect(() => {
     setInput([]);
     setStreamate([]);
@@ -68,7 +67,6 @@ const Streamate = () => {
   };
   useEffect(() => {
     const quincena = quincenas.find((x) => x?.id === id);
-    console.log(quincena);
     const fechaInicio = quincena?.inicia;
     const partesFecha = fechaInicio?.split("/");
     let fechaISO = "";
@@ -186,7 +184,6 @@ const Streamate = () => {
       return consolidadoArray;
     });
   };
-  console.log(streamate);
 
   const handlerSubmit = () => {
     dispatch(postStreamate(streamate));

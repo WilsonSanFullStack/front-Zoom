@@ -25,7 +25,6 @@ export const pad = (coad) => {
         payload: data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: PERROR,
         payload: error,

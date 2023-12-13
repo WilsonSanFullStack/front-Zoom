@@ -50,8 +50,6 @@ export const getUserNameById = (id) => {
 };
 
 export const updateUserName = (id, editedUserName) => {
-  console.log(id);
-  console.log(editedUserName);
   return async (dispatch) => {
     try {
       const endpoint = `${URL}/${USERNAME}/${id}`;

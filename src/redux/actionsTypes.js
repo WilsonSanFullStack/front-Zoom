@@ -8,6 +8,10 @@ export const GETROJOS = 'GETROJOS'
 export const DARKMODE = "DARKMODE";
 //todo funcionalidad
 export const PRESTAMO = "PRESTAMO";
+export const GETPRESTAMOBYID = "GETPRESTAMOBYID";
+export const DELETEPRESTAMOS = "DELETEPRESTAMOS";
+export const UPDATEPRESTAMOS = "UPDATEPRESTAMOS";
+
 
 //todo para las diferentes quincenas
 export const GETQUINCENAMONEDA = "GETQUINCENAMONEDA";

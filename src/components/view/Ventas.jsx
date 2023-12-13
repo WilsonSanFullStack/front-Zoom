@@ -153,7 +153,6 @@ const Ventas = () => {
     setCuotas({});
   }, [userId, quincenaId]);
 
-  console.log(venta);
   const handleSubmit = () => {
     if (venta.length >= 1) {
       dispatch(postVenta(venta));

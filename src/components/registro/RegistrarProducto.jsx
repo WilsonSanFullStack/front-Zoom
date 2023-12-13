@@ -57,7 +57,6 @@ const RegistrarProducto = () => {
   });
   const [nombre, setNombre] = useState("");
 
-  console.log(producto);
   const handleNombre = (event) => {
     const nombre = event.target.value; // Obtener el valor del campo
     setNombre(nombre); // Actualizar el estado de nombre de manera síncrona
@@ -97,7 +96,6 @@ const RegistrarProducto = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const errores = valida(nombre, productos);
-    console.log(errores);
     if (errores.length === 0) {
       dispatch(postProducto(producto));
       setProducto({
@@ -116,7 +114,6 @@ const RegistrarProducto = () => {
       navigate("/crear");
     }
   };
-  // console.log(errorServer);
   return (
     <div className="contenedor1">
       {confirmacion && (

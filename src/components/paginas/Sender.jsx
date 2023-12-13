@@ -15,7 +15,6 @@ const Sender = () => {
   const [cose, setCose] = useState(input);
   const quincenas = useSelector((state) => state.quincenas);
   const [id, setId] = useState("");
-  console.log(cose);
   useEffect(() => {
     setInput([]);
   }, [id]);

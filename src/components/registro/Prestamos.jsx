@@ -78,7 +78,6 @@ const Prestamos = () => {
       prestamo: event.target.value,
     });
   };
-  console.log(prestamo);
 
   const handleSubmit = () => {
     dispatch(postPrestamos(prestamo));

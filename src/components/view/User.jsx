@@ -112,7 +112,6 @@ const User = () => {
     setShowDetailVitrina((prev) => !prev);
   };
 
-  console.log(user);
   return (
     <div className="contenedor1">
       <div className="contenedor2 ">

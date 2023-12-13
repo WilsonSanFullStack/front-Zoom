@@ -47,7 +47,6 @@ const RegisterPorcentaje = () => {
     final: "",
     meta: "",
   });
-  console.log(porcentajes);
   const handleNombre = (event) => {
     setPorcentajes({
       ...porcentajes,
@@ -106,7 +105,6 @@ const RegisterPorcentaje = () => {
     e.preventDefault();
     const validacionFinal = validationsError(porcentajes);
     if (Object.keys(validacionFinal).length === 0) {
-      console.log(porcentajes);
       dispatch(postPorcentaje(porcentajes));
       setPorcentajes({
         nombre: "",

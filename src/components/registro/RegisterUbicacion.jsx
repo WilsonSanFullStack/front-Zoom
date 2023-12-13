@@ -44,8 +44,6 @@ const RegisterUbicacion = () => {
     setError(validacionFinal);
   };
 
-  console.log(ubicacion);
-  console.log(error)
 
   return (
     <div className="contenedor1">

@@ -64,6 +64,12 @@ import {
   GETUSERNAME,
   UPDATEUSERNAME,
   DELETEUSERNAME,
+  DELETEPRESTAMOS,
+  UPDATEPRESTAMOS,
+  GETPRESTAMOBYID,
+  DELETEVENTA,
+  UPDATEVENTA,
+  GETVENTABYID,
 } from "./actionsTypes.js";
 
 const initialState = {
@@ -100,6 +106,8 @@ const initialState = {
   ubicaciones: [],
   ubicacion: {},
   userName: {},
+  prestamo: {},
+  venta: {},
   rojo: [],
   perror: "",
   gerror: "",
@@ -497,6 +505,39 @@ export const rootReducer = (state = initialState, action) => {
       ...state,
       userName: action.payload,
       };
+
+      case DELETEPRESTAMOS:
+      return {
+      ...state,
+      prestamo: action.payload,
+      };
+      case UPDATEPRESTAMOS:
+      return {
+      ...state,
+      prestamo: action.payload,
+      };
+      case DELETEVENTA:
+      return {
+      ...state,
+      venta: action.payload,
+      };
+      case UPDATEVENTA:
+      return {
+      ...state,
+      venta: action.payload,
+      };
+      case GETPRESTAMOBYID:
+      return {
+      ...state,
+      prestamo: action.payload,
+      };
+      case GETVENTABYID:
+      return {
+      ...state,
+      venta: action.payload,
+      };
+      
+      
       
       
       

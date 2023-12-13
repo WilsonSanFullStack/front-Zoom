@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TextareaForm from "../resource/Textarea.jsx";
 import ButtonPage from "../resource/ButtonPage.jsx";
 
-import {
-  getAllQuincena,
-} from "../../redux/actions/registro/registerQuincena.js";
+import { getAllQuincena } from "../../redux/actions/registro/registerQuincena.js";
 import { postMyFreeCams } from "../../redux/actions/paginas/myFreeCams.js";
 
 const MyFreeCams = () => {
@@ -68,11 +66,10 @@ const MyFreeCams = () => {
 
       while ((match = regex.exec(event.target.value)) !== null) {
         const user = match[1];
-        console.log(user);
+
         const dolares = parseFloat(match[2]);
-        console.log(dolares);
+
         const tokens = parseInt(match[3]);
-        console.log(tokens);
         result.push({ user, dolares, tokens, quincena: id });
       }
       console.log(result);

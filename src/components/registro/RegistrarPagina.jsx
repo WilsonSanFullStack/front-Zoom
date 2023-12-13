@@ -33,7 +33,6 @@ const RegistrarPagina = () => {
     dispatch(getAllPagina());
   }, [dispatch]);
 
-  console.log(paginas);
 
   const handlePagina = (event) => {
     const paginaValue = event.target.value;

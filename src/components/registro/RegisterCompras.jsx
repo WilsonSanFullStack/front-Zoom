@@ -147,8 +147,6 @@ const Compras = () => {
     }
     setError(errores);
   };
-  console.log(compra);
-  console.log(perror);
   return (
     <div className="contenedor1">
       {confirmacion && (

@@ -71,7 +71,6 @@ const Sakura = () => {
         const tokens = parseFloat(match[3]);
         result.push({ user, dolares, tokens, quincena: id });
       }
-      console.log(result)
       return result;
     });
   };

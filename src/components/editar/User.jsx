@@ -34,7 +34,6 @@ const User = () => {
     dispatch(getAllPorcentaje());
     dispatch(getAllUbicacion());
   }, [dispatch, id]);
-console.log(userBI)
   useEffect(() => {
     setEditedUser({
       nombre: userBI.nombre || "",
@@ -61,8 +60,6 @@ console.log(userBI)
     dispatch(updateUser(id, editedUser));
     navigate(`/modelo/${id}`);
   };
-  console.log(ubicacion)
-  console.log(porcentaje)
   return (
     <div className="contenedor1">
       <div className="contenedor2">
